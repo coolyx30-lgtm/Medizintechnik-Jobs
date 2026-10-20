@@ -23,7 +23,7 @@
     --shadow: 0 1px 2px rgba(16,24,40,.06), 0 4px 16px rgba(16,24,40,.06);
   }
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
       --bg: #0f1419;
       --panel: #171d24;
       --text: #e6e9ee;
@@ -38,7 +38,25 @@
       --ini: #cbd5e1;
       --ini-bg: #252d37;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+      color-scheme: dark;
     }
+  }
+  :root[data-theme="dark"] {
+      --bg: #0f1419;
+      --panel: #171d24;
+      --text: #e6e9ee;
+      --muted: #9aa5b4;
+      --line: #2a323c;
+      --chip: #212932;
+      --accent: #4c94ff;
+      --open: #4ade80;
+      --open-bg: #133122;
+      --check: #fbbf24;
+      --check-bg: #3a2c10;
+      --ini: #cbd5e1;
+      --ini-bg: #252d37;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+    color-scheme: dark;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
@@ -47,7 +65,7 @@
     color: var(--text);
     font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
-  .app { display: grid; grid-template-columns: 400px 1fr; height: 100vh; }
+  .app { display: grid; grid-template-columns: 400px 1fr; height: 100%; }
   .side { display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-right: 1px solid var(--line); }
   header { padding: 18px 18px 12px; border-bottom: 1px solid var(--line); }
   h1 { font-size: 19px; margin: 0 0 2px; letter-spacing: -.01em; }
@@ -88,6 +106,26 @@
   .s-open { color: var(--open); background: var(--open-bg); }
   .s-check { color: var(--check); background: var(--check-bg); }
   .s-ini { color: var(--ini); background: var(--ini-bg); }
+  .s-firm { color: var(--muted); background: transparent; border: 1px dashed var(--line); }
+  .neu { font-size: 11px; font-weight: 700; color: #fff; background: var(--accent); padding: 1px 6px; border-radius: 6px; letter-spacing: .02em; }
+  .num.firm { background: var(--panel); border: 2.5px solid var(--c); width: 22px; height: 22px; margin: 3px; }
+  .card.firm .title { font-weight: 600; }
+  .card.firm { background: var(--bg); }
+  .toggle {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px;
+    border-radius: 12px; border: 1px solid var(--line); background: var(--bg); cursor: pointer; user-select: none;
+  }
+  .toggle b { font-size: 14px; display: block; }
+  .toggle small { color: var(--muted); font-size: 12px; }
+  .switch { position: relative; flex: 0 0 auto; width: 42px; height: 24px; border-radius: 999px; background: var(--line); transition: background .15s; }
+  .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .15s; }
+  .toggle[aria-checked="true"] { border-color: var(--open); }
+  .toggle[aria-checked="true"] .switch { background: var(--open); }
+  .toggle[aria-checked="true"] .switch::after { transform: translateX(18px); }
+  .row.disabled { opacity: .4; pointer-events: none; }
+  .fpin { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 3px solid var(--c); box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+  .fpin.out { width: 12px; height: 12px; border: 2px dashed #64748b; box-shadow: none; opacity: .85; }
+  .num.firm.out { border-style: dashed; border-color: var(--muted); }
   .star { font-size: 12px; color: #b45309; font-weight: 600; }
   .applied { margin-left: auto; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
   .applied input { margin: 0; accent-color: var(--accent); }
@@ -95,6 +133,19 @@
   .foot { color: var(--muted); font-size: 12px; padding: 10px 18px 14px; border-top: 1px solid var(--line); }
   #map { height: 100%; width: 100%; background: var(--bg); }
   .map-wrap { position: relative; min-height: 0; }
+  .app.nomap { grid-template-columns: 1fr; height: auto; min-height: 100%; }
+  .app.nomap .map-wrap { display: none; }
+  .app.nomap .side { border-right: 0; max-width: 760px; width: 100%; margin: 0 auto; }
+  .app.nomap .list { overflow: visible; }
+  .detail { display: none; grid-column: 2; font-size: 13.5px; color: var(--text); border-top: 1px solid var(--line); padding-top: 8px; margin-top: 2px; }
+  .card.open .detail { display: block; }
+  .detail p { margin: 4px 0; }
+  .detail .lbl { font-weight: 600; }
+  .detail .dlinks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .detail .dlinks a { text-decoration: none; padding: 5px 10px; border-radius: 8px; font-size: 13px; font-weight: 500; border: 1px solid var(--line); color: var(--accent); }
+  .detail .dlinks a:first-child { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nomap-note { color: var(--muted); font-size: 12px; padding: 8px 18px 0; display: none; }
+  .app.nomap .nomap-note { display: block; }
   .map-error {
     position: absolute; inset: 0; display: none; place-items: center; text-align: center; padding: 24px; color: var(--muted);
   }
@@ -135,17 +186,22 @@
   <aside class="side">
     <header>
       <h1>Stellenkarte Medizintechnik</h1>
-      <div class="sub">Einstiegsstellen und Zielfirmen in Baden-Württemberg, der Grenzregion Schweiz und Österreich · inklusive Siemens Healthineers und Roche · Stand 20.10.2026</div>
+      <div class="sub" id="sub"></div>
     </header>
     <div class="filters">
+      <div class="toggle" id="onlyOpen" role="switch" aria-checked="false" tabindex="0">
+        <span><b>Nur aktuell ausgeschriebene Stellen</b><small>Blendet Firmen ohne Anzeige, Initiativ-Adressen und unklare Anzeigen aus</small></span>
+        <span class="switch" aria-hidden="true"></span>
+      </div>
       <input id="q" class="search" type="search" placeholder="Suchen (Firma, Ort, Stichwort) …" aria-label="Suchen">
       <div class="row" id="cats" aria-label="Kategorien"></div>
       <div class="row" id="lands" aria-label="Land"></div>
       <div class="row" id="stats" aria-label="Status"></div>
     </div>
+    <div class="nomap-note">In dieser Ansicht wird nur die Liste angezeigt. Antippen öffnet die Details; die Karte gibt es in der index.html (GitHub Pages oder lokal im Browser).</div>
     <div class="count" id="count"></div>
     <div class="list" id="list"></div>
-    <div class="foot">Angaben aus Jobbörsen und Karriereseiten. Vor jeder Bewerbung im Portal der Firma prüfen, ob die Stelle noch offen ist. Entfernungen = Luftlinie ab Stuttgart.</div>
+    <div class="foot">Nummerierte Pins = Stellen, Kreise = Zielfirmen ohne passende Anzeige (Position: Ortsmitte). Angaben aus Jobbörsen und Karriereseiten; vor jeder Bewerbung im Portal der Firma prüfen, ob die Stelle noch offen ist. Entfernungen = Luftlinie ab Stuttgart.</div>
   </aside>
   <div class="map-wrap">
     <div id="map"></div>
@@ -158,181 +214,43 @@
 (function () {
   "use strict";
 
-  var HOME = { lat: 48.7758, lng: 9.1829, name: "Stuttgart" };
+  var DATA = {"stand": "21.10.2026", "home": {"lat": 48.7758, "lng": 9.1829, "name": "Stuttgart"}, "jobs": [{"id": "bosch-phd-mdx", "firma": "Bosch Corporate Research", "titel": "PhD – Lab-on-Chip-Probenvorbereitung für molekulare Diagnostik", "ort": "Renningen", "land": "DE", "lat": 48.7663, "lng": 8.9366, "kat": "phd", "status": "offen", "top": true, "passung": "Mikrofluidische Probenvorbereitung mit Magnetbeads, Multiphysik-Modelle (z. B. COMSOL), Prototypen – direkte Fortsetzung der Masterarbeit am selben Campus.", "hinweis": "Start Oktober 2026, Bewerbungen werden fortlaufend geprüft. Betreuer in Renningen direkt ansprechen.", "url": "https://www.glassdoor.de/job-listing/phd-lab-on-chip-sample-preparation-for-next-generation-molecular-diagnostics-bosch-JV_IC2684212_KO0,76_KE77,82.htm?jl=1010206839002", "seit": "20.10.2026"}, {"id": "bosch-phd-cells", "firma": "Bosch Corporate Research", "titel": "PhD – Lab-on-a-Chip-Komponente zur Analyse und Sortierung einzelner Zellen", "ort": "Renningen", "land": "DE", "lat": 48.7676, "lng": 8.941, "kat": "phd", "status": "offen", "top": true, "passung": "Lab-on-Chip und Zellbiologie – verbindet Masterarbeit und Bachelorarbeit im Zelllabor.", "hinweis": "Zweite Bosch-Promotion am Campus Renningen; Details in der Anzeige prüfen.", "url": "https://de.indeed.com/Microfluidic-Jobs", "seit": "20.10.2026"}, {"id": "acandis", "firma": "Acandis", "titel": "(Junior) Entwicklungsingenieur Medizintechnik", "ort": "Pforzheim", "land": "DE", "lat": 48.9036, "lng": 8.665, "kat": "dev", "status": "pruefen", "top": false, "passung": "Medizintechnik zur Schlaganfallbehandlung, ausdrücklich auch für Berufseinsteiger; Produktentwicklung bis zur Serienreife.", "hinweis": "Am 21.10.2026 nicht mehr unter den 12 Acandis-Anzeigen bei StepStone – wahrscheinlich besetzt. Siehe stattdessen Simulationsingenieur und Ingenieur Messtechnik.", "url": "https://www.stepstone.de/jobs/acandis", "seit": "20.10.2026"}, {"id": "bhcs-ra", "firma": "Bosch Healthcare Solutions", "titel": "Regulatory Affairs Specialist", "ort": "Waiblingen", "land": "DE", "lat": 48.8303, "lng": 9.3169, "kat": "ra", "status": "offen", "top": true, "passung": "Unternehmen und Vivalytic-Umfeld aus dem Praktikum bekannt.", "hinweis": "Kürzlich auf LinkedIn ausgeschrieben; Status im Bosch-Portal prüfen.", "url": "https://de.linkedin.com/jobs/bosch-healthcare-stellen", "seit": "20.10.2026"}, {"id": "kimetec", "firma": "Kimetec", "titel": "Entwicklungsingenieur Elektrotechnik / Medizintechnik", "ort": "Ditzingen", "land": "DE", "lat": 48.8262, "lng": 9.067, "kat": "dev", "status": "offen", "top": false, "passung": "Medizintechnik-Unternehmen, Festanstellung in der Region Stuttgart.", "hinweis": "", "url": "https://www.stepstone.de/jobs/entwicklungsingenieur-in/in-stuttgart?q=Entwicklungsingenieur%2Fin", "seit": "20.10.2026"}, {"id": "ferchau-rt", "firma": "FERCHAU", "titel": "Junior Entwicklungsingenieur Medizintechnik", "ort": "Reutlingen", "land": "DE", "lat": 48.492, "lng": 9.211, "kat": "dev", "status": "offen", "top": false, "passung": "Medizinische Einmalprodukte, 3D-Modelle, Laborversuche und Zulassungstests.", "hinweis": "Engineering-Dienstleister – Einsatz beim Kunden.", "url": "https://www.ferchau.com/de/de/bewerber/jobs/289788/junior-entwicklungsingenieur-medizintechnik", "seit": "20.10.2026"}, {"id": "ferchau-bb", "firma": "FERCHAU", "titel": "Junior Entwicklungsingenieur Medizintechnik", "ort": "Böblingen", "land": "DE", "lat": 48.6856, "lng": 9.0115, "kat": "dev", "status": "offen", "top": false, "passung": "Entwicklung und Tests von Medizinprodukten bis zur Serienproduktion.", "hinweis": "Dienstleister; SolidWorks bevorzugt.", "url": "https://touch.ferchau.com/de/en/job/396226/junior-entwicklungsingenieur-medizintechnik", "seit": "20.10.2026"}, {"id": "ferchau-hn", "firma": "FERCHAU", "titel": "Junior Entwicklungsingenieur Medizintechnik", "ort": "Heilbronn", "land": "DE", "lat": 49.1427, "lng": 9.2109, "kat": "dev", "status": "offen", "top": false, "passung": "Medizinische Einmalprodukte, Laborversuche, Validierungskonzepte.", "hinweis": "Dienstleister – Einsatz beim Kunden.", "url": "https://www.ferchau.com/de/de/bewerber/jobs/400351/junior-entwicklungsingenieur-medizintechnik", "seit": "20.10.2026"}, {"id": "schuler", "firma": "Schuler Konstruktionen", "titel": "Konstrukteur für den Berufseinstieg (Förderprogramm)", "ort": "Filderstadt", "land": "DE", "lat": 48.665, "lng": 9.219, "kat": "dev", "status": "offen", "top": false, "passung": "Entwicklung und Konstruktion, u. a. im Fachbereich Medizintechnik.", "hinweis": "Engineering-Dienstleister.", "url": "https://de.indeed.com/Ingenieur-Medizintechnik-Jobs-in-Stuttgart", "seit": "20.10.2026"}, {"id": "useing", "firma": "USE-Ing.", "titel": "Medical Usability Engineer / Human Factors Engineer", "ort": "Stuttgart", "land": "DE", "lat": 48.77, "lng": 9.165, "kat": "app", "status": "offen", "top": false, "passung": "Usability und Human Factors für Medizinprodukte.", "hinweis": "Dienstleister.", "url": "https://www.stepstone.de/jobs/medizintechnik-ingenieur", "seit": "20.10.2026"}, {"id": "mdc", "firma": "mdc medical device certification", "titel": "Projektkoordinator / Projektleiter Zertifizierungsverfahren", "ort": "Stuttgart", "land": "DE", "lat": 48.786, "lng": 9.179, "kat": "ra", "status": "offen", "top": false, "passung": "Benannte Stelle für Medizinprodukte und In-vitro-Diagnostika.", "hinweis": "", "url": "https://www.stepstone.de/jobs/junior-regulatory-affairs-manager/in-stuttgart", "seit": "20.10.2026"}, {"id": "stratec", "firma": "STRATEC", "titel": "Biologe / Physiker / Ingenieur (m/w/d)", "ort": "Birkenfeld", "land": "DE", "lat": 48.8632, "lng": 8.5777, "kat": "ivd", "status": "pruefen", "top": false, "passung": "Interdisziplinäres Team, neue Technologien für die In-vitro-Diagnostik ab dem Konzept.", "hinweis": "Anzeige taucht wiederholt auf, Status unklar. Initiativbewerbung möglich.", "url": "https://www.stratec.com/career/germany/jobs", "seit": "20.10.2026"}, {"id": "nmi", "firma": "NMI", "titel": "Applikationsspezialist/Ingenieur Biomedizin und Materialwissenschaften", "ort": "Reutlingen", "land": "DE", "lat": 48.4862, "lng": 9.1958, "kat": "ivd", "status": "pruefen", "top": false, "passung": "Forschungsinstitut an der Schnittstelle Biomedizin/Technik.", "hinweis": "Datum der Anzeige unklar.", "url": "http://www.nmi.de/aktuell/aktuell/jobs/praxissemester-hiwi-praktikum/praktikum-oder-praxissemester-am-nmi-reutlingen-kopie-1/", "seit": "20.10.2026"}, {"id": "roche-ma", "firma": "Roche Diagnostics (über Franz & Wach)", "titel": "Development Engineer / Scientist", "ort": "Mannheim", "land": "DE", "lat": 49.5375, "lng": 8.493, "kat": "ivd", "status": "offen", "top": false, "passung": "Versuchsprogramme und Messungen in der Diagnostik-Entwicklung.", "hinweis": "Arbeitnehmerüberlassung mit Ziel Übernahme, ausgeschrieben am 06.10.2026.", "url": "https://www.franz-wach.de/stellenangebote/38972-development-engineer-scientist-roche-mannheim/", "seit": "20.10.2026"}, {"id": "roche-teclab", "firma": "Roche Diagnostics (Karriereseite)", "titel": "Equipment Development Engineer (m/w/d) – TecLab", "ort": "Mannheim", "land": "DE", "lat": 49.4875, "lng": 8.466, "kat": "dev", "status": "pruefen", "top": true, "passung": "Geräte- und Equipmententwicklung bei Roche, Master wird verlangt.", "hinweis": "Über Aggregator gefunden, kein Datum und keine Erfahrungsangabe sichtbar. Im Roche-Portal nach „TecLab“ suchen.", "url": "https://careers.roche.com/global/en/germany", "seit": "20.10.2026"}, {"id": "roche-startup", "firma": "Roche (Karriereseite)", "titel": "StartUp Germany Development Programme / Entry-level positions", "ort": "Mannheim", "land": "DE", "lat": 49.489, "lng": 8.47, "kat": "ini", "status": "initiativ", "top": false, "passung": "Einstiegsprogramm für Absolventen in Deutschland, Standorte laut Roche unter anderem Mannheim und Penzberg.", "hinweis": "Bewerbungsfenster und Fachrichtungen stehen nicht auf der Seite. Direkt bei Roche erfragen.", "url": "https://careers.roche.com/global/en/welcome-to-roche-after-your-studies", "seit": "20.10.2026"}, {"id": "roche-pb", "firma": "Roche Diagnostics (Karriereseite)", "titel": "Plant Engineer / Betriebsingenieur R&D und diagnostische Produktion (2 Stellen)", "ort": "Penzberg", "land": "DE", "lat": 47.7514, "lng": 11.375, "kat": "dev", "status": "pruefen", "top": false, "passung": "Anlagen für Entwicklung und Produktion diagnostischer Produkte in Bayern.", "hinweis": "Anzeige ca. 12 Tage alt. Level aus dem Titel geschätzt, Berufserfahrung wahrscheinlich gefordert.", "url": "https://careers.roche.com/global/en/germany", "seit": "20.10.2026"}, {"id": "shs-pruef", "firma": "Siemens Healthineers (Karriereportal)", "titel": "Prüfingenieur*in (f/m/d), Junior, 2 Jahre befristet", "ort": "Erlangen", "land": "DE", "lat": 49.5897, "lng": 11.0078, "kat": "dev", "status": "offen", "top": true, "passung": "Junior-Position im Testing von Medizinprodukten, direkter Einstieg bei Siemens Healthineers.", "hinweis": "Anzeige ca. 14 Tage alt. Befristet auf zwei Jahre. Im Portal nach „Prüfingenieur“ suchen.", "url": "https://jobs.siemens-healthineers.com/careers?location=Erlangen", "seit": "20.10.2026"}, {"id": "shs-ui", "firma": "Siemens Healthineers (Karriereportal)", "titel": "Software Developer (f/m/d) for User Interfaces", "ort": "Forchheim", "land": "DE", "lat": 49.7186, "lng": 11.0586, "kat": "dev", "status": "pruefen", "top": false, "passung": "Software für Bedienoberflächen von Röntgen- und CT-Systemen, passt nur bei Softwareinteresse.", "hinweis": "Anzeige ca. 7 Tage alt. Anforderungen und Erfahrungslevel in der Anzeige prüfen.", "url": "https://jobs.siemens-healthineers.com/careers?location=Forchheim", "seit": "20.10.2026"}, {"id": "shs-po", "firma": "Siemens Healthineers (Karriereportal)", "titel": "R&D Product Owner für Röntgengeneratoren, Computertomographie", "ort": "Forchheim", "land": "DE", "lat": 49.723, "lng": 11.05, "kat": "dev", "status": "pruefen", "top": false, "passung": "Produktverantwortung in der CT-Entwicklung.", "hinweis": "Anzeige ca. 11 Tage alt. Product-Owner-Rollen verlangen meist Erfahrung, Einstieg im Gespräch klären.", "url": "https://jobs.siemens-healthineers.com/careers?location=Forchheim", "seit": "20.10.2026"}, {"id": "bbraun", "firma": "B. Braun / Aesculap", "titel": "Traineeprogramm (18 Monate)", "ort": "Tuttlingen", "land": "DE", "lat": 47.9847, "lng": 8.817, "kat": "ini", "status": "initiativ", "top": false, "passung": "Projekte in verschiedenen Abteilungen mit Mentoren.", "hinweis": "Konzernweites Programm; Einsatzorte in der Ausschreibung prüfen.", "url": "https://www.bbraun.de/de/karriere/karrieremoeglichkeiten/jobs-und-karriere/traineeprogramme.html", "seit": "20.10.2026"}, {"id": "hahn", "firma": "Hahn-Schickard", "titel": "Initiativbewerbung Mikrofluidik / Lab-on-a-Chip", "ort": "Freiburg", "land": "DE", "lat": 48.0127, "lng": 7.833, "kat": "ini", "status": "initiativ", "top": false, "passung": "Mikrofluidische Analysesysteme, Point-of-Care-Diagnostik, Lab-on-a-Chip.", "hinweis": "Aktuell keine passende Festanstellung gefunden; Initiativbewerbung ausdrücklich erwünscht.", "url": "https://jobs.hahn-schickard.de/job-initiativbewerbung-wissenschaftliche-technische-kaufmaennische-mitarbeiter-innen-m-w-d-freiburg-im-breisgau-1864.html", "seit": "20.10.2026"}, {"id": "stryker", "firma": "Stryker", "titel": "(Senior) Project Engineer R&D", "ort": "Freiburg", "land": "DE", "lat": 47.999, "lng": 7.802, "kat": "dev", "status": "offen", "top": false, "passung": "Implantat- und Instrumentendesign bis zur Markteinführung.", "hinweis": "Junior-Einstieg im Gespräch klären.", "url": "https://www.euroengineerjobs.com/job_display/268528/Senior_Engineer_RD_Stryker_Cork_Ireland", "seit": "20.10.2026"}, {"id": "compumedics", "firma": "Compumedics Germany", "titel": "Junior Regulatory Affairs Manager (MDR)", "ort": "Singen", "land": "DE", "lat": 47.7593, "lng": 8.8403, "kat": "ra", "status": "offen", "top": false, "passung": "RA-Einstieg in der Medizintechnik.", "hinweis": "38.000–50.000 €/Jahr laut Anzeige, eher niedrig.", "url": "https://de.indeed.com/Medizintechnik-Jobs-in-Konstanz", "seit": "20.10.2026"}, {"id": "roche-rk", "firma": "Roche Diagnostics", "titel": "Development Engineer (contract), System Development", "ort": "Rotkreuz ZG", "land": "CH", "lat": 47.1426, "lng": 8.4315, "kat": "ivd", "status": "pruefen", "top": true, "passung": "Diagnostiksysteme für Nukleinsäure-Aufreinigung, PCR und Sequenzierung – sehr nah an der Masterarbeit.", "hinweis": "Befristet; Anzeige ist älter – Status im Roche-Portal prüfen.", "url": "https://careers.roche.com/global/en/job/ROCHGLOBAL202302103172EXTERNALENGLOBAL/Development-Engineer-contract", "seit": "20.10.2026"}, {"id": "zuehlke", "firma": "Zühlke", "titel": "Junior Mechanical Engineer 80–100 % (auch: Plastics)", "ort": "Schlieren ZH", "land": "CH", "lat": 47.3966, "lng": 8.4476, "kat": "dev", "status": "offen", "top": true, "passung": "Produktentwicklung für Kunden, u. a. Medizintechnik; ISO-13485-zertifizierter Entwicklungspartner.", "hinweis": "Verlangt Maschinenbau-Abschluss und CAD/PDM/Simulation – Medizingerätekonstruktion und ANSYS betonen.", "url": "https://www.jobscout24.ch/de/jobs-in-schlieren/z%C3%BChlke%20engineering%20ag/", "seit": "20.10.2026"}, {"id": "tecan", "firma": "Tecan", "titel": "Mechanical Engineer 80–100 % (R&D) / System Integrator", "ort": "Männedorf ZH", "land": "CH", "lat": 47.2564, "lng": 8.693, "kat": "ivd", "status": "pruefen", "top": false, "passung": "Laborautomation und IVD-Geräte in multidisziplinären Teams.", "hinweis": "Datum der Anzeigen unklar.", "url": "https://ch.indeed.com/Tecan-Jobs-in-M%C3%A4nnedorf,-ZH", "seit": "20.10.2026"}, {"id": "helbling", "firma": "Helbling", "titel": "Project Engineer Medical Product and Systems Design", "ort": "Zürich (Standort laut Anzeige)", "land": "CH", "lat": 47.3769, "lng": 8.5417, "kat": "dev", "status": "offen", "top": false, "passung": "Medizinprodukte von der Spezifikation bis zum Transfer in die Fertigung.", "hinweis": "Erfahrungslevel und genauen Standort in der Anzeige prüfen.", "url": "https://helbling.ch/de/karriere/jobs", "seit": "20.10.2026"}, {"id": "hamilton", "firma": "Hamilton", "titel": "System Engineer 80–100 % (F&E)", "ort": "Bonaduz GR", "land": "CH", "lat": 46.8106, "lng": 9.3986, "kat": "ivd", "status": "offen", "top": false, "passung": "Pipettierroboter und Laborautomation.", "hinweis": "Graubünden – Umzug statt Grenzpendeln.", "url": "https://jobs.hamilton.ch/offene-stellen/", "seit": "20.10.2026"}, {"id": "sentec", "firma": "Sentec", "titel": "Clinical Application Specialist (Deutschschweiz)", "ort": "Raum Basel", "land": "CH", "lat": 47.5596, "lng": 7.5886, "kat": "app", "status": "offen", "top": false, "passung": "Applikationsrolle an der Schnittstelle Technik/Klinik.", "hinweis": "Viel Kundenkontakt.", "url": "https://ch.indeed.com/Medizintechnik-Jobs-in-Basel,-BS", "seit": "20.10.2026"}, {"id": "stratec-ch", "firma": "STRATEC Switzerland", "titel": "Initiativbewerbung (Produktionsstandort)", "ort": "Beringen SH", "land": "CH", "lat": 47.697, "lng": 8.574, "kat": "ini", "status": "initiativ", "top": false, "passung": "IVD-Analysesysteme; Fokus Produktion und produktionsnahe Bereiche.", "hinweis": "Keine Anzeigen; Bewerbung per E-Mail laut Karriereseite.", "url": "https://www.stratec.com/de/career/schweiz/einstiegsmoeglichkeiten", "seit": "20.10.2026"}, {"id": "tecan-at", "firma": "Tecan Austria", "titel": "Mechanical Engineer (w/m/d)", "ort": "Grödig (Salzburg)", "land": "AT", "lat": 47.744, "lng": 13.04, "kat": "dev", "status": "offen", "top": true, "passung": "Mechanische Konstruktion von Laborgeräten der Medizintechnik, 3D-Design und Dokumentation. Gefordert sind fundierte Kenntnisse in PTC Creo und Windchill – Creo bringst du mit.", "hinweis": "Seit ca. 16.10.2026 online; ab 4.039,55 € brutto/Monat laut Anzeige (in Österreich 14 Gehälter).", "url": "https://www.karriere.at/jobs/10034944", "seit": "20.10.2026"}, {"id": "medel-ce", "firma": "MED-EL", "titel": "Clinical Engineer (R&D, Elektrodenforschung)", "ort": "Innsbruck", "land": "AT", "lat": 47.26, "lng": 11.352, "kat": "ivd", "status": "offen", "top": false, "passung": "CT-/MRT-Bildanalyse des Innenohrs für die Entwicklung von Cochlea-Implantat-Elektroden; Bachelor oder Master in Medizintechnik genügt – passt zu Biomedizinische Messverfahren und Bildgebung.", "hinweis": "Solide CT-Kenntnisse gefordert; ab 54.723,53 € brutto/Jahr.", "url": "https://www.karriere.at/jobs/7888966", "seit": "20.10.2026"}, {"id": "medel-ra", "firma": "MED-EL", "titel": "Regulatory Affairs Associate", "ort": "Innsbruck", "land": "AT", "lat": 47.2614, "lng": 11.3552, "kat": "ra", "status": "offen", "top": false, "passung": "Zulassung von Hörimplantaten bei einem großen Medtech-Hersteller.", "hinweis": "Mindestens 1 Jahr Berufserfahrung gefordert; ab 47.810,14 € brutto/Jahr.", "url": "https://www.karriere.at/jobs/7876381", "seit": "20.10.2026"}, {"id": "plansee", "firma": "Plansee", "titel": "Entwicklungsingenieur:in – Produktentwicklung Medizintechnik", "ort": "Reutte (Tirol)", "land": "AT", "lat": 47.489, "lng": 10.718, "kat": "dev", "status": "offen", "top": false, "passung": "Medizinische Werkstoffe und Komponenten für Robotik-Chirurgie und Implantate; Biokompatibilität, Ermüdung, Korrosion – Bezug zu deinem Modul Biomaterialien und Werkstoffe.", "hinweis": "Seit 10.09.2026 online; eher für Werkstoff-Erfahrene (Promotion von Vorteil). 60.962–100.000 € brutto/Jahr.", "url": "https://www.karriere.at/jobs/7874662", "seit": "20.10.2026"}, {"id": "stratec-at", "firma": "STRATEC Consumables", "titel": "Initiativbewerbung (mikrostrukturierte IVD-Verbrauchsmaterialien)", "ort": "Anif (Salzburg)", "land": "AT", "lat": 47.748, "lng": 13.07, "kat": "ini", "status": "initiativ", "top": false, "passung": "Entwickelt und fertigt mikrostrukturierte Kunststoffteile und Consumables für die Diagnostik – nah an Lab-on-Chip.", "hinweis": "Keine aktuelle Anzeige gefunden; Kontakt über das Karriereprofil.", "url": "https://www.karriere.at/f/stratec-consumables", "seit": "20.10.2026"}, {"id": "greiner", "firma": "Greiner Bio-One", "titel": "Initiativbewerbung (F&E Präanalytik / Laborbedarf)", "ort": "Kremsmünster (OÖ)", "land": "AT", "lat": 48.053, "lng": 14.129, "kat": "ini", "status": "initiativ", "top": false, "passung": "Laborverbrauchsmaterial und Präanalytik mit eigener F&E.", "hinweis": "Keine passende Einstiegsstelle gefunden; Initiativbewerbung im Portal möglich.", "url": "https://jobs.greiner.com/GBO/job/Kremsm%C3%BCnster-Initiativbewerbung-Greiner-Bio-One-4550/953746355/", "seit": "20.10.2026"}, {"id": "ottobock", "firma": "Ottobock", "titel": "R&D in Wien beobachten (Research/Development Engineer)", "ort": "Wien", "land": "AT", "lat": 48.182, "lng": 16.421, "kat": "ini", "status": "initiativ", "top": false, "passung": "Prothetik und Orthetik mit großem Entwicklungsstandort in Wien.", "hinweis": "Research Engineer und Development Engineer waren zuletzt ausgeschrieben, sind aber abgelaufen – Jobalarm setzen.", "url": "https://www.karriere.at/jobs/otto-bock", "seit": "20.10.2026"}, {"id": "acandis-sim", "firma": "Acandis", "titel": "Simulationsingenieur Medizinische Implantate", "ort": "Pforzheim", "land": "DE", "lat": 48.8936, "lng": 8.699, "kat": "dev", "status": "offen", "top": true, "passung": "Mechanisches Verhalten neurovaskulärer Implantate simulieren, bevor Prototypen entstehen – passt zu FEM/ANSYS und Medizinproduktkonstruktion.", "hinweis": "Seit ca. 20.10.2026 online; Erfahrungslevel steht nicht im Anzeigenauszug.", "url": "https://www.stepstone.de/stellenangebote--Simulationsingenieur-m-w-d-Medizinische-Implantate-Pforzheim-ACANDIS-GmbH--14543364-inline.html", "seit": "21.10.2026"}, {"id": "acandis-mess", "firma": "Acandis", "titel": "Ingenieur Messtechnik", "ort": "Pforzheim", "land": "DE", "lat": 48.895, "lng": 8.701, "kat": "dev", "status": "offen", "top": false, "passung": "Verantwortung für die Messtechnik von Mikroskop bis Koordinatenmessmaschine bei einem Implantathersteller.", "hinweis": "Ca. 2 Wochen online; Erfahrungslevel in der Anzeige prüfen.", "url": "https://www.stepstone.de/stellenangebote--Ingenieur-Messtechnik-m-w-d-Pforzheim-ACANDIS-GmbH--14489589-inline.html", "seit": "21.10.2026"}, {"id": "admedes-proz", "firma": "admedes", "titel": "(Junior) Prozessingenieur Mechanische Prozesse und Konstruktion", "ort": "Pforzheim", "land": "DE", "lat": 48.883, "lng": 8.688, "kat": "dev", "status": "offen", "top": true, "passung": "Junior-Stelle bei einem Hersteller von Nitinol-Implantaten (Stents); Konstruktion von Vorrichtungen und Prozessen.", "hinweis": "Seit ca. 20.10.2026 online; erste SolidWorks-Erfahrung gewünscht – Creo als übertragbar darstellen.", "url": "https://www.stepstone.de/stellenangebote--Junior-Prozessingenieur-m-w-d-Mechanische-Prozesse-und-Konstruktion-Pforzheim-ADMEDES-GmbH--14660365-inline.html", "seit": "21.10.2026"}, {"id": "ceramtec-dev", "firma": "CeramTec", "titel": "Ingenieur in der Entwicklung – chirurgische Instrumente und Implantate", "ort": "Plochingen", "land": "DE", "lat": 48.712, "lng": 9.419, "kat": "dev", "status": "offen", "top": true, "passung": "Konzeption, Entwicklung und Optimierung orthopädischer Implantatsysteme (Keramik) – nah an Biomaterialien und Konstruktion, 25 km von Stuttgart.", "hinweis": "Gefunden über Indeed, Datum nicht sichtbar; Erfahrungslevel in der Anzeige prüfen.", "url": "https://de.indeed.com/q-ceramtec-jobs.html", "seit": "21.10.2026"}, {"id": "aesculap-mat", "firma": "Aesculap (B. Braun)", "titel": "Entwicklungsingenieur Materialtechnologie", "ort": "Tuttlingen", "land": "DE", "lat": 47.97, "lng": 8.81, "kat": "dev", "status": "offen", "top": false, "passung": "Werkstoffentwicklung für chirurgische Instrumente und Implantate; kein Erfahrungslevel genannt.", "hinweis": "Verlangt Studium Werkstoffwissenschaft o. ä.; mit Modul Biomaterialien argumentieren. Datum nicht sichtbar.", "url": "https://de.indeed.com/q-aesculap-jobs.html", "seit": "21.10.2026"}, {"id": "bowa-test", "firma": "BOWA-electronic", "titel": "Testingenieur Medizintechnik", "ort": "Gomaringen", "land": "DE", "lat": 48.453, "lng": 9.095, "kat": "dev", "status": "offen", "top": false, "passung": "Prüfung und Verifikation von HF-Chirurgiegeräten, 35 km von Stuttgart – passt zur Prüfstandserfahrung.", "hinweis": "Gefunden über Indeed, keine Anforderungen sichtbar.", "url": "https://de.indeed.com/q-bowa-electronic-jobs.html", "seit": "21.10.2026"}, {"id": "philips-alg", "firma": "Philips", "titel": "R&D Engineer Measurement Algorithms", "ort": "Böblingen", "land": "DE", "lat": 48.682, "lng": 9.01, "kat": "dev", "status": "offen", "top": true, "passung": "Signalverarbeitung und datengetriebene Algorithmen für Patientenmonitoring in einem internationalen R&D-Team.", "hinweis": "Kein Senior-Titel; Programmier- und Signalverarbeitungskenntnisse wichtig.", "url": "https://de.indeed.com/q-philips-l-b%C3%B6blingen-jobs.html", "seit": "21.10.2026"}, {"id": "philips-ind", "firma": "Philips", "titel": "Product Industrialization Engineer (3rd party integration)", "ort": "Böblingen", "land": "DE", "lat": 48.684, "lng": 9.013, "kat": "dev", "status": "offen", "top": false, "passung": "Überführung von Produkten in die Serie beim Patientenmonitoring.", "hinweis": "Erfahrungslevel in der Anzeige prüfen.", "url": "https://de.indeed.com/q-philips-l-b%C3%B6blingen-jobs.html", "seit": "21.10.2026"}, {"id": "duerr-elek", "firma": "Dürr Dental", "titel": "Elektronikentwickler", "ort": "Bietigheim-Bissingen", "land": "DE", "lat": 48.96, "lng": 9.13, "kat": "dev", "status": "offen", "top": false, "passung": "Geräteentwicklung in der Dentaltechnik, 25 km von Stuttgart; eher für Elektronik-Schwerpunkt.", "hinweis": "Seit ca. 18.10.2026 online.", "url": "https://www.stepstone.de/stellenangebote--Elektronikentwickler-m-w-d-Bietigheim-Bissingen-DUERR-DENTAL-SE--14542111-inline.html", "seit": "21.10.2026"}, {"id": "brainlab-de", "firma": "Brainlab", "titel": "(Advanced) Design Engineer R&D", "ort": "München", "land": "DE", "lat": 48.133, "lng": 11.688, "kat": "dev", "status": "offen", "top": false, "passung": "Integration, Test und Verifikation elektronischer Systeme in der chirurgischen Navigation, V-Modell.", "hinweis": "Als Junior markiert, verlangt aber 1–2 Jahre Praxis; ca. 1 Monat online.", "url": "https://mynejo.com/job/advanced-design-engineer-rd~c69d3bdb-ce27-4fee-bf12-f4c47261a082", "seit": "21.10.2026"}, {"id": "brainlab-prod", "firma": "Brainlab", "titel": "Produktionsingenieur:in", "ort": "München", "land": "DE", "lat": 48.1345, "lng": 11.69, "kat": "dev", "status": "offen", "top": false, "passung": "Prozessplanung und Design-Transfer aus Sicht der Produktion.", "hinweis": "Kein Senior-Titel; Anforderungen in der Anzeige prüfen.", "url": "https://de.indeed.com/q-brainlab-jobs.html", "seit": "21.10.2026"}, {"id": "lre-sys", "firma": "LRE Medical", "titel": "Engineer Systems", "ort": "München", "land": "DE", "lat": 48.185, "lng": 11.53, "kat": "ivd", "status": "offen", "top": false, "passung": "Systementwicklung bei einem Entwicklungs- und Fertigungspartner für Diagnostikgeräte.", "hinweis": "Nur Kurztext sichtbar; Aufgaben und Erfahrungslevel in der Anzeige prüfen.", "url": "https://de.indeed.com/q-lre-medical-jobs.html", "seit": "21.10.2026"}, {"id": "loewenstein-sys", "firma": "Löwenstein Medical", "titel": "Systemarchitekt Medizintechnik", "ort": "Karlsruhe", "land": "DE", "lat": 49.0069, "lng": 8.4037, "kat": "dev", "status": "offen", "top": false, "passung": "Systemarchitektur von Beatmungsgeräten an der Schnittstelle Mechanik, Elektronik und Firmware.", "hinweis": "Rolle klingt nach Berufserfahrung – im Gespräch klären.", "url": "https://de.indeed.com/q-l%C3%B6wenstein-medical-jobs.html", "seit": "21.10.2026"}, {"id": "heidelberg-sqe", "firma": "Heidelberg Engineering", "titel": "Supplier Quality Engineer", "ort": "Heidelberg", "land": "DE", "lat": 49.405, "lng": 8.66, "kat": "ra", "status": "offen", "top": false, "passung": "Lieferantenqualität bei einem Hersteller ophthalmologischer Diagnostik.", "hinweis": "Ca. 1 Woche online; solche Stellen setzen oft erste Industrieerfahrung voraus.", "url": "https://www.stepstone.de/stellenangebote--Supplier-Quality-Engineer-m-w-d-Heidelberg-Heidelberg-Engineering-GmbH--14172654-inline.html", "seit": "21.10.2026"}, {"id": "medtronic-qe", "firma": "Medtronic", "titel": "Quality Engineer (Elternzeitvertretung)", "ort": "Deggendorf", "land": "DE", "lat": 48.84, "lng": 12.96, "kat": "ra", "status": "offen", "top": false, "passung": "Qualitätsingenieur in der Medizinprodukte-Fertigung.", "hinweis": "Befristet als Elternzeitvertretung; Anforderungen nicht sichtbar.", "url": "https://de.indeed.com/q-medtronic-l-deutschland-jobs.html", "seit": "21.10.2026"}, {"id": "beurer-pm", "firma": "Beurer", "titel": "(Junior) Produktmanager Medical", "ort": "Ulm", "land": "DE", "lat": 48.39, "lng": 9.97, "kat": "app", "status": "offen", "top": false, "passung": "Junior-Einstieg im Produktmanagement für Blutdruckmessgeräte und andere Medizinprodukte.", "hinweis": "Kein F&E-Job, aber ausdrücklich Junior; ca. 1 Woche online.", "url": "https://www.stepstone.de/stellenangebote--Junior-Produktmanager-m-w-d-Medical-Ulm-Beurer-GmbH--14475915-inline.html", "seit": "21.10.2026"}, {"id": "ziehm-pm", "firma": "Ziehm Imaging", "titel": "Junior Produktmanager C-Bögen (kardiovaskuläre Applikation)", "ort": "Nürnberg", "land": "DE", "lat": 49.43, "lng": 11.04, "kat": "app", "status": "offen", "top": false, "passung": "Junior-Stelle bei einem Hersteller mobiler Röntgensysteme; Bezug zu Bildgebung.", "hinweis": "Produktmanagement statt Entwicklung.", "url": "https://de.indeed.com/q-ziehm-imaging-jobs.html", "seit": "21.10.2026"}, {"id": "ferchau-tut", "firma": "FERCHAU", "titel": "Entwicklungsingenieur Medizintechnik", "ort": "Tuttlingen", "land": "DE", "lat": 47.986, "lng": 8.815, "kat": "dev", "status": "offen", "top": false, "passung": "Medizinprodukteentwicklung im Medizintechnik-Cluster Tuttlingen.", "hinweis": "Engineering-Dienstleister; ca. 1 Woche online.", "url": "https://www.stepstone.de/stellenangebote--Entwicklungsingenieur-m-w-d-Medizintechnik-Tuttlingen-FERCHAU-Connecting-People-and-Technologies--7837470-inline.html", "seit": "21.10.2026"}, {"id": "sachs-mt", "firma": "sachs engineering", "titel": "Entwicklungsingenieur Medizintechnik", "ort": "Engen", "land": "DE", "lat": 47.855, "lng": 8.772, "kat": "dev", "status": "offen", "top": false, "passung": "Entwicklungsdienstleister mit Medizintechnik-Projekten im Hegau.", "hinweis": "Dienstleister; ca. 1 Woche online.", "url": "https://www.stepstone.de/stellenangebote--Entwicklungsingenieur-Medizintechnik-m-w-d-Engen-sachs-engineering-GmbH--14153547-inline.html", "seit": "21.10.2026"}, {"id": "rudolf-design", "firma": "RUDOLF Medical", "titel": "Design Engineer Medical Devices", "ort": "Fridingen", "land": "DE", "lat": 48.02, "lng": 8.93, "kat": "dev", "status": "offen", "top": false, "passung": "Konstruktion chirurgischer Instrumente bei Tuttlingen.", "hinweis": "Ca. 2 Wochen online; geschätzt 60.000–75.000 € laut StepStone.", "url": "https://www.stepstone.de/stellenangebote--Design-Engineer-Medical-Devices-m-w-d-Fridingen-bei-Tuttlingen-RUDOLF-Medical-GmbH-Co-KG--14331961-inline.html", "seit": "21.10.2026"}, {"id": "erbe-emb", "firma": "Erbe Elektromedizin", "titel": "Development Engineer Embedded Systems", "ort": "Tübingen (Standort laut Anzeige)", "land": "DE", "lat": 48.5216, "lng": 9.0576, "kat": "dev", "status": "pruefen", "top": false, "passung": "Embedded-Entwicklung für HF-Chirurgiegeräte.", "hinweis": "Nur auf devjobs.de gefunden, Ort dort „Sexau“ – im Erbe-Portal prüfen.", "url": "https://en.devjobs.de/jobs/erbe-elektromedizin-gmbh", "seit": "21.10.2026"}, {"id": "fmc-mech", "firma": "Fresenius Medical Care", "titel": "Mechanical Engineer", "ort": "Schweinfurt", "land": "DE", "lat": 50.049, "lng": 10.233, "kat": "dev", "status": "offen", "top": true, "passung": "Mechanische Entwicklung von Dialysegeräten im globalen Entwicklungszentrum – Konstruktion (Creo) und Simulation passen gut.", "hinweis": "Über Indeed gefunden, kein Senior-Titel, Datum nicht sichtbar; Anforderungen in der Anzeige prüfen.", "url": "https://de.indeed.com/q-fresenius-medical-care-l-schweinfurt-jobs.html", "seit": "21.10.2026"}, {"id": "fmc-elec", "firma": "Fresenius Medical Care", "titel": "Electronic Engineer", "ort": "Schweinfurt", "land": "DE", "lat": 50.0505, "lng": 10.235, "kat": "dev", "status": "offen", "top": false, "passung": "Elektronikentwicklung für Dialysesysteme.", "hinweis": "Eher für Elektronik-Schwerpunkt; Datum nicht sichtbar.", "url": "https://de.indeed.com/q-fresenius-medical-care-l-schweinfurt-jobs.html", "seit": "21.10.2026"}, {"id": "fmc-req", "firma": "Fresenius Medical Care", "titel": "Requirements Engineer – Software", "ort": "Schweinfurt", "land": "DE", "lat": 50.0475, "lng": 10.231, "kat": "dev", "status": "offen", "top": false, "passung": "Anforderungsmanagement für Medizingeräte-Software – Einstieg über Systems Engineering.", "hinweis": "Datum nicht sichtbar.", "url": "https://de.indeed.com/q-fresenius-medical-care-l-schweinfurt-jobs.html", "seit": "21.10.2026"}, {"id": "pajunk-ra", "firma": "Pajunk", "titel": "Regulatory Affairs Specialist", "ort": "Geisingen", "land": "DE", "lat": 47.924, "lng": 8.65, "kat": "ra", "status": "offen", "top": false, "passung": "Zulassung von Medizinprodukten für Regionalanästhesie, Schnittstelle zu F&E, QM und Clinical Affairs.", "hinweis": "Ca. 1 Woche online; Erfahrungslevel nicht genannt.", "url": "https://www.stepstone.de/stellenangebote--Regulatory-Affairs-Specialist-m-w-d-Geisingen-Pajunk-GmbH-Medizintechnologie--14576332-inline.html", "seit": "21.10.2026"}, {"id": "rwolf-val", "firma": "Richard Wolf", "titel": "Spezialist Hygiene & Aufbereitung von Medizinprodukten (Reprocessing & Validation)", "ort": "Knittlingen", "land": "DE", "lat": 49.028, "lng": 8.757, "kat": "ra", "status": "offen", "top": false, "passung": "Validierung der Aufbereitung von Endoskopen – Laborbezug und Medizinprodukte-Normen.", "hinweis": "Ca. 1 Woche online; „Spezialist“ deutet auf Erfahrung hin.", "url": "https://www.stepstone.de/stellenangebote--Spezialist-m-w-d-Hygiene-Aufbereitung-von-Medizinprodukten-Specialist-Reprocessing-Validation-Knittlingen-Richard-Wolf-GmbH--14304358-inline.html", "seit": "21.10.2026"}, {"id": "ulrich-pqe", "firma": "ulrich medical", "titel": "Produktqualitätsingenieur", "ort": "Ulm", "land": "DE", "lat": 48.401, "lng": 9.9876, "kat": "ra", "status": "offen", "top": false, "passung": "Produktqualität bei einem Hersteller von Wirbelsäulenimplantaten und Kontrastmittelinjektoren.", "hinweis": "Über Indeed gefunden; Erfahrungslevel nicht sichtbar.", "url": "https://de.indeed.com/q-ulrich-medical-jobs.html", "seit": "21.10.2026"}, {"id": "ika-pm", "firma": "IKA-Werke", "titel": "Product Manager – Laboratory and Analytical Technology", "ort": "Staufen im Breisgau", "land": "DE", "lat": 47.881, "lng": 7.731, "kat": "app", "status": "offen", "top": false, "passung": "Produktmanagement für Laborgeräte – Bezug zu Laborpraxis aus Bachelor- und Masterarbeit.", "hinweis": "Level nicht genannt.", "url": "https://de.indeed.com/q-ika-werke-jobs.html", "seit": "21.10.2026"}, {"id": "eh-innov", "firma": "Endress+Hauser", "titel": "Projektmanager Innovation", "ort": "Maulburg", "land": "DE", "lat": 47.646, "lng": 7.782, "kat": "dev", "status": "pruefen", "top": false, "passung": "Innovationsprojekte in der Füllstand- und Druckmesstechnik – Bezug zum Prüfstand zur Grenzstanddetektion.", "hinweis": "Seit ca. 18.10.2026 online; Erfahrungslevel nicht sichtbar, Projektleitung setzt oft Erfahrung voraus.", "url": "https://www.stepstone.de/stellenangebote--Projektmanager-Innovation-w-m-d-Maulburg-bei-Freiburg-Endress-Hauser-SE-Co-KG--14469947-inline.html", "seit": "21.10.2026"}, {"id": "biotronik-mess", "firma": "Biotronik", "titel": "Mitarbeiter Messtechnik Elektrodenentwicklung", "ort": "Berlin", "land": "DE", "lat": 52.431, "lng": 13.322, "kat": "dev", "status": "offen", "top": false, "ausserhalb": true, "passung": "Messtechnik in der Elektrodenentwicklung für Herzimplantate.", "hinweis": "Außerhalb der Zielregion; ca. 1 Woche online.", "url": "https://www.stepstone.de/stellenangebote--Mitarbeiter-Messtechnik-Elektrodenentwicklung-m-w-d-Berlin-BIOTRONIK-Corporate-Services-SE--14148338-inline.html", "seit": "21.10.2026"}], "firms": [{"id": "f-karlstorz", "firma": "Karl Storz", "ort": "Tuttlingen", "land": "DE", "lat": 47.983, "lng": 8.825, "kat": "dev", "bereich": "Endoskopie", "quelle": "Liste Freund", "befund": "Am 21.10.2026 nur Senior- und Leitungsstellen.", "url": "https://www.google.com/search?q=Karl+Storz+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-hsw", "firma": "Henke-Sass, Wolf", "ort": "Tuttlingen", "land": "DE", "lat": 47.989, "lng": 8.805, "kat": "dev", "bereich": "Starre Endoskopie", "quelle": "Liste Freund", "befund": "StepStone und Indeed: keine Anzeige.", "url": "https://www.google.com/search?q=Henke-Sass%2C+Wolf+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-klsmartin", "firma": "KLS Martin Group (Gebrüder Martin)", "ort": "Tuttlingen / Mühlheim", "land": "DE", "lat": 47.979, "lng": 8.8, "kat": "dev", "bereich": "Chirurgische Instrumente, HF-Chirurgie, Implantate", "quelle": "Liste Freund", "befund": "10 Stellen, keine F&E-Einstiegsstelle (u. a. Technical Service Engineer).", "url": "https://www.google.com/search?q=KLS+Martin+Group+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-pajunk", "firma": "Pajunk", "ort": "Geisingen", "land": "DE", "lat": 47.924, "lng": 8.65, "kat": "dev", "bereich": "Regionalanästhesie, Biopsie, minimalinvasive Chirurgie", "quelle": "Liste Freund", "befund": "Siehe Regulatory Affairs Specialist.", "url": "https://www.google.com/search?q=Pajunk+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-synthes", "firma": "Johnson & Johnson MedTech (Synthes)", "ort": "Tuttlingen / Umkirch", "land": "DE", "lat": 47.976, "lng": 8.832, "kat": "dev", "bereich": "Osteosynthese, Implantate, Nahtmaterial", "quelle": "Liste Freund", "befund": "StepStone: 0 Stellen in Tuttlingen.", "url": "https://www.google.com/search?q=Johnson+%26+Johnson+MedTech+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-jabil", "firma": "Jabil", "ort": "Tuttlingen", "land": "DE", "lat": 47.99, "lng": 8.795, "kat": "dev", "bereich": "OEM-Fertigung Medizintechnik", "quelle": "Liste Freund", "befund": "StepStone: keine Anzeige in Tuttlingen.", "url": "https://www.google.com/search?q=Jabil+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-erbe", "firma": "Erbe Elektromedizin", "ort": "Tübingen", "land": "DE", "lat": 48.516, "lng": 9.048, "kat": "dev", "bereich": "Elektrochirurgie", "quelle": "Liste Freund", "befund": "Siehe Embedded-Stelle; sonst IT und Werkstudent.", "url": "https://www.google.com/search?q=Erbe+Elektromedizin+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-tuescience", "firma": "Tübingen Scientific", "ort": "Tübingen", "land": "DE", "lat": 48.53, "lng": 9.07, "kat": "dev", "bereich": "Laparoskopie-Instrumente", "quelle": "Liste Freund", "befund": "StepStone und Indeed: keine Anzeige.", "url": "https://www.google.com/search?q=T%C3%BCbingen+Scientific+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-bowa", "firma": "BOWA-electronic", "ort": "Gomaringen", "land": "DE", "lat": 48.4545, "lng": 9.0985, "kat": "dev", "bereich": "Ultraschall- und HF-Chirurgie", "quelle": "Liste Freund", "befund": "Siehe Testingenieur.", "url": "https://www.google.com/search?q=BOWA-electronic+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-baxter", "firma": "Baxter", "ort": "Hechingen", "land": "DE", "lat": 48.352, "lng": 8.963, "kat": "dev", "bereich": "Dialyse, Transfusionsmedizin", "quelle": "Liste Freund", "befund": "StepStone und Indeed: 0 Stellen in Hechingen.", "url": "https://www.google.com/search?q=Baxter+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-bentley", "firma": "Bentley InnoMed", "ort": "Hechingen", "land": "DE", "lat": 48.348, "lng": 8.972, "kat": "dev", "bereich": "Stents, Stentgrafts", "quelle": "Liste Freund", "befund": "Nur HR- und IT-Stellen.", "url": "https://www.google.com/search?q=Bentley+InnoMed+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-getinge", "firma": "Getinge (Maquet Cardiopulmonary)", "ort": "Rastatt / Hechingen", "land": "DE", "lat": 48.858, "lng": 8.203, "kat": "dev", "bereich": "ECMO, Herz-Lungen-Maschinen, Kanülen", "quelle": "Liste Freund", "befund": "Nur zwei Masterthesis-Angebote in R&D – Kontakt für den Einstieg nutzen.", "url": "https://www.google.com/search?q=Getinge+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-richardwolf", "firma": "Richard Wolf", "ort": "Knittlingen", "land": "DE", "lat": 49.028, "lng": 8.757, "kat": "dev", "bereich": "Endoskopie", "quelle": "Liste Freund", "befund": "Siehe Spezialist Aufbereitung & Validierung; sonst SAP- und Finanzstellen.", "url": "https://www.google.com/search?q=Richard+Wolf+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-schoelly", "firma": "Schölly Fiberoptic", "ort": "Denzlingen", "land": "DE", "lat": 48.068, "lng": 7.881, "kat": "dev", "bereich": "Endoskopische Visualisierung", "quelle": "Liste Freund", "befund": "Nur Buchhaltung und Lager.", "url": "https://www.google.com/search?q=Sch%C3%B6lly+Fiberoptic+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-zeiss", "firma": "Carl Zeiss Meditec", "ort": "Oberkochen", "land": "DE", "lat": 48.784, "lng": 10.105, "kat": "dev", "bereich": "Ophthalmologie, OP-Mikroskope", "quelle": "Liste Freund", "befund": "Keine Einstiegsstelle gefunden (auch am 20.10.).", "url": "https://www.google.com/search?q=Carl+Zeiss+Meditec+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-philips", "firma": "Philips", "ort": "Böblingen", "land": "DE", "lat": 48.68, "lng": 9.006, "kat": "dev", "bereich": "Patientenmonitoring", "quelle": "Liste Freund", "befund": "Siehe zwei offene Stellen.", "url": "https://www.google.com/search?q=Philips+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-atmos", "firma": "ATMOS MedizinTechnik", "ort": "Lenzkirch", "land": "DE", "lat": 47.868, "lng": 8.203, "kat": "dev", "bereich": "HNO-Endoskopie, Absaugung", "quelle": "Liste Freund", "befund": "Nur QMB, Vertrieb und Praktika.", "url": "https://www.google.com/search?q=ATMOS+MedizinTechnik+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-bd", "firma": "Becton Dickinson", "ort": "Heidelberg", "land": "DE", "lat": 49.4, "lng": 8.67, "kat": "dev", "bereich": "Katheter, Infusion, Intensivmedizin", "quelle": "Liste Freund", "befund": "Nur Instandhaltung (Bruchsal) und Vertrieb.", "url": "https://www.google.com/search?q=Becton+Dickinson+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-heidelbergeng", "firma": "Heidelberg Engineering", "ort": "Heidelberg", "land": "DE", "lat": 49.407, "lng": 8.655, "kat": "app", "bereich": "Augen-Diagnostik (OCT)", "quelle": "Liste Freund", "befund": "Siehe Supplier Quality Engineer; sonst IT und Support.", "url": "https://www.google.com/search?q=Heidelberg+Engineering+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-loewenstein", "firma": "Löwenstein Medical", "ort": "Karlsruhe / Kammerstein", "land": "DE", "lat": 49.01, "lng": 8.41, "kat": "dev", "bereich": "Beatmung", "quelle": "Liste Freund", "befund": "Siehe Systemarchitekt.", "url": "https://www.google.com/search?q=L%C3%B6wenstein+Medical+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-osypka", "firma": "Osypka", "ort": "Rheinfelden (Baden)", "land": "DE", "lat": 47.561, "lng": 7.787, "kat": "dev", "bereich": "Katheter, Elektrophysiologie", "quelle": "Liste Freund", "befund": "Nur Elektroniker-Stelle in Berlin.", "url": "https://www.google.com/search?q=Osypka+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-ptw", "firma": "PTW-Freiburg", "ort": "Freiburg", "land": "DE", "lat": 47.999, "lng": 7.842, "kat": "dev", "bereich": "Dosimetrie für Strahlentherapie", "quelle": "Liste Freund", "befund": "Nur Fertigungssteuerung ausgeschrieben.", "url": "https://www.google.com/search?q=PTW-Freiburg+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-stryker", "firma": "Stryker", "ort": "Freiburg", "land": "DE", "lat": 47.998, "lng": 7.8, "kat": "dev", "bereich": "Navigation, Implantate, Robotik", "quelle": "Liste Freund", "befund": "Siehe (Senior) Project Engineer R&D.", "url": "https://www.google.com/search?q=Stryker+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-vascomed", "firma": "VascoMed (Biotronik)", "ort": "Binzen", "land": "DE", "lat": 47.632, "lng": 7.625, "kat": "dev", "bereich": "Katheter", "quelle": "Liste Freund", "befund": "Keine Anzeige in Binzen; Biotronik sucht in Berlin.", "url": "https://www.google.com/search?q=VascoMed+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-ika", "firma": "IKA-Werke", "ort": "Staufen im Breisgau", "land": "DE", "lat": 47.881, "lng": 7.731, "kat": "ivd", "bereich": "Labortechnik", "quelle": "Liste Freund", "befund": "Siehe Product Manager; außerdem SPS-Programmierer und Technical Application Specialist.", "url": "https://www.google.com/search?q=IKA-Werke+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-vbm", "firma": "VBM Medizintechnik", "ort": "Sulz am Neckar", "land": "DE", "lat": 48.362, "lng": 8.632, "kat": "dev", "bereich": "Atemwegsmanagement, Beatmung", "quelle": "Liste Freund", "befund": "Nur Ausbildung und duales Studium.", "url": "https://www.google.com/search?q=VBM+Medizintechnik+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-roechling", "firma": "Röchling Medical", "ort": "Waldachtal", "land": "DE", "lat": 48.463, "lng": 8.57, "kat": "dev", "bereich": "Kunststoff-Medizinprodukte (OEM)", "quelle": "Liste Freund", "befund": "StepStone und Indeed: keine eigene Anzeige.", "url": "https://www.google.com/search?q=R%C3%B6chling+Medical+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-ulrich", "firma": "ulrich medical", "ort": "Ulm", "land": "DE", "lat": 48.401, "lng": 9.9876, "kat": "dev", "bereich": "Wirbelsäulenimplantate, Kontrastmittelinjektoren", "quelle": "Liste Freund", "befund": "Siehe Produktqualitätsingenieur; außerdem Messtechniker.", "url": "https://www.google.com/search?q=ulrich+medical+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-beurer", "firma": "Beurer", "ort": "Ulm", "land": "DE", "lat": 48.388, "lng": 9.965, "kat": "app", "bereich": "Gesundheits- und Medizingeräte", "quelle": "Liste Freund", "befund": "Siehe Junior Produktmanager; sonst Pflichtpraktika.", "url": "https://www.google.com/search?q=Beurer+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-zimmer", "firma": "Zimmer MedizinSysteme", "ort": "Neu-Ulm", "land": "DE", "lat": 48.392, "lng": 10.011, "kat": "dev", "bereich": "Physikalische Therapie, Ultraschall", "quelle": "Liste Freund", "befund": "Nur Service, Supply Chain und Werkstudent.", "url": "https://www.google.com/search?q=Zimmer+MedizinSysteme+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-admedes", "firma": "admedes", "ort": "Pforzheim", "land": "DE", "lat": 48.881, "lng": 8.685, "kat": "dev", "bereich": "Nitinol-Stents (Auftragsfertigung)", "quelle": "Liste Freund", "befund": "Siehe Junior Prozessingenieur.", "url": "https://www.google.com/search?q=admedes+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-acandis", "firma": "Acandis", "ort": "Pforzheim", "land": "DE", "lat": 48.892, "lng": 8.697, "kat": "dev", "bereich": "Neurovaskuläre Implantate", "quelle": "Liste Freund", "befund": "Siehe Simulation und Messtechnik.", "url": "https://www.google.com/search?q=Acandis+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-dentaurum", "firma": "Dentaurum", "ort": "Ispringen", "land": "DE", "lat": 48.915, "lng": 8.67, "kat": "dev", "bereich": "Kieferorthopädie, Dentalimplantate", "quelle": "Liste Freund", "befund": "Nur Fertigungsstellen.", "url": "https://www.google.com/search?q=Dentaurum+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-altatec", "firma": "Altatec (Camlog)", "ort": "Wimsheim", "land": "DE", "lat": 48.85, "lng": 8.82, "kat": "dev", "bereich": "Zahnimplantate", "quelle": "Liste Freund", "befund": "Nur Vertriebsstellen gefunden.", "url": "https://www.google.com/search?q=Altatec+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-duerr", "firma": "Dürr Dental", "ort": "Bietigheim-Bissingen", "land": "DE", "lat": 48.962, "lng": 9.133, "kat": "dev", "bereich": "Dentaltechnik", "quelle": "Liste Freund", "befund": "Siehe Elektronikentwickler.", "url": "https://www.google.com/search?q=D%C3%BCrr+Dental+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-bort", "firma": "Bort", "ort": "Weinstadt", "land": "DE", "lat": 48.81, "lng": 9.37, "kat": "dev", "bereich": "Bandagen, Orthesen", "quelle": "Liste Freund", "befund": "StepStone: 0 Stellen.", "url": "https://www.google.com/search?q=Bort+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-ceramtec", "firma": "CeramTec", "ort": "Plochingen", "land": "DE", "lat": 48.714, "lng": 9.416, "kat": "dev", "bereich": "Keramische Implantate", "quelle": "Liste Freund", "befund": "Siehe Entwicklungsingenieur.", "url": "https://www.google.com/search?q=CeramTec+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-hartmann", "firma": "Paul Hartmann", "ort": "Heidenheim", "land": "DE", "lat": 48.676, "lng": 10.153, "kat": "dev", "bereich": "Wundversorgung, OP-Bedarf", "quelle": "Liste Freund", "befund": "Nur Vertrieb, IT und HR.", "url": "https://www.google.com/search?q=Paul+Hartmann+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-ivoclar", "firma": "Ivoclar", "ort": "Ellwangen", "land": "DE", "lat": 48.961, "lng": 10.131, "kat": "dev", "bereich": "Dentalmaterialien", "quelle": "Liste Freund", "befund": "Keine F&E-Stelle.", "url": "https://www.google.com/search?q=Ivoclar+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-kavo", "firma": "KaVo Dental", "ort": "Biberach", "land": "DE", "lat": 48.098, "lng": 9.787, "kat": "dev", "bereich": "Dentalgeräte", "quelle": "Liste Freund", "befund": "Nur ein Praxissemester.", "url": "https://www.google.com/search?q=KaVo+Dental+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-uebe", "firma": "Uebe Medical", "ort": "Külsheim", "land": "DE", "lat": 49.67, "lng": 9.52, "kat": "dev", "bereich": "Blutdruckmessgeräte, Thermometer", "quelle": "Liste Freund", "befund": "Nur Lagerstellen.", "url": "https://www.google.com/search?q=Uebe+Medical+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-bosch-hc", "firma": "Bosch Healthcare Solutions", "ort": "Waiblingen", "land": "DE", "lat": 48.832, "lng": 9.32, "kat": "ivd", "bereich": "Atemgasanalyse, Labordiagnostik (Vivalytic)", "quelle": "Liste Freund", "befund": "Siehe Regulatory Affairs Specialist.", "url": "https://www.google.com/search?q=Bosch+Healthcare+Solutions+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-shs", "firma": "Siemens Healthineers", "ort": "Erlangen / Forchheim / Kemnath", "land": "DE", "lat": 49.596, "lng": 11.004, "kat": "dev", "bereich": "Bildgebung", "quelle": "Liste Freund", "befund": "Siehe drei Stellen in Erlangen und Forchheim.", "url": "https://www.google.com/search?q=Siemens+Healthineers+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-alcon", "firma": "Alcon (WaveLight)", "ort": "Erlangen / Großwallstadt", "land": "DE", "lat": 49.57, "lng": 11.0, "kat": "dev", "bereich": "Augenheilkunde, Laser", "quelle": "Liste Freund", "befund": "StepStone: 0 Stellen in Erlangen.", "url": "https://www.google.com/search?q=Alcon+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-corscience", "firma": "Corscience", "ort": "Erlangen", "land": "DE", "lat": 49.58, "lng": 11.01, "kat": "dev", "bereich": "Defibrillatoren, Beatmungssensorik", "quelle": "Liste Freund", "befund": "Nur Teamleitung F&E, Senior QA und Praktikum.", "url": "https://www.google.com/search?q=Corscience+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-pausch", "firma": "Pausch Medical", "ort": "Erlangen", "land": "DE", "lat": 49.59, "lng": 11.03, "kat": "dev", "bereich": "Patientenlagerung", "quelle": "Liste Freund", "befund": "StepStone: keine eigene Anzeige.", "url": "https://www.google.com/search?q=Pausch+Medical+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-gme", "firma": "GME German Medical Engineering", "ort": "Erlangen", "land": "DE", "lat": 49.585, "lng": 10.99, "kat": "dev", "bereich": "Dermatologie, Laser", "quelle": "Liste Freund", "befund": "StepStone: keine eigene Anzeige.", "url": "https://www.google.com/search?q=GME+German+Medical+Engineering+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-ziehm", "firma": "Ziehm Imaging", "ort": "Nürnberg", "land": "DE", "lat": 49.432, "lng": 11.045, "kat": "dev", "bereich": "Mobile Röntgen-C-Bögen", "quelle": "Liste Freund", "befund": "Siehe Junior Produktmanager; Werkstudent Test Engineering.", "url": "https://www.google.com/search?q=Ziehm+Imaging+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-ceramtec-lauf", "firma": "CeramTec (Werk Lauf)", "ort": "Lauf a. d. Pegnitz", "land": "DE", "lat": 49.51, "lng": 11.277, "kat": "dev", "bereich": "Keramikkomponenten", "quelle": "Liste Freund", "befund": "Nur Fertigungsstellen.", "url": "https://www.google.com/search?q=CeramTec+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-brainlab", "firma": "Brainlab", "ort": "München", "land": "DE", "lat": 48.132, "lng": 11.686, "kat": "dev", "bereich": "Chirurgische Navigation, Strahlentherapie", "quelle": "Liste Freund", "befund": "Siehe zwei Stellen; viele Senior-Rollen.", "url": "https://www.google.com/search?q=Brainlab+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-lre", "firma": "LRE Medical", "ort": "München / Nördlingen", "land": "DE", "lat": 48.187, "lng": 11.532, "kat": "ivd", "bereich": "Diagnostikgeräte (Entwicklung und Fertigung)", "quelle": "Liste Freund", "befund": "Siehe Engineer Systems.", "url": "https://www.google.com/search?q=LRE+Medical+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-icu", "firma": "ICU Medical (Smiths Medical)", "ort": "Grasbrunn", "land": "DE", "lat": 48.08, "lng": 11.74, "kat": "dev", "bereich": "Infusionssysteme", "quelle": "Liste Freund", "befund": "StepStone und Indeed: keine Anzeige.", "url": "https://www.google.com/search?q=ICU+Medical+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-vdw", "firma": "VDW", "ort": "München", "land": "DE", "lat": 48.16, "lng": 11.54, "kat": "dev", "bereich": "Endodontie-Instrumente", "quelle": "Liste Freund", "befund": "StepStone: 0 Stellen.", "url": "https://www.google.com/search?q=VDW+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-dornier", "firma": "Dornier MedTech", "ort": "Weßling", "land": "DE", "lat": 48.075, "lng": 11.25, "kat": "dev", "bereich": "Urologie, Lithotripsie", "quelle": "Liste Freund", "befund": "Nur Senior-, Teamleiter- und Werkstudentenstellen (u. a. Senior Entwicklungsingenieur Laser).", "url": "https://www.google.com/search?q=Dornier+MedTech+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-pari", "firma": "PARI", "ort": "Starnberg", "land": "DE", "lat": 47.999, "lng": 11.34, "kat": "dev", "bereich": "Inhalationstherapie", "quelle": "Liste Freund", "befund": "Nur Senior Medical Affairs.", "url": "https://www.google.com/search?q=PARI+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-stemple", "firma": "GS Elektromedizinische Geräte G. Stemple", "ort": "Kaufering", "land": "DE", "lat": 48.09, "lng": 10.87, "kat": "dev", "bereich": "Defibrillatoren", "quelle": "Liste Freund", "befund": "StepStone: keine eigene Anzeige.", "url": "https://www.google.com/search?q=GS+Elektromedizinische+Ger%C3%A4te+G.+Stemple+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-oped", "firma": "Oped", "ort": "Valley (Oberlaindern)", "land": "DE", "lat": 47.89, "lng": 11.77, "kat": "dev", "bereich": "Orthesen", "quelle": "Liste Freund", "befund": "StepStone: 0 Stellen.", "url": "https://www.google.com/search?q=Oped+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-raumedic", "firma": "RAUMEDIC", "ort": "Helmbrechts / Feuchtwangen", "land": "DE", "lat": 50.236, "lng": 11.715, "kat": "dev", "bereich": "Kunststoffkomponenten, Katheter", "quelle": "Liste Freund", "befund": "Nur Fertigung und Betriebstechnik.", "url": "https://www.google.com/search?q=RAUMEDIC+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-serag", "firma": "Serag-Wiessner", "ort": "Naila", "land": "DE", "lat": 50.33, "lng": 11.708, "kat": "dev", "bereich": "Nahtmaterial, Implantate", "quelle": "Liste Freund", "befund": "StepStone: 0 Stellen.", "url": "https://www.google.com/search?q=Serag-Wiessner+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-womd", "firma": "W.O.M. World of Medicine", "ort": "Ludwigsstadt", "land": "DE", "lat": 50.485, "lng": 11.388, "kat": "dev", "bereich": "Insufflatoren, Pumpen, Kameras", "quelle": "Liste Freund", "befund": "StepStone und Indeed: keine eigene Anzeige.", "url": "https://www.google.com/search?q=W.O.M.+World+of+Medicine+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-medi", "firma": "medi", "ort": "Bayreuth", "land": "DE", "lat": 49.945, "lng": 11.571, "kat": "dev", "bereich": "Kompression, Bandagen, Einlagen", "quelle": "Liste Freund", "befund": "Keine F&E-Stelle.", "url": "https://www.google.com/search?q=medi+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-fmc", "firma": "Fresenius Medical Care", "ort": "Schweinfurt", "land": "DE", "lat": 50.049, "lng": 10.233, "kat": "dev", "bereich": "Dialysegeräte", "quelle": "Liste Freund", "befund": "Siehe Mechanical, Electronic und Requirements Engineer.", "url": "https://www.google.com/search?q=Fresenius+Medical+Care+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-schwind", "firma": "SCHWIND eye-tech-solutions", "ort": "Kleinostheim", "land": "DE", "lat": 50.0, "lng": 9.06, "kat": "dev", "bereich": "Augenlaser", "quelle": "Liste Freund", "befund": "Nur Einkauf und Werkstudent IT.", "url": "https://www.google.com/search?q=SCHWIND+eye-tech-solutions+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-gerresheimer", "firma": "Gerresheimer", "ort": "Regensburg / Wackersdorf", "land": "DE", "lat": 49.013, "lng": 12.101, "kat": "dev", "bereich": "Drug-Delivery-Devices", "quelle": "Liste Freund", "befund": "Keine Anzeigen in Bayern oder Baden-Württemberg.", "url": "https://www.google.com/search?q=Gerresheimer+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-medtronic", "firma": "Medtronic", "ort": "Deggendorf", "land": "DE", "lat": 48.842, "lng": 12.962, "kat": "dev", "bereich": "Herz, Diabetes, Neuro", "quelle": "Liste Freund", "befund": "Siehe Quality Engineer; keine F&E in BW/BY.", "url": "https://www.google.com/search?q=Medtronic+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-brehm", "firma": "Peter Brehm", "ort": "Weisendorf", "land": "DE", "lat": 49.623, "lng": 10.826, "kat": "dev", "bereich": "Knie- und Hüftimplantate", "quelle": "Ergänzt", "befund": "StepStone und Indeed: keine Anzeige.", "url": "https://www.google.com/search?q=Peter+Brehm+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-joimax", "firma": "joimax", "ort": "Karlsruhe", "land": "DE", "lat": 49.013, "lng": 8.42, "kat": "dev", "bereich": "Endoskopische Wirbelsäulenchirurgie", "quelle": "Ergänzt", "befund": "StepStone: keine Anzeige.", "url": "https://www.google.com/search?q=joimax+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-ipa", "firma": "Fraunhofer IPA (Medizin- und Biotechnik)", "ort": "Stuttgart", "land": "DE", "lat": 48.74, "lng": 9.096, "kat": "ivd", "bereich": "Laborautomation, Medizintechnik-Forschung", "quelle": "Ergänzt", "befund": "37 Ausschreibungen am IPA, aber nur Abschlussarbeiten, Hiwi-Jobs und eine Robotik-Stelle – Jobportal beobachten.", "url": "https://www.google.com/search?q=Fraunhofer+IPA+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-rudolf", "firma": "RUDOLF Medical", "ort": "Fridingen", "land": "DE", "lat": 48.021, "lng": 8.932, "kat": "dev", "bereich": "Chirurgische Instrumente", "quelle": "Ergänzt", "befund": "Siehe Design Engineer.", "url": "https://www.google.com/search?q=RUDOLF+Medical+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-ndi", "firma": "NDI Europe", "ort": "Radolfzell", "land": "DE", "lat": 47.739, "lng": 8.97, "kat": "dev", "bereich": "3D-Tracking für Medtech", "quelle": "Bisherige Recherche", "befund": "Nur Zoll und Elektroniker-Service.", "url": "https://www.google.com/search?q=NDI+Europe+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-eh", "firma": "Endress+Hauser Level+Pressure", "ort": "Maulburg", "land": "DE", "lat": 47.646, "lng": 7.782, "kat": "dev", "bereich": "Füllstand- und Druckmesstechnik", "quelle": "Bisherige Recherche", "befund": "Siehe Projektmanager Innovation.", "url": "https://www.google.com/search?q=Endress%2BHauser+Level%2BPressure+Karriere+Stellenangebote", "hatStellen": true}, {"id": "f-straumann", "firma": "Straumann", "ort": "Basel", "land": "CH", "lat": 47.564, "lng": 7.605, "kat": "dev", "bereich": "Dentalimplantate", "quelle": "Liste Freund", "befund": "jobs.ch: nur Team Leader Quality (Basel).", "url": "https://www.google.com/search?q=Straumann+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-medartis", "firma": "Medartis", "ort": "Basel", "land": "CH", "lat": 47.57, "lng": 7.6, "kat": "dev", "bereich": "Implantate, Instrumente", "quelle": "Bisherige Recherche", "befund": "Graduate-Stelle 2026 nicht mehr gelistet.", "url": "https://www.google.com/search?q=Medartis+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-biotronik-ch", "firma": "Biotronik", "ort": "Bülach ZH", "land": "CH", "lat": 47.522, "lng": 8.54, "kat": "dev", "bereich": "Kardiovaskuläre Implantate", "quelle": "Ergänzt", "befund": "jobs.ch: keine Anzeige.", "url": "https://www.google.com/search?q=Biotronik+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-hocoma", "firma": "Hocoma (DIH)", "ort": "Volketswil ZH", "land": "CH", "lat": 47.39, "lng": 8.69, "kat": "dev", "bereich": "Rehabilitationsrobotik", "quelle": "Ergänzt", "befund": "jobs.ch: keine Anzeige.", "url": "https://www.google.com/search?q=Hocoma+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-tyromotion", "firma": "Tyromotion", "ort": "Graz", "land": "AT", "lat": 47.0707, "lng": 15.4395, "kat": "dev", "bereich": "Rehabilitationsrobotik", "quelle": "Ergänzt", "befund": "Aktiv nur Servicetechniker und Accountant.", "url": "https://www.google.com/search?q=Tyromotion+Karriere+Stellenangebote", "hatStellen": false}, {"id": "f-straumann-de", "firma": "Straumann Deutschland", "ort": "Freiburg", "land": "DE", "lat": 48.005, "lng": 7.83, "kat": "dev", "bereich": "Dentalimplantate (Vertrieb, Service)", "quelle": "Liste Freund", "befund": "StepStone: 0 Stellen in Freiburg.", "url": "https://www.google.com/search?q=Straumann+Deutschland+Karriere+Stellenangebote", "hatStellen": false}, {"id": "o-ottobock", "firma": "Ottobock", "ort": "Duderstadt", "land": "DE", "lat": 51.512, "lng": 10.26, "kat": "dev", "bereich": "Prothesen, Orthesen, Rollstühle, Exoskelette", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Ottobock+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-codan", "firma": "Codan", "ort": "Lensahn", "land": "DE", "lat": 54.217, "lng": 10.883, "kat": "dev", "bereich": "Infusionssysteme", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Codan+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-drägerwerk", "firma": "Drägerwerk", "ort": "Lübeck", "land": "DE", "lat": 53.865, "lng": 10.687, "kat": "dev", "bereich": "Beatmung und Anästhesie", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Dr%C3%A4gerwerk+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-olympus", "firma": "Olympus", "ort": "Hamburg", "land": "DE", "lat": 53.548, "lng": 10.014, "kat": "dev", "bereich": "Endoskope", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Olympus+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-sarstedt", "firma": "Sarstedt", "ort": "Nümbrecht", "land": "DE", "lat": 50.905, "lng": 7.542, "kat": "ivd", "bereich": "Diagnostik, Labor, Laborautomation", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Sarstedt+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-tracoemedical", "firma": "Tracoe Medical", "ort": "Nieder-Olm", "land": "DE", "lat": 49.91, "lng": 8.205, "kat": "dev", "bereich": "Tracheostomieversorgung", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Tracoe+Medical+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-variansiemenshealthi", "firma": "Varian (Siemens Healthineers)", "ort": "Haan", "land": "DE", "lat": 51.193, "lng": 7.013, "kat": "dev", "bereich": "Strahlentherapie", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Varian+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-weinmannemergency", "firma": "Weinmann Emergency", "ort": "Hamburg", "land": "DE", "lat": 53.57, "lng": 10.03, "kat": "dev", "bereich": "Notfallmedizin, Defibrillation, Beatmung", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Weinmann+Emergency+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-aapimplantate", "firma": "aap Implantate", "ort": "Berlin", "land": "DE", "lat": 52.464, "lng": 13.38, "kat": "dev", "bereich": "Implantate, Knochenplatten", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=aap+Implantate+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-abbott", "firma": "Abbott", "ort": "Wetzlar / Wiesbaden", "land": "DE", "lat": 50.556, "lng": 8.504, "kat": "ivd", "bereich": "Kardiovaskulär, Diagnostik", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Abbott+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-abiomed", "firma": "Abiomed", "ort": "Aachen", "land": "DE", "lat": 50.7753, "lng": 6.0839, "kat": "dev", "bereich": "Herzpumpen (Impella)", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Abiomed+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-agfahealthcare", "firma": "Agfa HealthCare", "ort": "Bonn", "land": "DE", "lat": 50.7374, "lng": 7.0982, "kat": "dev", "bereich": "Medizinische Bildgebung (IT)", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Agfa+HealthCare+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-bbraun", "firma": "B. Braun", "ort": "Melsungen", "land": "DE", "lat": 51.13, "lng": 9.55, "kat": "dev", "bereich": "Dialyse, Infusionstherapie", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=B.+Braun+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-baldamedical", "firma": "Balda Medical", "ort": "Bad Oeynhausen", "land": "DE", "lat": 52.205, "lng": 8.8, "kat": "dev", "bereich": "Kunststoffkomponenten", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Balda+Medical+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-bauerfeind", "firma": "Bauerfeind", "ort": "Zeulenroda-Triebes", "land": "DE", "lat": 50.654, "lng": 11.98, "kat": "dev", "bereich": "Bandagen", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Bauerfeind+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-berlinheart", "firma": "Berlin Heart", "ort": "Berlin", "land": "DE", "lat": 52.44, "lng": 13.32, "kat": "dev", "bereich": "Herzunterstützungssysteme (VAD)", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Berlin+Heart+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-biotronik", "firma": "Biotronik", "ort": "Berlin", "land": "DE", "lat": 52.429, "lng": 13.318, "kat": "dev", "bereich": "Herzschrittmacher, Katheter", "quelle": "Liste Freund", "befund": "Siehe Messtechnik Elektrodenentwicklung.", "url": "https://www.google.com/search?q=Biotronik+Karriere+Stellenangebote", "hatStellen": true, "ausserhalb": true}, {"id": "o-curasan", "firma": "Curasan", "ort": "Frankfurt am Main", "land": "DE", "lat": 50.1109, "lng": 8.6821, "kat": "dev", "bereich": "Biomaterialien", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Curasan+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-enovis", "firma": "Enovis", "ort": "Mörsdorf", "land": "DE", "lat": 50.046, "lng": 7.374, "kat": "dev", "bereich": "Gelenkersatz", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Enovis+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-heyermedical", "firma": "Heyer Medical", "ort": "Bad Ems", "land": "DE", "lat": 50.335, "lng": 7.715, "kat": "dev", "bereich": "Anästhesie, Beatmung", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Heyer+Medical+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-hugorost", "firma": "Hugo Rost", "ort": "Kiel", "land": "DE", "lat": 54.3233, "lng": 10.1228, "kat": "dev", "bereich": "Röntgentechnik, CT", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Hugo+Rost+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-jenoptik", "firma": "Jenoptik", "ort": "Jena", "land": "DE", "lat": 50.927, "lng": 11.589, "kat": "dev", "bereich": "Optische und mikrooptische Systeme", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Jenoptik+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-implantcast", "firma": "implantcast", "ort": "Buxtehude", "land": "DE", "lat": 53.477, "lng": 9.701, "kat": "dev", "bereich": "Implantate, Navigation", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=implantcast+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-medtron", "firma": "Medtron", "ort": "Saarbrücken", "land": "DE", "lat": 49.24, "lng": 6.996, "kat": "dev", "bereich": "Kontrastmittelinjektoren", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Medtron+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-möllermedical", "firma": "Möller Medical", "ort": "Fulda", "land": "DE", "lat": 50.555, "lng": 9.68, "kat": "dev", "bereich": "Liquordrainage, Blutspende", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=M%C3%B6ller+Medical+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-oculusoptikgeräte", "firma": "OCULUS Optikgeräte", "ort": "Wetzlar", "land": "DE", "lat": 50.56, "lng": 8.52, "kat": "dev", "bereich": "Augenarzt-Instrumente", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=OCULUS+Optikger%C3%A4te+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-pjdahlhausen", "firma": "P.J. Dahlhausen", "ort": "Köln", "land": "DE", "lat": 50.9375, "lng": 6.9603, "kat": "dev", "bereich": "Beatmungszubehör", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=P.J.+Dahlhausen+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-pfmmedical", "firma": "pfm medical", "ort": "Köln", "land": "DE", "lat": 50.93, "lng": 6.93, "kat": "dev", "bereich": "Chirurgie, Kunststofftechnik", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=pfm+medical+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-sfmmedicaldevices", "firma": "sfm medical devices", "ort": "Wächtersbach", "land": "DE", "lat": 50.255, "lng": 9.295, "kat": "dev", "bereich": "Kanülen", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=sfm+medical+devices+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-waldemarlink", "firma": "Waldemar Link", "ort": "Hamburg", "land": "DE", "lat": 53.56, "lng": 10.07, "kat": "dev", "bereich": "Endoprothesen", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Waldemar+Link+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-ypsomed", "firma": "Ypsomed", "ort": "Schwerin", "land": "DE", "lat": 53.6355, "lng": 11.4012, "kat": "dev", "bereich": "Injektionssysteme, Insulinpumpen", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Ypsomed+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-freudenbergmedical", "firma": "Freudenberg Medical", "ort": "Würselen", "land": "DE", "lat": 50.82, "lng": 6.13, "kat": "dev", "bereich": "Kathetersysteme", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Freudenberg+Medical+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-gehealthcare", "firma": "GE HealthCare", "ort": "Solingen", "land": "DE", "lat": 51.165, "lng": 7.067, "kat": "dev", "bereich": "Bildgebung, Anästhesie", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=GE+HealthCare+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-bsnmedical", "firma": "BSN medical", "ort": "Hamburg", "land": "DE", "lat": 53.555, "lng": 9.97, "kat": "dev", "bereich": "Wundversorgung", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=BSN+medical+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-bego", "firma": "BEGO", "ort": "Bremen", "land": "DE", "lat": 53.0793, "lng": 8.8017, "kat": "dev", "bereich": "Dentalimplantate", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=BEGO+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-hagermeisinger", "firma": "Hager & Meisinger", "ort": "Neuss", "land": "DE", "lat": 51.204, "lng": 6.688, "kat": "dev", "bereich": "Dentalinstrumente, Implantate", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Hager+%26+Meisinger+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-dentsplysirona", "firma": "Dentsply Sirona", "ort": "Bensheim", "land": "DE", "lat": 49.681, "lng": 8.617, "kat": "dev", "bereich": "Dentaltechnik", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Dentsply+Sirona+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-beiersdorf", "firma": "Beiersdorf", "ort": "Hamburg", "land": "DE", "lat": 53.58, "lng": 9.96, "kat": "dev", "bereich": "Hautpflege", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Beiersdorf+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-heraeusmedical", "firma": "Heraeus Medical", "ort": "Hanau / Wehrheim", "land": "DE", "lat": 50.133, "lng": 8.916, "kat": "dev", "bereich": "Knochenzement, Implantatbeschichtungen", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Heraeus+Medical+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-kettenbach", "firma": "Kettenbach", "ort": "Eschenburg", "land": "DE", "lat": 50.817, "lng": 8.34, "kat": "dev", "bereich": "Dentale Abformmaterialien", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Kettenbach+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-kob", "firma": "KOB", "ort": "Wolfstein", "land": "DE", "lat": 49.584, "lng": 7.605, "kat": "dev", "bereich": "Medizinische Textilien", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=KOB+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-lohmannrauscher", "firma": "Lohmann & Rauscher", "ort": "Rengsdorf", "land": "DE", "lat": 50.5, "lng": 7.5, "kat": "dev", "bereich": "Wundversorgung", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Lohmann+%26+Rauscher+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-medisana", "firma": "Medisana", "ort": "Neuss", "land": "DE", "lat": 51.19, "lng": 6.71, "kat": "dev", "bereich": "Home-Health-Care-Produkte", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Medisana+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-urgo", "firma": "Urgo", "ort": "Sulzbach/Saar", "land": "DE", "lat": 49.3, "lng": 7.06, "kat": "dev", "bereich": "Wundversorgung", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Urgo+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-wero", "firma": "WERO", "ort": "Taunusstein", "land": "DE", "lat": 50.145, "lng": 8.153, "kat": "dev", "bereich": "Erste Hilfe, Hautschutz", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=WERO+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-gebrbrasseler", "firma": "Gebr. Brasseler", "ort": "Lemgo", "land": "DE", "lat": 52.028, "lng": 8.901, "kat": "dev", "bereich": "Dental- und Chirurgie-Instrumente", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Gebr.+Brasseler+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-boehringeringelheimm", "firma": "Boehringer Ingelheim microParts", "ort": "Dortmund", "land": "DE", "lat": 51.5136, "lng": 7.4653, "kat": "ivd", "bereich": "Mikrofluidik, Drug-Delivery", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Boehringer+Ingelheim+microParts+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-degudent", "firma": "DeguDent", "ort": "Hanau", "land": "DE", "lat": 50.13, "lng": 8.9, "kat": "dev", "bereich": "Dentalmaterialien", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=DeguDent+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-cardinalhealth", "firma": "Cardinal Health", "ort": "Norderstedt", "land": "DE", "lat": 53.706, "lng": 9.997, "kat": "dev", "bereich": "Medizinprodukte", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Cardinal+Health+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}, {"id": "o-intertongnhearing", "firma": "Interton (GN Hearing)", "ort": "Münster", "land": "DE", "lat": 51.9607, "lng": 7.6261, "kat": "dev", "bereich": "Hörgeräte", "quelle": "Liste Freund", "befund": "Außerhalb der Zielregion – nicht auf Stellen geprüft.", "url": "https://www.google.com/search?q=Interton+Karriere+Stellenangebote", "hatStellen": false, "ausserhalb": true}], "outside": [], "hinweise": ["Gehalt Deutschland: Für Ingenieure der Medizintechnik in Stuttgart liegt der Median bei etwa 61.400 € brutto/Jahr, die Spanne bei 52.600–69.100 € (StepStone). Einsteiger in Regulatory Affairs verdienen meist 50.000–57.000 € (unique Life Science).", "Schweiz: Mit deutschem Pass besteht bei einem Arbeitsvertrag Anspruch auf die Grenzgängerbewilligung (Ausweis G). Grenzgänger brauchen eine Schweizer Krankenversicherung oder eine der Alternativlösungen. Einstiegsgehälter für Medtech-Ingenieure liegen laut einem Karriereratgeber bei etwa CHF 75.000–95.000 (upreer).", "Österreich: Gehälter werden in 14 Monatsgehältern angegeben; das in Anzeigen genannte Mindestgehalt ist gesetzlich vorgeschrieben und wird oft überzahlt.", "Viele Treffer stammen aus Jobbörsen (StepStone, Indeed, karriere.at). Vor jeder Bewerbung im Karriereportal der Firma prüfen, ob die Stelle noch offen ist."], "github_repo": "coolyx30-lgtm/Medizintechnik-Jobs", "aenderungen": ["Firmen aus der Excel-Liste aufgenommen – auch die außerhalb der Zielregionen (auf der Karte grau umrandet, Filter „Außerhalb“).", "28 neue ausgeschriebene Stellen, u. a. CeramTec (Implantat-Entwicklung, Plochingen), Acandis (Simulationsingenieur Implantate), admedes (Junior Prozessingenieur), Philips (R&D Engineer Measurement Algorithms) und Fresenius Medical Care (Mechanical Engineer, Schweinfurt).", "Alle Firmen in den Zielregionen auf StepStone und Indeed geprüft; bei rund 40 gibt es derzeit keine passende Einstiegsstelle.", "Acandis „(Junior) Entwicklungsingenieur Medizintechnik“ ist nicht mehr gelistet und steht jetzt auf „Status prüfen“."]};
+  var HOME = DATA.home;
 
   var KAT = {
     dev: { label: "Entwicklung & Konstruktion", color: "#2563eb" },
     ivd: { label: "IVD, Labor & Forschung", color: "#0d9488" },
     phd: { label: "Promotion", color: "#7c3aed" },
-    ra:  { label: "Regulatory & Zertifizierung", color: "#d97706" },
-    app: { label: "Applikation & Usability", color: "#db2777" },
+    ra:  { label: "Regulatory & Qualität", color: "#d97706" },
+    app: { label: "Applikation & Produkt", color: "#db2777" },
     ini: { label: "Trainee & Initiativ", color: "#64748b" }
   };
 
   var STATUS = {
     offen:     { label: "Ausgeschrieben", cls: "s-open" },
     pruefen:   { label: "Status prüfen", cls: "s-check" },
-    initiativ: { label: "Initiativ / Programm", cls: "s-ini" }
+    initiativ: { label: "Initiativ / Programm", cls: "s-ini" },
+    firma:     { label: "Zielfirma · keine passende Anzeige", cls: "s-firm" }
   };
 
-  var JOBS = [
-    { id: "bosch-phd-mdx", firma: "Bosch Corporate Research", titel: "PhD – Lab-on-Chip-Probenvorbereitung für molekulare Diagnostik", ort: "Renningen", land: "DE", lat: 48.7663, lng: 8.9366, kat: "phd", status: "offen", top: true,
-      passung: "Mikrofluidische Probenvorbereitung mit Magnetbeads, Multiphysik-Modelle (z. B. COMSOL), Prototypen – direkte Fortsetzung der Masterarbeit am selben Campus.",
-      hinweis: "Start Oktober 2026, Bewerbungen werden fortlaufend geprüft. Betreuer in Renningen direkt ansprechen.",
-      url: "https://www.glassdoor.de/job-listing/phd-lab-on-chip-sample-preparation-for-next-generation-molecular-diagnostics-bosch-JV_IC2684212_KO0,76_KE77,82.htm?jl=1010206839002" },
-    { id: "bosch-phd-cells", firma: "Bosch Corporate Research", titel: "PhD – Lab-on-a-Chip-Komponente zur Analyse und Sortierung einzelner Zellen", ort: "Renningen", land: "DE", lat: 48.7676, lng: 8.9410, kat: "phd", status: "offen", top: true,
-      passung: "Lab-on-Chip und Zellbiologie – verbindet Masterarbeit und Bachelorarbeit im Zelllabor.",
-      hinweis: "Zweite Bosch-Promotion am Campus Renningen; Details in der Anzeige prüfen.",
-      url: "https://de.indeed.com/Microfluidic-Jobs" },
-    { id: "acandis", firma: "Acandis", titel: "(Junior) Entwicklungsingenieur Medizintechnik", ort: "Pforzheim", land: "DE", lat: 48.9036, lng: 8.6650, kat: "dev", status: "offen", top: true,
-      passung: "Medizintechnik zur Schlaganfallbehandlung, ausdrücklich auch für Berufseinsteiger; Produktentwicklung bis zur Serienreife.",
-      hinweis: "Oft wird SolidWorks verlangt – Creo als übertragbar darstellen.",
-      url: "https://www.stepstone.de/jobs/ingenieur-in-medizintechnik/in-baden-w%C3%BCrttemberg" },
-    { id: "bhcs-ra", firma: "Bosch Healthcare Solutions", titel: "Regulatory Affairs Specialist", ort: "Waiblingen", land: "DE", lat: 48.8303, lng: 9.3169, kat: "ra", status: "offen", top: true,
-      passung: "Unternehmen und Vivalytic-Umfeld aus dem Praktikum bekannt.",
-      hinweis: "Kürzlich auf LinkedIn ausgeschrieben; Status im Bosch-Portal prüfen.",
-      url: "https://de.linkedin.com/jobs/bosch-healthcare-stellen" },
-    { id: "kimetec", firma: "Kimetec", titel: "Entwicklungsingenieur Elektrotechnik / Medizintechnik", ort: "Ditzingen", land: "DE", lat: 48.8262, lng: 9.0670, kat: "dev", status: "offen", top: false,
-      passung: "Medizintechnik-Unternehmen, Festanstellung in der Region Stuttgart.",
-      hinweis: "",
-      url: "https://www.stepstone.de/jobs/entwicklungsingenieur-in/in-stuttgart?q=Entwicklungsingenieur%2Fin" },
-    { id: "ferchau-rt", firma: "FERCHAU", titel: "Junior Entwicklungsingenieur Medizintechnik", ort: "Reutlingen", land: "DE", lat: 48.4920, lng: 9.2110, kat: "dev", status: "offen", top: false,
-      passung: "Medizinische Einmalprodukte, 3D-Modelle, Laborversuche und Zulassungstests.",
-      hinweis: "Engineering-Dienstleister – Einsatz beim Kunden.",
-      url: "https://www.ferchau.com/de/de/bewerber/jobs/289788/junior-entwicklungsingenieur-medizintechnik" },
-    { id: "ferchau-bb", firma: "FERCHAU", titel: "Junior Entwicklungsingenieur Medizintechnik", ort: "Böblingen", land: "DE", lat: 48.6856, lng: 9.0115, kat: "dev", status: "offen", top: false,
-      passung: "Entwicklung und Tests von Medizinprodukten bis zur Serienproduktion.",
-      hinweis: "Dienstleister; SolidWorks bevorzugt.",
-      url: "https://touch.ferchau.com/de/en/job/396226/junior-entwicklungsingenieur-medizintechnik" },
-    { id: "ferchau-hn", firma: "FERCHAU", titel: "Junior Entwicklungsingenieur Medizintechnik", ort: "Heilbronn", land: "DE", lat: 49.1427, lng: 9.2109, kat: "dev", status: "offen", top: false,
-      passung: "Medizinische Einmalprodukte, Laborversuche, Validierungskonzepte.",
-      hinweis: "Dienstleister – Einsatz beim Kunden.",
-      url: "https://www.ferchau.com/de/de/bewerber/jobs/400351/junior-entwicklungsingenieur-medizintechnik" },
-    { id: "schuler", firma: "Schuler Konstruktionen", titel: "Konstrukteur für den Berufseinstieg (Förderprogramm)", ort: "Filderstadt", land: "DE", lat: 48.6650, lng: 9.2190, kat: "dev", status: "offen", top: false,
-      passung: "Entwicklung und Konstruktion, u. a. im Fachbereich Medizintechnik.",
-      hinweis: "Engineering-Dienstleister.",
-      url: "https://de.indeed.com/Ingenieur-Medizintechnik-Jobs-in-Stuttgart" },
-    { id: "useing", firma: "USE-Ing.", titel: "Medical Usability Engineer / Human Factors Engineer", ort: "Stuttgart", land: "DE", lat: 48.7700, lng: 9.1650, kat: "app", status: "offen", top: false,
-      passung: "Usability und Human Factors für Medizinprodukte.",
-      hinweis: "Dienstleister.",
-      url: "https://www.stepstone.de/jobs/medizintechnik-ingenieur" },
-    { id: "mdc", firma: "mdc medical device certification", titel: "Projektkoordinator / Projektleiter Zertifizierungsverfahren", ort: "Stuttgart", land: "DE", lat: 48.7860, lng: 9.1790, kat: "ra", status: "offen", top: false,
-      passung: "Benannte Stelle für Medizinprodukte und In-vitro-Diagnostika.",
-      hinweis: "",
-      url: "https://www.stepstone.de/jobs/junior-regulatory-affairs-manager/in-stuttgart" },
-    { id: "stratec", firma: "STRATEC", titel: "Biologe / Physiker / Ingenieur (m/w/d)", ort: "Birkenfeld", land: "DE", lat: 48.8632, lng: 8.5777, kat: "ivd", status: "pruefen", top: false,
-      passung: "Interdisziplinäres Team, neue Technologien für die In-vitro-Diagnostik ab dem Konzept.",
-      hinweis: "Anzeige taucht wiederholt auf, Status unklar. Initiativbewerbung möglich.",
-      url: "https://www.stratec.com/career/germany/jobs" },
-    { id: "nmi", firma: "NMI", titel: "Applikationsspezialist/Ingenieur Biomedizin und Materialwissenschaften", ort: "Reutlingen", land: "DE", lat: 48.4862, lng: 9.1958, kat: "ivd", status: "pruefen", top: false,
-      passung: "Forschungsinstitut an der Schnittstelle Biomedizin/Technik.",
-      hinweis: "Datum der Anzeige unklar.",
-      url: "http://www.nmi.de/aktuell/aktuell/jobs/praxissemester-hiwi-praktikum/praktikum-oder-praxissemester-am-nmi-reutlingen-kopie-1/" },
-    { id: "roche-ma", firma: "Roche Diagnostics (über Franz & Wach)", titel: "Development Engineer / Scientist", ort: "Mannheim", land: "DE", lat: 49.5375, lng: 8.4930, kat: "ivd", status: "offen", top: false,
-      passung: "Versuchsprogramme und Messungen in der Diagnostik-Entwicklung.",
-      hinweis: "Arbeitnehmerüberlassung mit Ziel Übernahme, ausgeschrieben am 06.10.2026.",
-      url: "https://www.franz-wach.de/stellenangebote/38972-development-engineer-scientist-roche-mannheim/" },
-    { id: "roche-teclab", firma: "Roche Diagnostics (Karriereseite)", titel: "Equipment Development Engineer (m/w/d) – TecLab", ort: "Mannheim", land: "DE", lat: 49.4875, lng: 8.4660, kat: "dev", status: "pruefen", top: true,
-      passung: "Geräte- und Equipmententwicklung bei Roche, Master wird verlangt.",
-      hinweis: "Über Aggregator gefunden, kein Datum und keine Erfahrungsangabe sichtbar. Im Roche-Portal nach „TecLab“ suchen.",
-      url: "https://careers.roche.com/global/en/germany" },
-    { id: "roche-startup", firma: "Roche (Karriereseite)", titel: "StartUp Germany Development Programme / Entry-level positions", ort: "Mannheim", land: "DE", lat: 49.4890, lng: 8.4700, kat: "ini", status: "initiativ", top: false,
-      passung: "Einstiegsprogramm für Absolventen in Deutschland, Standorte laut Roche unter anderem Mannheim und Penzberg.",
-      hinweis: "Bewerbungsfenster und Fachrichtungen stehen nicht auf der Seite. Direkt bei Roche erfragen.",
-      url: "https://careers.roche.com/global/en/welcome-to-roche-after-your-studies" },
-    { id: "roche-pb", firma: "Roche Diagnostics (Karriereseite)", titel: "Plant Engineer / Betriebsingenieur R&D und diagnostische Produktion (2 Stellen)", ort: "Penzberg", land: "DE", lat: 47.7514, lng: 11.3750, kat: "dev", status: "pruefen", top: false,
-      passung: "Anlagen für Entwicklung und Produktion diagnostischer Produkte in Bayern.",
-      hinweis: "Anzeige ca. 12 Tage alt. Level aus dem Titel geschätzt, Berufserfahrung wahrscheinlich gefordert.",
-      url: "https://careers.roche.com/global/en/germany" },
-    { id: "shs-pruef", firma: "Siemens Healthineers (Karriereportal)", titel: "Prüfingenieur*in (f/m/d), Junior, 2 Jahre befristet", ort: "Erlangen", land: "DE", lat: 49.5897, lng: 11.0078, kat: "dev", status: "offen", top: true,
-      passung: "Junior-Position im Testing von Medizinprodukten, direkter Einstieg bei Siemens Healthineers.",
-      hinweis: "Anzeige ca. 14 Tage alt. Befristet auf zwei Jahre. Im Portal nach „Prüfingenieur“ suchen.",
-      url: "https://jobs.siemens-healthineers.com/careers?location=Erlangen" },
-    { id: "shs-ui", firma: "Siemens Healthineers (Karriereportal)", titel: "Software Developer (f/m/d) for User Interfaces", ort: "Forchheim", land: "DE", lat: 49.7186, lng: 11.0586, kat: "dev", status: "pruefen", top: false,
-      passung: "Software für Bedienoberflächen von Röntgen- und CT-Systemen, passt nur bei Softwareinteresse.",
-      hinweis: "Anzeige ca. 7 Tage alt. Anforderungen und Erfahrungslevel in der Anzeige prüfen.",
-      url: "https://jobs.siemens-healthineers.com/careers?location=Forchheim" },
-    { id: "shs-po", firma: "Siemens Healthineers (Karriereportal)", titel: "R&D Product Owner für Röntgengeneratoren, Computertomographie", ort: "Forchheim", land: "DE", lat: 49.7230, lng: 11.0500, kat: "dev", status: "pruefen", top: false,
-      passung: "Produktverantwortung in der CT-Entwicklung.",
-      hinweis: "Anzeige ca. 11 Tage alt. Product-Owner-Rollen verlangen meist Erfahrung, Einstieg im Gespräch klären.",
-      url: "https://jobs.siemens-healthineers.com/careers?location=Forchheim" },
-    { id: "bbraun", firma: "B. Braun / Aesculap", titel: "Traineeprogramm (18 Monate)", ort: "Tuttlingen", land: "DE", lat: 47.9847, lng: 8.8170, kat: "ini", status: "initiativ", top: false,
-      passung: "Projekte in verschiedenen Abteilungen mit Mentoren.",
-      hinweis: "Konzernweites Programm; Einsatzorte in der Ausschreibung prüfen.",
-      url: "https://www.bbraun.de/de/karriere/karrieremoeglichkeiten/jobs-und-karriere/traineeprogramme.html" },
-    { id: "hahn", firma: "Hahn-Schickard", titel: "Initiativbewerbung Mikrofluidik / Lab-on-a-Chip", ort: "Freiburg", land: "DE", lat: 48.0127, lng: 7.8330, kat: "ini", status: "initiativ", top: false,
-      passung: "Mikrofluidische Analysesysteme, Point-of-Care-Diagnostik, Lab-on-a-Chip.",
-      hinweis: "Aktuell keine passende Festanstellung gefunden; Initiativbewerbung ausdrücklich erwünscht.",
-      url: "https://jobs.hahn-schickard.de/job-initiativbewerbung-wissenschaftliche-technische-kaufmaennische-mitarbeiter-innen-m-w-d-freiburg-im-breisgau-1864.html" },
-    { id: "stryker", firma: "Stryker", titel: "(Senior) Project Engineer R&D", ort: "Freiburg", land: "DE", lat: 47.9990, lng: 7.8020, kat: "dev", status: "offen", top: false,
-      passung: "Implantat- und Instrumentendesign bis zur Markteinführung.",
-      hinweis: "Junior-Einstieg im Gespräch klären.",
-      url: "https://www.euroengineerjobs.com/job_display/268528/Senior_Engineer_RD_Stryker_Cork_Ireland" },
-    { id: "compumedics", firma: "Compumedics Germany", titel: "Junior Regulatory Affairs Manager (MDR)", ort: "Singen", land: "DE", lat: 47.7593, lng: 8.8403, kat: "ra", status: "offen", top: false,
-      passung: "RA-Einstieg in der Medizintechnik.",
-      hinweis: "38.000–50.000 €/Jahr laut Anzeige, eher niedrig.",
-      url: "https://de.indeed.com/Medizintechnik-Jobs-in-Konstanz" },
-    { id: "roche-rk", firma: "Roche Diagnostics", titel: "Development Engineer (contract), System Development", ort: "Rotkreuz ZG", land: "CH", lat: 47.1426, lng: 8.4315, kat: "ivd", status: "pruefen", top: true,
-      passung: "Diagnostiksysteme für Nukleinsäure-Aufreinigung, PCR und Sequenzierung – sehr nah an der Masterarbeit.",
-      hinweis: "Befristet; Anzeige ist älter – Status im Roche-Portal prüfen.",
-      url: "https://careers.roche.com/global/en/job/ROCHGLOBAL202302103172EXTERNALENGLOBAL/Development-Engineer-contract" },
-    { id: "zuehlke", firma: "Zühlke", titel: "Junior Mechanical Engineer 80–100 % (auch: Plastics)", ort: "Schlieren ZH", land: "CH", lat: 47.3966, lng: 8.4476, kat: "dev", status: "offen", top: true,
-      passung: "Produktentwicklung für Kunden, u. a. Medizintechnik; ISO-13485-zertifizierter Entwicklungspartner.",
-      hinweis: "Verlangt Maschinenbau-Abschluss und CAD/PDM/Simulation – Medizingerätekonstruktion und ANSYS betonen.",
-      url: "https://www.jobscout24.ch/de/jobs-in-schlieren/z%C3%BChlke%20engineering%20ag/" },
-    { id: "tecan", firma: "Tecan", titel: "Mechanical Engineer 80–100 % (R&D) / System Integrator", ort: "Männedorf ZH", land: "CH", lat: 47.2564, lng: 8.6930, kat: "ivd", status: "pruefen", top: false,
-      passung: "Laborautomation und IVD-Geräte in multidisziplinären Teams.",
-      hinweis: "Datum der Anzeigen unklar.",
-      url: "https://ch.indeed.com/Tecan-Jobs-in-M%C3%A4nnedorf,-ZH" },
-    { id: "helbling", firma: "Helbling", titel: "Project Engineer Medical Product and Systems Design", ort: "Zürich (Standort laut Anzeige)", land: "CH", lat: 47.3769, lng: 8.5417, kat: "dev", status: "offen", top: false,
-      passung: "Medizinprodukte von der Spezifikation bis zum Transfer in die Fertigung.",
-      hinweis: "Erfahrungslevel und genauen Standort in der Anzeige prüfen.",
-      url: "https://helbling.ch/de/karriere/jobs" },
-    { id: "hamilton", firma: "Hamilton", titel: "System Engineer 80–100 % (F&E)", ort: "Bonaduz GR", land: "CH", lat: 46.8106, lng: 9.3986, kat: "ivd", status: "offen", top: false,
-      passung: "Pipettierroboter und Laborautomation.",
-      hinweis: "Graubünden – Umzug statt Grenzpendeln.",
-      url: "https://jobs.hamilton.ch/offene-stellen/" },
-    { id: "sentec", firma: "Sentec", titel: "Clinical Application Specialist (Deutschschweiz)", ort: "Raum Basel", land: "CH", lat: 47.5596, lng: 7.5886, kat: "app", status: "offen", top: false,
-      passung: "Applikationsrolle an der Schnittstelle Technik/Klinik.",
-      hinweis: "Viel Kundenkontakt.",
-      url: "https://ch.indeed.com/Medizintechnik-Jobs-in-Basel,-BS" },
-    { id: "stratec-ch", firma: "STRATEC Switzerland", titel: "Initiativbewerbung (Produktionsstandort)", ort: "Beringen SH", land: "CH", lat: 47.6970, lng: 8.5740, kat: "ini", status: "initiativ", top: false,
-      passung: "IVD-Analysesysteme; Fokus Produktion und produktionsnahe Bereiche.",
-      hinweis: "Keine Anzeigen; Bewerbung per E-Mail laut Karriereseite.",
-      url: "https://www.stratec.com/de/career/schweiz/einstiegsmoeglichkeiten" },
-    { id: "tecan-at", firma: "Tecan Austria", titel: "Mechanical Engineer (w/m/d)", ort: "Grödig (Salzburg)", land: "AT", lat: 47.7440, lng: 13.0400, kat: "dev", status: "offen", top: true,
-      passung: "Mechanische Konstruktion von Laborgeräten der Medizintechnik, 3D-Design und Dokumentation. Gefordert sind fundierte Kenntnisse in PTC Creo und Windchill – Creo bringst du mit.",
-      hinweis: "Seit ca. 16.10.2026 online; ab 4.039,55 € brutto/Monat laut Anzeige (in Österreich 14 Gehälter).",
-      url: "https://www.karriere.at/jobs/10034944" },
-    { id: "medel-ce", firma: "MED-EL", titel: "Clinical Engineer (R&D, Elektrodenforschung)", ort: "Innsbruck", land: "AT", lat: 47.2600, lng: 11.3520, kat: "ivd", status: "offen", top: false,
-      passung: "CT-/MRT-Bildanalyse des Innenohrs für die Entwicklung von Cochlea-Implantat-Elektroden; Bachelor oder Master in Medizintechnik genügt – passt zu Biomedizinische Messverfahren und Bildgebung.",
-      hinweis: "Solide CT-Kenntnisse gefordert; ab 54.723,53 € brutto/Jahr.",
-      url: "https://www.karriere.at/jobs/7888966" },
-    { id: "medel-ra", firma: "MED-EL", titel: "Regulatory Affairs Associate", ort: "Innsbruck", land: "AT", lat: 47.2614, lng: 11.3552, kat: "ra", status: "offen", top: false,
-      passung: "Zulassung von Hörimplantaten bei einem großen Medtech-Hersteller.",
-      hinweis: "Mindestens 1 Jahr Berufserfahrung gefordert; ab 47.810,14 € brutto/Jahr.",
-      url: "https://www.karriere.at/jobs/7876381" },
-    { id: "plansee", firma: "Plansee", titel: "Entwicklungsingenieur:in – Produktentwicklung Medizintechnik", ort: "Reutte (Tirol)", land: "AT", lat: 47.4890, lng: 10.7180, kat: "dev", status: "offen", top: false,
-      passung: "Medizinische Werkstoffe und Komponenten für Robotik-Chirurgie und Implantate; Biokompatibilität, Ermüdung, Korrosion – Bezug zu deinem Modul Biomaterialien und Werkstoffe.",
-      hinweis: "Seit 10.09.2026 online; eher für Werkstoff-Erfahrene (Promotion von Vorteil). 60.962–100.000 € brutto/Jahr.",
-      url: "https://www.karriere.at/jobs/7874662" },
-    { id: "stratec-at", firma: "STRATEC Consumables", titel: "Initiativbewerbung (mikrostrukturierte IVD-Verbrauchsmaterialien)", ort: "Anif (Salzburg)", land: "AT", lat: 47.7480, lng: 13.0700, kat: "ini", status: "initiativ", top: false,
-      passung: "Entwickelt und fertigt mikrostrukturierte Kunststoffteile und Consumables für die Diagnostik – nah an Lab-on-Chip.",
-      hinweis: "Keine aktuelle Anzeige gefunden; Kontakt über das Karriereprofil.",
-      url: "https://www.karriere.at/f/stratec-consumables" },
-    { id: "greiner", firma: "Greiner Bio-One", titel: "Initiativbewerbung (F&E Präanalytik / Laborbedarf)", ort: "Kremsmünster (OÖ)", land: "AT", lat: 48.0530, lng: 14.1290, kat: "ini", status: "initiativ", top: false,
-      passung: "Laborverbrauchsmaterial und Präanalytik mit eigener F&E.",
-      hinweis: "Keine passende Einstiegsstelle gefunden; Initiativbewerbung im Portal möglich.",
-      url: "https://jobs.greiner.com/GBO/job/Kremsm%C3%BCnster-Initiativbewerbung-Greiner-Bio-One-4550/953746355/" },
-    { id: "ottobock", firma: "Ottobock", titel: "R&D in Wien beobachten (Research/Development Engineer)", ort: "Wien", land: "AT", lat: 48.1820, lng: 16.4210, kat: "ini", status: "initiativ", top: false,
-      passung: "Prothetik und Orthetik mit großem Entwicklungsstandort in Wien.",
-      hinweis: "Research Engineer und Development Engineer waren zuletzt ausgeschrieben, sind aber abgelaufen – Jobalarm setzen.",
-      url: "https://www.karriere.at/jobs/otto-bock" }
-  ];
+  var ITEMS = [];
+  DATA.jobs.forEach(function (j, i) { j.n = i + 1; j.type = "job"; ITEMS.push(j); });
+  var FIRMS = DATA.firms.filter(function (f) { return !f.hatStellen; });
+  var nOut = FIRMS.filter(function (f) { return f.ausserhalb; }).length;
+  FIRMS.slice().sort(function (a, b) { return (a.ausserhalb ? 1 : 0) - (b.ausserhalb ? 1 : 0) || a.firma.localeCompare(b.firma, "de"); }).forEach(function (f) {
+    f.type = "firm"; f.status = "firma"; f.titel = f.firma; f.top = false; ITEMS.push(f);
+  });
+  ITEMS.forEach(function (x) { x.km = Math.round(haversine(HOME, x)); });
 
-  JOBS.forEach(function (j, i) { j.n = i + 1; j.km = Math.round(haversine(HOME, j)); });
+  var nOpen = DATA.jobs.filter(function (j) { return j.status === "offen"; }).length;
+  var nNew = DATA.jobs.filter(function (j) { return j.status === "offen" && j.seit === DATA.stand; }).length;
+  document.getElementById("sub").textContent =
+    nOpen + " ausgeschriebene Stellen" + (nNew ? " (" + nNew + " neu)" : "") + " · " + (FIRMS.length - nOut) +
+    " Zielfirmen ohne Anzeige in Baden-Württemberg, Bayern, der Schweiz und Österreich · " + nOut +
+    " Firmen außerhalb der Zielregion · Stand " + DATA.stand;
 
   var STORE_KEY = "stellenkarte-beworben-v1";
+  var VIEW_KEY = "stellenkarte-nur-offen-v1";
   var applied = loadApplied();
 
   var state = {
@@ -341,10 +259,11 @@
     land: "alle",
     status: "alle",
     topOnly: false,
+    onlyOpen: loadFlag(),
     active: null
   };
 
-  var map = null, markers = {}, layer = null;
+  var map = null, markers = {}, layer = null, noMap = false;
 
   // ---------- helpers ----------
   function haversine(a, b) {
@@ -355,7 +274,7 @@
     return 2 * R * Math.asin(Math.sqrt(s));
   }
   function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   }
@@ -365,13 +284,27 @@
   function saveApplied() {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(applied)); } catch (e) { /* nicht verfügbar */ }
   }
-  function visible(j) {
-    if (!state.cats[j.kat]) return false;
-    if (state.land !== "alle" && j.land !== state.land) return false;
-    if (state.status !== "alle" && j.status !== state.status) return false;
-    if (state.topOnly && !j.top) return false;
+  function loadFlag() {
+    try { return localStorage.getItem(VIEW_KEY) === "1"; } catch (e) { return false; }
+  }
+  function saveFlag() {
+    try { localStorage.setItem(VIEW_KEY, state.onlyOpen ? "1" : "0"); } catch (e) { /* nicht verfügbar */ }
+  }
+  function pillHtml(x) {
+    var st = STATUS[x.status];
+    if (x.type === "firm" && x.ausserhalb) return '<span class="pill s-firm">Außerhalb Zielregion · nicht geprüft</span>';
+    return '<span class="pill ' + st.cls + '">' + st.label + '</span>' + (x.ausserhalb && x.type === "job" ? ' <span class="pill s-firm">außerhalb</span>' : '');
+  }
+  function isNew(x) { return x.type === "job" && x.status === "offen" && x.seit === DATA.stand; }
+  function visible(x) {
+    if (state.onlyOpen && x.status !== "offen") return false;
+    if (!state.onlyOpen && state.status !== "alle" && x.status !== state.status) return false;
+    if (!state.cats[x.kat]) return false;
+    if (state.land === "out") { if (!x.ausserhalb) return false; }
+    else if (state.land !== "alle" && (x.land !== state.land || x.ausserhalb)) return false;
+    if (state.topOnly && !x.top) return false;
     if (state.q) {
-      var hay = (j.firma + " " + j.titel + " " + j.ort + " " + j.passung + " " + j.hinweis).toLowerCase();
+      var hay = [x.firma, x.titel, x.ort, x.passung, x.hinweis, x.bereich, x.befund].join(" ").toLowerCase();
       if (hay.indexOf(state.q) === -1) return false;
     }
     return true;
@@ -394,6 +327,9 @@
   }
 
   function renderFilters() {
+    var tg = document.getElementById("onlyOpen");
+    tg.setAttribute("aria-checked", state.onlyOpen ? "true" : "false");
+
     var cats = document.getElementById("cats");
     cats.innerHTML = "";
     Object.keys(KAT).forEach(function (k) {
@@ -404,95 +340,149 @@
 
     var lands = document.getElementById("lands");
     lands.innerHTML = "";
-    [["alle", "Alle Regionen"], ["DE", "Deutschland"], ["CH", "Schweiz"], ["AT", "Österreich"]].forEach(function (p) {
+    [["alle", "Alle Regionen"], ["DE", "Deutschland"], ["CH", "Schweiz"], ["AT", "Österreich"], ["out", "Außerhalb Zielregion"]].forEach(function (p) {
       lands.appendChild(chip(p[1], state.land === p[0], function () { state.land = p[0]; update(true); }, { seg: true }));
     });
     lands.appendChild(chip("★ Nur Top-Treffer", state.topOnly, function () { state.topOnly = !state.topOnly; update(true); }, { seg: true }));
 
     var stats = document.getElementById("stats");
     stats.innerHTML = "";
-    [["alle", "Jeder Status"], ["offen", "Ausgeschrieben"], ["pruefen", "Status prüfen"], ["initiativ", "Initiativ"]].forEach(function (p) {
+    stats.className = "row" + (state.onlyOpen ? " disabled" : "");
+    [["alle", "Alles"], ["offen", "Ausgeschrieben"], ["pruefen", "Status prüfen"], ["initiativ", "Initiativ"], ["firma", "Zielfirmen"]].forEach(function (p) {
       stats.appendChild(chip(p[1], state.status === p[0], function () { state.status = p[0]; update(true); }, { seg: true }));
     });
   }
+
+  function toggleOnlyOpen() {
+    state.onlyOpen = !state.onlyOpen;
+    saveFlag();
+    update(true);
+  }
+  var tgEl = document.getElementById("onlyOpen");
+  tgEl.addEventListener("click", toggleOnlyOpen);
+  tgEl.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleOnlyOpen(); }
+  });
 
   // ---------- list ----------
   function renderList(items) {
     var list = document.getElementById("list");
     list.innerHTML = "";
-    var doneCount = items.filter(function (j) { return applied[j.id]; }).length;
+    var nJobs = items.filter(function (x) { return x.type === "job"; }).length;
+    var nFirms = items.length - nJobs;
+    var doneCount = items.filter(function (x) { return applied[x.id]; }).length;
     document.getElementById("count").textContent =
-      items.length + " von " + JOBS.length + " Einträgen" + (doneCount ? " · " + doneCount + " als beworben markiert" : "");
+      nJobs + (nJobs === 1 ? " Stelle" : " Stellen") + (nFirms ? " · " + nFirms + " Firmen ohne Anzeige" : "") +
+      (doneCount ? " · " + doneCount + " als beworben markiert" : "");
 
     if (!items.length) {
       list.innerHTML = '<div class="empty">Keine Einträge für diese Filter.</div>';
       return;
     }
-    items.forEach(function (j) {
-      var c = KAT[j.kat].color, st = STATUS[j.status];
+    items.forEach(function (x) {
+      var c = KAT[x.kat].color, st = STATUS[x.status], firm = x.type === "firm";
       var card = document.createElement("div");
-      card.className = "card" + (state.active === j.id ? " active" : "") + (applied[j.id] ? " done" : "");
+      card.className = "card" + (firm ? " firm" : "") + (state.active === x.id ? " active" : "") + (applied[x.id] ? " done" : "") + (noMap && state.active === x.id ? " open" : "");
       card.setAttribute("role", "button");
       card.tabIndex = 0;
+      card.dataset.id = x.id;
       card.innerHTML =
-        '<div class="num' + (j.top ? " top" : "") + '" style="--c:' + c + '">' + j.n + '</div>' +
+        (firm ? '<div class="num firm' + (x.ausserhalb ? ' out' : '') + '" style="--c:' + c + '"></div>'
+              : '<div class="num' + (x.top ? " top" : "") + '" style="--c:' + c + '">' + x.n + '</div>') +
         '<div>' +
-          '<div class="title">' + esc(j.titel) + '</div>' +
-          '<div class="meta">' + esc(j.firma) + ' · ' + esc(j.ort) + ' · ca. ' + j.km + ' km</div>' +
+          '<div class="title">' + esc(x.titel) + '</div>' +
+          '<div class="meta">' + (firm ? esc(x.bereich) : esc(x.firma)) + ' · ' + esc(x.ort) + ' · ca. ' + x.km + ' km</div>' +
           '<div class="tags">' +
-            '<span class="pill ' + st.cls + '">' + st.label + '</span>' +
-            (j.top ? '<span class="star">★ Top-Treffer</span>' : '') +
-            '<label class="applied"><input type="checkbox"' + (applied[j.id] ? " checked" : "") + '> beworben</label>' +
+            pillHtml(x) +
+            (isNew(x) ? '<span class="neu">NEU</span>' : '') +
+            (x.top ? '<span class="star">★ Top-Treffer</span>' : '') +
+            '<label class="applied"><input type="checkbox"' + (applied[x.id] ? " checked" : "") + '> ' + (firm ? "kontaktiert" : "beworben") + '</label>' +
           '</div>' +
-        '</div>';
+        '</div>' +
+        '<div class="detail">' + detailHtml(x) + '</div>';
       card.addEventListener("click", function (e) {
-        if (e.target.closest(".applied")) return;
-        focusJob(j.id);
+        if (e.target.closest(".applied") || e.target.closest(".detail")) return;
+        focusItem(x.id);
       });
       card.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); focusJob(j.id); }
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); focusItem(x.id); }
       });
       card.querySelector(".applied input").addEventListener("change", function (e) {
-        if (e.target.checked) applied[j.id] = true; else delete applied[j.id];
+        if (e.target.checked) applied[x.id] = true; else delete applied[x.id];
         saveApplied(); update(false);
       });
       list.appendChild(card);
     });
   }
 
-  // ---------- map ----------
-  function popupHtml(j) {
-    var st = STATUS[j.status];
-    var dest = j.lat + "," + j.lng;
-    return '<div class="pop">' +
-      '<h3>' + esc(j.titel) + '</h3>' +
-      '<div class="firm">' + esc(j.firma) + ' · ' + esc(j.ort) + ' · ca. ' + j.km + ' km Luftlinie</div>' +
-      '<span class="pill ' + st.cls + '">' + st.label + '</span>' +
-      '<p><span class="lbl">Passung:</span> ' + esc(j.passung) + '</p>' +
-      (j.hinweis ? '<p><span class="lbl">Zu beachten:</span> ' + esc(j.hinweis) + '</p>' : '') +
-      '<div class="links">' +
-        '<a class="primary" href="' + esc(j.url) + '" target="_blank" rel="noopener">Anzeige öffnen ↗</a>' +
-        '<a href="https://www.google.com/maps/dir/?api=1&origin=Stuttgart&destination=' + dest + '" target="_blank" rel="noopener">Route ab Stuttgart</a>' +
-        '<a href="https://www.google.com/maps/search/?api=1&query=' + dest + '" target="_blank" rel="noopener">Google Maps</a>' +
-      '</div></div>';
+  function detailHtml(x) {
+    var a = '<div class="dlinks"><a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (x.type === "firm" ? "Karriereseite suchen ↗" : "Anzeige öffnen ↗") + '</a>' +
+      '<a href="https://www.google.com/maps/dir/?api=1&origin=Stuttgart&destination=' + x.lat + ',' + x.lng + '" target="_blank" rel="noopener">Route ab Stuttgart</a></div>';
+    if (x.type === "firm") {
+      return '<p><span class="lbl">Schwerpunkt:</span> ' + esc(x.bereich) + '</p><p><span class="lbl">Stand ' + esc(DATA.stand) + ':</span> ' + esc(x.befund) + '</p>' + a;
+    }
+    return '<p><span class="lbl">Passung:</span> ' + esc(x.passung) + '</p>' + (x.hinweis ? '<p><span class="lbl">Zu beachten:</span> ' + esc(x.hinweis) + '</p>' : '') + a;
   }
 
-  function makeIcon(j) {
+  // ---------- map ----------
+  function links(x) {
+    var dest = x.lat + "," + x.lng;
+    return '<div class="links">' +
+      '<a class="primary" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (x.type === "firm" ? "Karriereseite suchen ↗" : "Anzeige öffnen ↗") + '</a>' +
+      '<a href="https://www.google.com/maps/dir/?api=1&origin=Stuttgart&destination=' + dest + '" target="_blank" rel="noopener">Route ab Stuttgart</a>' +
+      '</div>';
+  }
+  function popupHtml(x) {
+    var st = STATUS[x.status];
+    if (x.type === "firm") {
+      return '<div class="pop">' +
+        '<h3>' + esc(x.firma) + '</h3>' +
+        '<div class="firm">' + esc(x.ort) + ' · ca. ' + x.km + ' km Luftlinie</div>' +
+        pillHtml(x) +
+        '<p><span class="lbl">Schwerpunkt:</span> ' + esc(x.bereich) + '</p>' +
+        '<p><span class="lbl">Stand ' + esc(DATA.stand) + ':</span> ' + esc(x.befund) + '</p>' +
+        '<p style="color:#5d6877;font-size:12px">Quelle: ' + esc(x.quelle) + '</p>' +
+        links(x) + '</div>';
+    }
+    return '<div class="pop">' +
+      '<h3>' + esc(x.titel) + '</h3>' +
+      '<div class="firm">' + esc(x.firma) + ' · ' + esc(x.ort) + ' · ca. ' + x.km + ' km Luftlinie</div>' +
+      pillHtml(x) + (isNew(x) ? ' <span class="neu">NEU</span>' : '') +
+      '<p><span class="lbl">Passung:</span> ' + esc(x.passung) + '</p>' +
+      (x.hinweis ? '<p><span class="lbl">Zu beachten:</span> ' + esc(x.hinweis) + '</p>' : '') +
+      links(x) + '</div>';
+  }
+
+  function makeIcon(x) {
+    if (x.type === "firm") {
+      return L.divIcon({
+        className: "",
+        html: '<div class="fpin' + (x.ausserhalb ? ' out' : '') + '" style="--c:' + KAT[x.kat].color + '"></div>',
+        iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8]
+      });
+    }
     return L.divIcon({
       className: "",
-      html: '<div class="pin' + (j.top ? " top" : "") + '" style="--c:' + KAT[j.kat].color + '"><span>' + j.n + '</span></div>',
-      iconSize: [28, 28],
-      iconAnchor: [14, 28],
-      popupAnchor: [0, -26]
+      html: '<div class="pin' + (x.top ? " top" : "") + '" style="--c:' + KAT[x.kat].color + '"><span>' + x.n + '</span></div>',
+      iconSize: [28, 28], iconAnchor: [14, 28], popupAnchor: [0, -26]
     });
   }
 
+  function leafletStylesLoaded() {
+    var probe = document.createElement("div");
+    probe.className = "leaflet-pane";
+    document.body.appendChild(probe);
+    var ok = getComputedStyle(probe).position === "absolute";
+    probe.remove();
+    return ok;
+  }
   function initMap() {
-    if (typeof L === "undefined") {
-      document.getElementById("mapError").style.display = "grid";
+    if (typeof L === "undefined" || !leafletStylesLoaded()) {
+      noMap = true;
+      document.querySelector(".app").classList.add("nomap");
       return;
     }
-    map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([48.2, 8.7], 7);
+    map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([48.2, 9.5], 7);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'
@@ -501,23 +491,24 @@
     L.marker([HOME.lat, HOME.lng], {
       icon: L.divIcon({ className: "", html: '<div class="home"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }),
       zIndexOffset: -100
-    }).addTo(map).bindTooltip("Stuttgart (Wohnort)", { direction: "top", offset: [0, -8] });
+    }).addTo(map).bindTooltip(HOME.name, { direction: "top", offset: [0, -8] });
 
     layer = L.layerGroup().addTo(map);
-    JOBS.forEach(function (j) {
-      var m = L.marker([j.lat, j.lng], { icon: makeIcon(j), zIndexOffset: j.top ? 500 : 0, title: j.firma + " – " + j.titel });
-      m.bindPopup(popupHtml(j), { maxWidth: 320 });
-      m.on("click", function () { setActive(j.id, false); });
-      markers[j.id] = m;
+    ITEMS.forEach(function (x) {
+      var z = x.type === "firm" ? -50 : (x.top ? 500 : 100);
+      var m = L.marker([x.lat, x.lng], { icon: makeIcon(x), zIndexOffset: z, title: x.type === "firm" ? x.firma : x.firma + " – " + x.titel });
+      m.bindPopup(popupHtml(x), { maxWidth: 320 });
+      m.on("click", function () { setActive(x.id, true); });
+      markers[x.id] = m;
     });
   }
 
   function syncMarkers(items, fit) {
     if (!map) return;
     layer.clearLayers();
-    items.forEach(function (j) { layer.addLayer(markers[j.id]); });
+    items.forEach(function (x) { layer.addLayer(markers[x.id]); });
     if (fit && items.length) {
-      var pts = items.map(function (j) { return [j.lat, j.lng]; });
+      var pts = items.map(function (x) { return [x.lat, x.lng]; });
       pts.push([HOME.lat, HOME.lng]);
       map.fitBounds(L.latLngBounds(pts), { padding: [40, 40], maxZoom: 10 });
     }
@@ -525,26 +516,29 @@
 
   function setActive(id, scroll) {
     state.active = id;
-    var cards = document.querySelectorAll(".card");
-    var items = JOBS.filter(visible);
-    cards.forEach(function (c, i) {
-      var on = items[i] && items[i].id === id;
+    document.querySelectorAll(".card").forEach(function (c) {
+      var on = c.dataset.id === id;
       c.classList.toggle("active", on);
       if (on && scroll) c.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
   }
 
-  function focusJob(id) {
-    var j = JOBS.filter(function (x) { return x.id === id; })[0];
+  function focusItem(id) {
+    var x = ITEMS.filter(function (y) { return y.id === id; })[0];
+    if (noMap) {
+      state.active = state.active === id ? null : id;
+      update(false);
+      return;
+    }
     setActive(id, false);
     if (!map) return;
     if (window.matchMedia("(max-width: 820px)").matches) window.scrollTo({ top: 0, behavior: "smooth" });
-    map.flyTo([j.lat, j.lng], Math.max(map.getZoom(), 11), { duration: 0.6 });
+    map.flyTo([x.lat, x.lng], Math.max(map.getZoom(), 11), { duration: 0.6 });
     markers[id].openPopup();
   }
 
   function update(fit) {
-    var items = JOBS.filter(visible);
+    var items = ITEMS.filter(visible);
     renderFilters();
     renderList(items);
     syncMarkers(items, fit);
