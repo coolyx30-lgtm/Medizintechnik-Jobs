@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stellenkarte Medizintechnik</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --text: #18202b;
+    --muted: #5d6877;
+    --line: #e2e6ec;
+    --chip: #eef1f5;
+    --accent: #1f6feb;
+    --open: #15803d;
+    --open-bg: #e7f6ec;
+    --check: #b45309;
+    --check-bg: #fdf3e2;
+    --ini: #475569;
+    --ini-bg: #eef1f5;
+    --shadow: 0 1px 2px rgba(16,24,40,.06), 0 4px 16px rgba(16,24,40,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1419;
+      --panel: #171d24;
+      --text: #e6e9ee;
+      --muted: #9aa5b4;
+      --line: #2a323c;
+      --chip: #212932;
+      --accent: #4c94ff;
+      --open: #4ade80;
+      --open-bg: #133122;
+      --check: #fbbf24;
+      --check-bg: #3a2c10;
+      --ini: #cbd5e1;
+      --ini-bg: #252d37;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  .app { display: grid; grid-template-columns: 400px 1fr; height: 100vh; }
+  .side { display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-right: 1px solid var(--line); }
+  header { padding: 18px 18px 12px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 19px; margin: 0 0 2px; letter-spacing: -.01em; }
+  .sub { color: var(--muted); font-size: 13px; }
+  .filters { padding: 12px 18px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+  .search {
+    width: 100%; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--text); font-size: 15px;
+  }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--chip); color: var(--text); font-size: 13px; cursor: pointer;
+    user-select: none;
+  }
+  .chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+  .chip[aria-pressed="false"] { opacity: .45; }
+  .chip.seg[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; opacity: 1; }
+  .chip.seg[aria-pressed="false"] { opacity: 1; }
+  .count { color: var(--muted); font-size: 13px; padding: 8px 18px 0; }
+  .list { overflow-y: auto; padding: 8px 12px 18px; min-height: 0; }
+  .card {
+    display: grid; grid-template-columns: 30px 1fr; gap: 10px; padding: 12px; margin: 6px 0;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--panel); cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .card:hover, .card.active { border-color: var(--accent); box-shadow: var(--shadow); }
+  .card.done { opacity: .6; }
+  .num {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--c); color: #fff;
+    display: grid; place-items: center; font-weight: 600; font-size: 13px;
+  }
+  .num.top { box-shadow: 0 0 0 3px var(--panel), 0 0 0 5px #f59e0b; }
+  .title { font-weight: 600; font-size: 14.5px; }
+  .meta { color: var(--muted); font-size: 13px; margin-top: 1px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; align-items: center; }
+  .pill { font-size: 12px; padding: 2px 8px; border-radius: 999px; font-weight: 500; }
+  .s-open { color: var(--open); background: var(--open-bg); }
+  .s-check { color: var(--check); background: var(--check-bg); }
+  .s-ini { color: var(--ini); background: var(--ini-bg); }
+  .star { font-size: 12px; color: #b45309; font-weight: 600; }
+  .applied { margin-left: auto; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+  .applied input { margin: 0; accent-color: var(--accent); }
+  .empty { color: var(--muted); padding: 24px 8px; text-align: center; }
+  .foot { color: var(--muted); font-size: 12px; padding: 10px 18px 14px; border-top: 1px solid var(--line); }
+  #map { height: 100%; width: 100%; background: var(--bg); }
+  .map-wrap { position: relative; min-height: 0; }
+  .map-error {
+    position: absolute; inset: 0; display: none; place-items: center; text-align: center; padding: 24px; color: var(--muted);
+  }
+  .pin {
+    width: 28px; height: 28px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+    background: var(--c); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.35);
+    display: grid; place-items: center;
+  }
+  .pin span { transform: rotate(45deg); color: #fff; font: 600 12px/1 -apple-system, Segoe UI, Roboto, sans-serif; }
+  .pin.top { border-color: #f59e0b; border-width: 3px; }
+  .home {
+    width: 16px; height: 16px; border-radius: 50%; background: var(--text); border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--text);
+  }
+  .leaflet-popup-content { margin: 12px 14px; font: 14px/1.45 -apple-system, Segoe UI, Roboto, sans-serif; }
+  .pop h3 { margin: 0 0 2px; font-size: 15px; }
+  .pop .firm { color: #5d6877; font-size: 13px; margin-bottom: 8px; }
+  .pop p { margin: 6px 0; }
+  .pop .lbl { font-weight: 600; }
+  .pop .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .pop .links a {
+    text-decoration: none; padding: 6px 10px; border-radius: 8px; font-size: 13px; font-weight: 500;
+    border: 1px solid #d0d7e2; color: #1f6feb;
+  }
+  .pop .links a.primary { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+  @media (max-width: 820px) {
+    .app { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
+    .map-wrap { order: -1; height: 52vh; position: sticky; top: 0; z-index: 5; border-bottom: 1px solid var(--line); }
+    .side { border-right: 0; }
+    .list { overflow: visible; }
+    header { padding: 14px 16px 10px; }
+    .filters, .count, .foot { padding-left: 16px; padding-right: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <header>
+      <h1>Stellenkarte Medizintechnik</h1>
+      <div class="sub">Einstiegsstellen und Zielfirmen in Baden-Württemberg, der Grenzregion Schweiz und Österreich · inklusive Siemens Healthineers und Roche · Stand 20.10.2026</div>
+    </header>
+    <div class="filters">
+      <input id="q" class="search" type="search" placeholder="Suchen (Firma, Ort, Stichwort) …" aria-label="Suchen">
+      <div class="row" id="cats" aria-label="Kategorien"></div>
+      <div class="row" id="lands" aria-label="Land"></div>
+      <div class="row" id="stats" aria-label="Status"></div>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="list" id="list"></div>
+    <div class="foot">Angaben aus Jobbörsen und Karriereseiten. Vor jeder Bewerbung im Portal der Firma prüfen, ob die Stelle noch offen ist. Entfernungen = Luftlinie ab Stuttgart.</div>
+  </aside>
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="map-error" id="mapError">Die Karte konnte nicht geladen werden (keine Internetverbindung?). Die Liste links funktioniert trotzdem.</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var HOME = { lat: 48.7758, lng: 9.1829, name: "Stuttgart" };
+
+  var KAT = {
+    dev: { label: "Entwicklung & Konstruktion", color: "#2563eb" },
+    ivd: { label: "IVD, Labor & Forschung", color: "#0d9488" },
+    phd: { label: "Promotion", color: "#7c3aed" },
+    ra:  { label: "Regulatory & Zertifizierung", color: "#d97706" },
+    app: { label: "Applikation & Usability", color: "#db2777" },
+    ini: { label: "Trainee & Initiativ", color: "#64748b" }
+  };
+
+  var STATUS = {
+    offen:     { label: "Ausgeschrieben", cls: "s-open" },
+    pruefen:   { label: "Status prüfen", cls: "s-check" },
+    initiativ: { label: "Initiativ / Programm", cls: "s-ini" }
+  };
+
+  var JOBS = [
+    { id: "bosch-phd-mdx", firma: "Bosch Corporate Research", titel: "PhD – Lab-on-Chip-Probenvorbereitung für molekulare Diagnostik", ort: "Renningen", land: "DE", lat: 48.7663, lng: 8.9366, kat: "phd", status: "offen", top: true,
+      passung: "Mikrofluidische Probenvorbereitung mit Magnetbeads, Multiphysik-Modelle (z. B. COMSOL), Prototypen – direkte Fortsetzung der Masterarbeit am selben Campus.",
+      hinweis: "Start Oktober 2026, Bewerbungen werden fortlaufend geprüft. Betreuer in Renningen direkt ansprechen.",
+      url: "https://www.glassdoor.de/job-listing/phd-lab-on-chip-sample-preparation-for-next-generation-molecular-diagnostics-bosch-JV_IC2684212_KO0,76_KE77,82.htm?jl=1010206839002" },
+    { id: "bosch-phd-cells", firma: "Bosch Corporate Research", titel: "PhD – Lab-on-a-Chip-Komponente zur Analyse und Sortierung einzelner Zellen", ort: "Renningen", land: "DE", lat: 48.7676, lng: 8.9410, kat: "phd", status: "offen", top: true,
+      passung: "Lab-on-Chip und Zellbiologie – verbindet Masterarbeit und Bachelorarbeit im Zelllabor.",
+      hinweis: "Zweite Bosch-Promotion am Campus Renningen; Details in der Anzeige prüfen.",
+      url: "https://de.indeed.com/Microfluidic-Jobs" },
+    { id: "acandis", firma: "Acandis", titel: "(Junior) Entwicklungsingenieur Medizintechnik", ort: "Pforzheim", land: "DE", lat: 48.9036, lng: 8.6650, kat: "dev", status: "offen", top: true,
+      passung: "Medizintechnik zur Schlaganfallbehandlung, ausdrücklich auch für Berufseinsteiger; Produktentwicklung bis zur Serienreife.",
+      hinweis: "Oft wird SolidWorks verlangt – Creo als übertragbar darstellen.",
+      url: "https://www.stepstone.de/jobs/ingenieur-in-medizintechnik/in-baden-w%C3%BCrttemberg" },
+    { id: "bhcs-ra", firma: "Bosch Healthcare Solutions", titel: "Regulatory Affairs Specialist", ort: "Waiblingen", land: "DE", lat: 48.8303, lng: 9.3169, kat: "ra", status: "offen", top: true,
+      passung: "Unternehmen und Vivalytic-Umfeld aus dem Praktikum bekannt.",
+      hinweis: "Kürzlich auf LinkedIn ausgeschrieben; Status im Bosch-Portal prüfen.",
+      url: "https://de.linkedin.com/jobs/bosch-healthcare-stellen" },
+    { id: "kimetec", firma: "Kimetec", titel: "Entwicklungsingenieur Elektrotechnik / Medizintechnik", ort: "Ditzingen", land: "DE", lat: 48.8262, lng: 9.0670, kat: "dev", status: "offen", top: false,
+      passung: "Medizintechnik-Unternehmen, Festanstellung in der Region Stuttgart.",
+      hinweis: "",
+      url: "https://www.stepstone.de/jobs/entwicklungsingenieur-in/in-stuttgart?q=Entwicklungsingenieur%2Fin" },
+    { id: "ferchau-rt", firma: "FERCHAU", titel: "Junior Entwicklungsingenieur Medizintechnik", ort: "Reutlingen", land: "DE", lat: 48.4920, lng: 9.2110, kat: "dev", status: "offen", top: false,
+      passung: "Medizinische Einmalprodukte, 3D-Modelle, Laborversuche und Zulassungstests.",
+      hinweis: "Engineering-Dienstleister – Einsatz beim Kunden.",
+      url: "https://www.ferchau.com/de/de/bewerber/jobs/289788/junior-entwicklungsingenieur-medizintechnik" },
+    { id: "ferchau-bb", firma: "FERCHAU", titel: "Junior Entwicklungsingenieur Medizintechnik", ort: "Böblingen", land: "DE", lat: 48.6856, lng: 9.0115, kat: "dev", status: "offen", top: false,
+      passung: "Entwicklung und Tests von Medizinprodukten bis zur Serienproduktion.",
+      hinweis: "Dienstleister; SolidWorks bevorzugt.",
+      url: "https://touch.ferchau.com/de/en/job/396226/junior-entwicklungsingenieur-medizintechnik" },
+    { id: "ferchau-hn", firma: "FERCHAU", titel: "Junior Entwicklungsingenieur Medizintechnik", ort: "Heilbronn", land: "DE", lat: 49.1427, lng: 9.2109, kat: "dev", status: "offen", top: false,
+      passung: "Medizinische Einmalprodukte, Laborversuche, Validierungskonzepte.",
+      hinweis: "Dienstleister – Einsatz beim Kunden.",
+      url: "https://www.ferchau.com/de/de/bewerber/jobs/400351/junior-entwicklungsingenieur-medizintechnik" },
+    { id: "schuler", firma: "Schuler Konstruktionen", titel: "Konstrukteur für den Berufseinstieg (Förderprogramm)", ort: "Filderstadt", land: "DE", lat: 48.6650, lng: 9.2190, kat: "dev", status: "offen", top: false,
+      passung: "Entwicklung und Konstruktion, u. a. im Fachbereich Medizintechnik.",
+      hinweis: "Engineering-Dienstleister.",
+      url: "https://de.indeed.com/Ingenieur-Medizintechnik-Jobs-in-Stuttgart" },
+    { id: "useing", firma: "USE-Ing.", titel: "Medical Usability Engineer / Human Factors Engineer", ort: "Stuttgart", land: "DE", lat: 48.7700, lng: 9.1650, kat: "app", status: "offen", top: false,
+      passung: "Usability und Human Factors für Medizinprodukte.",
+      hinweis: "Dienstleister.",
+      url: "https://www.stepstone.de/jobs/medizintechnik-ingenieur" },
+    { id: "mdc", firma: "mdc medical device certification", titel: "Projektkoordinator / Projektleiter Zertifizierungsverfahren", ort: "Stuttgart", land: "DE", lat: 48.7860, lng: 9.1790, kat: "ra", status: "offen", top: false,
+      passung: "Benannte Stelle für Medizinprodukte und In-vitro-Diagnostika.",
+      hinweis: "",
+      url: "https://www.stepstone.de/jobs/junior-regulatory-affairs-manager/in-stuttgart" },
+    { id: "stratec", firma: "STRATEC", titel: "Biologe / Physiker / Ingenieur (m/w/d)", ort: "Birkenfeld", land: "DE", lat: 48.8632, lng: 8.5777, kat: "ivd", status: "pruefen", top: false,
+      passung: "Interdisziplinäres Team, neue Technologien für die In-vitro-Diagnostik ab dem Konzept.",
+      hinweis: "Anzeige taucht wiederholt auf, Status unklar. Initiativbewerbung möglich.",
+      url: "https://www.stratec.com/career/germany/jobs" },
+    { id: "nmi", firma: "NMI", titel: "Applikationsspezialist/Ingenieur Biomedizin und Materialwissenschaften", ort: "Reutlingen", land: "DE", lat: 48.4862, lng: 9.1958, kat: "ivd", status: "pruefen", top: false,
+      passung: "Forschungsinstitut an der Schnittstelle Biomedizin/Technik.",
+      hinweis: "Datum der Anzeige unklar.",
+      url: "http://www.nmi.de/aktuell/aktuell/jobs/praxissemester-hiwi-praktikum/praktikum-oder-praxissemester-am-nmi-reutlingen-kopie-1/" },
+    { id: "roche-ma", firma: "Roche Diagnostics (über Franz & Wach)", titel: "Development Engineer / Scientist", ort: "Mannheim", land: "DE", lat: 49.5375, lng: 8.4930, kat: "ivd", status: "offen", top: false,
+      passung: "Versuchsprogramme und Messungen in der Diagnostik-Entwicklung.",
+      hinweis: "Arbeitnehmerüberlassung mit Ziel Übernahme, ausgeschrieben am 06.10.2026.",
+      url: "https://www.franz-wach.de/stellenangebote/38972-development-engineer-scientist-roche-mannheim/" },
+    { id: "roche-teclab", firma: "Roche Diagnostics (Karriereseite)", titel: "Equipment Development Engineer (m/w/d) – TecLab", ort: "Mannheim", land: "DE", lat: 49.4875, lng: 8.4660, kat: "dev", status: "pruefen", top: true,
+      passung: "Geräte- und Equipmententwicklung bei Roche, Master wird verlangt.",
+      hinweis: "Über Aggregator gefunden, kein Datum und keine Erfahrungsangabe sichtbar. Im Roche-Portal nach „TecLab“ suchen.",
+      url: "https://careers.roche.com/global/en/germany" },
+    { id: "roche-startup", firma: "Roche (Karriereseite)", titel: "StartUp Germany Development Programme / Entry-level positions", ort: "Mannheim", land: "DE", lat: 49.4890, lng: 8.4700, kat: "ini", status: "initiativ", top: false,
+      passung: "Einstiegsprogramm für Absolventen in Deutschland, Standorte laut Roche unter anderem Mannheim und Penzberg.",
+      hinweis: "Bewerbungsfenster und Fachrichtungen stehen nicht auf der Seite. Direkt bei Roche erfragen.",
+      url: "https://careers.roche.com/global/en/welcome-to-roche-after-your-studies" },
+    { id: "roche-pb", firma: "Roche Diagnostics (Karriereseite)", titel: "Plant Engineer / Betriebsingenieur R&D und diagnostische Produktion (2 Stellen)", ort: "Penzberg", land: "DE", lat: 47.7514, lng: 11.3750, kat: "dev", status: "pruefen", top: false,
+      passung: "Anlagen für Entwicklung und Produktion diagnostischer Produkte in Bayern.",
+      hinweis: "Anzeige ca. 12 Tage alt. Level aus dem Titel geschätzt, Berufserfahrung wahrscheinlich gefordert.",
+      url: "https://careers.roche.com/global/en/germany" },
+    { id: "shs-pruef", firma: "Siemens Healthineers (Karriereportal)", titel: "Prüfingenieur*in (f/m/d), Junior, 2 Jahre befristet", ort: "Erlangen", land: "DE", lat: 49.5897, lng: 11.0078, kat: "dev", status: "offen", top: true,
+      passung: "Junior-Position im Testing von Medizinprodukten, direkter Einstieg bei Siemens Healthineers.",
+      hinweis: "Anzeige ca. 14 Tage alt. Befristet auf zwei Jahre. Im Portal nach „Prüfingenieur“ suchen.",
+      url: "https://jobs.siemens-healthineers.com/careers?location=Erlangen" },
+    { id: "shs-ui", firma: "Siemens Healthineers (Karriereportal)", titel: "Software Developer (f/m/d) for User Interfaces", ort: "Forchheim", land: "DE", lat: 49.7186, lng: 11.0586, kat: "dev", status: "pruefen", top: false,
+      passung: "Software für Bedienoberflächen von Röntgen- und CT-Systemen, passt nur bei Softwareinteresse.",
+      hinweis: "Anzeige ca. 7 Tage alt. Anforderungen und Erfahrungslevel in der Anzeige prüfen.",
+      url: "https://jobs.siemens-healthineers.com/careers?location=Forchheim" },
+    { id: "shs-po", firma: "Siemens Healthineers (Karriereportal)", titel: "R&D Product Owner für Röntgengeneratoren, Computertomographie", ort: "Forchheim", land: "DE", lat: 49.7230, lng: 11.0500, kat: "dev", status: "pruefen", top: false,
+      passung: "Produktverantwortung in der CT-Entwicklung.",
+      hinweis: "Anzeige ca. 11 Tage alt. Product-Owner-Rollen verlangen meist Erfahrung, Einstieg im Gespräch klären.",
+      url: "https://jobs.siemens-healthineers.com/careers?location=Forchheim" },
+    { id: "bbraun", firma: "B. Braun / Aesculap", titel: "Traineeprogramm (18 Monate)", ort: "Tuttlingen", land: "DE", lat: 47.9847, lng: 8.8170, kat: "ini", status: "initiativ", top: false,
+      passung: "Projekte in verschiedenen Abteilungen mit Mentoren.",
+      hinweis: "Konzernweites Programm; Einsatzorte in der Ausschreibung prüfen.",
+      url: "https://www.bbraun.de/de/karriere/karrieremoeglichkeiten/jobs-und-karriere/traineeprogramme.html" },
+    { id: "hahn", firma: "Hahn-Schickard", titel: "Initiativbewerbung Mikrofluidik / Lab-on-a-Chip", ort: "Freiburg", land: "DE", lat: 48.0127, lng: 7.8330, kat: "ini", status: "initiativ", top: false,
+      passung: "Mikrofluidische Analysesysteme, Point-of-Care-Diagnostik, Lab-on-a-Chip.",
+      hinweis: "Aktuell keine passende Festanstellung gefunden; Initiativbewerbung ausdrücklich erwünscht.",
+      url: "https://jobs.hahn-schickard.de/job-initiativbewerbung-wissenschaftliche-technische-kaufmaennische-mitarbeiter-innen-m-w-d-freiburg-im-breisgau-1864.html" },
+    { id: "stryker", firma: "Stryker", titel: "(Senior) Project Engineer R&D", ort: "Freiburg", land: "DE", lat: 47.9990, lng: 7.8020, kat: "dev", status: "offen", top: false,
+      passung: "Implantat- und Instrumentendesign bis zur Markteinführung.",
+      hinweis: "Junior-Einstieg im Gespräch klären.",
+      url: "https://www.euroengineerjobs.com/job_display/268528/Senior_Engineer_RD_Stryker_Cork_Ireland" },
+    { id: "compumedics", firma: "Compumedics Germany", titel: "Junior Regulatory Affairs Manager (MDR)", ort: "Singen", land: "DE", lat: 47.7593, lng: 8.8403, kat: "ra", status: "offen", top: false,
+      passung: "RA-Einstieg in der Medizintechnik.",
+      hinweis: "38.000–50.000 €/Jahr laut Anzeige, eher niedrig.",
+      url: "https://de.indeed.com/Medizintechnik-Jobs-in-Konstanz" },
+    { id: "roche-rk", firma: "Roche Diagnostics", titel: "Development Engineer (contract), System Development", ort: "Rotkreuz ZG", land: "CH", lat: 47.1426, lng: 8.4315, kat: "ivd", status: "pruefen", top: true,
+      passung: "Diagnostiksysteme für Nukleinsäure-Aufreinigung, PCR und Sequenzierung – sehr nah an der Masterarbeit.",
+      hinweis: "Befristet; Anzeige ist älter – Status im Roche-Portal prüfen.",
+      url: "https://careers.roche.com/global/en/job/ROCHGLOBAL202302103172EXTERNALENGLOBAL/Development-Engineer-contract" },
+    { id: "zuehlke", firma: "Zühlke", titel: "Junior Mechanical Engineer 80–100 % (auch: Plastics)", ort: "Schlieren ZH", land: "CH", lat: 47.3966, lng: 8.4476, kat: "dev", status: "offen", top: true,
+      passung: "Produktentwicklung für Kunden, u. a. Medizintechnik; ISO-13485-zertifizierter Entwicklungspartner.",
+      hinweis: "Verlangt Maschinenbau-Abschluss und CAD/PDM/Simulation – Medizingerätekonstruktion und ANSYS betonen.",
+      url: "https://www.jobscout24.ch/de/jobs-in-schlieren/z%C3%BChlke%20engineering%20ag/" },
+    { id: "tecan", firma: "Tecan", titel: "Mechanical Engineer 80–100 % (R&D) / System Integrator", ort: "Männedorf ZH", land: "CH", lat: 47.2564, lng: 8.6930, kat: "ivd", status: "pruefen", top: false,
+      passung: "Laborautomation und IVD-Geräte in multidisziplinären Teams.",
+      hinweis: "Datum der Anzeigen unklar.",
+      url: "https://ch.indeed.com/Tecan-Jobs-in-M%C3%A4nnedorf,-ZH" },
+    { id: "helbling", firma: "Helbling", titel: "Project Engineer Medical Product and Systems Design", ort: "Zürich (Standort laut Anzeige)", land: "CH", lat: 47.3769, lng: 8.5417, kat: "dev", status: "offen", top: false,
+      passung: "Medizinprodukte von der Spezifikation bis zum Transfer in die Fertigung.",
+      hinweis: "Erfahrungslevel und genauen Standort in der Anzeige prüfen.",
+      url: "https://helbling.ch/de/karriere/jobs" },
+    { id: "hamilton", firma: "Hamilton", titel: "System Engineer 80–100 % (F&E)", ort: "Bonaduz GR", land: "CH", lat: 46.8106, lng: 9.3986, kat: "ivd", status: "offen", top: false,
+      passung: "Pipettierroboter und Laborautomation.",
+      hinweis: "Graubünden – Umzug statt Grenzpendeln.",
+      url: "https://jobs.hamilton.ch/offene-stellen/" },
+    { id: "sentec", firma: "Sentec", titel: "Clinical Application Specialist (Deutschschweiz)", ort: "Raum Basel", land: "CH", lat: 47.5596, lng: 7.5886, kat: "app", status: "offen", top: false,
+      passung: "Applikationsrolle an der Schnittstelle Technik/Klinik.",
+      hinweis: "Viel Kundenkontakt.",
+      url: "https://ch.indeed.com/Medizintechnik-Jobs-in-Basel,-BS" },
+    { id: "stratec-ch", firma: "STRATEC Switzerland", titel: "Initiativbewerbung (Produktionsstandort)", ort: "Beringen SH", land: "CH", lat: 47.6970, lng: 8.5740, kat: "ini", status: "initiativ", top: false,
+      passung: "IVD-Analysesysteme; Fokus Produktion und produktionsnahe Bereiche.",
+      hinweis: "Keine Anzeigen; Bewerbung per E-Mail laut Karriereseite.",
+      url: "https://www.stratec.com/de/career/schweiz/einstiegsmoeglichkeiten" },
+    { id: "tecan-at", firma: "Tecan Austria", titel: "Mechanical Engineer (w/m/d)", ort: "Grödig (Salzburg)", land: "AT", lat: 47.7440, lng: 13.0400, kat: "dev", status: "offen", top: true,
+      passung: "Mechanische Konstruktion von Laborgeräten der Medizintechnik, 3D-Design und Dokumentation. Gefordert sind fundierte Kenntnisse in PTC Creo und Windchill – Creo bringst du mit.",
+      hinweis: "Seit ca. 16.10.2026 online; ab 4.039,55 € brutto/Monat laut Anzeige (in Österreich 14 Gehälter).",
+      url: "https://www.karriere.at/jobs/10034944" },
+    { id: "medel-ce", firma: "MED-EL", titel: "Clinical Engineer (R&D, Elektrodenforschung)", ort: "Innsbruck", land: "AT", lat: 47.2600, lng: 11.3520, kat: "ivd", status: "offen", top: false,
+      passung: "CT-/MRT-Bildanalyse des Innenohrs für die Entwicklung von Cochlea-Implantat-Elektroden; Bachelor oder Master in Medizintechnik genügt – passt zu Biomedizinische Messverfahren und Bildgebung.",
+      hinweis: "Solide CT-Kenntnisse gefordert; ab 54.723,53 € brutto/Jahr.",
+      url: "https://www.karriere.at/jobs/7888966" },
+    { id: "medel-ra", firma: "MED-EL", titel: "Regulatory Affairs Associate", ort: "Innsbruck", land: "AT", lat: 47.2614, lng: 11.3552, kat: "ra", status: "offen", top: false,
+      passung: "Zulassung von Hörimplantaten bei einem großen Medtech-Hersteller.",
+      hinweis: "Mindestens 1 Jahr Berufserfahrung gefordert; ab 47.810,14 € brutto/Jahr.",
+      url: "https://www.karriere.at/jobs/7876381" },
+    { id: "plansee", firma: "Plansee", titel: "Entwicklungsingenieur:in – Produktentwicklung Medizintechnik", ort: "Reutte (Tirol)", land: "AT", lat: 47.4890, lng: 10.7180, kat: "dev", status: "offen", top: false,
+      passung: "Medizinische Werkstoffe und Komponenten für Robotik-Chirurgie und Implantate; Biokompatibilität, Ermüdung, Korrosion – Bezug zu deinem Modul Biomaterialien und Werkstoffe.",
+      hinweis: "Seit 10.09.2026 online; eher für Werkstoff-Erfahrene (Promotion von Vorteil). 60.962–100.000 € brutto/Jahr.",
+      url: "https://www.karriere.at/jobs/7874662" },
+    { id: "stratec-at", firma: "STRATEC Consumables", titel: "Initiativbewerbung (mikrostrukturierte IVD-Verbrauchsmaterialien)", ort: "Anif (Salzburg)", land: "AT", lat: 47.7480, lng: 13.0700, kat: "ini", status: "initiativ", top: false,
+      passung: "Entwickelt und fertigt mikrostrukturierte Kunststoffteile und Consumables für die Diagnostik – nah an Lab-on-Chip.",
+      hinweis: "Keine aktuelle Anzeige gefunden; Kontakt über das Karriereprofil.",
+      url: "https://www.karriere.at/f/stratec-consumables" },
+    { id: "greiner", firma: "Greiner Bio-One", titel: "Initiativbewerbung (F&E Präanalytik / Laborbedarf)", ort: "Kremsmünster (OÖ)", land: "AT", lat: 48.0530, lng: 14.1290, kat: "ini", status: "initiativ", top: false,
+      passung: "Laborverbrauchsmaterial und Präanalytik mit eigener F&E.",
+      hinweis: "Keine passende Einstiegsstelle gefunden; Initiativbewerbung im Portal möglich.",
+      url: "https://jobs.greiner.com/GBO/job/Kremsm%C3%BCnster-Initiativbewerbung-Greiner-Bio-One-4550/953746355/" },
+    { id: "ottobock", firma: "Ottobock", titel: "R&D in Wien beobachten (Research/Development Engineer)", ort: "Wien", land: "AT", lat: 48.1820, lng: 16.4210, kat: "ini", status: "initiativ", top: false,
+      passung: "Prothetik und Orthetik mit großem Entwicklungsstandort in Wien.",
+      hinweis: "Research Engineer und Development Engineer waren zuletzt ausgeschrieben, sind aber abgelaufen – Jobalarm setzen.",
+      url: "https://www.karriere.at/jobs/otto-bock" }
+  ];
+
+  JOBS.forEach(function (j, i) { j.n = i + 1; j.km = Math.round(haversine(HOME, j)); });
+
+  var STORE_KEY = "stellenkarte-beworben-v1";
+  var applied = loadApplied();
+
+  var state = {
+    q: "",
+    cats: Object.keys(KAT).reduce(function (o, k) { o[k] = true; return o; }, {}),
+    land: "alle",
+    status: "alle",
+    topOnly: false,
+    active: null
+  };
+
+  var map = null, markers = {}, layer = null;
+
+  // ---------- helpers ----------
+  function haversine(a, b) {
+    var R = 6371, toR = Math.PI / 180;
+    var dLat = (b.lat - a.lat) * toR, dLng = (b.lng - a.lng) * toR;
+    var s = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(a.lat * toR) * Math.cos(b.lat * toR) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return 2 * R * Math.asin(Math.sqrt(s));
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function loadApplied() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY) || "{}") || {}; } catch (e) { return {}; }
+  }
+  function saveApplied() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(applied)); } catch (e) { /* nicht verfügbar */ }
+  }
+  function visible(j) {
+    if (!state.cats[j.kat]) return false;
+    if (state.land !== "alle" && j.land !== state.land) return false;
+    if (state.status !== "alle" && j.status !== state.status) return false;
+    if (state.topOnly && !j.top) return false;
+    if (state.q) {
+      var hay = (j.firma + " " + j.titel + " " + j.ort + " " + j.passung + " " + j.hinweis).toLowerCase();
+      if (hay.indexOf(state.q) === -1) return false;
+    }
+    return true;
+  }
+
+  // ---------- filters ----------
+  function chip(label, pressed, onClick, opts) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip" + (opts && opts.seg ? " seg" : "");
+    b.setAttribute("aria-pressed", pressed ? "true" : "false");
+    if (opts && opts.color) {
+      b.style.setProperty("--c", opts.color);
+      b.innerHTML = '<span class="dot"></span>' + esc(label);
+    } else {
+      b.textContent = label;
+    }
+    b.addEventListener("click", onClick);
+    return b;
+  }
+
+  function renderFilters() {
+    var cats = document.getElementById("cats");
+    cats.innerHTML = "";
+    Object.keys(KAT).forEach(function (k) {
+      cats.appendChild(chip(KAT[k].label, state.cats[k], function () {
+        state.cats[k] = !state.cats[k]; update(true);
+      }, { color: KAT[k].color }));
+    });
+
+    var lands = document.getElementById("lands");
+    lands.innerHTML = "";
+    [["alle", "Alle Regionen"], ["DE", "Deutschland"], ["CH", "Schweiz"], ["AT", "Österreich"]].forEach(function (p) {
+      lands.appendChild(chip(p[1], state.land === p[0], function () { state.land = p[0]; update(true); }, { seg: true }));
+    });
+    lands.appendChild(chip("★ Nur Top-Treffer", state.topOnly, function () { state.topOnly = !state.topOnly; update(true); }, { seg: true }));
+
+    var stats = document.getElementById("stats");
+    stats.innerHTML = "";
+    [["alle", "Jeder Status"], ["offen", "Ausgeschrieben"], ["pruefen", "Status prüfen"], ["initiativ", "Initiativ"]].forEach(function (p) {
+      stats.appendChild(chip(p[1], state.status === p[0], function () { state.status = p[0]; update(true); }, { seg: true }));
+    });
+  }
+
+  // ---------- list ----------
+  function renderList(items) {
+    var list = document.getElementById("list");
+    list.innerHTML = "";
+    var doneCount = items.filter(function (j) { return applied[j.id]; }).length;
+    document.getElementById("count").textContent =
+      items.length + " von " + JOBS.length + " Einträgen" + (doneCount ? " · " + doneCount + " als beworben markiert" : "");
+
+    if (!items.length) {
+      list.innerHTML = '<div class="empty">Keine Einträge für diese Filter.</div>';
+      return;
+    }
+    items.forEach(function (j) {
+      var c = KAT[j.kat].color, st = STATUS[j.status];
+      var card = document.createElement("div");
+      card.className = "card" + (state.active === j.id ? " active" : "") + (applied[j.id] ? " done" : "");
+      card.setAttribute("role", "button");
+      card.tabIndex = 0;
+      card.innerHTML =
+        '<div class="num' + (j.top ? " top" : "") + '" style="--c:' + c + '">' + j.n + '</div>' +
+        '<div>' +
+          '<div class="title">' + esc(j.titel) + '</div>' +
+          '<div class="meta">' + esc(j.firma) + ' · ' + esc(j.ort) + ' · ca. ' + j.km + ' km</div>' +
+          '<div class="tags">' +
+            '<span class="pill ' + st.cls + '">' + st.label + '</span>' +
+            (j.top ? '<span class="star">★ Top-Treffer</span>' : '') +
+            '<label class="applied"><input type="checkbox"' + (applied[j.id] ? " checked" : "") + '> beworben</label>' +
+          '</div>' +
+        '</div>';
+      card.addEventListener("click", function (e) {
+        if (e.target.closest(".applied")) return;
+        focusJob(j.id);
+      });
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); focusJob(j.id); }
+      });
+      card.querySelector(".applied input").addEventListener("change", function (e) {
+        if (e.target.checked) applied[j.id] = true; else delete applied[j.id];
+        saveApplied(); update(false);
+      });
+      list.appendChild(card);
+    });
+  }
+
+  // ---------- map ----------
+  function popupHtml(j) {
+    var st = STATUS[j.status];
+    var dest = j.lat + "," + j.lng;
+    return '<div class="pop">' +
+      '<h3>' + esc(j.titel) + '</h3>' +
+      '<div class="firm">' + esc(j.firma) + ' · ' + esc(j.ort) + ' · ca. ' + j.km + ' km Luftlinie</div>' +
+      '<span class="pill ' + st.cls + '">' + st.label + '</span>' +
+      '<p><span class="lbl">Passung:</span> ' + esc(j.passung) + '</p>' +
+      (j.hinweis ? '<p><span class="lbl">Zu beachten:</span> ' + esc(j.hinweis) + '</p>' : '') +
+      '<div class="links">' +
+        '<a class="primary" href="' + esc(j.url) + '" target="_blank" rel="noopener">Anzeige öffnen ↗</a>' +
+        '<a href="https://www.google.com/maps/dir/?api=1&origin=Stuttgart&destination=' + dest + '" target="_blank" rel="noopener">Route ab Stuttgart</a>' +
+        '<a href="https://www.google.com/maps/search/?api=1&query=' + dest + '" target="_blank" rel="noopener">Google Maps</a>' +
+      '</div></div>';
+  }
+
+  function makeIcon(j) {
+    return L.divIcon({
+      className: "",
+      html: '<div class="pin' + (j.top ? " top" : "") + '" style="--c:' + KAT[j.kat].color + '"><span>' + j.n + '</span></div>',
+      iconSize: [28, 28],
+      iconAnchor: [14, 28],
+      popupAnchor: [0, -26]
+    });
+  }
+
+  function initMap() {
+    if (typeof L === "undefined") {
+      document.getElementById("mapError").style.display = "grid";
+      return;
+    }
+    map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([48.2, 8.7], 7);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'
+    }).addTo(map);
+
+    L.marker([HOME.lat, HOME.lng], {
+      icon: L.divIcon({ className: "", html: '<div class="home"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }),
+      zIndexOffset: -100
+    }).addTo(map).bindTooltip("Stuttgart (Wohnort)", { direction: "top", offset: [0, -8] });
+
+    layer = L.layerGroup().addTo(map);
+    JOBS.forEach(function (j) {
+      var m = L.marker([j.lat, j.lng], { icon: makeIcon(j), zIndexOffset: j.top ? 500 : 0, title: j.firma + " – " + j.titel });
+      m.bindPopup(popupHtml(j), { maxWidth: 320 });
+      m.on("click", function () { setActive(j.id, false); });
+      markers[j.id] = m;
+    });
+  }
+
+  function syncMarkers(items, fit) {
+    if (!map) return;
+    layer.clearLayers();
+    items.forEach(function (j) { layer.addLayer(markers[j.id]); });
+    if (fit && items.length) {
+      var pts = items.map(function (j) { return [j.lat, j.lng]; });
+      pts.push([HOME.lat, HOME.lng]);
+      map.fitBounds(L.latLngBounds(pts), { padding: [40, 40], maxZoom: 10 });
+    }
+  }
+
+  function setActive(id, scroll) {
+    state.active = id;
+    var cards = document.querySelectorAll(".card");
+    var items = JOBS.filter(visible);
+    cards.forEach(function (c, i) {
+      var on = items[i] && items[i].id === id;
+      c.classList.toggle("active", on);
+      if (on && scroll) c.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  }
+
+  function focusJob(id) {
+    var j = JOBS.filter(function (x) { return x.id === id; })[0];
+    setActive(id, false);
+    if (!map) return;
+    if (window.matchMedia("(max-width: 820px)").matches) window.scrollTo({ top: 0, behavior: "smooth" });
+    map.flyTo([j.lat, j.lng], Math.max(map.getZoom(), 11), { duration: 0.6 });
+    markers[id].openPopup();
+  }
+
+  function update(fit) {
+    var items = JOBS.filter(visible);
+    renderFilters();
+    renderList(items);
+    syncMarkers(items, fit);
+  }
+
+  document.getElementById("q").addEventListener("input", function (e) {
+    state.q = e.target.value.trim().toLowerCase();
+    update(true);
+  });
+
+  initMap();
+  update(true);
+})();
+</script>
+</body>
+</html>
