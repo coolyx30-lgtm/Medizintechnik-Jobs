@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medizintechnik-Jobs · Übersicht</title>
+<meta name="description" content="Übersicht über Stellenkarte, Netzwerk-Mindmap und Karriere-Recherche Medizintechnik.">
+<style>
+:root{
+  --bg:#f4f6f9; --paper:#ffffff; --ink:#18202b; --ink2:#5d6877; --line:#e2e6ec; --chip:#eef1f5;
+  --c1:#1565c0; --c2:#6a1b9a; --c3:#00838f; --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#11161c; --paper:#1a2129; --ink:#e7ecf1; --ink2:#9aa7b4; --line:#2c3640; --chip:#232c35; --c1:#7fb0f0; --c2:#c792ea; --c3:#5fd0d8; --shadow:none; }
+}
+:root[data-theme="dark"]{ --bg:#11161c; --paper:#1a2129; --ink:#e7ecf1; --ink2:#9aa7b4; --line:#2c3640; --chip:#232c35; --c1:#7fb0f0; --c2:#c792ea; --c3:#5fd0d8; --shadow:none; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:40px 16px 56px}
+h1{font-size:30px;letter-spacing:-.015em;margin:0 0 6px}
+.lead{color:var(--ink2);margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;border-top:5px solid var(--accent)}
+.card h2{font-size:19px;margin:10px 0 6px}
+.card p{color:var(--ink2);margin:0 0 16px;font-size:15px;flex:1}
+.ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--chip);color:var(--accent)}
+.ico svg{width:24px;height:24px}
+.main{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:650;border-radius:10px;padding:10px 12px}
+.main:hover{filter:brightness(1.08)}
+.main:focus-visible,.sub a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .main{color:#11161c} }
+:root[data-theme="dark"] .main{color:#11161c}
+.sub{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.sub a{font-size:13.5px;color:var(--ink);text-decoration:none;background:var(--chip);border-radius:999px;padding:4px 11px}
+.sub a:hover{text-decoration:underline}
+.meta{font-size:12.5px;color:var(--ink2);margin-top:12px}
+footer{margin-top:32px;font-size:13px;color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Medizintechnik-Jobs</h1>
+  <p class="lead">Übersicht über alle Seiten: aktuelle Einstiegsstellen, das Netzwerk nach Firmen und die Recherche zu Karrierewegen in der Medizintechnik.</p>
+
+  <div class="grid">
+    <section class="card" style="--accent:var(--c1)">
+      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+      <h2>Stellenkarte</h2>
+      <p>Interaktive Karte mit Einstiegsstellen in Entwicklung und R&amp;D in Baden-Württemberg, Bayern, der Grenzregion Schweiz und Österreich, dazu Zielfirmen ohne aktuelle Anzeige.</p>
+      <a class="main" href="index.html">Stellenkarte öffnen</a>
+      <div class="sub">
+        <a href="Stellenrecherche_Berufseinstieg_Medizintechnik.pdf">PDF</a>
+        <a href="Stellenrecherche_Berufseinstieg_Medizintechnik.docx">Word</a>
+      </div>
+      <div class="meta">Wird alle 3 Tage automatisch aktualisiert.</div>
+    </section>
+
+    <section class="card" style="--accent:var(--c2)">
+      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5" r="2"/><circle cx="19.5" cy="5" r="2"/><circle cx="4.5" cy="19" r="2"/><circle cx="19.5" cy="19" r="2"/><path d="M6.2 6.3 9.8 10M17.8 6.3 14.2 10M6.2 17.7l3.6-3.7M17.8 17.7l-3.6-3.7"/></svg></div>
+      <h2>Netzwerk nach Firmen</h2>
+      <p>Mindmap der Unternehmen, in denen LinkedIn-Kontakte und Mitglieder einer Alumni-Gruppe Medizintechnik arbeiten, mit Kurzprofil und Beispielprodukten. Nur Firmen und Anzahlen, ohne Namen.</p>
+      <a class="main" href="netzwerk/">Mindmap öffnen</a>
+      <div class="sub">
+        <a href="netzwerk/LinkedIn-Netzwerk_Firmen_Druck_A4.pdf">Druckversion A4 (PDF)</a>
+      </div>
+      <div class="meta">Stand 01.11.2026.</div>
+    </section>
+
+    <section class="card" style="--accent:var(--c3)">
+      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4v-5H4zM10 20h4V10h-4zM16 20h4V4h-4z"/></svg></div>
+      <h2>Karriere in der Medizintechnik</h2>
+      <p>Recherche zu Einstiegswegen, Fach-, Projekt- und Führungslaufbahn, Aufstieg nach Berufsjahren und Gehältern in Deutschland, der Schweiz und Österreich.</p>
+      <a class="main" href="karriere/">Recherche öffnen</a>
+      <div class="sub">
+        <a href="karriere/Karriere_Medizintechnik.pdf">PDF</a>
+      </div>
+      <div class="meta">Stand November 2026.</div>
+    </section>
+  </div>
+
+  <footer>Alle Seiten sind öffentlich über GitHub Pages erreichbar.</footer>
+</div>
+</body>
+</html>
