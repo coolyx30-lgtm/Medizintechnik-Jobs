@@ -55,6 +55,10 @@ aside h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(
 .list-item:hover{color:var(--ink2)}
 .back{background:none;border:none;padding:0;color:var(--ink2);cursor:pointer;font-size:12.5px;margin-bottom:8px}
 .legend{font-size:12.5px;color:var(--ink2);line-height:1.6}
+.info{background:var(--chip);border-radius:10px;padding:10px 12px;margin:10px 0 4px;font-size:13px;line-height:1.5}
+.info .sec{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink2);margin-bottom:4px}
+.info .prod{margin-top:6px;color:var(--ink2)}
+.li-sub{display:block;font-size:11.5px;color:var(--ink2)}
 svg text{font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 .node{cursor:pointer}
 .node.dim{opacity:.18}
@@ -76,7 +80,7 @@ body.print #stage{overflow:visible}
   <h1 id="ttl">Mein LinkedIn-Netzwerk</h1>
   <div class="stats" id="stats"></div>
   <div class="tools">
-    <input type="search" id="q" placeholder="Firma, Name oder Position suchen …" aria-label="Suche">
+    <input type="search" id="q" placeholder="Firma, Name, Position oder Branche suchen …" aria-label="Suche">
     <select id="src" aria-label="Quelle">
       <option value="all">Kontakte + Alumni-Gruppe</option>
       <option value="contacts">Nur meine Kontakte</option>
@@ -132,6 +136,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "In-vitro-Diagnostik",
+      "desc": "Medizintechnik-Tochter von Bosch in Waiblingen; entwickelt molekulardiagnostische Point-of-Care-Systeme (PCR im Kartuschenformat) und digitale Gesundheitslösungen.",
+      "products": "Vivalytic-Analysegerät mit Testkartuschen (z. B. Atemwegs- und STI-Panels)"
+     },
      "alumni": []
     },
     {
@@ -186,6 +195,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Sensorik / Quantentechnologie",
+      "desc": "Bosch-Start-up für Quantensensoren (NV-Diamant-Magnetometer), u. a. für hochempfindliche Magnetfeldmessung in Medizin und Industrie.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -221,6 +235,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 5,
+     "info": {
+      "sector": "Bildgebung & Patientenmonitoring",
+      "desc": "Niederländischer Medizintechnikkonzern; in Böblingen sitzt die Entwicklung für Patientenmonitoring.",
+      "products": "IntelliVue-Patientenmonitore, EPIQ-Ultraschall, Azurion-Angiographie"
+     },
      "alumni": []
     },
     {
@@ -230,6 +249,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 8,
+     "info": {
+      "sector": "Orthopädie, Chirurgie & Neurotechnik",
+      "desc": "US-Medizintechnikkonzern; am Standort Freiburg (ehem. Leibinger) Implantate und Navigation für die Mund-Kiefer-Gesichtschirurgie (CMF).",
+      "products": "Mako-Operationsroboter, Triathlon-Knieprothese, CMF-Plattensysteme"
+     },
      "alumni": []
     },
     {
@@ -239,6 +263,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 5,
+     "info": {
+      "sector": "Elektromedizin / Chirurgie",
+      "desc": "Familienunternehmen aus Tübingen für chirurgische Energiesysteme: Hochfrequenzchirurgie, Argonplasma, Kryo- und Wasserstrahlchirurgie.",
+      "products": "VIO 3, APC 3, ERBEJET 2, ERBECRYO 2"
+     },
      "alumni": []
     },
     {
@@ -248,6 +277,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 4,
+     "info": {
+      "sector": "Kardiologie / Herzunterstützung",
+      "desc": "Stuttgarter Medtech-Unternehmen; entwickelt eine minimalinvasive, katheterbasierte Herzunterstützungspumpe (Mikroaxialpumpe) für Patienten mit Herzinsuffizienz.",
+      "products": "Mikroaxiale Herzpumpe (in klinischer Entwicklung)"
+     },
      "alumni": []
     },
     {
@@ -257,6 +291,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 5,
+     "info": {
+      "sector": "Ophthalmologie & Mikrochirurgie",
+      "desc": "ZEISS-Tochter (Jena/Oberkochen) für Augendiagnostik, Refraktivchirurgie, Intraokularlinsen und OP-Mikroskope.",
+      "products": "KINEVO 900 OP-Mikroskop, VISUMAX Femtosekundenlaser, CLARUS, IOLMaster 700"
+     },
      "alumni": []
     },
     {
@@ -266,6 +305,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 2,
+     "info": {
+      "sector": "Chirurgie & Orthopädie",
+      "desc": "B. Braun-Gruppe (Melsungen); Aesculap in Tuttlingen fertigt chirurgische Instrumente, Implantate und Gefäßprothesen.",
+      "products": "Aesculap-Instrumente, Columbus-Knieendoprothese, EinsteinVision 3D-Kamera"
+     },
      "alumni": []
     },
     {
@@ -275,6 +319,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Auftragsfertigung / Kardiovaskulär",
+      "desc": "Pforzheimer Auftragsentwickler und -fertiger für Nitinol-Komponenten, v. a. Stents und Gerüste für Herzklappen.",
+      "products": "Laserschneid-Komponenten aus Nitinol (OEM, keine Eigenmarken)"
+     },
      "alumni": []
     },
     {
@@ -284,6 +333,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Orthopädie / Sportmedizin",
+      "desc": "US-Familienunternehmen für Arthroskopie und Sportmedizin, deutsche Zentrale in München.",
+      "products": "FiberWire-Nahtmaterial, SwiveLock-Anker, Synergy-Kamerasystem"
+     },
      "alumni": []
     },
     {
@@ -293,6 +347,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Klinikprodukte / Infusion",
+      "desc": "US-Konzern für Infusionstherapie, Krankenhausbetten und Medikamentenverabreichung (Nierenersatztherapie 2025 als Vantive abgespalten).",
+      "products": "Novum IQ Infusionspumpen, Hillrom-Klinikbetten"
+     },
      "alumni": []
     },
     {
@@ -302,6 +361,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 2,
+     "info": {
+      "sector": "Dentaltechnik",
+      "desc": "Dentalhersteller aus Bietigheim-Bissingen für Druckluft, Absaugung, Bildgebung und Hygiene in der Zahnarztpraxis.",
+      "products": "Tyscor-Saugmaschinen, VistaScan-Speicherfoliensystem, Dürr-Kompressoren"
+     },
      "alumni": []
     },
     {
@@ -311,6 +375,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Auftragsfertigung / Interventionelle Komponenten",
+      "desc": "OEM-Entwickler und -Hersteller aus Dettingen/Erms für Führungsdrähte und Komponenten für Katheter und minimalinvasive Instrumente.",
+      "products": "Führungsdrähte, Nitinol-Körbchen (OEM)"
+     },
      "alumni": []
     },
     {
@@ -320,6 +389,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 2,
+     "info": {
+      "sector": "Dialyse",
+      "desc": "Weltmarktführer in der Dialyse (Bad Homburg) mit Geräten, Verbrauchsmaterial und eigenen Dialysezentren.",
+      "products": "5008X-Dialysesystem, FX-Dialysatoren"
+     },
      "alumni": []
     },
     {
@@ -329,6 +403,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Endoskopie",
+      "desc": "Tübinger Hersteller von Instrumenten für die interventionelle flexible Endoskopie.",
+      "products": "OTSC-Clip, FTRD (Vollwandresektion)"
+     },
      "alumni": []
     },
     {
@@ -338,6 +417,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 2,
+     "info": {
+      "sector": "Dialyse / Akuttherapie",
+      "desc": "2025 von Baxter abgespaltenes Unternehmen für Nierenersatz- und Akuttherapie; R&D-Standort in Hechingen (ehem. Gambro).",
+      "products": "PrisMax, Prismaflex, HomeChoice Claria (Peritonealdialyse)"
+     },
      "alumni": []
     },
     {
@@ -347,6 +431,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Chirurgie",
+      "desc": "Österreichischer Hersteller (Feldkirch) chirurgischer Medizinprodukte, u. a. für Proktologie, Urologie und Hernienchirurgie.",
+      "products": "HAL-RAR-System (Hämorrhoidenbehandlung)"
+     },
      "alumni": []
     },
     {
@@ -356,6 +445,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Diagnostik, Diabetes & Kardiologie",
+      "desc": "US-Gesundheitskonzern mit Sparten Diagnostik, Diabetes, Herz-Kreislauf und Elektrophysiologie.",
+      "products": "FreeStyle Libre, MitraClip, EnSite-X-Mappingsystem"
+     },
      "alumni": []
     },
     {
@@ -365,6 +459,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Prüflabor / Dienstleistung",
+      "desc": "Prüflabor für Medizinprodukte (u. a. Biokompatibilität), inzwischen Teil von Eurofins Medical Device Services.",
+      "products": "Prüfdienstleistungen, keine eigenen Produkte"
+     },
      "alumni": []
     },
     {
@@ -374,6 +473,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Neurovaskuläre Implantate",
+      "desc": "Pforzheimer Hersteller von Implantaten und Kathetern zur Behandlung von Schlaganfall und Hirnaneurysmen.",
+      "products": "DERIVO Flow Diverter, APERIO Thrombektomiesystem"
+     },
      "alumni": []
     },
     {
@@ -383,6 +487,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Endoskopie & Anästhesie (Einweg)",
+      "desc": "Dänischer Hersteller von Einweg-Endoskopen, Beatmungsbeuteln und Elektroden; deutsche Gesellschaft in Bad Nauheim.",
+      "products": "aScope-Einwegendoskope, Ambu-Beatmungsbeutel, BlueSensor-Elektroden"
+     },
      "alumni": []
     },
     {
@@ -392,6 +501,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Medizintechnik (nicht näher bekannt)",
+      "desc": "Zu dieser Firma habe ich keine verlässlichen öffentlichen Angaben gefunden.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -401,6 +515,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Kardiovaskulär / Aorta",
+      "desc": "US-Unternehmen (ehem. CryoLife) für Aorten- und Herzchirurgie; Standort Hechingen (ehem. JOTEC) entwickelt Aortenprothesen und Stentgrafts.",
+      "products": "E-vita OPEN NEO, On-X-Herzklappe, BioGlue"
+     },
      "alumni": []
     },
     {
@@ -410,6 +529,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Medizinische Laser",
+      "desc": "Jenaer Hersteller von Lasersystemen für Dermatologie und Ästhetik.",
+      "products": "MeDioStar (Haarentfernung)"
+     },
      "alumni": []
     },
     {
@@ -419,6 +543,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Frauengesundheit",
+      "desc": "Irisches Medtech-Start-up (Galway); hormonfreie Unterdruck-Therapie für das urogenitale Menopausensyndrom (GSM).",
+      "products": "Vita AV (in Entwicklung)"
+     },
      "alumni": []
     },
     {
@@ -428,6 +557,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Homecare / Gesundheitsgeräte",
+      "desc": "Ulmer Familienunternehmen für Gesundheitsgeräte für Zuhause, u. a. Blutdruck- und Fiebermessung.",
+      "products": "Blutdruckmessgeräte (BM- und BC-Serie), Pulsoximeter, TENS/EMS-Geräte"
+     },
      "alumni": []
     },
     {
@@ -437,6 +571,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Software & Navigation",
+      "desc": "Münchner Hersteller von Software und Hardware für bildgeführte Chirurgie und Strahlentherapie.",
+      "products": "Curve-Navigation, Loop-X mobiles Bildgebungsgerät, ExacTrac, Elements"
+     },
      "alumni": []
     },
     {
@@ -446,6 +585,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Kardiologie / Herzunterstützung",
+      "desc": "Hechinger Unternehmen (gegr. 2004) für eine katheterbasierte Pumpe zur Entlastung des linken Ventrikels, z. B. beim Herzinfarkt.",
+      "products": "Reitan Catheter Pump (RCP)"
+     },
      "alumni": []
     },
     {
@@ -455,6 +599,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Diagnostik / Früherkennung",
+      "desc": "Britisches Unternehmen (Cambridge) für die Früherkennung von Speiseröhrenerkrankungen mit einem Kapselschwamm und KI-gestützter Pathologie.",
+      "products": "EndoSign (Kapselschwamm)"
+     },
      "alumni": []
     },
     {
@@ -464,6 +613,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Dentalhandel & Service",
+      "desc": "Dental-Fachhändler (Depot) mit Sitz in Tübingen: Praxiseinrichtung, Geräteservice, Röntgentechnik; kein Hersteller.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -473,6 +627,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Beatmung, Anästhesie & Monitoring",
+      "desc": "Gesellschaft im Umfeld der Dräger-Gruppe (Lübeck, laut Firmenname); Dräger stellt Medizin- und Sicherheitstechnik her.",
+      "products": "Dräger: Evita-Intensivbeatmung, Perseus-Anästhesiegeräte, Babyleo-Inkubator"
+     },
      "alumni": []
     },
     {
@@ -482,6 +641,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Orthopädie",
+      "desc": "US-Orthopädieunternehmen (ehem. DJO) für Orthesen, Rehabilitation und Gelenkimplantate.",
+      "products": "DonJoy-Orthesen, Aircast, Lima-Implantate"
+     },
      "alumni": []
     },
     {
@@ -491,6 +655,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Dentaltechnik",
+      "desc": "CAD/CAM-Fertigungszentrum der Straumann-Gruppe in Gräfelfing für Kronen, Brücken und Abutments.",
+      "products": "Straumann CARES (CAD/CAM-Zahnersatz)"
+     },
      "alumni": []
     },
     {
@@ -500,6 +669,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Neurotechnik",
+      "desc": "Österreichischer Hersteller von EEG-Systemen und Brain-Computer-Interfaces.",
+      "products": "recoveriX (Schlaganfall-Reha), g.Nautilus, g.HIamp"
+     },
      "alumni": []
     },
     {
@@ -509,6 +683,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Reha / Orthetik",
+      "desc": "Ulmer Start-up für aktive, bionische Handorthesen, die Menschen mit Lähmungen das Greifen ermöglichen.",
+      "products": "Bionische Handorthese"
+     },
      "alumni": []
     },
     {
@@ -518,6 +697,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Wirbelsäulenimplantate",
+      "desc": "Hersteller aus Steinenbronn bei Stuttgart für Wirbelsäulenimplantate und Instrumente, Fertigung im eigenen Haus.",
+      "products": "ADONIS-Cages (PLIF/ALIF), Pedikelschraubensysteme"
+     },
      "alumni": []
     },
     {
@@ -527,6 +711,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Neurotechnik",
+      "desc": "Hersteller aus Emmendingen für intraoperatives Neuromonitoring, Stereotaxie und Schmerztherapie.",
+      "products": "ISIS IOM-System, C2 Xplore"
+     },
      "alumni": []
     },
     {
@@ -536,6 +725,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Ophthalmologie",
+      "desc": "Unternehmen aus Itzehoe für ophthalmochirurgische Produkte, v. a. Injektoren für Intraokularlinsen.",
+      "products": "IOLMATIC4 (vorgeladener IOL-Injektor)"
+     },
      "alumni": []
     },
     {
@@ -545,6 +739,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Orthopädie, Chirurgie & Kardiologie",
+      "desc": "Medizintechniksparte von J&J mit DePuy Synthes, Ethicon, Biosense Webster und Abiomed.",
+      "products": "Impella-Herzpumpe, CARTO 3, ATTUNE-Knie"
+     },
      "alumni": []
     },
     {
@@ -554,6 +753,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Wirbelsäulenchirurgie / Endoskopie",
+      "desc": "Karlsruher Hersteller von Systemen für die endoskopische, minimalinvasive Wirbelsäulenchirurgie.",
+      "products": "TESSYS, iLESSYS, Multiplex"
+     },
      "alumni": []
     },
     {
@@ -563,6 +767,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Endoskopie",
+      "desc": "Tuttlinger Familienunternehmen und einer der Weltmarktführer in der Endoskopie.",
+      "products": "IMAGE1 S Kamerasystem, TIPCAM, VITOM-Exoskop"
+     },
      "alumni": []
     },
     {
@@ -572,6 +781,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Chirurgie & MKG-Implantate",
+      "desc": "Tuttlinger Unternehmensgruppe für chirurgische Instrumente, MKG-Implantate, OP-Leuchten sowie Elektro- und Laserchirurgie.",
+      "products": "IPS Implants (patientenspezifisch), marLED-OP-Leuchten"
+     },
      "alumni": []
     },
     {
@@ -581,6 +795,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Beatmung & Schlafmedizin",
+      "desc": "Hersteller von Geräten für Schlaftherapie, Heim- und Intensivbeatmung sowie Neonatologie.",
+      "products": "prisma-Schlaftherapiegeräte, elisa-Intensivbeatmung, LEONI"
+     },
      "alumni": []
     },
     {
@@ -590,6 +809,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Hörimplantate",
+      "desc": "Innsbrucker Hersteller von Cochlea- und anderen Hörimplantaten.",
+      "products": "SYNCHRONY Cochlea-Implantat, SONNET Audioprozessor, BONEBRIDGE"
+     },
      "alumni": []
     },
     {
@@ -599,6 +823,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Endoskopie & Urologie (Einweg)",
+      "desc": "Bayerischer Hersteller von Einweg-Instrumenten für Gastroenterologie, Urologie und Pneumologie.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -608,6 +837,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Drug Delivery",
+      "desc": "Schweizer Konzern für Misch- und Applikationssysteme; die Marke Haselmeier (Stuttgart) entwickelt Pen- und Autoinjektoren.",
+      "products": "Haselmeier-Pens und Autoinjektoren, MIXPAC-Mischkartuschen"
+     },
      "alumni": []
     },
     {
@@ -617,6 +851,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Ophthalmologie / Augenimplantate",
+      "desc": "Stuttgarter Hersteller von Augenimplantaten für die Katarakt- und Irischirurgie.",
+      "products": "Kapselspannringe, Irisblenden, künstliche Iris"
+     },
      "alumni": []
     },
     {
@@ -626,6 +865,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Medizintechnik-Vertrieb",
+      "desc": "Medizintechnikunternehmen im Iran; keine weiteren verlässlichen Angaben.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -635,6 +879,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Bildgebung / Quantentechnologie",
+      "desc": "Ulmer Start-up für Hyperpolarisierer, die metabolische MRT-Bildgebung (z. B. in der Onkologie) ermöglichen.",
+      "products": "Polarizer für hyperpolarisiertes MRT"
+     },
      "alumni": []
     },
     {
@@ -644,6 +893,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Endoskopie",
+      "desc": "Japanischer Konzern, weltweit führend bei flexiblen Endoskopen.",
+      "products": "EVIS X1, VISERA ELITE III"
+     },
      "alumni": []
     },
     {
@@ -653,6 +907,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Orthopädische Hilfsmittel",
+      "desc": "Oberbayerisches Unternehmen (Valley) für orthopädische Hilfsmittel und Orthesen.",
+      "products": "VACOped, VACOcast, Genu-Orthesen"
+     },
      "alumni": []
     },
     {
@@ -662,6 +921,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Gefäßintervention",
+      "desc": "Ettlinger Hersteller von Stents und Kathetern für die periphere und venöse Gefäßintervention.",
+      "products": "sinus-Venous, sinus-XL"
+     },
      "alumni": []
     },
     {
@@ -671,6 +935,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Dentaltechnik / Kieferorthopädie",
+      "desc": "Kieferorthopädisches Fachlabor, fertigt Zahnspangen und Apparaturen nach Verordnung.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -680,6 +949,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Anästhesie & Schmerztherapie",
+      "desc": "Familienunternehmen aus Geisingen für Regionalanästhesie, Schmerztherapie und Biopsie.",
+      "products": "SonoPlex-Kanülen, Sprotte-Kanülen, E-Cath"
+     },
      "alumni": []
     },
     {
@@ -689,6 +963,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Kardiovaskulär / Biomaterialien",
+      "desc": "Hechinger Unternehmen für Medizinprodukte aus biologischem Material, u. a. minimalinvasive strukturelle Herzimplantate.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -698,6 +977,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Notfall- & Intensivmedizin",
+      "desc": "Freiburger Start-up für die kontrollierte automatisierte Reperfusion nach Herz-Kreislauf-Stillstand (ECPR).",
+      "products": "CARL-System"
+     },
      "alumni": []
     },
     {
@@ -707,6 +991,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Endoskopie & Stoßwellentherapie",
+      "desc": "Knittlinger Familienunternehmen für Endoskopie, Urologie und extrakorporale Stoßwellen.",
+      "products": "Piezolith 3000 Plus, ENDOCAM Logic 4K"
+     },
      "alumni": []
     },
     {
@@ -716,6 +1005,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Diagnostikinstrumente",
+      "desc": "Hersteller aus Jungingen für ärztliche Diagnostikinstrumente.",
+      "products": "big ben Blutdruckmessgerät, ri-scope Otoskope, Duplex-Stethoskop"
+     },
      "alumni": []
     },
     {
@@ -725,6 +1019,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Orthopädie & Wundversorgung",
+      "desc": "Britischer Konzern für Gelenkersatz, Sportmedizin und moderne Wundversorgung.",
+      "products": "PICO-Unterdruckwundtherapie, JOURNEY II-Knie, CORI-Roboter"
+     },
      "alumni": []
     },
     {
@@ -734,6 +1033,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Biopsie / Brustdiagnostik",
+      "desc": "Unternehmen aus Teltow (heute Hologic) für Biopsie und Gewebemarker in der Brustdiagnostik.",
+      "products": "Tumark-Gewebemarker"
+     },
      "alumni": []
     },
     {
@@ -743,6 +1047,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Reha / Rollstühle",
+      "desc": "Hersteller von Rollstühlen und Mobilitätshilfen mit deutschem Sitz in Malsch.",
+      "products": "QUICKIE, Sopur, Zippie"
+     },
      "alumni": []
     },
     {
@@ -752,6 +1061,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Gefäßzugang, Anästhesie & Urologie",
+      "desc": "US-Hersteller von Einwegprodukten für Klinik und Notfall; Standort Bülach (CH).",
+      "products": "Arrow-Katheter, LMA-Larynxmasken, UroLift"
+     },
      "alumni": []
     },
     {
@@ -761,6 +1075,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Kontrastmittelinjektoren & Wirbelsäule",
+      "desc": "Ulmer Familienunternehmen für Kontrastmittelinjektoren (CT/MRT) und Wirbelsäulenimplantate.",
+      "products": "CT motion, MRI motion"
+     },
      "alumni": []
     },
     {
@@ -770,6 +1089,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Gefäßimplantate",
+      "desc": "Niederländisches Medtech-Unternehmen (Eindhoven) für restorative Gefäßimplantate, die körpereigenes Gewebe aufbauen.",
+      "products": "aXess (Dialysezugang)"
+     },
      "alumni": []
     },
     {
@@ -779,6 +1103,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "HNO-Diagnostik",
+      "desc": "Familienunternehmen aus Metzingen für Geräte zur Diagnose und Behandlung von Hör- und Gleichgewichtsstörungen (Audiometrie, Neurootologie).",
+      "products": ""
+     },
      "alumni": []
     }
    ]
@@ -796,6 +1125,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 3,
+     "info": {
+      "sector": "In-vitro-Diagnostik & Pharma",
+      "desc": "Schweizer Pharma- und Diagnostikkonzern; in Deutschland u. a. Diagnostik in Mannheim, Laborautomation in Ludwigsburg und Diabetes Care.",
+      "products": "cobas-Analysesysteme, Accu-Chek, CCM/cobas connection modules"
+     },
      "alumni": []
     },
     {
@@ -805,6 +1139,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 2,
+     "info": {
+      "sector": "Pharma",
+      "desc": "Forschendes Pharmaunternehmen aus Ingelheim; BI X ist das digitale Innovationslabor.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -814,6 +1153,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Biotech / mRNA",
+      "desc": "Tübinger Biotech-Unternehmen für mRNA-Therapeutika und -Impfstoffe, entwickelt mit dem RNA Printer eine automatisierte mRNA-Produktion.",
+      "products": "RNA Printer"
+     },
      "alumni": []
     },
     {
@@ -823,6 +1167,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Biotech",
+      "desc": "US-Biotech-Start-up für Therapien gegen Gefäßverkalkung und Elastinabbau.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -832,6 +1181,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Laborautomation",
+      "desc": "Life-Science-Bereich von Festo (Esslingen): Komponenten und Module für Laborautomation und Diagnostikgeräte.",
+      "products": "Pipettiermodule, Ventile und kartesische Handlingsysteme für Laborgeräte"
+     },
      "alumni": []
     },
     {
@@ -841,6 +1195,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Life Science (nicht näher bekannt)",
+      "desc": "Zu dieser Firma habe ich keine verlässlichen öffentlichen Angaben gefunden.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -850,6 +1209,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Laborbedarf & Präanalytik",
+      "desc": "Österreichischer Hersteller von Blutentnahmesystemen und Laborverbrauchsmaterial.",
+      "products": "VACUETTE-Blutentnahmeröhrchen, CELLSTAR-Zellkulturprodukte"
+     },
      "alumni": []
     },
     {
@@ -859,6 +1223,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Laborautomation & Sensorik",
+      "desc": "Schweizer Familienunternehmen für Pipettierroboter, Präzisionsspritzen und Prozesssensoren.",
+      "products": "Microlab STAR, Hamilton-Spritzen"
+     },
      "alumni": []
     },
     {
@@ -868,6 +1237,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Life Science / Organ-on-Chip",
+      "desc": "Junges Unternehmen im Bereich Organoid- bzw. Organ-on-Chip-Modelle; keine weiteren verlässlichen Angaben.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -877,6 +1251,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Molekulardiagnostik & Probenvorbereitung",
+      "desc": "Anbieter von Probenvorbereitung und Molekulardiagnostik (Sitz Venlo/Hilden).",
+      "products": "QIAcube, QIAstat-Dx, QIAamp-Kits"
+     },
      "alumni": []
     },
     {
@@ -886,6 +1265,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 1,
+     "info": {
+      "sector": "Pharma (mit Device-Entwicklung)",
+      "desc": "Französischer Pharmakonzern; entwickelt auch Injektionsgeräte für eigene Wirkstoffe.",
+      "products": "SoloStar-Insulinpens"
+     },
      "alumni": []
     }
    ]
@@ -1794,6 +2178,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 3,
+     "info": {
+      "sector": "Entwicklungsdienstleister Medizintechnik",
+      "desc": "Entwicklungsdienstleister für Medizinprodukte im Raum Böblingen (Konstruktion, Prototypen, Dokumentation).",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -1812,6 +2201,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Entwicklungsdienstleister",
+      "desc": "Engineering-Dienstleister mit Projekten u. a. in der Medizintechnik.",
+      "products": ""
+     },
      "alumni": []
     },
     {
@@ -1839,6 +2233,11 @@ const DATA = {
      "own": false,
      "contacts": [],
      "acount": 0,
+     "info": {
+      "sector": "Krankenhaus- & Medizintechnikplanung",
+      "desc": "Planungsbüro aus Böblingen für Krankenhausbau und Medizintechnikplanung.",
+      "products": ""
+     },
      "alumni": []
     }
    ]
@@ -2465,7 +2864,7 @@ function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt
 function matches(n){
   if (!state.q) return true;
   const q = state.q;
-  const hay = c => v(c) > 0 && ((c.full||c.name||"").toLowerCase().includes(q) || !DATA.anon && [...(state.src!=="alumni"?c.contacts||[]:[]), ...(state.src!=="contacts"?c.alumni||[]:[])].some(p => (p.n+" "+p.p).toLowerCase().includes(q)));
+  const hay = c => v(c) > 0 && ((c.full||c.name||"").toLowerCase().includes(q) || (c.info && (c.info.sector+" "+c.info.desc+" "+c.info.products).toLowerCase().includes(q)) || !DATA.anon && [...(state.src!=="alumni"?c.contacts||[]:[]), ...(state.src!=="contacts"?c.alumni||[]:[])].some(p => (p.n+" "+p.p).toLowerCase().includes(q)));
   if (n.type === "company") return hay(n);
   if (n.type === "more") return n.hidden.some(hay);
   if (n.type === "group") return n.section ? n.children.some(i => i.name.toLowerCase().includes(q)) : (n.name.toLowerCase().includes(q) || n.children.some(hay));
@@ -2649,6 +3048,7 @@ function showPanel(n){
   if (n.type === "company"){
     panel.innerHTML = back + `<span class="tag" style="background:${n.color}">${esc(n.cat)}</span>${n.group?`<span class="tag" style="background:${tint(n.color,.75)}">${esc(n.group)}</span>`:""}
       <h2 style="margin-top:8px">${esc(n.full)}${n.own?" ★":""}</h2><p class="sub">${n.count} ${n.count===1?"Kontakt":"Kontakte"} · ${n.acount} aus der Alumni-Gruppe${n.own?" · eigene Station":""}</p>
+      ${n.info ? `<div class="info"><div class="sec">${esc(n.info.sector)}</div>${esc(n.info.desc)}${n.info.products ? `<div class="prod"><b>Beispielprodukte:</b> ${esc(n.info.products)}</div>` : ""}</div>` : ""}
       ${DATA.anon ? `<p class="sub">Öffentliche Fassung: Namen und Positionen sind entfernt, nur die Anzahl ist angegeben.</p>` : ""}
       ${n.count && !DATA.anon ? `<h3>Meine Kontakte</h3>` + n.contacts.map(p => personHTML(p)).join("") : ""}
       ${n.acount && !DATA.anon ? `<h3>Alumni-Gruppe</h3>` + n.alumni.map(p => aluHTML(p)).join("") : ""}`;
@@ -2662,7 +3062,7 @@ function showPanel(n){
       list.length = 0; list.push(...fl);
       panel.innerHTML = back + `<span class="tag" style="background:${n.color}">${esc(n.cat||n.name)}</span><h2 style="margin-top:8px">${esc(n.name)}</h2>
         <p class="sub">${subLine(n, n.type==="group"?"b":"f")} · Klick erneut auf den Knoten = auf-/zuklappen</p>` +
-        list.map((c, i) => `<div class="list-item" data-i="${i}"><span>${esc(c.name)}${c.own?" ★":""}</span><b>${c.count && state.src!=="alumni" ? c.count : ""}${c.count && c.acount && state.src==="all" ? " + " : ""}${c.acount && state.src!=="contacts" ? `<span style="font-weight:500">${c.acount} A</span>` : ""}</b></div>`).join("");
+        list.map((c, i) => `<div class="list-item" data-i="${i}"><span>${esc(c.name)}${c.own?" ★":""}${c.info ? `<span class="li-sub">${esc(c.info.sector)}</span>` : ""}</span><b>${c.count && state.src!=="alumni" ? c.count : ""}${c.count && c.acount && state.src==="all" ? " + " : ""}${c.acount && state.src!=="contacts" ? `<span style="font-weight:500">${c.acount} A</span>` : ""}</b></div>`).join("");
       panel.querySelectorAll(".list-item").forEach(d => d.onclick = () => goto(list[+d.dataset.i]));
     }
   } else if (n.type === "more"){
@@ -2675,26 +3075,28 @@ function showPanel(n){
 }
 function showSearch(){
   if (DATA.anon){
-    const q = state.q, list = allCompanies.filter(c => v(c) > 0 && (c.full + " " + c.name).toLowerCase().includes(q));
+    const q = state.q, list = allCompanies.filter(c => v(c) > 0 && (c.full + " " + c.name + (c.info ? " "+c.info.sector+" "+c.info.desc+" "+c.info.products : "")).toLowerCase().includes(q));
     panel.innerHTML = `<h2>Suche: „${esc(q)}“</h2><p class="sub">${list.length} Firmen</p>` +
-      list.map((c, i) => `<div class="list-item" data-i="${i}"><span>${esc(c.name)}</span><b>${v(c)}</b></div>`).join("");
+      list.map((c, i) => `<div class="list-item" data-i="${i}"><span>${esc(c.name)}${c.info ? `<span class="li-sub">${esc(c.info.sector)}</span>` : ""}</span><b>${v(c)}</b></div>`).join("");
     panel.querySelectorAll(".list-item").forEach(d => d.onclick = () => goto(list[+d.dataset.i]));
     return;
   }
   const q = state.q, hits = [];
+  const coHits = allCompanies.filter(c => v(c) > 0 && c.info && (c.info.sector+" "+c.info.desc+" "+c.info.products).toLowerCase().includes(q));
   for (const c of allCompanies){
     const byCo = (c.full + " " + c.name).toLowerCase().includes(q);
     if (state.src !== "alumni") c.contacts.forEach(p => { if (byCo || (p.n + " " + p.p).toLowerCase().includes(q)) hits.push({p, c}); });
     if (state.src !== "contacts") (c.alumni||[]).forEach(p => { if (byCo || (p.n + " " + p.p).toLowerCase().includes(q)) hits.push({p, c, a:true}); });
   }
-  panel.innerHTML = `<h2>Suche: „${esc(q)}“</h2><p class="sub">${hits.length} ${hits.length===1?"Treffer":"Treffer"}</p>` +
+  panel.innerHTML = `<h2>Suche: „${esc(q)}“</h2>` + (coHits.length ? `<h3>Firmen nach Profil (${coHits.length})</h3>` + coHits.map((c, i) => `<div class="list-item co-hit" data-i="${i}"><span>${esc(c.name)}<span class="li-sub">${esc(c.info.sector)}</span></span><b>${v(c)}</b></div>`).join("") + `<h3>Personen</h3>` : "") + `<p class="sub">${hits.length} ${hits.length===1?"Treffer":"Treffer"}</p>` +
     hits.slice(0, 250).map(h => h.a ? aluHTML(h.p, NOCO(h.c) ? "" : h.c.full) : personHTML(h.p, h.c.full)).join("");
+  panel.querySelectorAll(".co-hit").forEach(d => d.onclick = () => goto(coHits[+d.dataset.i]));
 }
 
 /* ---------- Start ---------- */
 document.getElementById("stats").innerHTML =
   `<span class="chip"><b>${DATA.total}</b> Kontakte</span><span class="chip"><b>${DATA.alumni}</b> Alumni</span><span class="chip"><b>${DATA.companies}</b> Unternehmen</span><span class="chip"><b>${DATA.categories.length}</b> Branchen</span><span class="chip">Stand ${DATA.exported}</span>`;
-if (DATA.anon){ document.getElementById("ttl").textContent = "Netzwerk nach Firmen"; document.title = "Netzwerk nach Firmen"; document.getElementById("q").placeholder = "Firma suchen …"; document.querySelector("#hint").textContent = "Ziehen = verschieben · Mausrad/Pinch = zoomen · Klick auf Branche = auf-/zuklappen · Klick auf Firma = Details"; }
+if (DATA.anon){ document.getElementById("ttl").textContent = "Netzwerk nach Firmen"; document.title = "Netzwerk nach Firmen"; document.getElementById("q").placeholder = "Firma oder Branche suchen …"; document.querySelector("#hint").textContent = "Ziehen = verschieben · Mausrad/Pinch = zoomen · Klick auf Branche = auf-/zuklappen · Klick auf Firma = Details"; }
 render(); if (!PRINT){ fit(); showPanel(null); }
 </script>
 </body>
