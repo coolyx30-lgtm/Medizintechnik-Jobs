@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karriere in der Medizintechnik</title>
+<meta name="description" content="Recherche: Karrierewege, Aufstiegsstufen, Gehälter (DE, CH, AT) und Berufseinstieg in der Medizintechnik. Stand November 2026.">
+<style>
+:root{
+  --bg:#f6f7f9; --paper:#ffffff; --ink:#18202b; --ink2:#5d6877; --line:#e2e6ec; --chip:#eef1f5;
+  --accent:#1f4e8c; --accent2:#2f7bd8; --ok:#15803d; --warn:#b45309;
+  --fach:#1565c0; --proj:#00838f; --fuehr:#6a1b9a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#11161c; --paper:#1a2129; --ink:#e7ecf1; --ink2:#9aa7b4; --line:#2c3640; --chip:#232c35; --accent:#8fb6ec; --accent2:#7fb0f0; }
+}
+:root[data-theme="dark"]{ --bg:#11161c; --paper:#1a2129; --ink:#e7ecf1; --ink2:#9aa7b4; --line:#2c3640; --chip:#232c35; --accent:#8fb6ec; --accent2:#7fb0f0; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:32px 16px 64px}
+header.top{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:22px}
+h1{font-size:32px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+.lead{color:var(--ink2);margin:0}
+h2{font-size:23px;margin:40px 0 10px;letter-spacing:-.01em;scroll-margin-top:16px}
+h2 .n{color:var(--accent);margin-right:6px}
+h3{font-size:17px;margin:22px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent2)}
+.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:18px 0}
+.toc ol{margin:6px 0 0;padding-left:20px;columns:2;column-gap:28px}
+.toc li{margin:2px 0;break-inside:avoid}
+.key{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 18px;margin:16px 0}
+.key ul{margin:6px 0;padding-left:20px}
+.key li{margin:5px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.card .big{font-size:24px;font-weight:750;color:var(--accent);line-height:1.1}
+.card .lbl{font-size:13.5px;color:var(--ink2);margin-top:4px}
+table{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:14.5px;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--chip);font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+.tblwrap{overflow-x:auto}
+.src{font-size:13px;color:var(--ink2);margin:4px 0 12px}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:10px 0}
+.tag{display:inline-block;font-size:12px;font-weight:650;border-radius:999px;padding:1px 9px;color:#fff;vertical-align:1px}
+.t-fach{background:var(--fach)} .t-proj{background:var(--proj)} .t-fuehr{background:var(--fuehr)}
+/* Karriereleiter */
+.ladder{display:grid;grid-template-columns:110px repeat(3,minmax(0,1fr));gap:6px;margin:14px 0;font-size:14px}
+.ladder > div{overflow-wrap:anywhere;hyphens:auto}
+.ladder .h{font-weight:700;text-align:center;color:#fff;border-radius:8px;padding:6px}
+.ladder .yr{color:var(--ink2);font-size:13px;display:flex;align-items:center}
+.ladder .c{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px 8px;text-align:center}
+.ladder .c.fach{border-left:4px solid var(--fach)} .ladder .c.proj{border-left:4px solid var(--proj)} .ladder .c.fuehr{border-left:4px solid var(--fuehr)}
+.ladder .shared{grid-column:2/5;text-align:center;background:var(--chip);border-radius:8px;padding:6px 8px}
+/* Balken */
+.bars{margin:12px 0}
+.bar{display:grid;grid-template-columns:210px 1fr 120px;gap:10px;align-items:center;margin:6px 0;font-size:14px}
+.bar .track{position:relative;height:14px;background:var(--chip);border-radius:7px}
+.bar .rng{position:absolute;top:0;height:14px;border-radius:7px;background:var(--accent2);opacity:.35}
+.bar .avg{position:absolute;top:-3px;width:4px;height:20px;border-radius:2px;background:var(--accent)}
+.bar .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.steps li{counter-increment:s;position:relative;padding:8px 10px 8px 44px;background:var(--paper);border:1px solid var(--line);border-radius:10px;margin:6px 0}
+.steps li::before{content:counter(s);position:absolute;left:10px;top:8px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+.sources li{margin:3px 0;font-size:14px;word-break:break-word}
+@media (max-width:700px){
+  h1{font-size:26px} .toc ol{columns:1}
+  .ladder{grid-template-columns:52px repeat(3,minmax(0,1fr));font-size:11.5px;gap:4px} .ladder .h{padding:4px 2px;font-size:11px}
+  .bar{grid-template-columns:120px 1fr 86px;font-size:12.5px}
+}
+@media print{
+  @page{size:A4;margin:16mm 14mm 16mm 14mm}
+  body{background:#fff;font-size:10.5pt;line-height:1.45}
+  .wrap{max-width:none;padding:0}
+  h1{font-size:22pt} h2{font-size:15pt;margin-top:20px;break-after:avoid} h3{font-size:12pt;break-after:avoid}
+  table,.key,.ladder,.cards,.bars,.steps li,.card{break-inside:avoid}
+  a{color:#1f4e8c;text-decoration:none}
+  .tblwrap{overflow:visible}
+  table{font-size:8.6pt} th{font-size:7.5pt} th,td{padding:4px 6px}
+  .bar{grid-template-columns:150px 1fr 90px;font-size:9pt}
+  .noprint{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>Karriere in der Medizintechnik</h1>
+  <p class="lead">Recherchedokument: Karrierewege, Aufstieg Schritt für Schritt, Gehälter in Deutschland, der Schweiz und Österreich sowie der typische Berufseinstieg. Schwerpunkt: Ingenieur:innen mit Master in Entwicklung und R&amp;D, Zielregion Süddeutschland, Nordschweiz und Österreich. Stand: November 2026.</p>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <b>Inhalt</b>
+  <ol>
+    <li><a href="#kurz">Das Wichtigste in Kürze</a></li>
+    <li><a href="#branche">Die Branche in Zahlen</a></li>
+    <li><a href="#einstieg">Typischer Berufseinstieg</a></li>
+    <li><a href="#wege">Arten von Karrieren</a></li>
+    <li><a href="#aufstieg">Aufstieg Schritt für Schritt</a></li>
+    <li><a href="#gehalt-de">Gehalt in Deutschland</a></li>
+    <li><a href="#gehalt-chat">Gehalt in der Schweiz und in Österreich</a></li>
+    <li><a href="#praxis">Was das für den Einstieg bedeutet</a></li>
+    <li><a href="#quellen">Quellen</a></li>
+  </ol>
+</nav>
+
+<section id="kurz">
+<h2><span class="n">1</span>Das Wichtigste in Kürze</h2>
+<div class="key">
+<ul>
+  <li><b>Einstieg:</b> Die meisten steigen direkt als (Junior-)Entwicklungsingenieur:in, in Verifikation &amp; Test, Regulatory Affairs oder Qualität ein. Häufig führt der Weg über Abschlussarbeit oder Werkstudentenjob im selben Unternehmen. Konzerne bieten zusätzlich Trainee- bzw. Graduate-Programme (12–24 Monate).</li>
+  <li><b>Drei Laufbahnen:</b> Fachlaufbahn (Senior → Expert → Principal), Projektlaufbahn (Teilprojektleiter → Projekt- und Programmleiter) und Führungslaufbahn (Team- → Gruppen- → Abteilungsleiter). Wechsel zwischen den Bahnen sind üblich.</li>
+  <li><b>Tempo:</b> Grob 0–2 Jahre Junior, 3–5 Jahre Engineer, 6–10 Jahre Senior, ab etwa 10 Jahren Lead/Teamleitung oder Principal.</li>
+  <li><b>Gehalt Deutschland:</b> Branchenportale nennen für den Einstieg mit Master rund <b>47.000–53.000 €</b> brutto im Jahr (Stuttgart höher). Tarifgebundene Großunternehmen der Metall- und Elektroindustrie zahlen deutlich mehr: Nach ERA Baden-Württemberg ergeben sich für typische Ingenieur-Entgeltgruppen rechnerisch etwa <b>74.000–90.000 €</b> (35-Stunden-Woche).</li>
+  <li><b>Schweiz und Österreich:</b> Schweizer Ingenieur:innen verdienen im Median <b>CHF 126.666</b> (2026), der Einstieg liegt im Schnitt bei <b>CHF 90.000</b>. In Österreich legt der Kollektivvertrag Elektro- und Elektronikindustrie Mindestgehälter fest, die 14-mal im Jahr gezahlt werden.</li>
+  <li><b>Arbeitsmarkt:</b> Der Ingenieurmangel hat 2025/26 deutlich nachgelassen. In Regulatory Affairs bleibt die Nachfrage wegen MDR und EUDAMED aber hoch.</li>
+</ul>
+</div>
+</section>
+
+<section id="branche">
+<h2><span class="n">2</span>Die Branche in Zahlen</h2>
+<div class="cards">
+  <div class="card"><div class="big">über 210.000</div><div class="lbl">Beschäftigte in der deutschen Medizintechnik (2024, WifOR)</div></div>
+  <div class="card"><div class="big">41,4 Mrd. €</div><div class="lbl">Umsatz der Hersteller mit mehr als 20 Beschäftigten (2024); inkl. Kleinstunternehmen rund 60 Mrd. €</div></div>
+  <div class="card"><div class="big">1.508</div><div class="lbl">Hersteller mit mehr als 20 Beschäftigten</div></div>
+  <div class="card"><div class="big">68 %</div><div class="lbl">Exportanteil am Umsatz</div></div>
+</div>
+<p class="src">Quelle: SPECTARIS, Pressemitteilung zum Jahrbuch Medizintechnik 2025.</p>
+<p>Die Branche ist stark mittelständisch geprägt. Baden-Württemberg ist mit den Clustern um Tuttlingen (Chirurgie und Endoskopie), Tübingen/Reutlingen, Stuttgart und Freiburg einer der wichtigsten Standorte. Für die Karriere heißt das: Neben wenigen Konzernen (Siemens Healthineers, B. Braun, Fresenius, Zeiss, Bosch, Roche) gibt es viele Familienunternehmen und Hidden Champions mit 100 bis 5.000 Beschäftigten. Dort ist die Hierarchie flacher, die Verantwortung kommt früher, das Gehalt liegt aber oft unter dem Tarifniveau der Großunternehmen.</p>
+<h3>Arbeitsmarkt 2026</h3>
+<p>Laut Ingenieurmonitor von VDI und IW waren im vierten Quartal 2025 rund 58.400 Ingenieur:innen und IT-Fachkräfte arbeitslos (+16,7 % zum Vorjahr, höchster Stand seit 2011). Die offenen Stellen sanken um 18,2 % auf rund 96.800. Rechnerisch kamen trotzdem noch 166 offene Stellen auf 100 Arbeitslose. Für Berufseinsteiger:innen bedeutet das mehr Wettbewerb und längere Suchphasen als in den Vorjahren.</p>
+<p>Gegen den Trend gefragt sind <b>Regulatory Affairs</b> und Qualität: Mehrere Fristen der EU-Medizinprodukteverordnung (MDR) fallen ins Jahr 2026, u. a. ist EUDAMED seit dem 28. Mai 2026 verpflichtend. Personalberater sprechen von einem strukturellen, nicht nur zyklischen Mangel.</p>
+<p class="src">Quellen: Börse Express zum VDI/IW-Ingenieurmonitor (4. August 2026); EPM Scientific, „What EU MDR means for hiring budgets in 2026“ (April 2026).</p>
+</section>
+
+<section id="einstieg">
+<h2><span class="n">3</span>Typischer Berufseinstieg</h2>
+<h3>Die üblichen Wege</h3>
+<div class="tblwrap"><table>
+<tr><th>Weg</th><th>Wie es abläuft</th><th>Vor- und Nachteile</th></tr>
+<tr><td><b>Direkteinstieg</b><br>(Junior) Entwicklungsingenieur:in, Test-/V&amp;V-Ingenieur:in, Junior RA/QM</td><td>Feste Stelle in einem Team, Einarbeitung „on the job“ mit Pat:in oder Mentor:in; meist 6 Monate Probezeit, bei Berufseinsteiger:innen nicht selten zunächst befristet.</td><td>Schnell produktiv und fachlich tief. Weniger Überblick über andere Bereiche als im Trainee.</td></tr>
+<tr><td><b>Übernahme nach Abschlussarbeit oder Werkstudentenjob</b></td><td>Der häufigste Weg in Entwicklung und Forschung: Wer das Team und die Produkte schon kennt, wird oft direkt übernommen oder auf die nächste passende Stelle hingewiesen.</td><td>Kaum Einarbeitungszeit, starkes internes Netzwerk. Abhängig davon, ob gerade eine Stelle frei ist.</td></tr>
+<tr><td><b>Trainee- / Graduate-Programm</b></td><td>12–24 Monate mit mehreren Stationen (z. B. Entwicklung, Service, Projektmanagement, Marketing), oft mit Auslandsstation, Mentoring und Netzwerk-Veranstaltungen; danach Übernahme in eine Zielposition.</td><td>Breiter Überblick und Sichtbarkeit beim Management. Wenige Plätze, hoher Wettbewerb, fachliche Vertiefung beginnt später.</td></tr>
+<tr><td><b>Promotion</b><br>an Uni, Fraunhofer/Max-Planck oder als Industrie-PhD</td><td>3–5 Jahre Forschung, häufig mit Industriepartner; Industrie-Promotionen (z. B. bei Bosch Research) verbinden beides.</td><td>Einstieg danach oft eine Stufe höher (R&amp;D, Vorausentwicklung, Expertenlaufbahn), Gehalt steigt laut Gehaltsreports um rund 18 % gegenüber dem Master. Kostet Zeit; lohnt sich vor allem für Forschung und Fachlaufbahn.</td></tr>
+<tr><td><b>Engineering-Dienstleister</b><br>(z. B. FERCHAU, DMT, Ingenics)</td><td>Anstellung beim Dienstleister, Einsatz in Projekten bei Herstellern; teils mit späterer Übernahme durch den Kunden.</td><td>Schneller Einstieg, viele Projekte und Firmen kennenlernen. Gehalt und Sicherheit oft etwas niedriger, weniger Produktverantwortung.</td></tr>
+<tr><td><b>Start-up</b></td><td>Breites Aufgabenfeld vom Prototyp über Zulassung bis Fertigung, oft mit Unternehmensbeteiligung.</td><td>Sehr steile Lernkurve. Höheres Risiko, Gehalt oft unter Markt.</td></tr>
+</table></div>
+
+<h3>Beispiele für Einstiegsprogramme</h3>
+<div class="tblwrap"><table>
+<tr><th>Unternehmen</th><th>Programm</th><th>Eckdaten</th></tr>
+<tr><td>Siemens Healthineers</td><td>Graduate Program</td><td>Etwa 12–24 Monate, Rotation durch mehrere Bereiche (Development &amp; Engineering, Customer Success &amp; Service, Projektmanagement, Marketing); je nach Bereich Auslandsrotation möglich; offen u. a. für Biomedical Engineering.</td></tr>
+<tr><td>Roche</td><td>StartUp Germany Development Programme</td><td>Einstiegsprogramm für Absolvent:innen in Deutschland, Standorte u. a. Mannheim und Penzberg; Fachrichtungen und Bewerbungsfenster direkt bei Roche erfragen.</td></tr>
+<tr><td>B. Braun / Aesculap</td><td>Traineeprogramm</td><td>18 Monate mit Projekten in verschiedenen Abteilungen und Mentoring (Stand unserer Stellenrecherche, Oktober 2026).</td></tr>
+</table></div>
+<p class="note">Zeiss, Karl Storz und Erbe wiesen bei der Recherche kein eigenes Ingenieur-Traineeprogramm aus. Dort ist der Direkteinstieg (oft nach Abschlussarbeit) der übliche Weg.</p>
+
+<h3>Die ersten 6–12 Monate in der Entwicklung</h3>
+<ol class="steps">
+  <li><b>Onboarding und Pflichtschulungen:</b> Qualitätsmanagementsystem nach ISO 13485, Design Control und Dokumentation (Design History File), Risikomanagement nach ISO 14971; je nach Produkt IEC 60601 (elektrische Sicherheit) oder IEC 62304 (Software).</li>
+  <li><b>Erste Arbeitspakete:</b> Teilkonstruktionen, Prüfstände und Testaufbauten, Verifikationsprotokolle schreiben und durchführen, Mitarbeit an FMEA und Risikoanalysen.</li>
+  <li><b>Verantwortung für ein Teilsystem:</b> nach etwa einem Jahr eigenständig für eine Baugruppe, ein Testpaket oder einen Änderungsprozess (Change Request) zuständig, Abstimmung mit Qualität, Zulassung und Produktion.</li>
+  <li><b>Erstes Jahresgespräch:</b> Ziele, Weiterbildung (z. B. Projektmanagement, Regulatory, Systems Engineering) und die Frage, ob eher Fach-, Projekt- oder Führungslaufbahn interessant ist.</li>
+</ol>
+<p class="src">Die Abschnitte zu Einstiegswegen und den ersten Monaten fassen typische Abläufe zusammen. Sie sind eine Einordnung und keine Angabe eines einzelnen Unternehmens.</p>
+</section>
+
+<section id="wege">
+<h2><span class="n">4</span>Arten von Karrieren</h2>
+<h3>Drei Laufbahnmodelle</h3>
+<p>Viele Technologieunternehmen bieten neben der klassischen Führungslaufbahn gleichwertige Fach- und Projektlaufbahnen an. Siemens führte die Expertenlaufbahn z. B. schon 2006 konzernweit ein und stellt sie bei Bezahlung und Sichtbarkeit einer Managementkarriere gleich. Laut einer VDE-Studie strebt knapp ein Drittel der Elektroingenieur:innen gar keine Personalverantwortung an.</p>
+<div class="tblwrap"><table>
+<tr><th>Laufbahn</th><th>Wofür sie steht</th><th>Typische Stufen</th></tr>
+<tr><td><span class="tag t-fach">Fachlaufbahn</span></td><td>Technische Tiefe, Methoden- und Systemwissen, Architekturentscheidungen, Mentoring</td><td>Engineer → Senior Engineer → Expert / Staff → Principal → Senior Principal → Fellow / Chief Expert</td></tr>
+<tr><td><span class="tag t-proj">Projektlaufbahn</span></td><td>Verantwortung für Zeit, Budget und Ergebnis von Entwicklungsprojekten</td><td>Teilprojektleiter:in → Projektleiter:in → Senior Projektleiter:in → Programm- / Portfolioleiter:in</td></tr>
+<tr><td><span class="tag t-fuehr">Führungslaufbahn</span></td><td>Personal-, Budget- und Organisationsverantwortung</td><td>Teamleiter:in → Gruppenleiter:in → Abteilungsleiter:in → Bereichsleiter:in / Director → VP / CTO</td></tr>
+</table></div>
+<p class="src">Quelle: VDE, „Experten-Karrierepfade für Ingenieure“ (Beispiele Siemens, Halbleiter- und Solarindustrie). Die Stufennamen unterscheiden sich je nach Unternehmen.</p>
+
+<h3>Funktionale Richtungen in der Medizintechnik</h3>
+<p>Fast alle Richtungen gibt es in jeder Teilbranche. Typische Wechsel sind in der rechten Spalte genannt.</p>
+<div class="tblwrap"><table>
+<tr><th>Richtung</th><th>Typischer Einstieg</th><th>Typische Weiterentwicklung</th></tr>
+<tr><td><b>Entwicklung / R&amp;D</b> (Mechanik, Elektronik, Software, Systeme)</td><td>Entwicklungsingenieur:in, Konstrukteur:in</td><td>Senior / Systemingenieur:in, Projektleitung, Teamleitung, Vorausentwicklung</td></tr>
+<tr><td><b>Verifikation &amp; Validierung, Test</b></td><td>Test- / V&amp;V-Ingenieur:in</td><td>Test-Architekt:in, Systems Engineering, Qualität, Projektleitung</td></tr>
+<tr><td><b>Regulatory Affairs</b></td><td>Junior RA Specialist</td><td>RA Manager → Senior → Head of RA; Wechsel zu Benannten Stellen oder Beratung möglich</td></tr>
+<tr><td><b>Qualitätsmanagement</b></td><td>Quality Engineer, QM-Referent:in</td><td>QM-Leitung, Auditor:in, Head of Quality</td></tr>
+<tr><td><b>Clinical Affairs</b></td><td>Clinical Affairs Specialist</td><td>Klinische Bewertung und Studien, PMCF, Head of Clinical</td></tr>
+<tr><td><b>Produktmanagement</b></td><td>meist nach 2–4 Jahren Entwicklung oder Applikation</td><td>Senior / Global Product Manager, Portfolio- und Business-Unit-Leitung</td></tr>
+<tr><td><b>Applikation / Field Service</b></td><td>Application Specialist, Field Clinical Engineer</td><td>Senior Application, Produktmanagement, Vertrieb</td></tr>
+<tr><td><b>Produktion / Prozessentwicklung</b></td><td>Prozess- oder Produktionsingenieur:in</td><td>Fertigungs- und Werksleitung, Operations</td></tr>
+<tr><td><b>Forschung</b></td><td>Promotion, wissenschaftliche Mitarbeit</td><td>Postdoc, Gruppenleitung, Industrieforschung, Gründung</td></tr>
+<tr><td><b>Beratung, Benannte Stelle, Engineering-Dienstleister</b></td><td>Consultant, Prüfingenieur:in, Projektingenieur:in</td><td>Senior Consultant, Lead Auditor, Projekt- und Bereichsleitung</td></tr>
+</table></div>
+</section>
+
+<section id="aufstieg">
+<h2><span class="n">5</span>Aufstieg Schritt für Schritt</h2>
+<p>Die folgende Leiter zeigt eine typische Entwicklung nach Berufsjahren. Die Gehaltsspannen stammen aus dem INGENIEURCENTER Gehaltsreport 2026 (alle Ingenieurfächer, brutto pro Jahr). Sie sind Schätzwerte über alle Unternehmensgrößen. In tarifgebundenen Großunternehmen liegen sie höher (siehe Abschnitt 6).</p>
+<div class="ladder" role="table" aria-label="Karriereleiter nach Berufsjahren">
+  <div></div><div class="h" style="background:var(--fach)">Fachlaufbahn</div><div class="h" style="background:var(--proj)">Projektlaufbahn</div><div class="h" style="background:var(--fuehr)">Führungslaufbahn</div>
+  <div class="yr">20+ Jahre</div><div class="c fach">Senior Principal / Fellow</div><div class="c proj">Programm- / Portfolioleitung</div><div class="c fuehr">Bereichsleitung / Director, VP</div>
+  <div class="yr">16–20 Jahre</div><div class="c fach">Principal Engineer</div><div class="c proj">Senior Projektleitung</div><div class="c fuehr">Abteilungsleitung</div>
+  <div class="yr">11–15 Jahre</div><div class="c fach">Expert / Staff Engineer</div><div class="c proj">Projektleitung</div><div class="c fuehr">Team- / Gruppenleitung</div>
+  <div class="yr">6–10 Jahre</div><div class="c fach">Senior Engineer</div><div class="c proj">Teilprojektleitung</div><div class="c fuehr">Fachliche Teamleitung (Lead)</div>
+  <div class="yr">3–5 Jahre</div><div class="shared">Engineer: eigenständige Verantwortung für Teilsysteme, erste Koordination</div>
+  <div class="yr">0–2 Jahre</div><div class="shared">Junior Engineer: Einarbeitung, Arbeitspakete im Team</div>
+</div>
+
+<div class="tblwrap"><table>
+<tr><th>Stufe</th><th>Berufsjahre</th><th class="num">Ø Gehalt</th><th class="num">Spanne</th><th>Woran man den Schritt erkennt</th></tr>
+<tr><td>Junior Engineer</td><td>0–2</td><td class="num">52.500 €</td><td class="num">45–58 Tsd. €</td><td>Arbeitspakete nach Vorgabe, Einarbeitung in QMS und Produkt</td></tr>
+<tr><td>Engineer</td><td>3–5</td><td class="num">58.000 €</td><td class="num">50–65 Tsd. €</td><td>Eigenständig für ein Teilsystem, Schnittstellen zu QM/RA/Produktion</td></tr>
+<tr><td>Senior Engineer</td><td>6–10</td><td class="num">68.000 €</td><td class="num">58–78 Tsd. €</td><td>Technische Entscheidungen, Betreuung von Junioren, oft Teilprojektleitung</td></tr>
+<tr><td>Lead / Teamleitung</td><td>11–15</td><td class="num">75.000 €</td><td class="num">62–88 Tsd. €</td><td>Fachliche oder disziplinarische Führung eines Teams</td></tr>
+<tr><td>Principal / Manager</td><td>16–20</td><td class="num">78.000 €</td><td class="num">68–95 Tsd. €</td><td>Bereichsübergreifende Verantwortung, Architektur oder mehrere Teams</td></tr>
+<tr><td>Director / Experte</td><td>20+</td><td class="num">80.000 €</td><td class="num">70–110 Tsd. €</td><td>Strategie, Budget, Gremien und Konzernebene</td></tr>
+</table></div>
+<p class="src">Quelle: INGENIEURCENTER Gehaltsreport 2026, Kapitel 8. Dort zusätzlich: Teamleiter:in im Schnitt 82.000 €, Abteilungsleiter:in 98.000 € (Kapitel 10).</p>
+
+<h3>Was den Aufstieg beschleunigt</h3>
+<ul>
+  <li><b>Regulatorisches Know-how:</b> Wer MDR/IVDR, ISO 13485 und ISO 14971 souverän beherrscht, ist in jeder Laufbahn gefragt.</li>
+  <li><b>Projektverantwortung früh übernehmen:</b> Teilprojekte oder Change-Prozesse sind der übliche Sprung zum Senior.</li>
+  <li><b>Breite durch Wechsel:</b> ein Wechsel zwischen Entwicklung, Applikation und Produktmanagement oder ein Auslandseinsatz.</li>
+  <li><b>Arbeitgeberwechsel:</b> Nach 2–4 Jahren bringt ein Wechsel oft den größten Gehaltssprung, vor allem vom Mittelstand in einen tarifgebundenen Konzern oder in die Schweiz.</li>
+  <li><b>Promotion:</b> lohnt sich vor allem für Vorausentwicklung, Forschung und Fachlaufbahn.</li>
+</ul>
+</section>
+
+<section id="gehalt-de">
+<h2><span class="n">6</span>Gehalt in Deutschland</h2>
+<h3>Einstiegsgehalt laut Gehaltsportalen</h3>
+<div class="bars" aria-label="Einstiegsgehälter in Tausend Euro">
+  <div class="bar"><span>M.Sc., alle Ingenieurfächer</span><span class="track"><span class="rng" style="left:21.4%;width:18.6%"></span><span class="avg" style="left:32.1%"></span></span><span class="v">Ø 52,5 Tsd. €</span></div>
+  <div class="bar"><span>Medizintechnik (Fach)</span><span class="track"><span class="avg" style="left:27.1%"></span></span><span class="v">Ø 49 Tsd. €</span></div>
+  <div class="bar"><span>Medizintechnik-Ingenieur:in (StepStone)</span><span class="track"><span class="avg" style="left:25.6%"></span></span><span class="v">Ø 47,9 Tsd. €</span></div>
+  <div class="bar"><span>Dr.-Ing.</span><span class="track"><span class="avg" style="left:45.7%"></span></span><span class="v">Ø 62 Tsd. €</span></div>
+  <div class="bar"><span>ERA BW, EG 11–14 (gerechnet)</span><span class="track"><span class="rng" style="left:63.3%;width:22.1%"></span></span><span class="v">74–90 Tsd. €</span></div>
+</div>
+<p class="src">Skala 30.000–100.000 €; Strich = Durchschnitt, Fläche = Spanne. Quellen: INGENIEURCENTER Gehaltsreport 2026; StepStone Gehaltsdaten Medizintechnik-Ingenieur/in (2026); eigene Berechnung aus der ERA-Tabelle Baden-Württemberg (siehe unten).</p>
+
+<div class="tblwrap"><table>
+<tr><th>Kennzahl</th><th class="num">Wert (brutto/Jahr)</th><th>Quelle</th></tr>
+<tr><td>Medizintechnik-Ingenieur:in, Median Deutschland</td><td class="num">51.200 €</td><td>StepStone (2026), Spanne 45.300–57.300 €</td></tr>
+<tr><td>… davon Einstieg / mit Erfahrung</td><td class="num">47.900 € / 65.000 €</td><td>StepStone (2026)</td></tr>
+<tr><td>… in Stuttgart</td><td class="num">58.800 €</td><td>StepStone (2026), Spanne 51.100–66.700 €</td></tr>
+<tr><td>Medizintechnik als Branche: Einstieg / Ø / Senior</td><td class="num">47.000 / 60.000 / 78.000 €</td><td>INGENIEURCENTER 2026</td></tr>
+<tr><td>Ingenieur:innen in Baden-Württemberg / Bayern (Ø)</td><td class="num">66.000 € / 64.000 €</td><td>INGENIEURCENTER 2026</td></tr>
+<tr><td>Regulatory Affairs (Medizintechnik/Pharma), mittlere 50 %</td><td class="num">47.400–72.100 €</td><td>gehalt.de (476 Datensätze)</td></tr>
+</table></div>
+
+<h3>Unternehmensgröße macht den größten Unterschied</h3>
+<div class="tblwrap"><table>
+<tr><th>Beschäftigte</th><th class="num">Ø Ingenieurgehalt</th></tr>
+<tr><td>unter 50</td><td class="num">57.300 €</td></tr>
+<tr><td>50–250</td><td class="num">61.900 €</td></tr>
+<tr><td>250–1.000</td><td class="num">63.800 €</td></tr>
+<tr><td>1.000–5.000</td><td class="num">73.300 €</td></tr>
+<tr><td>über 5.000 (Konzerne)</td><td class="num">80.600 €</td></tr>
+</table></div>
+<p class="src">Quelle: INGENIEURCENTER Gehaltsreport 2026, Kapitel 6 (alle Berufsjahre).</p>
+
+<h3>Tarif der Metall- und Elektroindustrie Baden-Württemberg (ERA)</h3>
+<p>Viele Großunternehmen mit Medizintechnik-Bereichen in Baden-Württemberg, z. B. Bosch und Zeiss, zahlen nach dem Tarifvertrag der Metall- und Elektroindustrie. Die Entgeltgruppe richtet sich nach der Arbeitsaufgabe, nicht allein nach dem Abschluss. Ingenieurtätigkeiten liegen typischerweise im oberen Bereich der Tabelle (Einschätzung).</p>
+<div class="tblwrap"><table>
+<tr><th>Entgeltgruppe</th><th class="num">Grundentgelt / Monat</th><th class="num">+ 15 % Leistungsentgelt</th><th class="num">Sonderzahlungen / Jahr</th><th class="num">Jahr (gerechnet)</th></tr>
+<tr><td>EG 11</td><td class="num">4.796 €</td><td class="num">5.515 €</td><td class="num">≈ 8.150 €</td><td class="num">≈ 74.300 €</td></tr>
+<tr><td>EG 12</td><td class="num">5.129 €</td><td class="num">5.898 €</td><td class="num">≈ 8.710 €</td><td class="num">≈ 79.500 €</td></tr>
+<tr><td>EG 13</td><td class="num">5.462,50 €</td><td class="num">6.282 €</td><td class="num">≈ 9.280 €</td><td class="num">≈ 84.700 €</td></tr>
+<tr><td>EG 14</td><td class="num">5.795,50 €</td><td class="num">6.665 €</td><td class="num">≈ 9.850 €</td><td class="num">≈ 89.800 €</td></tr>
+<tr><td>EG 15</td><td class="num">6.129 €</td><td class="num">7.048 €</td><td class="num">≈ 10.410 €</td><td class="num">≈ 95.000 €</td></tr>
+</table></div>
+<p class="note"><b>So ist gerechnet:</b> Grundentgelt laut ERA-Tabelle BW (gültig ab 1. April 2026, 35-Stunden-Woche) plus 15 % Leistungsentgelt (Betriebsdurchschnitt in BW), dazu Urlaubsgeld 69 %, Weihnachtsgeld 55 % (volle Höhe erst nach 36 Monaten, vorher 25–45 %), T-ZUG A 27,5 % und T-Geld 18,4 % eines Monatsentgelts. Nicht enthalten ist T-ZUG B (Einmalzahlung, Februar 2026: 952 €). Bei einem 40-Stunden-Vertrag liegt das Entgelt anteilig rund 14 % höher. Das sind Modellrechnungen, keine Angebote. Die Tabelle gilt bis 31.10.2026, danach ist die neue Tarifrunde zu beachten.</p>
+<p class="src">Quellen: tarifvertrag-online.de und deutschland-rechner.de (ERA-Entgelttabelle BW 2026 und Sonderzahlungen); Südwestmetall.</p>
+
+<h3>Gehälter nach Funktion (Erfahrene)</h3>
+<div class="tblwrap"><table>
+<tr><th>Funktion (Medtech)</th><th class="num">Spanne brutto/Jahr inkl. Bonus</th></tr>
+<tr><td>Application Engineer</td><td class="num">55.000–65.000 €</td></tr>
+<tr><td>Regulatory Affairs Manager</td><td class="num">60.000–70.000 €</td></tr>
+<tr><td>Produktmanager:in</td><td class="num">60.000–70.000 €</td></tr>
+<tr><td>Senior Application Engineer</td><td class="num">65.000–75.000 €</td></tr>
+<tr><td>Senior Regulatory Affairs Manager</td><td class="num">70.000–80.000 €</td></tr>
+<tr><td>Senior Product Manager</td><td class="num">70.000–95.000 €</td></tr>
+<tr><td>Head of Quality Management</td><td class="num">80.000–110.000 €</td></tr>
+</table></div>
+<p class="src">Quelle: Michael Page, Gehalts-Factsheet Healthcare &amp; Life Sciences (ohne Jahresangabe im Dokument; daher nur als Orientierung).</p>
+</section>
+
+<section id="gehalt-chat">
+<h2><span class="n">7</span>Gehalt in der Schweiz und in Österreich</h2>
+<h3>Schweiz</h3>
+<div class="cards">
+  <div class="card"><div class="big">CHF 126.666</div><div class="lbl">Medianlohn Ingenieur:innen und Architekt:innen 2026 (Vollzeit; 2025: CHF 122.000)</div></div>
+  <div class="card"><div class="big">CHF 90.000</div><div class="lbl">durchschnittlicher Einstiegslohn über alle Fachrichtungen (2026)</div></div>
+  <div class="card"><div class="big">CHF 81.700–102.400</div><div class="lbl">mittlere Lohnspanne Entwicklungsingenieur:in (Q1 2026, 13 Monatslöhne)</div></div>
+</div>
+<p>Nach Branche liegen Chemie/Pharma (CHF 132.000) und Maschinen-/Metallindustrie (CHF 120.000) im Median nah beieinander. Medizintechnik wird in der Studie nicht separat ausgewiesen. Höhere Lebenshaltungskosten (vor allem Miete und Krankenkasse) und bei Grenzgänger:innen die Besteuerung relativieren den Abstand zu Deutschland.</p>
+<p class="src">Quellen: Swiss Engineering STV, Salärstudie 2026 (Medienmitteilung vom 6. Oktober 2026); lohncheck.ch, Entwicklungsingenieur (Q1 2026).</p>
+<h3>Österreich</h3>
+<p>In Österreich gelten Kollektivverträge mit Mindestgehältern. Gezahlt wird traditionell 14-mal im Jahr (inkl. Urlaubs- und Weihnachtsgeld). Für die Elektro- und Elektronikindustrie (dazu zählen viele Medizintechnik-Hersteller) gelten 2026 diese Mindestgrundgehälter in den oberen Gruppen:</p>
+<div class="tblwrap"><table>
+<tr><th>Gruppe</th><th class="num">Einstieg / Monat</th><th class="num">nach 10 Jahren</th><th class="num">Einstieg × 14 (Jahr)</th></tr>
+<tr><td>G</td><td class="num">4.472,11 €</td><td class="num">4.993,21 €</td><td class="num">≈ 62.600 €</td></tr>
+<tr><td>H</td><td class="num">4.905,47 €</td><td class="num">5.477,01 €</td><td class="num">≈ 68.700 €</td></tr>
+<tr><td>I</td><td class="num">6.002,02 €</td><td class="num">6.701,42 €</td><td class="num">≈ 84.000 €</td></tr>
+<tr><td>J</td><td class="num">6.589,71 €</td><td class="num">7.357,51 €</td><td class="num">≈ 92.300 €</td></tr>
+</table></div>
+<p class="src">Quelle: GPA, Gehaltstabelle Elektro- und Elektronikindustrie 2026. Die Einstufung hängt von der Tätigkeit ab. Für Absolvent:innen sind meist die mittleren bis oberen Gruppen relevant (Einschätzung). Tatsächliche Gehälter liegen oft über dem KV-Minimum.</p>
+</section>
+
+<section id="praxis">
+<h2><span class="n">8</span>Was das für den Einstieg bedeutet</h2>
+<div class="tblwrap"><table>
+<tr><th>Arbeitgeber-Typ</th><th>Realistische Einstiegsspanne (M.Sc., Entwicklung)</th><th>Einordnung</th></tr>
+<tr><td>Mittelstand, nicht tarifgebunden (Süddeutschland)</td><td>ca. 50.000–60.000 €</td><td>Gehaltsportale; Stuttgart eher oben</td></tr>
+<tr><td>Tarifgebundener Großkonzern (BW, IG Metall)</td><td>ca. 74.000–90.000 € (35 h)</td><td>Modellrechnung ERA EG 11–14</td></tr>
+<tr><td>Engineering-Dienstleister</td><td>eher am unteren Rand des Mittelstands</td><td>Einschätzung</td></tr>
+<tr><td>Promotion an Uni/Fraunhofer (TV-L/TVöD E13)</td><td>nach Tarif des öffentlichen Dienstes, oft Teilzeit 50–100 %</td><td>Einschätzung</td></tr>
+<tr><td>Schweiz (Raum Basel/Zürich)</td><td>ca. CHF 80.000–100.000</td><td>Swiss Engineering, lohncheck.ch</td></tr>
+<tr><td>Österreich</td><td>KV-Minimum plus Überzahlung, 14 Gehälter</td><td>KV EEI 2026</td></tr>
+</table></div>
+<h3>Tipps</h3>
+<ul>
+  <li><b>Gehaltswunsch begründen:</b> Bei tarifgebundenen Firmen nach Entgeltgruppe und Wochenstunden (35 oder 40) fragen. Im Mittelstand mit dem Median für die Region argumentieren und Abschlussarbeit oder Praktikum in der Branche als Erfahrung anführen.</li>
+  <li><b>Gesamtpaket vergleichen:</b> Sonderzahlungen, Bonus, betriebliche Altersvorsorge, Homeoffice, Weiterbildung, Befristung.</li>
+  <li><b>Netzwerk nutzen:</b> Abschlussarbeit, Werkstudentenjob und Alumni-Kontakte sind in der Medizintechnik der häufigste Weg in die Entwicklung.</li>
+  <li><b>Profil schärfen:</b> Kenntnisse in ISO 13485, ISO 14971, MDR/IVDR, IEC 60601/62304 sowie Verifikation und Testing sind bei fast allen Stellen gefragt.</li>
+</ul>
+</section>
+
+<section id="quellen">
+<h2><span class="n">9</span>Quellen</h2>
+<ol class="sources">
+  <li>SPECTARIS: <a href="https://www.spectaris.de/fileadmin/Content/Pressemitteilungen/2025/Medizintechnik/SPECTARIS-PM_Jahrbuch_Medizintechnik.pdf">Pressemitteilung Jahrbuch Medizintechnik</a> (Kennzahlen 2024)</li>
+  <li>Börse Express: <a href="https://www.boerse-express.com/news/articles/fachkraeftemangel-bricht-ein-it-und-ingenieurwesen-erstmals-betroffen-935440">Fachkräftemangel bricht ein: IT und Ingenieurwesen erstmals betroffen</a> (4. August 2026, VDI/IW-Ingenieurmonitor)</li>
+  <li>EPM Scientific: <a href="https://www.epmscientific.com/en-gb/industry-insights/hiring-advice/what-eu-mdr-means-for-hiring-budgets-in-2026">What EU MDR means for hiring budgets in 2026</a> (April 2026)</li>
+  <li>INGENIEURCENTER: <a href="https://www.ingenieurcenter.de/files/INGENIEURCENTER-Gehaltsreport-2026.pdf">Gehaltsreport 2026</a></li>
+  <li>StepStone: <a href="https://www.stepstone.de/gehalt/Medizintechnik-Ingenieur-in.html">Gehalt Medizintechnik Ingenieur/in</a> (2026)</li>
+  <li>gehalt.de: <a href="https://www.gehalt.de/einkommen/suche/regulatory-affairs-zulassungsverfahren-pharmaindustrie-medizintechnik">Regulatory Affairs, Pharmaindustrie/Medizintechnik</a></li>
+  <li>tarifvertrag-online.de: <a href="https://tarifvertrag-online.de/entgelttabelle/metall-elektro/ig-metall/baden-wuerttemberg">ERA-Entgelttabelle Metall/Elektro Baden-Württemberg</a></li>
+  <li>deutschland-rechner.de: <a href="https://www.deutschland-rechner.de/ig-metall-rechner">IG-Metall-Rechner 2026</a> (Leistungsentgelt und Sonderzahlungen BW)</li>
+  <li>IG Metall Bayern: <a href="https://www.igmetall.de/download/20250430_IGM_Bro_Ingenieur_Geh_lter_2025_2026_Bayern_DE_Web_7b2603aa7aac7e46437eed549c1ef53c577ca539.pdf">Ingenieur-Gehälter 2025/2026</a></li>
+  <li>Michael Page: <a href="https://www.michaelpage.de/sites/michaelpage.de/files/Gehalts-Factsheet-Healthcare-and-Life-Sciences-Michael-Page.pdf">Gehalts-Factsheet Healthcare &amp; Life Sciences</a></li>
+  <li>Swiss Engineering STV: <a href="https://www.presseportal.ch/de/pm/100003643/100942777">Ingenieurlöhne steigen – Nachwuchs stellt Unternehmen vor Herausforderungen</a> (6. Oktober 2026)</li>
+  <li>lohncheck.ch: <a href="https://lohncheck.ch/de/lohn/technik/entwicklungsingenieur">Lohn Entwicklungsingenieur Schweiz</a> (Q1 2026)</li>
+  <li>GPA: <a href="https://www.gpa.at/content/dam/gpa/downloads/kollektivvertrag/elektro,-it,-telekom/elektro/2026/Gehaltstabelle_EEI_2026.pdf">Gehaltstabelle Elektro- und Elektronikindustrie 2026</a></li>
+  <li>Siemens Healthineers: <a href="https://myshare-cms.siemens.com/siemens-healthineers-graduate-program">Graduate Program</a></li>
+  <li>Roche: <a href="https://careers.roche.com/global/en/welcome-to-roche-after-your-studies">Welcome to Roche after your studies</a></li>
+  <li>VDE: <a href="https://www.vde.com/resource/blob/2020330/28e7de1e0154e190a8b02f5bbea690ff/experten-karrierepfade-fur-ingenieure---download-data.pdf">Experten-Karrierepfade für Ingenieure</a></li>
+</ol>
+</section>
+
+<footer>
+  Recherche Stand November 2026. Gehaltsangaben sind brutto und stammen aus unterschiedlichen Erhebungen mit unterschiedlicher Methodik. Sie sind als Orientierung gedacht, nicht als Zusage. Abschnitte mit dem Vermerk „Einschätzung“ fassen übliche Praxis zusammen und sind nicht einzeln belegt.
+  <span class="noprint"> · <a href="Karriere_Medizintechnik.pdf">Als PDF herunterladen</a> · <a href="../">Zur Stellenkarte</a></span>
+</footer>
+</div>
+</body>
+</html>
