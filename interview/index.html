@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interviewtraining</title>
+<meta name="description" content="Checkliste, typische Fragen, Tipps, Videos und Übungsspiele für das Vorstellungsgespräch in der Medizintechnik.">
+<style>
+:root{--bg:#f6f7f9;--paper:#ffffff;--ink:#18202b;--ink2:#5d6877;--line:#e2e6ec;--chip:#eef1f5;--accent:#1f4e8c;--accent2:#2f7bd8;--a1:#1565c0;--a2:#6a1b9a;--a3:#00838f;--a4:#b45309;--a5:#2e7d32}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}}
+:root[data-theme="dark"]{--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:28px 16px 64px}
+.back{display:inline-block;font-size:14px;color:var(--ink2);text-decoration:none;margin-bottom:12px}
+.back:hover{text-decoration:underline}
+header.top{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:22px}
+h1{font-size:30px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+.lead{color:var(--ink2);margin:0}
+h2{font-size:22px;margin:34px 0 10px;letter-spacing:-.01em;scroll-margin-top:16px}
+h3{font-size:17px;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent2)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.toc a{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:14px;text-decoration:none;color:var(--ink)}
+.toc a:hover{border-color:var(--accent2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:12px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--c,var(--accent));border-radius:14px;padding:16px 18px;display:flex;flex-direction:column}
+.card h3{margin:0 0 6px}
+.card p,.card li{font-size:15px}
+.card ul{margin:6px 0;padding-left:20px}
+.card .who{font-size:13px;color:var(--ink2);margin-top:auto;padding-top:8px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{display:inline-block;background:var(--c,var(--accent));color:#fff;text-decoration:none;font-weight:650;font-size:14px;border-radius:9px;padding:7px 12px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{color:#11161c}}
+:root[data-theme="dark"] .btn{color:#11161c}
+.btn.sec{background:var(--chip);color:var(--ink)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.box{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 18px;margin:14px 0}
+.box ul,.box ol{margin:6px 0;padding-left:22px}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:10px 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.steps>li{counter-increment:s;position:relative;padding:10px 12px 10px 48px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0}
+.steps>li::before{content:counter(s);position:absolute;left:12px;top:10px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .steps>li::before{color:#11161c}}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+@media (max-width:700px){h1{font-size:25px}}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+button{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--accent2);background:var(--accent2);color:#fff;border-radius:9px;padding:7px 12px;cursor:pointer}
+button.ghost{background:var(--paper);color:var(--ink);border-color:var(--line)}
+button:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.pill{background:var(--chip);border-radius:999px;padding:4px 11px;font-size:13.5px;color:var(--ink2)}
+details.topic{background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:0 14px}
+details.topic summary{cursor:pointer;padding:12px 0;font-weight:700;display:flex;justify-content:space-between;gap:10px;list-style:none}
+details.topic summary::-webkit-details-marker{display:none}
+details.topic summary::before{content:"▸";margin-right:8px;color:var(--ink2)}
+details.topic[open] summary::before{content:"▾"}
+details.topic summary span:first-child{flex:1}
+.st{font-size:13px;color:var(--a5);font-weight:600}
+.qs{margin:0 0 8px;padding-left:20px;font-size:14.5px;color:var(--ink2)}
+textarea,input[type=text]{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;margin-bottom:12px}
+.lbl{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin:6px 0 4px}
+.matchgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;align-items:start}
+.req{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 8px}
+.req .rt{font-weight:600;margin-bottom:6px}
+.req input{margin:6px 0 0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{background:var(--paper);color:var(--ink);border:none;border-radius:0;padding:5px 10px;font-weight:500}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on.y{background:var(--a5);color:#fff}.seg button.on.p{background:var(--a4);color:#fff}.seg button.on.n{background:#9aa3ad;color:#fff}
+.score{margin:0 0 10px;font-size:14px;color:var(--ink2)}
+.sbar{height:10px;background:var(--chip);border-radius:5px;overflow:hidden;margin-bottom:4px}.sbar i{display:block;height:100%;background:var(--a5)}
+.empty{color:var(--ink2);font-size:14px}
+@media (max-width:760px){.matchgrid{grid-template-columns:1fr}}
+.chk{display:flex;gap:9px;align-items:flex-start;font-size:15px;padding:5px 0;cursor:pointer}
+.chk input{margin-top:5px;width:17px;height:17px;flex:none;accent-color:var(--c)}
+.chk input:checked+span{color:var(--ink2);text-decoration:line-through}
+details.q{border-top:1px solid var(--line);padding:2px 0}
+details.q summary{cursor:pointer;padding:8px 0;font-size:15px;font-weight:500;list-style:none}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::before{content:"+";display:inline-block;width:18px;color:var(--accent2);font-weight:700}
+details.q[open] summary::before{content:"−"}
+details.q p{margin:0 0 10px 18px;font-size:14.5px;color:var(--ink2)}
+select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);max-width:100%}
+.trainer,.quizbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tq{font-size:20px;font-weight:650;line-height:1.35;margin:14px 0;min-height:54px}
+.timer{display:flex;align-items:center;gap:10px;font-variant-numeric:tabular-nums;font-size:14px;color:var(--ink2)}
+.tbar{flex:1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden}.tbar i{display:block;height:100%;width:100%;background:var(--a3);transition:width 1s linear}
+.thint{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:15px;margin:8px 0}
+.small{font-size:13.5px;color:var(--ink2)}
+.qhead{display:flex;justify-content:space-between;font-size:13.5px;color:var(--ink2)}
+.qq{font-size:18px;font-weight:650;margin:10px 0 12px}
+.qopts{display:grid;gap:8px}
+.qopts .qo{text-align:left;font-weight:500;padding:10px 12px}
+.qo.right{border-color:var(--a5);background:color-mix(in srgb,var(--a5) 14%,var(--paper))}
+.qo.wrong{border-color:#c62828;background:color-mix(in srgb,#c62828 12%,var(--paper))}
+.qo:disabled{cursor:default;color:var(--ink)}
+.qex{margin-top:12px;font-size:15px}.qex button{margin-left:8px}
+.qres{font-size:18px;margin:6px 0 12px}
+.vcard{display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1px solid var(--line);border-left:5px solid #c4302b;border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.vcard:hover{border-color:var(--accent2)}
+.vt{font-weight:650;font-size:15px}.vm{font-size:13px;color:var(--ink2)}
+ul{padding-left:22px}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../menu.html">← Zur Übersicht</a>
+<header class="top">
+  <h1>Interviewtraining</h1>
+  <p class="lead">Checkliste, typische Fragen mit Hinweisen, Tipps, ausgewählte Videos und zwei Übungsspiele für das Vorstellungsgespräch als Berufseinsteiger:in in der Medizintechnik.</p>
+</header>
+<nav class="toc" aria-label="Inhalt">
+  <a href="#check">Checkliste</a><a href="#fragen">Typische Fragen</a><a href="#trainer">Fragen-Trainer</a><a href="#quiz">Quiz</a><a href="#tipps">Tipps &amp; Tricks</a><a href="#videos">Videos</a><a href="#training">Training mit Menschen</a>
+</nav>
+
+<section id="check">
+<h2>Checkliste Vorstellungsgespräch</h2>
+<p>Zum Abhaken. Der Stand wird nur in diesem Browser gespeichert.</p>
+<div class="tools"><span class="pill" id="chkprog"></span><button type="button" class="ghost" id="chkreset">Checkliste zurücksetzen</button></div>
+<div class="grid" id="checklist"></div>
+</section>
+
+<section id="fragen">
+<h2>Typische Fragen und worauf es ankommt</h2>
+<p>Klicken Sie auf eine Frage, um den Hinweis zu sehen. Am besten beantworten Sie jede Frage einmal laut, bevor Sie den Hinweis lesen.</p>
+<div id="qcat"></div>
+</section>
+
+<section id="trainer">
+<h2>Spiel 1: Fragen-Trainer</h2>
+<p>Eine zufällige Frage, 90 Sekunden Zeit, laut antworten (gern mit Handy-Aufnahme). Danach den Hinweis lesen und sich selbst einschätzen.</p>
+<div class="trainer">
+  <div class="tools">
+    <label class="lbl" for="tcat" style="margin:0">Kategorie</label>
+    <select id="tcat"><option value="all">Alle Kategorien</option></select>
+    <button type="button" id="tnext">Neue Frage</button>
+  </div>
+  <div class="tq" id="tq">Klicken Sie auf „Neue Frage“.</div>
+  <div class="timer"><div class="tbar"><i id="tbar"></i></div><span id="tsec">90 s</span></div>
+  <div class="tools"><button type="button" class="ghost" id="tshow" disabled>Hinweis zeigen</button></div>
+  <div class="thint" id="thint" hidden></div>
+  <div class="tools" id="trate" hidden>
+    <span>Wie lief es?</span>
+    <button type="button" class="ghost" data-r="2">Souverän</button>
+    <button type="button" class="ghost" data-r="1">Ging so</button>
+    <button type="button" class="ghost" data-r="0">Nochmal üben</button>
+  </div>
+  <p class="small" id="tstats"></p>
+</div>
+</section>
+
+<section id="quiz">
+<h2>Spiel 2: Quiz</h2>
+<p>Zehn Fragen zu Gesprächsführung und Medizintechnik-Grundlagen, die im Fachteil oft vorkommen.</p>
+<div class="quizbox" id="quizbox"></div>
+</section>
+
+<section id="tipps">
+<h2>Tipps &amp; Tricks</h2>
+<div class="grid">
+  <div class="card" style="--c:var(--a1)"><h3>STAR-Methode</h3><p>Beispiele strukturiert erzählen: <b>S</b>ituation, <b>T</b>ask (Aufgabe), <b>A</b>ction (Ihr Vorgehen), <b>R</b>esult (Ergebnis, möglichst messbar). Drei bis fünf solcher Geschichten aus Abschlussarbeit, Praktikum und HiWi vorbereiten.</p></div>
+  <div class="card" style="--c:var(--a1)"><h3>Selbstpräsentation in 2 Minuten</h3><p>Roter Faden statt Lebenslauf vorlesen: Wer bin ich fachlich, was habe ich gemacht (2–3 Highlights mit Bezug zur Stelle), warum genau diese Stelle und Firma.</p></div>
+  <div class="card" style="--c:var(--a3)"><h3>Unternehmen recherchieren</h3><p>Produkte, Teilbranche, Standort, aktuelle Nachrichten, Werte. In der <a href="../netzwerk/">Netzwerk-Mindmap</a> steht ein Kurzprofil vieler Firmen. Kontakte, die dort arbeiten, vorher um eine Einschätzung bitten.</p></div>
+  <div class="card" style="--c:var(--a3)"><h3>Fachteil vorbereiten</h3><p>Die eigene Abschlussarbeit in 3 Minuten verständlich erklären können, inkl. Methoden, Probleme und Ergebnis. Grundbegriffe auffrischen: MDR, ISO 13485, ISO 14971, Design Control, Verifikation und Validierung, IEC 60601.</p></div>
+  <div class="card" style="--c:var(--a2)"><h3>Gehaltsfrage</h3><p>Eine begründete Spanne nennen (Jahresbrutto), nicht die erste Zahl offen lassen. Orientierung bietet die <a href="../karriere/#gehalt-de">Karriere-Recherche</a>. Bei tarifgebundenen Firmen nach Entgeltgruppe und Wochenstunden fragen.</p></div>
+  <div class="card" style="--c:var(--a2)"><h3>Eigene Fragen stellen</h3><p>Zwei bis drei echte Fragen, z. B. zur Einarbeitung, zu den ersten Projekten, zum Team, zur Weiterentwicklung oder zum nächsten Schritt im Prozess.</p></div>
+  <div class="card" style="--c:var(--a4)"><h3>Videointerview</h3><p>Technik vorher testen, Kamera auf Augenhöhe, ruhiger Hintergrund, Licht von vorn, Notizen neben die Kamera, in die Kamera statt aufs Bild schauen.</p></div>
+  <div class="card" style="--c:var(--a4)"><h3>Nachbereitung</h3><p>Noch am selben Tag Notizen machen (Fragen, Namen, offene Punkte), kurze Dankesmail schicken und im <a href="../tracker/">Bewerbungs-Tracker</a> einen Nachfass-Termin eintragen.</p></div>
+</div>
+</section>
+
+<section id="videos">
+<h2>Videos</h2>
+<p>Ausgewählte YouTube-Videos zum Thema. Es handelt sich um externe Inhalte von Unternehmen und Karriere-Coaches. Ich habe sie nach Titel und Thema ausgewählt, aber nicht vollständig angesehen. Bitte kritisch prüfen.</p>
+<div class="grid">
+  <a class="vcard" href="https://www.youtube.com/watch?v=a6wTKpTg_SI" target="_blank" rel="noopener"><span class="vt">Bosch Expertentipps für Ihr Bewerbungsgespräch</span><span class="vm">Arbeitgebersicht · Deutsch</span></a>
+  <a class="vcard" href="https://www.youtube.com/watch?v=__Uh1kUKKW4" target="_blank" rel="noopener"><span class="vt">Das Vorstellungsgespräch für Berufseinsteiger (Dialog in voller Länge)</span><span class="vm">Beispielgespräch · Deutsch</span></a>
+  <a class="vcard" href="https://www.youtube.com/watch?v=1bfH-u0j-PA" target="_blank" rel="noopener"><span class="vt">#Vorstellungsgespräch für Ingenieure</span><span class="vm">Ingenieur-spezifisch · Deutsch</span></a>
+  <a class="vcard" href="https://www.youtube.com/watch?v=qOxq-Yd2jMA" target="_blank" rel="noopener"><span class="vt">Vorstellungsgespräch: 17 häufige Fragen + Antworten (Beispiel-Dialog)</span><span class="vm">Typische Fragen · Deutsch</span></a>
+  <a class="vcard" href="https://www.youtube.com/watch?v=YrU_otyRBo8" target="_blank" rel="noopener"><span class="vt">Vorstellungsgespräch: 10 eigene Fragen (unbedingt stellen!)</span><span class="vm">Rückfragen · Deutsch</span></a>
+  <a class="vcard" href="https://www.youtube.com/watch?v=l2fc1XypBgY" target="_blank" rel="noopener"><span class="vt">Bewerbungsgespräch: Vermeide das (5 No-Gos)</span><span class="vm">Fehler vermeiden · Deutsch</span></a>
+  <a class="vcard" href="https://www.youtube.com/watch?v=GYw9XakVLv0" target="_blank" rel="noopener"><span class="vt">Graduate Engineer Interview Questions and Answers</span><span class="vm">Für englische Interviews · Englisch</span></a>
+</div>
+<p class="note">Instagram-Reels habe ich nicht verlinkt: Über die Websuche ließen sich keine Reels oder Accounts zu Vorstellungsgesprächen zuverlässig finden und prüfen. Auf Instagram selbst führen Suchbegriffe wie „Vorstellungsgespräch Tipps“ oder „Bewerbungsgespräch“ zu aktuellen Reels.</p>
+</section>
+
+<section id="training">
+<h2>Training mit Menschen</h2>
+<ul>
+  <li><b>Career Service der Uni Stuttgart:</b> Workshops zum Vorstellungsgespräch und individuelle Karriereberatung (siehe <a href="../beratung/">Beratungsangebote</a>).</li>
+  <li><b>Probegespräch im Bekanntenkreis:</b> jemand liest Fragen aus dieser Seite vor, am besten jemand mit Berufserfahrung, z. B. aus der Alumni-Gruppe.</li>
+  <li><b>Selbstaufnahme:</b> Antworten per Handy filmen und auf Länge (1–2 Minuten), Füllwörter und Körpersprache achten.</li>
+</ul>
+</section>
+
+<footer>Eigene Zusammenstellung, Stand November 2026. Videos sind externe Inhalte. Fortschritt und Ergebnisse werden nur lokal im Browser gespeichert. · <a href="../menu.html">Zur Übersicht</a></footer>
+</div>
+<script>
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const load = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e) { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} };
+
+/* Checkliste */
+const CHECK = [
+ ["Vorher", ["Stellenanzeige erneut lesen, Muss-Anforderungen markieren","Unternehmen recherchieren: Produkte, Standort, Teilbranche, News","Kontakte im Netzwerk fragen, die dort arbeiten","Selbstpräsentation (2 Min.) laut üben","3–5 STAR-Beispiele vorbereiten","Abschlussarbeit in 3 Minuten erklären können","Gehaltsvorstellung als Spanne festlegen","2–3 eigene Fragen notieren"]],
+ ["Am Tag", ["Unterlagen ausgedruckt dabei (Lebenslauf, Anschreiben, Zeugnisse)","Anfahrt und Ansprechpartner:in geklärt, 10 Minuten früher da","Bei Videointerview: Technik, Licht, Ton, Hintergrund getestet","Kleidung passend zur Firmenkultur","Notizblock und Stift"]],
+ ["Danach", ["Notizen zu Fragen, Namen und offenen Punkten machen","Kurze Dankesmail innerhalb von 24 Stunden","Nachfass-Termin im Bewerbungs-Tracker eintragen","Was lief gut, was beim nächsten Mal anders?"]]
+];
+let chk = load("interview-check-v1", {});
+function drawCheck(){
+  let n = 0, d = 0;
+  document.getElementById("checklist").innerHTML = CHECK.map(([t, items], gi) => `<div class="card" style="--c:var(--a${gi+1})"><h3>${t}</h3>` + items.map((it, ii) => { const id = gi+"-"+ii; n++; if (chk[id]) d++; return `<label class="chk"><input type="checkbox" data-c="${id}" ${chk[id]?"checked":""}> <span>${esc(it)}</span></label>`; }).join("") + `</div>`).join("");
+  document.getElementById("chkprog").textContent = `${d} von ${n} erledigt`;
+}
+document.getElementById("checklist").addEventListener("change", e => { if (e.target.dataset.c){ chk[e.target.dataset.c] = e.target.checked; save("interview-check-v1", chk); drawCheck(); } });
+document.getElementById("chkreset").onclick = () => { chk = {}; save("interview-check-v1", chk); drawCheck(); };
+drawCheck();
+
+/* Fragen */
+const Q = {
+ "Einstieg & Motivation": [
+  ["Erzählen Sie etwas über sich.", "Kein Lebenslauf-Vorlesen. Roter Faden in 1–2 Minuten: fachlicher Kern, 2–3 Highlights mit Bezug zur Stelle, warum Sie jetzt hier sind."],
+  ["Warum möchten Sie bei uns arbeiten?", "Konkret werden: Produkte, Technologie, Teilbranche, Standort, Werte. Zeigen, dass Sie recherchiert haben, und eine Verbindung zu Ihren Erfahrungen herstellen."],
+  ["Warum haben Sie sich für Medizintechnik entschieden?", "Persönliche, glaubwürdige Motivation plus fachliches Interesse. Ein Erlebnis oder Projekt, das den Ausschlag gab, macht die Antwort lebendig."],
+  ["Wo sehen Sie sich in fünf Jahren?", "Entwicklung im Unternehmen statt Absprung: fachlich vertiefen, Verantwortung übernehmen, eventuell Projekt- oder Fachlaufbahn. Realistisch und zur Firma passend."]],
+ "Werdegang & Erfahrung": [
+  ["Erklären Sie uns Ihre Abschlussarbeit.", "Problem, Ziel, Methode, Ergebnis, Ihr eigener Beitrag. Für Nicht-Fachleute verständlich, Details auf Nachfrage. Was würden Sie heute anders machen?"],
+  ["Was haben Sie im Praktikum konkret gemacht?", "Aufgaben, Werkzeuge, Ergebnis und was Sie gelernt haben. Bezug zu den Anforderungen der Stelle herstellen."],
+  ["Beschreiben Sie ein Projekt, das nicht nach Plan lief.", "STAR-Methode. Den Fehler ehrlich benennen, den Fokus aber auf Ihr Vorgehen und die Lehre daraus legen."],
+  ["Wie gehen Sie mit Kritik um?", "Konkretes Beispiel, in dem Feedback etwas verbessert hat. Zeigen, dass Sie zuhören, nachfragen und umsetzen."]],
+ "Stärken & Schwächen": [
+  ["Was sind Ihre größten Stärken?", "Zwei bis drei Stärken, die zur Stelle passen, jede mit einem kurzen Beleg aus Studium oder Praxis."],
+  ["Was ist Ihre größte Schwäche?", "Echte, aber nicht kritische Schwäche nennen und zeigen, was Sie aktiv dagegen tun. Keine Floskeln wie „Perfektionismus“ ohne Beispiel."],
+  ["Wie würden Ihre Kommiliton:innen Sie beschreiben?", "Drei Eigenschaften, idealerweise mit kurzer Situation. Passt gut zu Teamarbeit und Kommunikation."]],
+ "Fachfragen Medizintechnik": [
+  ["Was ist der Unterschied zwischen Verifikation und Validierung?", "Verifikation: Wurde das Produkt richtig entwickelt (erfüllt es die Spezifikation)? Validierung: Wurde das richtige Produkt entwickelt (erfüllt es den Bedarf der Anwender in der vorgesehenen Anwendung)?"],
+  ["Welche Rolle spielt die MDR für die Entwicklung?", "EU-Verordnung über Medizinprodukte: grundlegende Sicherheits- und Leistungsanforderungen, klinische Bewertung, technische Dokumentation, Konformitätsbewertung (oft mit Benannter Stelle), Überwachung nach dem Inverkehrbringen."],
+  ["Wie läuft Risikomanagement nach ISO 14971 ab?", "Gefährdungen identifizieren, Risiken abschätzen und bewerten, Maßnahmen festlegen und deren Wirksamkeit prüfen, Restrisiko bewerten, über den gesamten Lebenszyklus fortschreiben (z. B. mit FMEA)."],
+  ["Was regelt die ISO 13485?", "Qualitätsmanagementsystem für Hersteller von Medizinprodukten, u. a. Design Control, Dokumentenlenkung, Lieferantenmanagement, CAPA, Rückverfolgbarkeit."],
+  ["Wie würden Sie einen Prüfstand für ein neues Bauteil auslegen?", "Anforderungen und Prüfziel klären, Messgrößen und Toleranzen, Prüfmittel und Kalibrierung, Prüfplan mit Akzeptanzkriterien, Dokumentation. Gern an einem eigenen Beispiel erklären."]],
+ "Verhalten & Situationen": [
+  ["Erzählen Sie von einem Konflikt im Team.", "STAR: sachlich bleiben, die eigene Rolle bei der Lösung zeigen, Ergebnis und Lehre nennen."],
+  ["Wie priorisieren Sie, wenn mehrere Aufgaben gleichzeitig dringend sind?", "Kriterien nennen (Wirkung, Frist, Abhängigkeiten), Abstimmung mit Vorgesetzten, transparente Kommunikation. Ein Beispiel aus Abschlussarbeit oder Praktikum."],
+  ["Wie arbeiten Sie sich in ein neues Thema ein?", "Konkretes Vorgehen: Normen und Literatur, Fachleute fragen, Prototyp oder Versuch, Dokumentation. Beispiel aus dem Studium."]],
+ "Gehalt & Rahmen": [
+  ["Was sind Ihre Gehaltsvorstellungen?", "Jahresbrutto als begründete Spanne (Region, Unternehmensgröße, Tarif). Vorher recherchieren, ruhig und sachlich nennen."],
+  ["Ab wann könnten Sie anfangen?", "Konkretes Datum nennen, Flexibilität signalisieren, eventuelle Bindungen (Abschluss, Kündigungsfrist) offen sagen."],
+  ["Wären Sie bereit, gelegentlich zu reisen oder umzuziehen?", "Ehrlich antworten und Rahmen nennen (z. B. Reisen ja, gelegentlich auch international). Vorher in der Reflexion klären."]],
+ "Eigene Fragen an das Unternehmen": [
+  ["Wie sieht die Einarbeitung in den ersten Monaten aus?", "Zeigt Interesse an einem guten Start. Achten Sie auf Pat:innen, Schulungen und erste Aufgaben."],
+  ["Welche Projekte würde ich als Erstes übernehmen?", "Gibt Einblick in den Alltag und hilft bei der Entscheidung."],
+  ["Wie geht es nach diesem Gespräch weiter?", "Klärt den Prozess und den Zeitrahmen, gut für den Nachfass-Termin."]]
+};
+document.getElementById("qcat").innerHTML = Object.entries(Q).map(([cat, qs], i) => `<details class="topic" ${i===0?"open":""}><summary><span>${esc(cat)}</span><span class="st">${qs.length} Fragen</span></summary>` + qs.map(([q, h]) => `<details class="q"><summary>${esc(q)}</summary><p>${esc(h)}</p></details>`).join("") + `</details>`).join("");
+const tcat = document.getElementById("tcat");
+Object.keys(Q).forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; tcat.appendChild(o); });
+
+/* Trainer */
+let cur = null, timer = null, left = 90, stats = load("interview-trainer-v1", {n:0, good:0});
+function tick(){ left--; document.getElementById("tsec").textContent = left + " s"; document.getElementById("tbar").style.width = (left/90*100) + "%"; if (left <= 0){ clearInterval(timer); document.getElementById("tsec").textContent = "Zeit um"; } }
+function showStats(){ document.getElementById("tstats").textContent = stats.n ? `Geübt: ${stats.n} Fragen, davon ${stats.good} souverän.` : ""; }
+document.getElementById("tnext").onclick = () => {
+  const pool = (tcat.value === "all" ? Object.values(Q).flat() : Q[tcat.value]);
+  let next; do { next = pool[Math.floor(Math.random() * pool.length)]; } while (pool.length > 1 && cur && next[0] === cur[0]);
+  cur = next; document.getElementById("tq").textContent = cur[0];
+  document.getElementById("thint").hidden = true; document.getElementById("trate").hidden = true; document.getElementById("tshow").disabled = false;
+  clearInterval(timer); left = 90; document.getElementById("tsec").textContent = "90 s"; document.getElementById("tbar").style.width = "100%"; timer = setInterval(tick, 1000);
+};
+document.getElementById("tshow").onclick = () => { if (!cur) return; clearInterval(timer); const h = document.getElementById("thint"); h.textContent = cur[1]; h.hidden = false; document.getElementById("trate").hidden = false; };
+document.getElementById("trate").addEventListener("click", e => { const r = e.target.dataset.r; if (r === undefined) return; stats.n++; if (r === "2") stats.good++; save("interview-trainer-v1", stats); showStats(); document.getElementById("trate").hidden = true; });
+showStats();
+
+/* Quiz */
+const QUIZ = [
+ ["Wofür steht das „R“ in der STAR-Methode?", ["Reflexion","Result (Ergebnis)","Rolle","Risiko"], 1, "STAR = Situation, Task, Action, Result. Das Ergebnis macht die Geschichte überzeugend, am besten messbar."],
+ ["Welche Norm beschreibt das Risikomanagement für Medizinprodukte?", ["ISO 9001","ISO 13485","ISO 14971","IEC 62304"], 2, "ISO 14971 regelt das Risikomanagement. ISO 13485 ist das Qualitätsmanagement, IEC 62304 der Software-Lebenszyklus."],
+ ["Was prüft die Validierung?", ["Ob die Spezifikation erfüllt ist","Ob das Produkt den Bedarf der Anwender in der vorgesehenen Anwendung erfüllt","Ob alle Dokumente unterschrieben sind","Ob der Lieferant zertifiziert ist"], 1, "Validierung: das richtige Produkt entwickelt? Verifikation: das Produkt richtig entwickelt?"],
+ ["Wie beantworten Sie die Frage nach dem Gehalt am besten?", ["„Das überlasse ich Ihnen.“","Eine begründete Jahresbrutto-Spanne nennen","Das Gehalt der letzten Werkstudentenstelle nennen","Der Frage ausweichen"], 1, "Eine recherchierte Spanne zeigt Vorbereitung und gibt Verhandlungsspielraum."],
+ ["Was ist bei der Frage nach Schwächen am überzeugendsten?", ["„Ich habe keine Schwächen.“","„Ich bin zu perfektionistisch.“","Eine echte Schwäche plus konkrete Maßnahmen dagegen","Eine Schwäche, die für die Stelle zentral ist"], 2, "Ehrlichkeit und Entwicklung zählen. Floskeln wirken einstudiert."],
+ ["Welche EU-Verordnung regelt seit 2021 das Inverkehrbringen von Medizinprodukten?", ["DSGVO","MDR (EU) 2017/745","IVDR (EU) 2017/746","Maschinenrichtlinie"], 1, "Die MDR gilt für Medizinprodukte, die IVDR für In-vitro-Diagnostika."],
+ ["Wie lange sollte die Selbstpräsentation zu Beginn etwa dauern?", ["10–20 Sekunden","1–2 Minuten","5–7 Minuten","So lange wie nötig"], 1, "Kurz und mit rotem Faden, Details folgen auf Nachfrage."],
+ ["Welche Norm betrifft die elektrische Sicherheit medizinischer elektrischer Geräte?", ["IEC 60601","ISO 10993","ISO 14155","EN 1041"], 0, "IEC 60601. ISO 10993 behandelt die biologische Beurteilung, ISO 14155 klinische Prüfungen."],
+ ["Was ist eine gute eigene Frage am Ende des Gesprächs?", ["„Wie viele Urlaubstage habe ich?“ als einzige Frage","„Wie sieht die Einarbeitung in den ersten Monaten aus?“","„Was macht Ihre Firma eigentlich?“","Keine Frage stellen"], 1, "Fragen zu Einarbeitung, Projekten und Team zeigen echtes Interesse."],
+ ["Was gehört in eine Dankesmail nach dem Gespräch?", ["Eine Wiederholung des ganzen Lebenslaufs","Kurzer Dank, ein Bezug zum Gespräch, Bekräftigung des Interesses","Eine Nachverhandlung des Gehalts","Nichts, Dankesmails sind unüblich"], 1, "Kurz, persönlich und innerhalb von 24 Stunden."]
+];
+let qi = 0, score = 0, order = [], best = load("interview-quiz-best-v1", 0);
+function startQuiz(){ order = QUIZ.map((_, i) => i).sort(() => Math.random() - .5); qi = 0; score = 0; drawQuiz(); }
+function drawQuiz(){
+  const box = document.getElementById("quizbox");
+  if (qi >= order.length){
+    if (score > best){ best = score; save("interview-quiz-best-v1", best); }
+    box.innerHTML = `<div class="qres"><b>${score} von ${QUIZ.length}</b> richtig${score === QUIZ.length ? " – perfekt!" : ""}<br><span class="small">Bestes Ergebnis bisher: ${best} von ${QUIZ.length}</span></div><button type="button" id="qagain">Nochmal spielen</button>`;
+    document.getElementById("qagain").onclick = startQuiz; return;
+  }
+  const [q, opts, ok, ex] = QUIZ[order[qi]];
+  box.innerHTML = `<div class="qhead"><span>Frage ${qi+1} von ${QUIZ.length}</span><span>Punkte: ${score}</span></div><div class="qq">${esc(q)}</div><div class="qopts">` + opts.map((o, i) => `<button type="button" class="ghost qo" data-i="${i}">${esc(o)}</button>`).join("") + `</div><div class="qex" id="qex" hidden></div>`;
+  box.querySelectorAll(".qo").forEach(b => b.onclick = () => {
+    const i = +b.dataset.i; box.querySelectorAll(".qo").forEach(x => { x.disabled = true; if (+x.dataset.i === ok) x.classList.add("right"); });
+    if (i === ok) score++; else b.classList.add("wrong");
+    const exb = document.getElementById("qex"); exb.hidden = false; exb.innerHTML = `${i === ok ? "<b>Richtig.</b> " : "<b>Nicht ganz.</b> "}${esc(ex)} <button type="button" id="qn">${qi+1 < QUIZ.length ? "Weiter" : "Ergebnis"}</button>`;
+    document.getElementById("qn").onclick = () => { qi++; drawQuiz(); };
+  });
+}
+startQuiz();
+</script>
+
+</body>
+</html>

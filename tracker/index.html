@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bewerbungs-Tracker</title>
+<meta name="description" content="Bewerbungen, Netzwerk-Kontakte und Nachfass-Termine im eigenen Browser festhalten.">
+<style>
+:root{--bg:#f6f7f9;--paper:#ffffff;--ink:#18202b;--ink2:#5d6877;--line:#e2e6ec;--chip:#eef1f5;--accent:#1f4e8c;--accent2:#2f7bd8;--a1:#1565c0;--a2:#6a1b9a;--a3:#00838f;--a4:#b45309;--a5:#2e7d32}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}}
+:root[data-theme="dark"]{--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:28px 16px 64px}
+.back{display:inline-block;font-size:14px;color:var(--ink2);text-decoration:none;margin-bottom:12px}
+.back:hover{text-decoration:underline}
+header.top{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:22px}
+h1{font-size:30px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+.lead{color:var(--ink2);margin:0}
+h2{font-size:22px;margin:34px 0 10px;letter-spacing:-.01em;scroll-margin-top:16px}
+h3{font-size:17px;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent2)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.toc a{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:14px;text-decoration:none;color:var(--ink)}
+.toc a:hover{border-color:var(--accent2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:12px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--c,var(--accent));border-radius:14px;padding:16px 18px;display:flex;flex-direction:column}
+.card h3{margin:0 0 6px}
+.card p,.card li{font-size:15px}
+.card ul{margin:6px 0;padding-left:20px}
+.card .who{font-size:13px;color:var(--ink2);margin-top:auto;padding-top:8px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{display:inline-block;background:var(--c,var(--accent));color:#fff;text-decoration:none;font-weight:650;font-size:14px;border-radius:9px;padding:7px 12px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{color:#11161c}}
+:root[data-theme="dark"] .btn{color:#11161c}
+.btn.sec{background:var(--chip);color:var(--ink)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.box{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 18px;margin:14px 0}
+.box ul,.box ol{margin:6px 0;padding-left:22px}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:10px 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.steps>li{counter-increment:s;position:relative;padding:10px 12px 10px 48px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0}
+.steps>li::before{content:counter(s);position:absolute;left:12px;top:10px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .steps>li::before{color:#11161c}}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+@media (max-width:700px){h1{font-size:25px}}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+button{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--accent2);background:var(--accent2);color:#fff;border-radius:9px;padding:7px 12px;cursor:pointer}
+button.ghost{background:var(--paper);color:var(--ink);border-color:var(--line)}
+button:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.pill{background:var(--chip);border-radius:999px;padding:4px 11px;font-size:13.5px;color:var(--ink2)}
+details.topic{background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:0 14px}
+details.topic summary{cursor:pointer;padding:12px 0;font-weight:700;display:flex;justify-content:space-between;gap:10px;list-style:none}
+details.topic summary::-webkit-details-marker{display:none}
+details.topic summary::before{content:"▸";margin-right:8px;color:var(--ink2)}
+details.topic[open] summary::before{content:"▾"}
+details.topic summary span:first-child{flex:1}
+.st{font-size:13px;color:var(--a5);font-weight:600}
+.qs{margin:0 0 8px;padding-left:20px;font-size:14.5px;color:var(--ink2)}
+textarea,input[type=text]{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;margin-bottom:12px}
+.lbl{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin:6px 0 4px}
+.matchgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;align-items:start}
+.req{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 8px}
+.req .rt{font-weight:600;margin-bottom:6px}
+.req input{margin:6px 0 0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{background:var(--paper);color:var(--ink);border:none;border-radius:0;padding:5px 10px;font-weight:500}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on.y{background:var(--a5);color:#fff}.seg button.on.p{background:var(--a4);color:#fff}.seg button.on.n{background:#9aa3ad;color:#fff}
+.score{margin:0 0 10px;font-size:14px;color:var(--ink2)}
+.sbar{height:10px;background:var(--chip);border-radius:5px;overflow:hidden;margin-bottom:4px}.sbar i{display:block;height:100%;background:var(--a5)}
+.empty{color:var(--ink2);font-size:14px}
+@media (max-width:760px){.matchgrid{grid-template-columns:1fr}}
+:root{--red:#c62828}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--red:#ff8a80}}
+:root[data-theme="dark"]{--red:#ff8a80}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 18px}
+.stat{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:12px;padding:10px 14px;display:flex;flex-direction:column}
+.stat b{font-size:24px;line-height:1.2;font-variant-numeric:tabular-nums}.stat span{font-size:13px;color:var(--ink2)}
+.warnbox{grid-column:1/-1;background:color-mix(in srgb,var(--red) 12%,var(--paper));border:1px solid var(--red);border-radius:10px;padding:8px 12px;font-size:14px}
+.formbox{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--accent2);border-radius:14px;padding:0 18px}
+.formbox summary{cursor:pointer;font-weight:700;font-size:18px;padding:14px 0;list-style:none}
+.formbox summary::-webkit-details-marker{display:none}
+.formbox summary::before{content:"▸ ";color:var(--ink2)}.formbox[open] summary::before{content:"▾ "}
+.formbox form{padding-bottom:12px}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.fcol2{grid-column:1/-1}
+input[type=url],input[type=date],select{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;margin-bottom:12px}
+input[type=date]{min-height:40px}
+select:focus-visible,input:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.hint{font-size:12.5px;color:var(--ink2);margin:-8px 0 10px}
+.netz{font-size:13.5px;color:var(--a5);margin:-8px 0 10px;min-height:1px}
+.listhead{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin:34px 0 12px}
+.listhead select{width:auto;margin:0}
+.entry{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--sc,var(--a1));border-radius:12px;padding:12px 16px;margin:10px 0}
+.entry.isdue{box-shadow:0 0 0 2px color-mix(in srgb,var(--red) 45%,transparent)}
+.s-idee{--sc:#9aa3ad}.s-beworben,.s-eingang{--sc:var(--a1)}.s-iv1,.s-iv2{--sc:var(--a2)}.s-angebot,.s-zusage{--sc:var(--a5)}.s-absage,.s-zurueck{--sc:#9aa3ad;opacity:.85}
+.etop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.etop>div{min-width:0}
+.ef{font-weight:700;font-size:16.5px;overflow-wrap:anywhere}.eo{font-weight:400;color:var(--ink2);font-size:14px}
+.es{font-size:15px;overflow-wrap:anywhere}
+.stchip{flex:none;font-size:12.5px;font-weight:650;background:color-mix(in srgb,var(--sc) 16%,var(--paper));color:var(--ink);border:1px solid var(--sc);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.emeta{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13.5px;color:var(--ink2);margin-top:6px}
+.due{font-weight:700}.due.over{color:var(--red)}.due.soon{color:var(--a4)}
+.enet{font-size:13.5px;margin-top:4px;color:var(--ink2);overflow-wrap:anywhere}
+.enote{font-size:14px;white-space:pre-wrap;background:var(--chip);border-radius:8px;padding:6px 10px;margin-top:8px;overflow-wrap:anywhere}
+.elog{font-size:12.5px;color:var(--ink2);margin-top:6px}
+.eact{margin:10px 0 0}.eact button{font-size:13px;padding:5px 10px}
+button.danger{background:var(--red);border-color:var(--red);color:#fff}
+.filebtn{display:inline-block;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:9px;padding:7px 12px;cursor:pointer}
+.filebtn:focus-within{outline:3px solid var(--accent2);outline-offset:2px}
+@media (max-width:620px){.fgrid{grid-template-columns:1fr}.etop{flex-direction:column}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../menu.html">← Zur Übersicht</a>
+<header class="top">
+  <h1>Bewerbungs-Tracker</h1>
+  <p class="lead">Für jede Stelle festhalten, wann Sie sich beworben haben, wer aus dem Netzwerk dort arbeitet und wann Sie nachfassen. Alle Einträge bleiben nur in diesem Browser gespeichert.</p>
+</header>
+
+<div class="stats" id="stats"></div>
+
+<section id="neu">
+<details class="formbox" id="formbox" open>
+<summary id="formtitle">Neue Bewerbung eintragen</summary>
+<form id="f" autocomplete="off">
+  <div class="fgrid">
+    <div class="fcol2"><label class="lbl" for="firma">Firma *</label><input type="text" id="firma" list="firmen" required placeholder="z. B. aus der Stellenkarte"><datalist id="firmen"></datalist><div class="netz" id="netz"></div></div>
+    <div><label class="lbl" for="stelle">Stelle *</label><input type="text" id="stelle" required placeholder="z. B. Entwicklungsingenieur Medizintechnik"></div>
+    <div><label class="lbl" for="ort">Ort</label><input type="text" id="ort" placeholder="z. B. Tuttlingen"></div>
+    <div class="fcol2"><label class="lbl" for="link">Link zur Anzeige</label><input type="url" id="link" placeholder="https://…"></div>
+    <div><label class="lbl" for="status">Status</label><select id="status"></select></div>
+    <div><label class="lbl" for="kanal">Bewerbungsweg</label><select id="kanal"><option value="">–</option><option>Online-Portal</option><option>E-Mail</option><option>Empfehlung / Kontakt</option><option>Messe</option><option>Initiativbewerbung</option><option>Personalvermittlung</option></select></div>
+    <div><label class="lbl" for="beworben">Beworben am</label><input type="date" id="beworben"></div>
+    <div><label class="lbl" for="nachfassen">Nachfassen am</label><input type="date" id="nachfassen"><div class="hint">Wird beim Bewerbungsdatum automatisch auf +14 Tage gesetzt.</div></div>
+    <div class="fcol2"><label class="lbl" for="kontakt">Kontakt aus dem Netzwerk</label><input type="text" id="kontakt" placeholder="Name oder Rolle der Kontaktperson, z. B. aus der Mindmap"></div>
+    <div class="fcol2"><label class="lbl" for="notiz">Notizen</label><textarea id="notiz" rows="3" placeholder="Ansprechpartner:in, Gesprächstermine, Gehaltsspanne, offene Fragen …"></textarea></div>
+  </div>
+  <div class="tools"><button type="submit" id="savebtn">Eintrag speichern</button><button type="button" class="ghost" id="cancel" hidden>Abbrechen</button></div>
+</form>
+</details>
+</section>
+
+<section id="liste">
+<div class="listhead">
+  <h2 style="margin:0">Meine Bewerbungen</h2>
+  <div class="tools" style="margin:0">
+    <input type="text" id="such" placeholder="Suchen …" aria-label="Suchen" style="width:auto;margin:0">
+    <select id="filter" aria-label="Filter"><option value="offen">Offen</option><option value="alle">Alle</option><option value="faellig">Nachfassen fällig</option><option value="zu">Abgeschlossen</option></select>
+  </div>
+</div>
+<div id="list"></div>
+</section>
+
+<section id="daten">
+<h2>Sichern &amp; übertragen</h2>
+<p>Die Daten liegen im Speicher dieses Browsers. Beim Löschen der Browserdaten oder auf einem anderen Gerät sind sie nicht vorhanden. Sichern Sie deshalb ab und zu eine Kopie.</p>
+<div class="tools">
+  <button type="button" id="csv">Als CSV exportieren (Excel)</button>
+  <button type="button" class="ghost" id="json">Sicherung (JSON) herunterladen</button>
+  <label class="ghost filebtn">Sicherung importieren<input type="file" id="imp" accept=".json,application/json" hidden></label>
+  <span class="pill" id="impmsg" hidden></span>
+</div>
+</section>
+
+<div class="note">Die Netzwerk-Angaben stammen aus der anonymisierten <a href="../netzwerk/">Firmen-Mindmap</a> (nur Firmen und Anzahlen, Stand 01.11.2026). Namen von Kontakten tragen Sie selbst ein. Sie werden nicht hochgeladen, sondern bleiben auf diesem Gerät. Für das Gespräch: <a href="../interview/">Interviewtraining</a>.</div>
+
+<footer>Bewerbungs-Tracker · Daten nur lokal im Browser (localStorage) · <a href="../menu.html">Zur Übersicht</a></footer>
+</div>
+<script>
+const FIRMS = [["A.M.I. Agency for Medical Innovations GmbH", 1, 0, "Chirurgie"], ["Abbott", 1, 0, "Diagnostik, Diabetes & Kardiologie"], ["ac.biomed GmbH", 1, 0, "Prüflabor / Dienstleistung"], ["Acandis GmbH", 1, 0, "Neurovaskuläre Implantate"], ["ADMEDES", 2, 0, "Auftragsfertigung / Kardiovaskulär"], ["Advantest", 0, 1, "Automotive, Industrie & Technik"], ["AIM Infrarot-Module GmbH", 0, 1, "Automotive, Industrie & Technik"], ["ALDI DX", 0, 1, "IT, Beratung & Medien"], ["ALH Gruppe", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["Allianz", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["Alloy Finance", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["Ambu", 0, 1, "Endoskopie & Anästhesie (Einweg)"], ["Ambyx Medizintechnik GmbH", 1, 0, "Medizintechnik (nicht näher bekannt)"], ["AME - Institute of Applied Medical Engineering", 1, 0, "Hochschulen & Universitäten"], ["Apple", 1, 0, "Automotive, Industrie & Technik"], ["ARENA2036", 1, 0, "Forschungsinstitute"], ["Arthrex GmbH", 1, 1, "Orthopädie / Sportmedizin"], ["Artivion", 0, 1, "Kardiovaskulär / Aorta"], ["Asclepion Laser Technologies GmbH", 1, 0, "Medizinische Laser"], ["Auckland Bioengineering Institute UoA", 1, 1, "Hochschulen & Universitäten"], ["AVeta Medical", 0, 1, "Frauengesundheit"], ["B&W Engineering und Datensysteme GmbH", 1, 0, "Entwicklungsdienstleister"], ["B. Braun / Aesculap", 1, 2, "Chirurgie & Orthopädie"], ["Balluff", 0, 1, "Automotive, Industrie & Technik"], ["Bausparkasse Schwäbisch Hall", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["Baxter International Inc.", 1, 1, "Klinikprodukte / Infusion"], ["Bentley", 2, 2, "Automotive, Industrie & Technik"], ["Berlin Institute of Health (BIH)", 0, 1, "Forschungsinstitute"], ["Beurer", 0, 1, "Homecare / Gesundheitsgeräte"], ["BioRegio STERN", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["blue herring GmbH", 1, 0, "IT, Beratung & Medien"], ["Boehringer Ingelheim", 0, 2, "Pharma"], ["Bosch Health Campus", 0, 1, "Kliniken & Gesundheitswesen"], ["Bosch Healthcare Solutions GmbH", 18, 1, "In-vitro-Diagnostik"], ["Bosch Home Comfort Group", 1, 0, "Bosch"], ["Bosch Manufacturing Solutions", 0, 1, "Bosch"], ["Bosch Mobility", 0, 1, "Bosch"], ["Bosch Quantum Sensing", 1, 0, "Sensorik / Quantentechnologie"], ["Bosch Research", 5, 0, "Bosch"], ["Bosch Sensortec", 0, 1, "Bosch"], ["Brainlab", 0, 1, "Software & Navigation"], ["Bundesamt für Bevölkerungsschutz und Katastrophenhilfe (BBK)", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["Cardiobridge GmbH", 0, 1, "Kardiologie / Herzunterstützung"], ["Carl Zeiss Meditec AG", 0, 5, "Ophthalmologie & Mikrochirurgie"], ["Carl-Zeiss-Stiftung", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["CASA SOLEANA", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["Charité – Universitätsmedizin Berlin", 0, 2, "Kliniken & Gesundheitswesen"], ["Collegium Tübingen", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["CureVac", 0, 1, "Biotech / mRNA"], ["Cyted Health", 0, 1, "Diagnostik / Früherkennung"], ["DATAGROUP", 1, 0, "IT, Beratung & Medien"], ["dental bauer", 0, 1, "Dentalhandel & Service"], ["Department Artificial Intelligence in Biomedical Engineering - AIBE@FAU", 1, 0, "Hochschulen & Universitäten"], ["Department of Microphysiological Systems; Eberhard Karls University of Tübingen", 1, 0, "Hochschulen & Universitäten"], ["Deutsche Telekom", 1, 0, "IT, Beratung & Medien"], ["Deutsches Rotes Kreuz e.V.", 1, 0, "Kliniken & Gesundheitswesen"], ["Deutsches Zentrum für Luft- und Raumfahrt (DLR)", 0, 1, "Forschungsinstitute"], ["digMAR GmbH", 0, 1, "Automotive, Industrie & Technik"], ["DIOMEDES GmbH", 1, 0, "IT, Beratung & Medien"], ["DKMS", 0, 1, "Kliniken & Gesundheitswesen"], ["DMG MORI Pfronten GmbH", 1, 0, "Automotive, Industrie & Technik"], ["DMT Produktentwicklung GmbH", 0, 3, "Entwicklungsdienstleister Medizintechnik"], ["DocCheck", 1, 0, "Kliniken & Gesundheitswesen"], ["Dr. Kaske Marketingberatung", 1, 0, "IT, Beratung & Medien"], ["Drees & Sommer", 0, 1, "Engineering-Dienstleister"], ["Dräger TGM GmbH", 0, 1, "Beatmung, Anästhesie & Monitoring"], ["Dürr Dental", 0, 2, "Dentaltechnik"], ["Eberhard Karls Universität Tübingen", 2, 1, "Hochschulen & Universitäten"], ["Elastrin Therapeutics", 0, 1, "Biotech"], ["EnBW Energie Baden-Württemberg AG", 1, 0, "Energie & Klima"], ["Enovis", 0, 1, "Orthopädie"], ["EPflex Feinwerktechnik GmbH", 1, 1, "Auftragsfertigung / Interventionelle Komponenten"], ["Erbe Elektromedizin", 2, 5, "Elektromedizin / Chirurgie"], ["Etkon (Straumann)", 0, 1, "Dentaltechnik"], ["Fachgebiet Mess- und Sensortechnik, Technische Universität Darmstadt", 1, 0, "Hochschulen & Universitäten"], ["FERCHAU", 1, 1, "Engineering-Dienstleister"], ["Festo LifeTech", 0, 1, "Laborautomation"], ["Ford Motor Company", 1, 0, "Automotive, Industrie & Technik"], ["Fraunhofer IAF", 1, 0, "Forschungsinstitute"], ["Fraunhofer Institute for Silicate Research ISC", 1, 0, "Forschungsinstitute"], ["Fraunhofer IPA", 3, 2, "Forschungsinstitute"], ["Fresenius Medical Care", 0, 2, "Dialyse"], ["g.tec medical engineering GmbH", 1, 0, "Neurotechnik"], ["GBI", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["GenKom®", 1, 0, "Life Science (nicht näher bekannt)"], ["Google", 0, 1, "Automotive, Industrie & Technik"], ["Greiner Bio-One International", 1, 0, "Laborbedarf & Präanalytik"], ["GUK-Falzmaschinen", 0, 1, "Automotive, Industrie & Technik"], ["Hamilton Bonaduz", 0, 1, "Laborautomation & Sensorik"], ["Harvard Medical School and Massachusetts General Hospital", 1, 0, "Hochschulen & Universitäten"], ["HENSOLDT", 1, 0, "Automotive, Industrie & Technik"], ["HKK Bionics GmbH", 1, 0, "Reha / Orthetik"], ["Hochschule Furtwangen", 1, 0, "Hochschulen & Universitäten"], ["Hochschule Reutlingen", 3, 0, "Hochschulen & Universitäten"], ["Hospital at Home Deutschland", 0, 1, "Kliniken & Gesundheitswesen"], ["hTRIUS GmbH", 0, 1, "Automotive, Industrie & Technik"], ["HumanTech Spine GmbH", 0, 1, "Wirbelsäulenimplantate"], ["iFIT - Cluster of Excellence", 1, 0, "Hochschulen & Universitäten"], ["ifm electronic", 0, 1, "Automotive, Industrie & Technik"], ["IGVP Uni Stuttgart", 1, 0, "Hochschulen & Universitäten"], ["Ingenics AG", 0, 1, "Engineering-Dienstleister"], ["inomed Medizintechnik GmbH", 0, 1, "Neurotechnik"], ["Institut für Medizingerätetechnik, Universität Stuttgart", 5, 0, "Hochschulen & Universitäten"], ["Institut für Mikrointegration", 1, 0, "Hochschulen & Universitäten"], ["Institut für Modellierung und Simulation Biomechanischer Systeme", 1, 0, "Hochschulen & Universitäten"], ["Institut für Systemdynamik der Universität Stuttgart", 1, 0, "Hochschulen & Universitäten"], ["Institut für Technische Optik (ITO)", 0, 1, "Hochschulen & Universitäten"], ["Institute of Biomedical Engineering (BMT) - University of Stuttgart", 4, 0, "Hochschulen & Universitäten"], ["Institute of Orthopaedic Research and Biomechanics Ulm", 1, 0, "Hochschulen & Universitäten"], ["Intero Technologies", 0, 1, "IT, Beratung & Medien"], ["Interuniversitäre Fachschaft Medizintechnik e.V.", 1, 0, "Hochschulen & Universitäten"], ["Intui (Lund, Schweden)", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["IOLUTION GmbH", 1, 0, "Ophthalmologie"], ["JDM Innovation GmbH", 0, 1, "IT, Beratung & Medien"], ["Johnson & Johnson MedTech", 0, 1, "Orthopädie, Chirurgie & Kardiologie"], ["joimax", 0, 1, "Wirbelsäulenchirurgie / Endoskopie"], ["KARDION", 3, 4, "Kardiologie / Herzunterstützung"], ["Karl Storz", 0, 1, "Endoskopie"], ["Karlsruher Institut für Technologie (KIT)", 0, 1, "Hochschulen & Universitäten"], ["Klinikum Stuttgart", 0, 1, "Kliniken & Gesundheitswesen"], ["KLS Martin Group", 0, 1, "Chirurgie & MKG-Implantate"], ["KU Leuven - Group T Leuven Campus", 1, 0, "Hochschulen & Universitäten"], ["KUKA", 1, 1, "Automotive, Industrie & Technik"], ["Ludwig-Maximilians-Universität München", 1, 0, "Hochschulen & Universitäten"], ["Lufthansa Technik", 1, 0, "Automotive, Industrie & Technik"], ["Löwenstein Medical Technology", 1, 0, "Beatmung & Schlafmedizin"], ["MANN+HUMMEL", 1, 0, "Automotive, Industrie & Technik"], ["Max Delbrück Center (MDC) Berlin", 0, 1, "Forschungsinstitute"], ["Max Planck Institute for Biological Cybernetics", 0, 1, "Forschungsinstitute"], ["Max Planck Institute for Human Cognitive and Brain Sciences", 1, 0, "Forschungsinstitute"], ["Max Planck Institute of Psychiatry", 1, 0, "Forschungsinstitute"], ["MED-EL", 0, 1, "Hörimplantate"], ["Medi-Globe", 1, 0, "Endoskopie & Urologie (Einweg)"], ["MedicalMountains GmbH", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["Medizinische Hochschule Hannover", 1, 0, "Hochschulen & Universitäten"], ["Medizinische Universität Innsbruck", 0, 1, "Hochschulen & Universitäten"], ["medmix", 0, 1, "Drug Delivery"], ["Mercedes-Benz AG", 1, 1, "Automotive, Industrie & Technik"], ["Metubiq GmbH i.Gr.", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["MicroOrganoLab", 1, 0, "Life Science / Organ-on-Chip"], ["MORCHER GmbH", 0, 1, "Ophthalmologie / Augenimplantate"], ["NESS Wärmetechnik GmbH", 0, 1, "Automotive, Industrie & Technik"], ["Netze BW GmbH", 1, 0, "Energie & Klima"], ["NEURA Robotics", 0, 1, "Automotive, Industrie & Technik"], ["NIFE Hannover", 1, 0, "Forschungsinstitute"], ["Nik teb pardis", 1, 0, "Medizintechnik-Vertrieb"], ["NMI Naturwissenschaftliches und Medizinisches Institut", 1, 0, "Forschungsinstitute"], ["NVision Imaging Technologies", 0, 1, "Bildgebung / Quantentechnologie"], ["Olympus", 0, 1, "Endoskopie"], ["OPED GmbH", 0, 1, "Orthopädische Hilfsmittel"], ["Open Administration GmbH", 1, 0, "IT, Beratung & Medien"], ["optimed", 1, 0, "Gefäßintervention"], ["Orthos Fachlabor für Kieferorthopädie GmbH & Co.KG.", 1, 0, "Dentaltechnik / Kieferorthopädie"], ["Ovesco Endoscopy AG", 1, 1, "Endoskopie"], ["PAJUNK®", 1, 0, "Anästhesie & Schmerztherapie"], ["Patentanwaltskanzlei Vièl und Wieske", 0, 1, "IT, Beratung & Medien"], ["Philips", 5, 5, "Bildgebung & Patientenmonitoring"], ["Physik Instrumente (PI)", 0, 1, "Automotive, Industrie & Technik"], ["Pistenking Funktionsmodellbau", 1, 0, "Automotive, Industrie & Technik"], ["Planungsgruppe M+M AG", 1, 0, "Krankenhaus- & Medizintechnikplanung"], ["Printoptix GmbH", 1, 0, "Automotive, Industrie & Technik"], ["Qatna Medical", 1, 0, "Kardiovaskulär / Biomaterialien"], ["QIAGEN", 1, 0, "Molekulardiagnostik & Probenvorbereitung"], ["qtec services GmbH", 1, 0, "IT, Beratung & Medien"], ["Radius Dynamics GmbH", 0, 1, "Automotive, Industrie & Technik"], ["Resuscitec", 0, 1, "Notfall- & Intensivmedizin"], ["Richard Wolf GmbH", 0, 1, "Endoskopie & Stoßwellentherapie"], ["RKH Gesundheit", 0, 1, "Kliniken & Gesundheitswesen"], ["Robert Bosch Automotive Electronics", 1, 0, "Bosch"], ["Robert Bosch GmbH (allgemein)", 3, 7, "Bosch"], ["Roche", 3, 3, "In-vitro-Diagnostik & Pharma"], ["Rotpunkt.Dev", 0, 1, "Finanzen, Start-ups & Sonstiges"], ["Rudolf Riester GmbH", 0, 1, "Diagnostikinstrumente"], ["RX Austria & Germany", 1, 0, "IT, Beratung & Medien"], ["Sahand University of Technology", 1, 0, "Hochschulen & Universitäten"], ["Sanofi", 0, 1, "Pharma (mit Device-Entwicklung)"], ["Schmalz", 0, 1, "Automotive, Industrie & Technik"], ["SchwörerHaus KG", 2, 0, "Automotive, Industrie & Technik"], ["Selbstständig (Software & IT-Consulting)", 0, 1, "IT, Beratung & Medien"], ["Seminar für Ausbildung und Fortbildung der Lehrkräfte Kirchheim", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["SET Management Consulting", 1, 0, "IT, Beratung & Medien"], ["Siemens", 1, 0, "Automotive, Industrie & Technik"], ["Siemens Digital Industries Software", 1, 0, "Automotive, Industrie & Technik"], ["Smith+Nephew", 1, 0, "Orthopädie & Wundversorgung"], ["SOMATEX Medical Technologies", 0, 1, "Biopsie / Brustdiagnostik"], ["SPARSH Hospital, Bengaluru", 1, 0, "Kliniken & Gesundheitswesen"], ["Startup", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["Steinbeis-Transferzentrum Energieberatung", 1, 0, "Energie & Klima"], ["Stiftung Klimaneutralität", 1, 0, "Energie & Klima"], ["STIHL", 0, 1, "Automotive, Industrie & Technik"], ["Stryker", 1, 8, "Orthopädie, Chirurgie & Neurotechnik"], ["Sunrise Medical", 0, 1, "Reha / Rollstühle"], ["Technische Universität Chemnitz", 0, 1, "Hochschulen & Universitäten"], ["Teleflex", 0, 1, "Gefäßzugang, Anästhesie & Urologie"], ["Tesla", 1, 1, "Automotive, Industrie & Technik"], ["The Francis Crick Institute", 1, 0, "Forschungsinstitute"], ["thyssenkrupp MillServices & Systems GmbH", 1, 0, "Automotive, Industrie & Technik"], ["TK Maxx", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["TransnetBW GmbH", 2, 1, "Energie & Klima"], ["TRATON GROUP", 1, 0, "Automotive, Industrie & Technik"], ["TRUMPF", 0, 1, "Automotive, Industrie & Technik"], ["ulrich medical", 0, 1, "Kontrastmittelinjektoren & Wirbelsäule"], ["UNITY AG", 0, 1, "IT, Beratung & Medien"], ["University of Sydney", 1, 0, "Hochschulen & Universitäten"], ["Universität Stuttgart (allgemein)", 5, 4, "Hochschulen & Universitäten"], ["Universität zu Lübeck", 0, 1, "Hochschulen & Universitäten"], ["Universitätsklinikum Tübingen", 5, 5, "Kliniken & Gesundheitswesen"], ["Universitätsmedizin Essen", 1, 0, "Kliniken & Gesundheitswesen"], ["Universitätsmedizin Greifswald", 1, 0, "Kliniken & Gesundheitswesen"], ["Vantive", 0, 2, "Dialyse / Akuttherapie"], ["Veltric", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["venturelab17", 0, 1, "IT, Beratung & Medien"], ["Versorgungswerk der Rechtsanwälte im Lande NRW", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["Vibracoustic", 1, 0, "Automotive, Industrie & Technik"], ["Vogel Communications Group GmbH & Co. KG", 1, 0, "IT, Beratung & Medien"], ["WAREMA Kunststofftechnik und Maschinenbau GmbH", 1, 0, "Automotive, Industrie & Technik"], ["Wellnter", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["WoodenValley gGmbH", 1, 0, "Finanzen, Start-ups & Sonstiges"], ["Xeltis", 0, 1, "Gefäßimplantate"], ["Zeisberg GmbH", 1, 0, "HNO-Diagnostik"], ["ZEISS (ohne Bereich)", 0, 2, "Automotive, Industrie & Technik"], ["ZEISS Semiconductor Manufacturing Technology", 1, 2, "Automotive, Industrie & Technik"], ["ZF Group", 1, 0, "Automotive, Industrie & Technik"]];
+const KEY = "bewerbungs-tracker-v1";
+const STATUS = [["idee","Idee / vormerken"],["beworben","Beworben"],["eingang","Eingangsbestätigung"],["iv1","Interview 1"],["iv2","Interview 2 / Assessment"],["angebot","Angebot"],["zusage","Zugesagt"],["absage","Absage"],["zurueck","Zurückgezogen"]];
+const CLOSED = new Set(["zusage","absage","zurueck"]);
+const SL = Object.fromEntries(STATUS);
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "[]"); return Array.isArray(v) ? v : []; } catch(e) { return []; } };
+let items = load(), editId = null, delId = null, storageOk = true;
+const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch(e) { storageOk = false; } };
+const today = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0,10); };
+const addDays = (iso, n) => { const d = new Date(iso + "T12:00:00"); d.setDate(d.getDate() + n); return d.toISOString().slice(0,10); };
+const fmt = iso => iso ? new Date(iso + "T12:00:00").toLocaleDateString("de-DE", {day:"2-digit", month:"2-digit", year:"numeric"}) : "–";
+const days = iso => Math.round((new Date(iso + "T12:00:00") - new Date(today() + "T12:00:00")) / 864e5);
+
+/* Netzwerk-Abgleich */
+const norm = s => " " + String(s).toLowerCase().replace(/\(.*?\)/g, " ").replace(/[.,&+\-\/]/g, " ").replace(/\b(gmbh|ag|se|kg|co|inc|ltd|llc|holding|deutschland|germany|group|gruppe|the|und|and)\b/g, " ").replace(/\s+/g, " ").trim() + " ";
+const FN = FIRMS.map(f => ({f, n: norm(f[0])}));
+function netMatches(name){
+  const q = norm(name); if (q.trim().length < 3) return [];
+  const exact = FN.filter(x => x.n === q);
+  if (exact.length) return exact.map(x => x.f);
+  return FN.filter(x => x.n.includes(q) || (x.n.trim().length >= 3 && q.includes(x.n))).map(x => x.f);
+}
+function netText(name){
+  const m = netMatches(name); if (!m.length) return "";
+  const k = m.reduce((a, f) => a + f[1], 0), a = m.reduce((s, f) => s + f[2], 0);
+  const parts = []; if (k) parts.push(`${k} ${k === 1 ? "Kontakt" : "Kontakte"}`); if (a) parts.push(`${a} Alumni`);
+  return `${parts.join(", ")}` + (m.length > 1 ? ` (${m.length} Einträge: ${m.slice(0, 4).map(f => f[0]).join(", ")}${m.length > 4 ? " …" : ""})` : (norm(m[0][0]) !== norm(name) ? ` (${m[0][0]})` : ""));
+}
+$("firmen").innerHTML = FIRMS.map(f => `<option value="${esc(f[0])}">${f[1] + f[2]} im Netzwerk · ${esc(f[3])}</option>`).join("");
+$("status").innerHTML = STATUS.map(([v, l]) => `<option value="${v}">${l}</option>`).join("");
+$("status").value = "beworben"; $("beworben").value = today(); $("nachfassen").value = addDays(today(), 14);
+function showNet(){ const t = netText($("firma").value); $("netz").innerHTML = t ? `<b>In Ihrem Netzwerk:</b> ${esc(t)}` : ($("firma").value.trim().length >= 3 ? "Kein Treffer in der Netzwerk-Mindmap." : ""); }
+$("firma").addEventListener("input", showNet);
+$("beworben").addEventListener("change", () => { if ($("beworben").value) $("nachfassen").value = addDays($("beworben").value, 14); });
+
+/* Formular */
+const FIELDS = ["firma","stelle","ort","link","status","kanal","beworben","nachfassen","kontakt","notiz"];
+function resetForm(){
+  editId = null; $("f").reset(); $("status").value = "beworben"; $("beworben").value = today(); $("nachfassen").value = addDays(today(), 14);
+  $("formtitle").textContent = "Neue Bewerbung eintragen"; $("savebtn").textContent = "Eintrag speichern"; $("cancel").hidden = true; showNet();
+}
+$("f").addEventListener("submit", e => {
+  e.preventDefault();
+  const rec = Object.fromEntries(FIELDS.map(k => [k, $(k).value.trim()]));
+  if (editId){ const i = items.findIndex(x => x.id === editId); const old = items[i]; items[i] = {...old, ...rec, updated: today(), log: old.status !== rec.status ? [...(old.log||[]), [today(), rec.status]] : (old.log||[])}; }
+  else items.push({id: Date.now().toString(36) + Math.random().toString(36).slice(2,6), ...rec, created: today(), updated: today(), log: [[today(), rec.status]]});
+  persist(); resetForm(); draw();
+});
+$("cancel").onclick = () => { resetForm(); };
+function edit(id){
+  const it = items.find(x => x.id === id); if (!it) return; editId = id;
+  FIELDS.forEach(k => $(k).value = it[k] || ""); showNet();
+  $("formtitle").textContent = "Eintrag bearbeiten"; $("savebtn").textContent = "Änderungen speichern"; $("cancel").hidden = false;
+  $("formbox").open = true; $("neu").scrollIntoView({behavior:"smooth"}); $("firma").focus({preventScroll:true});
+}
+
+/* Liste */
+function due(it){ return it.nachfassen && !CLOSED.has(it.status) && it.status !== "idee" ? days(it.nachfassen) : null; }
+function draw(){
+  const open = items.filter(x => !CLOSED.has(x.status));
+  const faellig = items.filter(x => { const d = due(x); return d !== null && d <= 0; });
+  const iv = items.filter(x => x.status === "iv1" || x.status === "iv2");
+  $("stats").innerHTML = [["Gesamt", items.length, "a1"], ["Offen", open.length, "a3"], ["Nachfassen fällig", faellig.length, "red"], ["Im Interview", iv.length, "a2"], ["Angebote / Zusagen", items.filter(x => x.status === "angebot" || x.status === "zusage").length, "a5"]]
+    .map(([l, n, c]) => `<div class="stat" style="--c:var(--${c})"><b>${n}</b><span>${l}</span></div>`).join("") + (storageOk ? "" : `<div class="warnbox">Der Browser erlaubt hier keine Speicherung. Einträge gehen beim Schließen verloren. Bitte als JSON sichern.</div>`);
+  const f = $("filter").value, q = $("such").value.trim().toLowerCase();
+  let list = items.filter(x => f === "alle" || (f === "offen" && !CLOSED.has(x.status)) || (f === "zu" && CLOSED.has(x.status)) || (f === "faellig" && due(x) !== null && due(x) <= 0));
+  if (q) list = list.filter(x => FIELDS.some(k => (x[k] || "").toLowerCase().includes(q)));
+  list.sort((a, b) => { const da = due(a), db = due(b); if (CLOSED.has(a.status) !== CLOSED.has(b.status)) return CLOSED.has(a.status) ? 1 : -1; if (da === null && db === null) return (b.beworben||"").localeCompare(a.beworben||""); if (da === null) return 1; if (db === null) return -1; return da - db; });
+  if (!list.length){ $("list").innerHTML = `<p class="empty">${items.length ? "Keine Einträge für diesen Filter." : "Noch keine Bewerbungen eingetragen. Oben können Sie die erste Stelle erfassen."}</p>`; return; }
+  $("list").innerHTML = list.map(it => {
+    const d = due(it), net = netText(it.firma);
+    const dueTxt = d === null ? "" : d < 0 ? `<span class="due over">Nachfassen seit ${-d} ${-d === 1 ? "Tag" : "Tagen"} fällig</span>` : d === 0 ? `<span class="due over">Heute nachfassen</span>` : d <= 3 ? `<span class="due soon">Nachfassen in ${d} ${d === 1 ? "Tag" : "Tagen"}</span>` : "";
+    const confirmDel = delId === it.id;
+    return `<article class="entry s-${it.status}${d !== null && d <= 0 ? " isdue" : ""}">
+      <div class="etop"><div><div class="ef">${esc(it.firma)}${it.ort ? ` <span class="eo">· ${esc(it.ort)}</span>` : ""}</div><div class="es">${it.link ? `<a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.stelle)}</a>` : esc(it.stelle)}</div></div><span class="stchip">${esc(SL[it.status] || it.status)}</span></div>
+      <div class="emeta"><span>Beworben: <b>${fmt(it.beworben)}</b></span><span>Nachfassen: <b>${fmt(it.nachfassen)}</b></span>${it.kanal ? `<span>Weg: ${esc(it.kanal)}</span>` : ""}${dueTxt}</div>
+      ${net ? `<div class="enet">Netzwerk: ${esc(net)}</div>` : ""}
+      ${it.kontakt ? `<div class="enet">Kontakt: <b>${esc(it.kontakt)}</b></div>` : ""}
+      ${it.notiz ? `<div class="enote">${esc(it.notiz)}</div>` : ""}
+      ${(it.log||[]).length > 1 ? `<div class="elog">Verlauf: ${it.log.map(([dt, s]) => `${fmt(dt)} ${esc(SL[s] || s)}`).join(" → ")}</div>` : ""}
+      <div class="tools eact">
+        ${!CLOSED.has(it.status) && it.status !== "idee" ? `<button type="button" class="ghost" data-a="nf" data-id="${it.id}" title="Nachfass-Termin um 14 Tage verschieben">Nachgefasst (+14 Tage)</button>` : ""}
+        <button type="button" class="ghost" data-a="ed" data-id="${it.id}">Bearbeiten</button>
+        ${confirmDel ? `<button type="button" class="danger" data-a="del2" data-id="${it.id}">Wirklich löschen</button><button type="button" class="ghost" data-a="nodel" data-id="${it.id}">Abbrechen</button>` : `<button type="button" class="ghost" data-a="del" data-id="${it.id}">Löschen</button>`}
+      </div></article>`;
+  }).join("");
+}
+$("list").addEventListener("click", e => {
+  const b = e.target.closest("button[data-a]"); if (!b) return; const id = b.dataset.id, a = b.dataset.a;
+  const it = items.find(x => x.id === id);
+  if (a === "ed") return edit(id);
+  if (a === "del") delId = id; else if (a === "nodel") delId = null;
+  else if (a === "del2"){ items = items.filter(x => x.id !== id); delId = null; if (editId === id) resetForm(); persist(); }
+  else if (a === "nf" && it){ it.nachfassen = addDays(today(), 14); it.notiz = (it.notiz ? it.notiz + "\n" : "") + `${fmt(today())}: nachgefasst`; it.updated = today(); persist(); }
+  draw();
+});
+$("filter").onchange = draw; $("such").oninput = draw;
+
+/* Export / Import */
+function dl(name, text, type){ const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], {type})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+$("csv").onclick = () => {
+  const head = ["Firma","Stelle","Ort","Link","Status","Bewerbungsweg","Beworben am","Nachfassen am","Kontakt","Netzwerk","Notizen"];
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const rows = items.map(x => [x.firma, x.stelle, x.ort, x.link, SL[x.status] || x.status, x.kanal, fmt(x.beworben), fmt(x.nachfassen), x.kontakt, netText(x.firma), x.notiz].map(q).join(";"));
+  dl(`Bewerbungen_${today()}.csv`, "﻿" + [head.map(q).join(";"), ...rows].join("\r\n"), "text/csv;charset=utf-8");
+};
+$("json").onclick = () => dl(`Bewerbungs-Tracker_Sicherung_${today()}.json`, JSON.stringify({version: 1, exported: today(), items}, null, 2), "application/json");
+$("imp").onchange = async e => {
+  const file = e.target.files[0]; if (!file) return; const msg = $("impmsg"); msg.hidden = false;
+  try {
+    const data = JSON.parse(await file.text()); const inc = Array.isArray(data) ? data : data.items;
+    if (!Array.isArray(inc)) throw new Error();
+    let n = 0, u = 0;
+    for (const r of inc){ if (!r || !r.firma) continue; const id = r.id || (Date.now().toString(36) + Math.random().toString(36).slice(2,6)); const i = items.findIndex(x => x.id === id); if (i >= 0){ items[i] = {...r, id}; u++; } else { items.push({...r, id}); n++; } }
+    persist(); draw(); msg.textContent = `${n} neu, ${u} aktualisiert`;
+  } catch(err){ msg.textContent = "Datei konnte nicht gelesen werden."; }
+  e.target.value = "";
+};
+showNet(); draw();
+</script>
+
+</body>
+</html>
