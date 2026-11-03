@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reflexion & Profil</title>
+<meta name="description" content="Reflexionshilfe und Job-Matching-Werkzeug zur Vorbereitung der Bewerbung.">
+<style>
+:root{--bg:#f6f7f9;--paper:#ffffff;--ink:#18202b;--ink2:#5d6877;--line:#e2e6ec;--chip:#eef1f5;--accent:#1f4e8c;--accent2:#2f7bd8;--a1:#1565c0;--a2:#6a1b9a;--a3:#00838f;--a4:#b45309;--a5:#2e7d32}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}}
+:root[data-theme="dark"]{--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:28px 16px 64px}
+.back{display:inline-block;font-size:14px;color:var(--ink2);text-decoration:none;margin-bottom:12px}
+.back:hover{text-decoration:underline}
+header.top{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:22px}
+h1{font-size:30px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+.lead{color:var(--ink2);margin:0}
+h2{font-size:22px;margin:34px 0 10px;letter-spacing:-.01em;scroll-margin-top:16px}
+h3{font-size:17px;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent2)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.toc a{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:14px;text-decoration:none;color:var(--ink)}
+.toc a:hover{border-color:var(--accent2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:12px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--c,var(--accent));border-radius:14px;padding:16px 18px;display:flex;flex-direction:column}
+.card h3{margin:0 0 6px}
+.card p,.card li{font-size:15px}
+.card ul{margin:6px 0;padding-left:20px}
+.card .who{font-size:13px;color:var(--ink2);margin-top:auto;padding-top:8px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{display:inline-block;background:var(--c,var(--accent));color:#fff;text-decoration:none;font-weight:650;font-size:14px;border-radius:9px;padding:7px 12px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{color:#11161c}}
+:root[data-theme="dark"] .btn{color:#11161c}
+.btn.sec{background:var(--chip);color:var(--ink)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.box{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 18px;margin:14px 0}
+.box ul,.box ol{margin:6px 0;padding-left:22px}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:10px 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.steps>li{counter-increment:s;position:relative;padding:10px 12px 10px 48px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0}
+.steps>li::before{content:counter(s);position:absolute;left:12px;top:10px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .steps>li::before{color:#11161c}}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+@media (max-width:700px){h1{font-size:25px}}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+button{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--accent2);background:var(--accent2);color:#fff;border-radius:9px;padding:7px 12px;cursor:pointer}
+button.ghost{background:var(--paper);color:var(--ink);border-color:var(--line)}
+button:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.pill{background:var(--chip);border-radius:999px;padding:4px 11px;font-size:13.5px;color:var(--ink2)}
+details.topic{background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:0 14px}
+details.topic summary{cursor:pointer;padding:12px 0;font-weight:700;display:flex;justify-content:space-between;gap:10px;list-style:none}
+details.topic summary::-webkit-details-marker{display:none}
+details.topic summary::before{content:"▸";margin-right:8px;color:var(--ink2)}
+details.topic[open] summary::before{content:"▾"}
+details.topic summary span:first-child{flex:1}
+.st{font-size:13px;color:var(--a5);font-weight:600}
+.qs{margin:0 0 8px;padding-left:20px;font-size:14.5px;color:var(--ink2)}
+textarea,input[type=text]{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;margin-bottom:12px}
+.lbl{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin:6px 0 4px}
+.matchgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;align-items:start}
+.req{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 8px}
+.req .rt{font-weight:600;margin-bottom:6px}
+.req input{margin:6px 0 0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{background:var(--paper);color:var(--ink);border:none;border-radius:0;padding:5px 10px;font-weight:500}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on.y{background:var(--a5);color:#fff}.seg button.on.p{background:var(--a4);color:#fff}.seg button.on.n{background:#9aa3ad;color:#fff}
+.score{margin:0 0 10px;font-size:14px;color:var(--ink2)}
+.sbar{height:10px;background:var(--chip);border-radius:5px;overflow:hidden;margin-bottom:4px}.sbar i{display:block;height:100%;background:var(--a5)}
+.empty{color:var(--ink2);font-size:14px}
+@media (max-width:760px){.matchgrid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../menu.html">← Zur Übersicht</a>
+<header class="top">
+  <h1>Reflexion &amp; eigenes Profil</h1>
+  <p class="lead">Bevor die Stellensuche beginnt: Ziele, Wünsche und das eigene Profil klären. Dazu gehören Fachwissen und Leistungsnachweise, aber auch Persönlichkeit, Interessen, Erfahrungen und Engagement. Das eigene Profil ist die Basis, um passende Stellen zu erkennen, individuelle Bewerbungen zu schreiben und im Gespräch zu überzeugen.</p>
+</header>
+
+<section>
+<h2>Der Weg in drei Schritten</h2>
+<p>Ziel ist es, den richtigen Job zu kennen, zu finden und zu bekommen. Unternehmen entscheiden über das Skill-Matching von Stellenprofil und persönlichem Profil.</p>
+<ol class="steps">
+  <li><b>Das eigene Profil kennen.</b> Kompetenzen, Interessen, Werte, Stärken und gewünschte Arbeitsbedingungen klären (Reflexionshilfe unten).</li>
+  <li><b>Job Matching.</b> Stellenanzeigen genau lesen, Muss- und Kann-Anforderungen erkennen und mit dem eigenen Profil abgleichen (Werkzeug unten).</li>
+  <li><b>Bewerbungsunterlagen schreiben.</b> Zuerst den zweiseitigen Lebenslauf, der die Schlüsselwörter der Anzeige aufgreift. Das Anschreiben umfasst eine halbe bis zwei Drittel Seite und beantwortet die Frage, warum genau Sie die richtige Person für genau diese Stelle sind.</li>
+</ol>
+<p class="note">Ausführliche Fragebögen und Reflexionshilfen (u. a. Standortbestimmung, Kompetenzanalyse, Persönlichkeit, Werte, Interessen und Talente, Stärken und Schwächen, Arbeitsbedingungen) sowie Bewerbungswissen zu Unterlagen, Vorstellungsgespräch, Gehalt, Assessment-Center und KI kommen in den <b>ILIAS-Kurs des Career Service</b> der Universität Stuttgart (im Aufbau). Persönliche Begleitung gibt es in der <a href="../beratung/">Karriereberatung</a>.</p>
+</section>
+
+<section>
+<h2>Reflexionshilfe</h2>
+<p>Notieren Sie zu jedem Thema ein paar Stichpunkte. Die Notizen werden <b>nur in diesem Browser</b> gespeichert und nirgendwohin übertragen. Mit „Als Textdatei sichern“ lassen sie sich herunterladen, z. B. zur Vorbereitung auf die Karriereberatung.</p>
+<div class="tools">
+  <span id="progress" class="pill"></span>
+  <button type="button" id="exp">Als Textdatei sichern</button>
+  <button type="button" id="clr" class="ghost">Alle Notizen löschen</button>
+</div>
+<div id="topics"></div>
+</section>
+
+<section>
+<h2>Job Matching: Stellenanzeige abgleichen</h2>
+<p>Fügen Sie die Anforderungen aus einer Stellenanzeige ein, eine pro Zeile. Markieren Sie dann, ob Sie sie erfüllen, und notieren Sie einen Beleg (Projekt, Praktikum, Abschlussarbeit, Kurs). Die Belege sind die Bausteine für Lebenslauf und Anschreiben.</p>
+<div class="matchgrid">
+  <div>
+    <label class="lbl" for="jobtitle">Stelle</label>
+    <input id="jobtitle" type="text" placeholder="z. B. Entwicklungsingenieur:in Medizintechnik, Firma, Ort">
+    <label class="lbl" for="reqs">Anforderungen (eine pro Zeile)</label>
+    <textarea id="reqs" rows="8" placeholder="Abgeschlossenes Studium Medizintechnik oder vergleichbar&#10;Erfahrung mit CAD (z. B. Creo)&#10;Kenntnisse ISO 13485 / MDR&#10;Gute Englischkenntnisse&#10;Teamfähigkeit"></textarea>
+    <div class="tools"><button type="button" id="mk">Liste erstellen</button></div>
+  </div>
+  <div>
+    <div id="score" class="score" aria-live="polite"></div>
+    <div id="matchlist"></div>
+  </div>
+</div>
+<p class="note">Tipp: Muss-Anforderungen stehen meist unter „Ihr Profil“ oder „Das bringen Sie mit“, Kann-Anforderungen sind oft mit „idealerweise“ oder „wünschenswert“ formuliert. Faustregel: Wer den Großteil der Muss-Anforderungen erfüllt und für den Rest glaubhaft zeigen kann, sich einzuarbeiten, sollte sich bewerben.</p>
+</section>
+
+<footer>Inhalte zur Reflexion und zum Bewerbungsprozess in Anlehnung an den Career Service (TRACES) der Universität Stuttgart, Stand November 2026. Die Leitfragen sind eine eigene Zusammenstellung. · <a href="../menu.html">Zur Übersicht</a></footer>
+</div>
+<script>
+const TOPICS = [
+ {id:"standort", t:"Standortbestimmung", q:["Was habe ich bisher gemacht (Studium, Schwerpunkte, Praktika, Abschlussarbeit, HiWi, Engagement)?","Welche Aufgaben haben mir am meisten Spaß gemacht und warum?","Was möchte ich künftig nicht mehr machen?","Wo möchte ich in 3–5 Jahren stehen?"]},
+ {id:"kompetenz", t:"Kompetenzanalyse", q:["Fachkompetenzen: Methoden, Software, Normen (z. B. CAD, Simulation, ISO 13485, MDR)?","Methodenkompetenzen: Projektarbeit, Problemlösung, Dokumentation?","Soziale und persönliche Kompetenzen: Kommunikation, Teamarbeit, Selbstorganisation?","Zu jeder wichtigen Kompetenz ein konkretes Beispiel: Situation, Aufgabe, Vorgehen, Ergebnis."]},
+ {id:"persoenlichkeit", t:"Persönlichkeitsmerkmale", q:["Wie arbeite ich am liebsten: eher allein oder im Team, strukturiert oder flexibel, tief oder breit?","Wie würden mich Kommiliton:innen oder Kolleg:innen beschreiben?","In welchen Situationen bin ich besonders gut, wann gerate ich unter Druck?"]},
+ {id:"werte", t:"Werte", q:["Was ist mir im Beruf wichtig: Sinn, Sicherheit, Gehalt, Entwicklung, Work-Life-Balance, Kultur?","Welche drei Werte sind nicht verhandelbar?","Bei welchen Arbeitgebern oder Produkten fühle ich mich wohl, bei welchen nicht?"]},
+ {id:"interessen", t:"Interessen und Talente", q:["Welche Themen, Produkte oder Teilbranchen der Medizintechnik faszinieren mich?","Was fällt mir leicht, wofür werde ich oft gefragt?","Womit beschäftige ich mich auch in meiner Freizeit gern?"]},
+ {id:"staerken", t:"Stärken und Schwächen", q:["Meine drei größten Stärken, jeweils mit Beleg.","Zwei Entwicklungsfelder und was ich konkret dafür tue.","Wie formuliere ich das im Vorstellungsgespräch ehrlich und überzeugend?"]},
+ {id:"bedingungen", t:"Arbeitsbedingungen", q:["Arbeitszeit: Vollzeit, Teilzeit, Gleitzeit, Schicht?","Vertragsart: unbefristet, befristet, Tarifbindung, Promotion, Trainee?","Arbeitsort: Wunschregionen, maximale Pendelzeit, Umzug, Homeoffice-Anteil?","Reisebereitschaft: gar nicht, gelegentlich, regelmäßig, international?","Unternehmensgröße: Start-up, Mittelstand, Konzern, Forschungseinrichtung?"]}
+];
+const KEY = "reflexion-notizen-v1", MKEY = "jobmatching-v1";
+const load = k => { try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e) { return {}; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let notes = load(KEY);
+const box = document.getElementById("topics");
+box.innerHTML = TOPICS.map((tp, i) => `<details class="topic" ${i===0?"open":""}><summary><span>${esc(tp.t)}</span><span class="st" id="st-${tp.id}"></span></summary>
+  <ul class="qs">${tp.q.map(q => `<li>${esc(q)}</li>`).join("")}</ul>
+  <textarea data-id="${tp.id}" rows="6" aria-label="Notizen ${esc(tp.t)}" placeholder="Ihre Stichpunkte …">${esc(notes[tp.id]||"")}</textarea></details>`).join("");
+function status(){
+  let done = 0;
+  for (const tp of TOPICS){ const has = (notes[tp.id]||"").trim().length > 0; if (has) done++; document.getElementById("st-"+tp.id).textContent = has ? "✓ Notizen" : ""; }
+  document.getElementById("progress").textContent = `${done} von ${TOPICS.length} Themen bearbeitet`;
+}
+box.addEventListener("input", e => { if (e.target.dataset.id){ notes[e.target.dataset.id] = e.target.value; save(KEY, notes); status(); } });
+status();
+function download(name, text){ const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], {type:"text/plain;charset=utf-8"})); a.download = name; document.body.appendChild(a); a.click(); a.remove(); }
+document.getElementById("exp").onclick = () => {
+  let t = "Reflexion & eigenes Profil\n\n";
+  for (const tp of TOPICS){ t += "== " + tp.t + " ==\n" + tp.q.map(q => "- " + q).join("\n") + "\n\nNotizen:\n" + ((notes[tp.id]||"").trim() || "(noch keine)") + "\n\n"; }
+  if (match.items && match.items.length){ t += "== Job Matching: " + (match.title||"") + " ==\n" + match.items.map(it => `[${{y:"erfüllt",p:"teilweise",n:"nicht erfüllt"}[it.s]||"offen"}] ${it.r}${it.b ? " – Beleg: " + it.b : ""}`).join("\n") + "\n"; }
+  download("Reflexion_Profil.txt", t);
+};
+document.getElementById("clr").onclick = () => {
+  if (!document.getElementById("clr").dataset.armed){ document.getElementById("clr").dataset.armed = "1"; document.getElementById("clr").textContent = "Wirklich löschen? Nochmals klicken"; return; }
+  notes = {}; save(KEY, notes); match = {}; save(MKEY, match);
+  box.querySelectorAll("textarea").forEach(t => t.value = ""); renderMatch(); status();
+  document.getElementById("jobtitle").value = ""; document.getElementById("reqs").value = "";
+  delete document.getElementById("clr").dataset.armed; document.getElementById("clr").textContent = "Alle Notizen löschen";
+};
+// Job Matching
+let match = load(MKEY);
+document.getElementById("jobtitle").value = match.title || "";
+document.getElementById("reqs").value = (match.items||[]).map(i => i.r).join("\n");
+document.getElementById("jobtitle").oninput = e => { match.title = e.target.value; save(MKEY, match); };
+document.getElementById("mk").onclick = () => {
+  const old = Object.fromEntries((match.items||[]).map(i => [i.r, i]));
+  match.items = document.getElementById("reqs").value.split("\n").map(s => s.trim()).filter(Boolean).map(r => old[r] || {r, s:"", b:""});
+  save(MKEY, match); renderMatch();
+};
+function renderMatch(){
+  const ml = document.getElementById("matchlist"), sc = document.getElementById("score"), items = match.items || [];
+  if (!items.length){ ml.innerHTML = `<p class="empty">Noch keine Anforderungen. Links einfügen und „Liste erstellen“ klicken.</p>`; sc.innerHTML = ""; return; }
+  ml.innerHTML = items.map((it, i) => `<div class="req"><div class="rt">${esc(it.r)}</div>
+    <div class="seg" role="radiogroup" aria-label="Erfüllung">${[["y","erfüllt"],["p","teilweise"],["n","nicht"]].map(([v,l]) => `<button type="button" role="radio" aria-checked="${it.s===v}" class="${it.s===v?"on "+v:""}" data-i="${i}" data-v="${v}">${l}</button>`).join("")}</div>
+    <input type="text" data-b="${i}" value="${esc(it.b||"")}" placeholder="Beleg (Projekt, Praktikum, Kurs …)" aria-label="Beleg"></div>`).join("");
+  const pts = items.reduce((a, it) => a + (it.s==="y" ? 1 : it.s==="p" ? .5 : 0), 0), rated = items.filter(it => it.s).length;
+  const pct = Math.round(pts / items.length * 100);
+  sc.innerHTML = `<div class="sbar"><i style="width:${pct}%"></i></div><b>${pct} %</b> Übereinstimmung · ${rated} von ${items.length} bewertet`;
+}
+document.getElementById("matchlist").addEventListener("click", e => { const b = e.target.closest("button[data-i]"); if (!b) return; const it = match.items[+b.dataset.i]; it.s = it.s === b.dataset.v ? "" : b.dataset.v; save(MKEY, match); renderMatch(); });
+document.getElementById("matchlist").addEventListener("input", e => { if (e.target.dataset.b !== undefined){ match.items[+e.target.dataset.b].b = e.target.value; save(MKEY, match); } });
+renderMatch();
+</script>
+
+</body>
+</html>
