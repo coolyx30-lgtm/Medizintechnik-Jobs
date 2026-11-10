@@ -9,3 +9,4 @@
 - Reflexion & Profil (Leitfragen und Job Matching): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/reflexion/
 - Interviewtraining (Checkliste, typische Fragen, Videos, Fragen-Trainer und Quiz): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/interview/
 - Bewerbungs-Tracker (Daten nur im eigenen Browser): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/tracker/
+- Zertifikate und Weiterbildungen (Kosten, Aufwand, Reihenfolge): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/zertifikate/
