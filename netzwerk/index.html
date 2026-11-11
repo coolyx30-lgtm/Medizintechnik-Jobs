@@ -73,6 +73,14 @@ body.print header, body.print aside, body.print #hint{display:none}
 body.print, body.print #app, body.print main{display:block;height:auto;background:#fff}
 body.print #stage{overflow:visible}
 </style>
+
+<style id="palette-sand-mocha">
+/* Farbschema: Soft Sand #F0E5DB · Mocha Green #474329 · Watermelon Pink #FC75B4 */
+:root{--bg:#F0E5DB;--paper:#FBF7F3;--panel:#FBF7F3;--ink:#2B2918;--text:#2B2918;--ink2:#6B6651;--muted:#6B6651;--line:#E0D2C3;--chip:#E9DDD0;--accent:#474329;--accent2:#B83A78;--pink:#FC75B4;--root:#474329;--rootInk:#ffffff;--alu:#FBF7F3;--leafInk:#2B2918;--hl:#FC75B4;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1C1A10;--paper:#28261A;--panel:#28261A;--ink:#F0E5DB;--text:#F0E5DB;--ink2:#B5AB98;--muted:#B5AB98;--line:#3B3827;--chip:#333020;--accent:#D14F90;--accent2:#D14F90;--pink:#FC75B4;--root:#474329;--leafInk:#F0E5DB;--hl:#8C2F5E;--alu:#28261A;}}
+:root[data-theme="dark"]{--bg:#1C1A10;--paper:#28261A;--panel:#28261A;--ink:#F0E5DB;--text:#F0E5DB;--ink2:#B5AB98;--muted:#B5AB98;--line:#3B3827;--chip:#333020;--accent:#D14F90;--accent2:#D14F90;--pink:#FC75B4;--root:#474329;--leafInk:#F0E5DB;--hl:#8C2F5E;--alu:#28261A;}
+::selection{background:#FC75B4;color:#2B2918}
+</style>
 </head>
 <body>
 <div id="app">

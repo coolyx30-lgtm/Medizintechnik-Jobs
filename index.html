@@ -202,6 +202,15 @@
     .filters, .count, .foot { padding-left: 16px; padding-right: 16px; }
   }
 </style>
+
+<style id="palette-sand-mocha">
+/* Farbschema: Soft Sand #F0E5DB · Mocha Green #474329 · Watermelon Pink #FC75B4 */
+:root{--bg:#F0E5DB;--paper:#FBF7F3;--panel:#FBF7F3;--ink:#2B2918;--text:#2B2918;--ink2:#6B6651;--muted:#6B6651;--line:#E0D2C3;--chip:#E9DDD0;--accent:#474329;--accent2:#B83A78;--pink:#FC75B4;--open:#474329;--open-bg:#E3DFC8;--check:#B83A78;--check-bg:#FCE1EE;--ini:#6B6651;--ini-bg:#E9DDD0;--shadow:0 1px 2px rgba(43,41,24,.08),0 4px 16px rgba(43,41,24,.08);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1C1A10;--paper:#28261A;--panel:#28261A;--ink:#F0E5DB;--text:#F0E5DB;--ink2:#B5AB98;--muted:#B5AB98;--line:#3B3827;--chip:#333020;--accent:#D14F90;--accent2:#D14F90;--pink:#FC75B4;--open:#C9C08A;--open-bg:#333020;--check:#FC75B4;--check-bg:#3D1F2E;--ini:#D8CDB9;--ini-bg:#333020;}}
+:root[data-theme="dark"]{--bg:#1C1A10;--paper:#28261A;--panel:#28261A;--ink:#F0E5DB;--text:#F0E5DB;--ink2:#B5AB98;--muted:#B5AB98;--line:#3B3827;--chip:#333020;--accent:#D14F90;--accent2:#D14F90;--pink:#FC75B4;--open:#C9C08A;--open-bg:#333020;--check:#FC75B4;--check-bg:#3D1F2E;--ini:#D8CDB9;--ini-bg:#333020;}
+::selection{background:#FC75B4;color:#2B2918}
+.num.top{box-shadow:0 0 0 3px var(--panel),0 0 0 5px #FC75B4}.pin.top{border-color:#FC75B4}.star{color:var(--check)}.neu{background:#FC75B4;color:#2B2918}.pop .links a{color:#474329;border-color:#E0D2C3}.pop .links a.primary{background:#474329;border-color:#474329;color:#fff}.pop .firm{color:#6B6651}
+</style>
 </head>
 <body>
 <div class="app">
@@ -258,7 +267,7 @@
 
   var FELDER = DATA.felder;
   var BRANCHEN = DATA.branchen;
-  var FIRM_COLOR = "#64748b";
+  var FIRM_COLOR = "#7A7563";
   var ERF = {
     einstieg:  { label: "Für Einsteiger", cls: "x-ein" },
     unklar:    { label: "Erfahrung: k. A.", cls: "x-unk" },
