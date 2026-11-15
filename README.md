@@ -11,3 +11,4 @@
 - Bewerbungs-Tracker (Daten nur im eigenen Browser): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/tracker/
 - Zielstädte (Mieten, Sonnenstunden, Nahverkehr, Street View, Stadtbilder): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/staedte/
 - Wohnungssuche (Vorgehen, Plattformen, Unterlagen, Budget-Rechner): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/wohnen/
+- MEDICA 2026 (Aussteller-Abgleich, neue Firmen, Praktikumsideen): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/medica/
