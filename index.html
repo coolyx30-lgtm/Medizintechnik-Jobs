@@ -203,13 +203,13 @@
   }
 </style>
 
-<style id="palette-sand-mocha">
-/* Farbschema: Soft Sand #F0E5DB · Mocha Green #474329 · Watermelon Pink #FC75B4 */
-:root{--bg:#F0E5DB;--paper:#FBF7F3;--panel:#FBF7F3;--ink:#2B2918;--text:#2B2918;--ink2:#6B6651;--muted:#6B6651;--line:#E0D2C3;--chip:#E9DDD0;--accent:#474329;--accent2:#B83A78;--pink:#FC75B4;--open:#474329;--open-bg:#E3DFC8;--check:#B83A78;--check-bg:#FCE1EE;--ini:#6B6651;--ini-bg:#E9DDD0;--shadow:0 1px 2px rgba(43,41,24,.08),0 4px 16px rgba(43,41,24,.08);}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1C1A10;--paper:#28261A;--panel:#28261A;--ink:#F0E5DB;--text:#F0E5DB;--ink2:#B5AB98;--muted:#B5AB98;--line:#3B3827;--chip:#333020;--accent:#D14F90;--accent2:#D14F90;--pink:#FC75B4;--open:#C9C08A;--open-bg:#333020;--check:#FC75B4;--check-bg:#3D1F2E;--ini:#D8CDB9;--ini-bg:#333020;}}
-:root[data-theme="dark"]{--bg:#1C1A10;--paper:#28261A;--panel:#28261A;--ink:#F0E5DB;--text:#F0E5DB;--ink2:#B5AB98;--muted:#B5AB98;--line:#3B3827;--chip:#333020;--accent:#D14F90;--accent2:#D14F90;--pink:#FC75B4;--open:#C9C08A;--open-bg:#333020;--check:#FC75B4;--check-bg:#3D1F2E;--ini:#D8CDB9;--ini-bg:#333020;}
-::selection{background:#FC75B4;color:#2B2918}
-.num.top{box-shadow:0 0 0 3px var(--panel),0 0 0 5px #FC75B4}.pin.top{border-color:#FC75B4}.star{color:var(--check)}.neu{background:#FC75B4;color:#2B2918}.pop .links a{color:#474329;border-color:#E0D2C3}.pop .links a.primary{background:#474329;border-color:#474329;color:#fff}.pop .firm{color:#6B6651}
+<style id="palette-petrol">
+/* Farbschema: Petrol #0B6E79 · Schiefer #13262E · Koralle #E8794F auf hellem Grau-Weiß */
+:root{--bg:#F2F6F7;--paper:#FFFFFF;--panel:#FFFFFF;--ink:#13262E;--text:#13262E;--ink2:#51656D;--muted:#51656D;--line:#DCE5E8;--chip:#E9F0F2;--accent:#0B6E79;--accent2:#C4532E;--pink:#E8794F;--open:#0B6E79;--open-bg:#DDF0F2;--check:#C4532E;--check-bg:#FBE6DD;--ini:#51656D;--ini-bg:#E9F0F2;--shadow:0 1px 2px rgba(19,38,46,.07),0 4px 16px rgba(19,38,46,.07);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D191E;--paper:#14242A;--panel:#14242A;--ink:#E5EFF1;--text:#E5EFF1;--ink2:#9AB0B7;--muted:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--pink:#F09A74;--open:#7FD3DC;--open-bg:#163339;--check:#F09A74;--check-bg:#3A2219;--ini:#C3D3D8;--ini-bg:#1B2D34;}}
+:root[data-theme="dark"]{--bg:#0D191E;--paper:#14242A;--panel:#14242A;--ink:#E5EFF1;--text:#E5EFF1;--ink2:#9AB0B7;--muted:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--pink:#F09A74;--open:#7FD3DC;--open-bg:#163339;--check:#F09A74;--check-bg:#3A2219;--ini:#C3D3D8;--ini-bg:#1B2D34;}
+::selection{background:#BFE4E8;color:#13262E}
+.num.top{box-shadow:0 0 0 3px var(--panel),0 0 0 5px #E8794F}.pin.top{border-color:#E8794F}.star{color:var(--check)}.neu{background:#E8794F;color:#fff}.pop .links a{color:#0B6E79;border-color:#DCE5E8}.pop .links a.primary{background:#0B6E79;border-color:#0B6E79;color:#fff}.pop .firm{color:#51656D}
 </style>
 </head>
 <body>
@@ -267,7 +267,7 @@
 
   var FELDER = DATA.felder;
   var BRANCHEN = DATA.branchen;
-  var FIRM_COLOR = "#7A7563";
+  var FIRM_COLOR = "#6B7F87";
   var ERF = {
     einstieg:  { label: "Für Einsteiger", cls: "x-ein" },
     unklar:    { label: "Erfahrung: k. A.", cls: "x-unk" },

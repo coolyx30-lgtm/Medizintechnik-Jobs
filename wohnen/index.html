@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wohnungssuche in der Zielregion</title>
+<meta name="description" content="Wohnungssuche für den Berufseinstieg in Deutschland, der Schweiz und Österreich: Vorgehen, Plattformen, Suchkriterien, Unterlagen, Kosten und Grenzgänger-Hinweise.">
+<style>
+:root{--bg:#F2F6F7;--paper:#FFFFFF;--ink:#13262E;--ink2:#51656D;--line:#DCE5E8;--chip:#E9F0F2;--accent:#0B6E79;--accent2:#C4532E;--de:#0B6E79;--ch:#C4532E;--at:#3B5998;--ok:#2E7D5B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D191E;--paper:#14242A;--ink:#E5EFF1;--ink2:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--de:#4FC0CC;--ch:#F09A74;--at:#8FA8E0;--ok:#6CC79A}}
+:root[data-theme="dark"]{--bg:#0D191E;--paper:#14242A;--ink:#E5EFF1;--ink2:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--de:#4FC0CC;--ch:#F09A74;--at:#8FA8E0;--ok:#6CC79A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 16px 64px}
+.back{display:inline-block;font-size:14px;color:var(--ink2);text-decoration:none;margin-bottom:12px}
+.back:hover{text-decoration:underline}
+header.top{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+h1{font-size:30px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+h2{font-size:22px;margin:34px 0 10px;letter-spacing:-.01em;scroll-margin-top:16px}
+h3{font-size:17px;margin:16px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+.lead{color:var(--ink2);margin:0}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.toc a{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:14px;text-decoration:none;color:var(--ink)}
+.toc a:hover{border-color:var(--accent)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.steps>li{counter-increment:s;position:relative;padding:10px 14px 10px 50px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0}
+.steps>li::before{content:counter(s);position:absolute;left:12px;top:11px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+:root[data-theme="dark"] .steps>li::before{color:#0D191E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .steps>li::before{color:#0D191E}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin:12px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--c,var(--accent));border-radius:14px;padding:14px 16px;scroll-margin-top:16px}
+.card h3{margin:0 0 6px}
+.card ul{margin:6px 0;padding-left:20px}
+.card li{font-size:15px;margin:3px 0}
+.box{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:12px 16px;margin:12px 0}
+.box.warn{border-left-color:var(--accent2)}
+.box ul{margin:6px 0;padding-left:22px}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:10px 0}
+.tablewrap{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+tr:last-child td{border-bottom:0}
+.flag{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:1px 6px;color:#fff;margin-right:6px;vertical-align:2px}
+.flag.DE{background:var(--de)}.flag.CH{background:var(--ch)}.flag.AT{background:var(--at)}
+:root[data-theme="dark"] .flag{color:#0D191E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .flag{color:#0D191E}}
+.plat{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.plat a{font-size:13.5px;background:var(--chip);color:var(--ink);text-decoration:none;border-radius:999px;padding:3px 10px}
+.plat a:hover{text-decoration:underline}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;align-items:end}
+label{font-size:14px;color:var(--ink2);display:block}
+input[type=number],select{width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink)}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:12px}
+.res div{background:var(--chip);border-radius:10px;padding:8px 10px}
+.res b{display:block;font-size:19px;font-variant-numeric:tabular-nums}
+.res small{color:var(--ink2);font-size:12.5px}
+.check{list-style:none;padding:0;margin:8px 0;columns:2 300px;column-gap:24px}
+.check li{break-inside:avoid;margin:4px 0;font-size:15px}
+.check label{color:var(--ink);font-size:15px;display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--accent)}
+.btn{display:inline-block;background:var(--chip);color:var(--ink);font:inherit;font-size:13.5px;border:0;border-radius:8px;padding:6px 10px;cursor:pointer}
+.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+ul.src{font-size:13px;color:var(--ink2);padding-left:20px}
+@media (max-width:700px){h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../menu.html">← Zur Übersicht</a>
+<header class="top">
+  <h1>Wohnungssuche in der Zielregion</h1>
+  <p class="lead">Wie du nach einer Zusage vorgehst, wo du in Deutschland, der Schweiz und Österreich suchst, mit welchen Filtern, welche Unterlagen du brauchst und was es kostet. Kennzahlen und Wohnorte je Stadt stehen auf der Seite <a href="../staedte/">Zielstädte</a>.</p>
+</header>
+<nav class="toc" aria-label="Inhalt"><a href="#ablauf">Vorgehen</a><a href="#kriterien">Suchkriterien</a><a href="#budget">Budget-Rechner</a><a href="#de">Deutschland</a><a href="#ch">Schweiz</a><a href="#at">Österreich</a><a href="#grenz">Grenzgänger Basel/Zürich</a><a href="#regeln">Regeln im Vergleich</a><a href="#betrug">Betrug erkennen</a><a href="#besichtigung">Checkliste Besichtigung</a></nav>
+
+<h2 id="ablauf">Vorgehen in 8 Schritten</h2>
+<ol class="steps">
+  <li><b>Erst der Vertrag, dann die Wohnung.</b> Eine feste Wohnung erst suchen, wenn der Arbeitsvertrag unterschrieben ist: Vermieter wollen ihn sehen, und erst dann kennst du Arbeitsort, Startdatum und Gehalt. Für die Bewerbungsphase reicht ein Blick auf die Mieten der <a href="../staedte/">Zielstädte</a>.</li>
+  <li><b>Übergang planen.</b> Zwischen Zusage und Start liegen oft nur 4–8 Wochen. Ein möbliertes Zimmer, eine Zwischenmiete oder ein WG-Zimmer für 1–3 Monate nimmt den Druck raus; vor Ort findest du die feste Wohnung schneller und besser. Manche Arbeitgeber zahlen Umzugskosten oder vermitteln Apartments – im Vertragsgespräch nachfragen.</li>
+  <li><b>Budget festlegen.</b> Faustregel: Warmmiete höchstens ein Drittel des Nettoeinkommens. Dazu einmalig Kaution (bis zu 3 Monatsmieten), Umzug, Möbel und in Deutschland oft eine Küche. Rechne mit dem <a href="#budget">Budget-Rechner</a>.</li>
+  <li><b>Suchgebiet um den Arbeitsplatz ziehen, nicht um die Stadt.</b> Ziel: höchstens 30–45 Minuten Tür zu Tür. In Google Maps oder der App des Verkehrsverbunds die Fahrzeit zur Hauptverkehrszeit prüfen. Orte an S-Bahn- und Regionalzuglinien gegen die Pendelrichtung sind oft günstiger (Beispiele bei den <a href="../staedte/">Zielstädten</a> unter „Auch anschauen“).</li>
+  <li><b>Suchaufträge auf 3–4 Plattformen anlegen</b> mit Push-Benachrichtigung (siehe Länder unten). Gute Wohnungen sind in Großstädten oft nach wenigen Stunden weg; reagiere am selben Tag.</li>
+  <li><b>Bewerbungsmappe als PDF bereithalten</b> und eine kurze, persönliche Nachricht vorbereiten: wer du bist, Arbeitgeber und Start, warum diese Wohnung, wann du besichtigen kannst. Bei Massenbesichtigungen (Zürich, München) die Mappe ausgedruckt mitbringen.</li>
+  <li><b>Besichtigen und prüfen</b> mit der <a href="#besichtigung">Checkliste</a>. Nebenkosten, Heizungsart, Energieausweis und Mietvertragsform (Index-, Staffel-, befristete Miete) erfragen.</li>
+  <li><b>Unterschreiben, Kaution sichern, anmelden.</b> Kaution nur auf ein Kautions- bzw. Sperrkonto oder gegen Quittung, nie vor Vertragsunterschrift und Besichtigung. Danach Wohnsitz anmelden (Fristen in der <a href="#regeln">Tabelle</a>).</li>
+</ol>
+
+<h2 id="kriterien">Suchkriterien und Filter</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Kriterium</th><th>Empfehlung für den Berufseinstieg</th><th>Filter auf den Portalen</th></tr></thead>
+<tbody>
+<tr><td>Lage</td><td>Pendelzeit zum Arbeitgeber ≤ 30–45 Min. mit ÖPNV oder Rad; Haltestelle ≤ 10 Min. zu Fuß</td><td>Umkreissuche um den Arbeitsort (5–25 km) oder Karte/Polygon zeichnen</td></tr>
+<tr><td>Größe</td><td>1–2 Zimmer, 30–55 m² allein; WG-Zimmer als Übergang</td><td>Zimmer 1–2, Wohnfläche ab 30 m²</td></tr>
+<tr><td>Preis</td><td>Warmmiete (CH: Bruttomiete, AT: Bruttomiete) ≤ 1/3 vom Netto</td><td>Höchstpreis als <b>Warm-/Bruttomiete</b> setzen, nicht nur kalt</td></tr>
+<tr><td>Küche</td><td>In Deutschland oft ohne Einbauküche – Ablöse oder Kauf einkalkulieren; in CH und AT meist vorhanden</td><td>„Einbauküche“ (DE)</td></tr>
+<tr><td>Kosten beim Einzug</td><td>Keine Provision, keine überhöhte Ablöse</td><td>„provisionsfrei“; keine Angebote mit „WBS erforderlich“ (Wohnberechtigungsschein, meist einkommensabhängig)</td></tr>
+<tr><td>Vertrag</td><td>Unbefristet bevorzugt; bei Index- oder Staffelmiete die künftige Steigerung einrechnen. In Österreich sind befristete Verträge (mind. 3 Jahre) üblich</td><td>„unbefristet“, Mietbeginn passend zum Jobstart</td></tr>
+<tr><td>Energie</td><td>Energieausweis/Effizienzklasse und Heizungsart beachten: Gas- oder Ölheizung in schlecht gedämmtem Altbau kann teuer werden</td><td>Energieeffizienzklasse, Baujahr</td></tr>
+<tr><td>Alltag</td><td>Waschmaschinenanschluss, Keller/Fahrradraum, Glasfaser/Internet, Balkon, ruhige Schlafseite</td><td>Balkon, Keller, Aufzug je nach Wunsch</td></tr>
+<tr><td>Möbliert</td><td>Für die ersten Monate praktisch, auf Dauer meist teurer</td><td>„möbliert“, „auf Zeit“</td></tr>
+</tbody></table></div>
+
+<h2 id="budget">Budget-Rechner</h2>
+<div class="box">
+<div class="calc">
+  <div><label for="netto">Nettogehalt pro Monat</label><input id="netto" type="number" min="0" step="50" value="3000"></div>
+  <div><label for="land">Land</label><select id="land"><option value="DE">Deutschland (€)</option><option value="CH">Schweiz (CHF)</option><option value="AT">Österreich (€)</option></select></div>
+  <div><label for="qm">Wunschgröße in m²</label><input id="qm" type="number" min="15" step="5" value="45"></div>
+  <div><label for="nk">Nebenkosten pro m² (Schätzung)</label><input id="nk" type="number" min="0" step="0.1" value="3.0"></div>
+</div>
+<div class="res" id="res" aria-live="polite"></div>
+<p class="note">Rechnung: Warmmiete höchstens ein Drittel des Nettos; abzüglich der geschätzten Nebenkosten ergibt sich die höchste Kaltmiete pro m². Kaution: 3 Monatsmieten (DE kalt, CH und AT brutto). Vergleiche das Ergebnis mit den Mieten auf der Seite <a href="../staedte/">Zielstädte</a>. Nebenkosten in Deutschland liegen oft bei rund 2,5–3,5 €/m², in der Schweiz und in Österreich sind sie in der Bruttomiete enthalten (dann 0 eintragen und mit der Bruttomiete vergleichen).</p>
+</div>
+
+<h2 id="de"><span class="flag DE">DE</span>Deutschland</h2>
+<div class="grid">
+  <div class="card" style="--c:var(--de)"><h3>Große Portale</h3>
+    <div class="plat"><a href="https://www.immobilienscout24.de" target="_blank" rel="noopener">ImmoScout24</a><a href="https://www.immowelt.de" target="_blank" rel="noopener">Immowelt</a><a href="https://www.kleinanzeigen.de" target="_blank" rel="noopener">Kleinanzeigen</a><a href="https://www.wg-gesucht.de" target="_blank" rel="noopener">WG-Gesucht</a></div>
+    <ul><li>ImmoScout24 ist das größte Portal; das kostenpflichtige Plus-Abo verschafft frühen Zugriff, ist aber kein Muss.</li><li>Kleinanzeigen: viele private Vermieter, aber hier sind auch Betrugsanzeigen häufiger (siehe <a href="#betrug">Betrug erkennen</a>).</li><li>WG-Gesucht auch für Wohnungen und Zwischenmieten, gerade in Uni-Städten (Tübingen, Freiburg, Heidelberg, Erlangen).</li></ul></div>
+  <div class="card" style="--c:var(--de)"><h3>Kommunal und Genossenschaften</h3>
+    <ul><li>Städtische Gesellschaften, z. B. SWSG (Stuttgart), Münchner Wohnen (München), wbg Nürnberg, GGH (Heidelberg), GBG (Mannheim), Freiburger Stadtbau, UWS (Ulm): Bewerberlisten auf der jeweiligen Website, Wohnungen oft günstiger, manche nur mit WBS.</li><li>Wohnungsbaugenossenschaften: Mitgliedschaft mit Anteilen, teils Wartelisten; früh eintragen lohnt sich.</li></ul></div>
+  <div class="card" style="--c:var(--de)"><h3>Übergang und möbliert</h3>
+    <div class="plat"><a href="https://wunderflats.com" target="_blank" rel="noopener">Wunderflats</a><a href="https://housinganywhere.com" target="_blank" rel="noopener">HousingAnywhere</a><a href="https://www.wg-gesucht.de" target="_blank" rel="noopener">WG-Gesucht (Zwischenmiete)</a></div>
+    <ul><li>Lokale Facebook-Gruppen („Wohnung/WG [Stadt]“), Schwarze Bretter an Uni und Klinik.</li><li>Arbeitgeber fragen: größere Firmen haben Kooperationen mit Boardinghäusern oder Werkswohnungen.</li></ul></div>
+  <div class="card" style="--c:var(--de)"><h3>Unterlagen</h3>
+    <ul><li>Mieterselbstauskunft (Vordruck des Vermieters oder eigene)</li><li>Arbeitsvertrag mit Startdatum; sobald vorhanden die letzten 3 Gehaltsnachweise</li><li>Bonitätsnachweis, z. B. SCHUFA-BonitätsAuskunft</li><li>Mietschuldenfreiheitsbescheinigung des aktuellen Vermieters (falls vorhanden)</li><li>Personalausweis (Kopie erst nach der Besichtigung herausgeben, sensible Felder schwärzen)</li><li>Optional: Bürgschaft, wenn das erste Gehalt noch aussteht</li></ul></div>
+</div>
+
+<h2 id="ch"><span class="flag CH">CH</span>Schweiz</h2>
+<div class="grid">
+  <div class="card" style="--c:var(--ch)"><h3>Portale</h3>
+    <div class="plat"><a href="https://www.homegate.ch" target="_blank" rel="noopener">Homegate</a><a href="https://www.immoscout24.ch" target="_blank" rel="noopener">ImmoScout24.ch</a><a href="https://flatfox.ch" target="_blank" rel="noopener">Flatfox</a><a href="https://www.newhome.ch" target="_blank" rel="noopener">newhome</a><a href="https://www.comparis.ch/immobilien" target="_blank" rel="noopener">Comparis</a><a href="https://www.wgzimmer.ch" target="_blank" rel="noopener">WGZimmer.ch</a></div>
+    <ul><li>Comparis bündelt Inserate mehrerer Portale; Flatfox wird von vielen Verwaltungen für Bewerbungen genutzt.</li><li>Genossenschaften (in Zürich sehr verbreitet) vergeben günstige Wohnungen, haben aber Wartelisten und Anteilscheine; städtische Wohnungen in Zürich gibt es über die Liegenschaften der Stadt.</li></ul></div>
+  <div class="card" style="--c:var(--ch)"><h3>Bewerbungsdossier</h3>
+    <ul><li>Anmeldeformular der Verwaltung (pro Wohnung, oft online)</li><li>Betreibungsregisterauszug, nicht älter als 3 Monate (wer noch nicht in der Schweiz gewohnt hat, legt einen Bonitätsnachweis aus Deutschland und den Arbeitsvertrag bei)</li><li>Arbeitsvertrag bzw. Lohnausweise</li><li>Pass oder ID, Aufenthaltsbewilligung bzw. Bestätigung, dass sie beantragt ist</li><li>Referenz des bisherigen Vermieters oder des Arbeitgebers</li></ul></div>
+  <div class="card" style="--c:var(--ch)"><h3>Wie es läuft</h3>
+    <ul><li>Besichtigungen sind oft Sammeltermine; vollständige Dossiers werden zuerst angeschaut – ausgedruckt mitbringen.</li><li>Mietzinsdepot höchstens drei Monatsmieten, auf ein Mietkautionskonto auf deinen Namen. Statt Bargeld geht auch eine Kautionsversicherung, die aber jährliche Prämien kostet, die du nicht zurückbekommst.</li><li>Nach dem Umzug: Anmeldung bei der Gemeinde, Krankenkasse innerhalb von 3 Monaten abschließen.</li></ul></div>
+</div>
+
+<h2 id="at"><span class="flag AT">AT</span>Österreich</h2>
+<div class="grid">
+  <div class="card" style="--c:var(--at)"><h3>Portale</h3>
+    <div class="plat"><a href="https://www.willhaben.at/iad/immobilien/" target="_blank" rel="noopener">willhaben</a><a href="https://www.immobilienscout24.at" target="_blank" rel="noopener">ImmoScout24.at</a><a href="https://www.derstandard.at/immobilien" target="_blank" rel="noopener">derStandard Immobilien</a><a href="https://www.wg-gesucht.de" target="_blank" rel="noopener">WG-Gesucht (auch AT)</a></div>
+    <ul><li>willhaben ist in ganz Österreich das wichtigste Portal, auch für Innsbruck und Graz.</li><li>Wien: Gemeindewohnungen (Wiener Wohnen) setzen mindestens zwei Jahre Hauptwohnsitz in Wien voraus; geförderte Genossenschaftswohnungen verlangen oft einen Eigenmittelbeitrag.</li></ul></div>
+  <div class="card" style="--c:var(--at)"><h3>Was anders ist</h3>
+    <ul><li>Mieten werden meist <b>brutto</b> angegeben (inkl. Betriebskosten und 10 % USt), dazu kommen Strom und Heizung je nach Wohnung.</li><li>Seit 1.7.2023 gilt das Bestellerprinzip: Wer den Makler beauftragt, zahlt ihn – bei Inseraten fast immer der Vermieter.</li><li>Befristete Verträge (mindestens 3 Jahre) sind üblich; im Altbau mit Richtwertmiete gilt dafür ein Abschlag.</li><li>Kaution meist drei Bruttomonatsmieten.</li></ul></div>
+  <div class="card" style="--c:var(--at)"><h3>Unterlagen und Anmeldung</h3>
+    <ul><li>Ausweis, Arbeitsvertrag bzw. Lohnzettel, manchmal eine Bonitätsauskunft (KSV1870)</li><li>Wohnsitz innerhalb von 3 Tagen nach Einzug anmelden (Meldezettel)</li><li>EU-Bürger:innen brauchen bei mehr als 3 Monaten Aufenthalt zusätzlich eine Anmeldebescheinigung</li></ul></div>
+</div>
+
+<h2 id="grenz">Grenzgänger:in für Basel oder Zürich</h2>
+<div class="box">
+<p>Wer in der Schweiz arbeitet und in Deutschland wohnt (z. B. in Lörrach, Weil am Rhein, Grenzach-Wyhlen, Rheinfelden oder Waldshut), zahlt deutsche Mieten bei Schweizer Lohn. Das klingt verlockend, hat aber Regeln:</p>
+<ul>
+  <li><b>Bewilligung:</b> Grenzgängerbewilligung G; Voraussetzung ist die regelmäßige Rückkehr an den Wohnort in Deutschland.</li>
+  <li><b>Steuern:</b> Nach dem Doppelbesteuerungsabkommen behält die Schweiz bei Grenzgänger:innen, die täglich zurückkehren, nur eine begrenzte Quellensteuer ein; versteuert wird hauptsächlich in Deutschland. Viele auswärtige Übernachtungen können das ändern.</li>
+  <li><b>Krankenversicherung:</b> Wahlrecht zwischen Schweizer Krankenversicherung und deutscher Versicherung, das zu Beginn ausgeübt werden muss und schwer rückgängig zu machen ist.</li>
+  <li><b>Alltag:</b> Grenzübertritt täglich, Pendelzeit realistisch einplanen (Tram 8 Weil–Basel, S-Bahn Lörrach–Basel).</li>
+</ul>
+<p class="note">Das ist nur eine Orientierung, keine Steuer- oder Rechtsberatung. Vor einer Entscheidung die Details mit dem Arbeitgeber, einer Grenzgänger-Beratung oder einer Steuerberatung klären.</p>
+</div>
+
+<h2 id="regeln">Regeln im Vergleich</h2>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th><span class="flag DE">DE</span>Deutschland</th><th><span class="flag CH">CH</span>Schweiz</th><th><span class="flag AT">AT</span>Österreich</th></tr></thead>
+<tbody>
+<tr><td><b>Kaution</b></td><td>höchstens 3 Nettokaltmieten, in 3 Raten zahlbar</td><td>höchstens 3 Monatsmieten, auf Mietkautionskonto (Art. 257e OR)</td><td>meist 3 Bruttomonatsmieten</td></tr>
+<tr><td><b>Makler</b></td><td>Bestellerprinzip seit 2015</td><td>Provision für Mieter unüblich</td><td>Bestellerprinzip seit 1.7.2023</td></tr>
+<tr><td><b>Mietangabe</b></td><td>kalt + Nebenkosten (warm)</td><td>netto + Nebenkosten (brutto)</td><td>meist brutto inkl. Betriebskosten und USt</td></tr>
+<tr><td><b>Mietpreisgrenze</b></td><td>Mietpreisbremse in angespannten Märkten, verlängert bis Ende 2029</td><td>Anfangsmiete anfechtbar (je nach Kanton Formularpflicht)</td><td>Richtwert-/Kategoriemiete im Altbau, sonst freie Miete</td></tr>
+<tr><td><b>Anmeldung</b></td><td>innerhalb von 2 Wochen beim Bürgeramt, mit Wohnungsgeberbestätigung</td><td>bei der Gemeinde, für EU-Bürger:innen mit Arbeitsvertrag Aufenthaltsbewilligung</td><td>innerhalb von 3 Tagen (Meldezettel)</td></tr>
+<tr><td><b>Küche</b></td><td>oft nicht vorhanden</td><td>fast immer vorhanden</td><td>meist vorhanden</td></tr>
+</tbody></table></div>
+
+<h2 id="betrug">Betrug erkennen</h2>
+<div class="box warn"><ul>
+  <li>Miete deutlich unter dem Marktpreis, schöne Fotos, sofort verfügbar</li>
+  <li>Vermieter „im Ausland“, Schlüssel sollen per Post oder über einen Treuhanddienst kommen</li>
+  <li>Kaution oder „Reservierungsgebühr“ vor der Besichtigung, Zahlung per Western Union, Krypto oder Gutschein</li>
+  <li>Ausweis- oder Gehaltskopien schon vor dem ersten Kontakt verlangt</li>
+  <li>Kontakt drängt von der Plattform weg auf WhatsApp oder E-Mail</li>
+</ul><p>Faustregel: nie Geld zahlen, bevor du die Wohnung gesehen und den Vertrag unterschrieben hast. Verdächtige Inserate der Plattform melden.</p></div>
+
+<h2 id="besichtigung">Checkliste Besichtigung</h2>
+<p>Häkchen werden nur in diesem Browser gespeichert.</p>
+<ul class="check" id="checklist">
+  <li><label><input type="checkbox">Fahrzeit zum Arbeitsplatz zur Stoßzeit geprüft</label></li>
+  <li><label><input type="checkbox">Warmmiete bzw. Bruttomiete und Abschläge für Strom/Heizung erfragt</label></li>
+  <li><label><input type="checkbox">Letzte Nebenkostenabrechnung angesehen</label></li>
+  <li><label><input type="checkbox">Energieausweis / Heizungsart / Fenster geprüft</label></li>
+  <li><label><input type="checkbox">Schimmel, Feuchte (Bad, Ecken, hinter Möbeln) geprüft</label></li>
+  <li><label><input type="checkbox">Wasserdruck, Warmwasser, Steckdosen getestet</label></li>
+  <li><label><input type="checkbox">Handyempfang und Internet (Glasfaser?) geklärt</label></li>
+  <li><label><input type="checkbox">Lärm: Straße, Bahn, Nachbarn, Gastronomie</label></li>
+  <li><label><input type="checkbox">Küche, Waschmaschinenplatz, Keller, Fahrradraum</label></li>
+  <li><label><input type="checkbox">Vertragsart: befristet, Index- oder Staffelmiete?</label></li>
+  <li><label><input type="checkbox">Kaution: Höhe, Konto, Zahlungsweise</label></li>
+  <li><label><input type="checkbox">Übergabeprotokoll mit Fotos vereinbart</label></li>
+  <li><label><input type="checkbox">Einkaufen, Arzt, Sport in der Nähe</label></li>
+  <li><label><input type="checkbox">Am Abend einmal durchs Viertel gelaufen</label></li>
+</ul>
+<button class="btn" id="reset">Häkchen zurücksetzen</button>
+
+<h2>Quellen</h2>
+<ul class="src">
+  <li><a href="https://www.oesterreich.gv.at/themen/bauen_und_wohnen/wohnen/3/1/Seite.210222.html" target="_blank" rel="noopener">oesterreich.gv.at: Maklerprovision und Bestellerprinzip</a></li>
+  <li><a href="https://wien.arbeiterkammer.at/bestellerprinzip" target="_blank" rel="noopener">Arbeiterkammer Wien: Bestellerprinzip</a></li>
+  <li><a href="https://www.comparis.ch/immobilien/wohnungsbewerbung/mietkaution-rueckzahlung" target="_blank" rel="noopener">Comparis: Mietkaution (bis zu drei Monatsmieten)</a></li>
+  <li><a href="https://www.hallo.sg.ch/de/zusammenleben/wohnen/wohnung-mieten/_jcr_content/pdfonthefly.ocFile/wohnung-mieten-de.pdf" target="_blank" rel="noopener">Kanton St. Gallen: Wohnung mieten (Betreibungsregisterauszug, Kaution)</a></li>
+  <li><a href="https://www.lto.de/recht/nachrichten/n/bundestag-verlaengert-mietpreisbremse-bis-2029" target="_blank" rel="noopener">LTO: Mietpreisbremse bis 2029 verlängert</a></li>
+  <li><a href="https://neho.ch/de/blog/mietzins-zurich" target="_blank" rel="noopener">neho.ch: Leerwohnungsziffer Stadt Zürich</a></li>
+</ul>
+<footer>Stand November 2026. Allgemeine Orientierung, keine Rechts- oder Steuerberatung; Regeln und Preise vor Ort prüfen.</footer>
+</div>
+<script>
+(function(){
+  var cur = {DE:"€",CH:"CHF",AT:"€"};
+  var f0 = new Intl.NumberFormat("de-DE",{maximumFractionDigits:0}), f2 = new Intl.NumberFormat("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2});
+  function v(id){ var x = parseFloat(document.getElementById(id).value); return isFinite(x) ? x : 0; }
+  function calc(){
+    var n=v("netto"), l=document.getElementById("land").value, qm=Math.max(1,v("qm")), nk=v("nk"), c=cur[l];
+    var warm = n/3, kalt = Math.max(0, warm - nk*qm), proQm = kalt/qm;
+    var kaution = 3 * (l==="DE" ? kalt : warm);
+    document.getElementById("res").innerHTML =
+      "<div><b>"+f0.format(warm)+" "+c+"</b><small>höchste "+(l==="DE"?"Warmmiete":"Bruttomiete")+" pro Monat</small></div>"+
+      "<div><b>"+f0.format(kalt)+" "+c+"</b><small>"+(l==="DE"?"höchste Kaltmiete":"davon ohne Nebenkosten")+" bei "+f0.format(qm)+" m²</small></div>"+
+      "<div><b>"+f2.format(proQm)+" "+c+"/m²</b><small>passt zu Angeboten bis zu diesem Wert</small></div>"+
+      "<div><b>"+f0.format(kaution)+" "+c+"</b><small>Kaution (3 Monatsmieten)</small></div>";
+  }
+  ["netto","land","qm","nk"].forEach(function(id){ document.getElementById(id).addEventListener("input", calc); });
+  document.getElementById("land").addEventListener("change", function(){
+    var l = this.value; document.getElementById("nk").value = (l==="DE" ? "3.0" : "0");
+    if (l==="CH" && v("netto") < 4000) document.getElementById("netto").value = 5500;
+    calc();
+  });
+  calc();
+  var KEY = "wohnen-checkliste";
+  var boxes = document.querySelectorAll("#checklist input");
+  var saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch(e) {}
+  boxes.forEach(function(b,i){ b.checked = !!saved[i]; b.addEventListener("change", store); });
+  function store(){ try { localStorage.setItem(KEY, JSON.stringify([].map.call(boxes, function(b){ return b.checked; }))); } catch(e) {} }
+  document.getElementById("reset").addEventListener("click", function(){ boxes.forEach(function(b){ b.checked=false; }); store(); });
+})();
+</script>
+</body>
+</html>

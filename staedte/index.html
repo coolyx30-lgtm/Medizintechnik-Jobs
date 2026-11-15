@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zielstädte · Wohnen in der Zielregion</title>
+<meta name="description" content="Zielstädte der Stellenkarte im Vergleich: Einwohner, Mieten, Sonnenstunden, Nahverkehr, Street View und Stadtbilder.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{--bg:#F2F6F7;--paper:#FFFFFF;--ink:#13262E;--ink2:#51656D;--line:#DCE5E8;--chip:#E9F0F2;--accent:#0B6E79;--accent2:#C4532E;--hi:#E8794F;--de:#0B6E79;--ch:#C4532E;--at:#3B5998}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D191E;--paper:#14242A;--ink:#E5EFF1;--ink2:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--hi:#F09A74;--de:#4FC0CC;--ch:#F09A74;--at:#8FA8E0}}
+:root[data-theme="dark"]{--bg:#0D191E;--paper:#14242A;--ink:#E5EFF1;--ink2:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--hi:#F09A74;--de:#4FC0CC;--ch:#F09A74;--at:#8FA8E0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 16px 64px}
+.back{display:inline-block;font-size:14px;color:var(--ink2);text-decoration:none;margin-bottom:12px}
+.back:hover{text-decoration:underline}
+header.top{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+h1{font-size:30px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+h2{font-size:22px;margin:32px 0 10px;letter-spacing:-.01em}
+.lead{color:var(--ink2);margin:0}
+a{color:var(--accent)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.toc a,.chipbtn{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:14px;text-decoration:none;color:var(--ink);cursor:pointer;font-family:inherit}
+.chipbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .chipbtn[aria-pressed="true"]{color:#0D191E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chipbtn[aria-pressed="true"]{color:#0D191E}}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:10px 0}
+#map{height:430px;border-radius:14px;border:1px solid var(--line);background:var(--chip)}
+.mapfb{padding:16px;color:var(--ink2);font-size:14px}
+.tablewrap{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2);cursor:pointer;user-select:none;position:sticky;top:0;background:var(--paper)}
+th[aria-sort="ascending"]::after{content:" ▲"}th[aria-sort="descending"]::after{content:" ▼"}
+tr:last-child td{border-bottom:0}
+td a{color:var(--ink);font-weight:600;text-decoration:none}td a:hover{text-decoration:underline}
+.est{color:var(--ink2)}
+.bar{display:inline-block;height:8px;border-radius:4px;background:var(--accent);vertical-align:middle;margin-left:6px;opacity:.75}
+.flag{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:1px 6px;color:#fff;margin-left:6px;vertical-align:2px}
+.flag.DE{background:var(--de)}.flag.CH{background:var(--ch)}.flag.AT{background:var(--at)}
+:root[data-theme="dark"] .flag{color:#0D191E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .flag{color:#0D191E}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;margin-top:12px}
+.city{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;scroll-margin-top:12px}
+.hero{height:170px;background:var(--chip) center/cover no-repeat;position:relative}
+.hero .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 8px;background:linear-gradient(transparent,rgba(0,0,0,.65));color:#fff}
+.hero .cap h3{margin:0;font-size:21px;line-height:1.2}
+.hero .cap span{font-size:13px;opacity:.9}
+.body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.kpi{background:var(--chip);border-radius:10px;padding:6px 8px;min-width:0}
+.kpi b{display:block;font-size:15px;line-height:1.25;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.kpi small{overflow-wrap:anywhere;hyphens:auto;font-size:11.5px;color:var(--ink2);line-height:1.25;display:block}
+.txt{font-size:14.5px;margin:0}
+.txt b{font-weight:650}
+.extract{font-size:13.5px;color:var(--ink2);margin:0}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.thumbs a{display:block;aspect-ratio:4/3;background:var(--chip) center/cover no-repeat;border-radius:6px}
+.credit{font-size:11px;color:var(--ink2)}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:650;font-size:13px;border-radius:8px;padding:6px 10px;border:0;cursor:pointer;font-family:inherit}
+.btn.sec{background:var(--chip);color:var(--ink)}
+:root[data-theme="dark"] .btn:not(.sec){color:#0D191E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn:not(.sec){color:#0D191E}}
+.btn:focus-visible,.chipbtn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.firms{font-size:12.5px;color:var(--ink2)}
+ul.src{font-size:13px;color:var(--ink2);padding-left:20px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+@media (max-width:700px){h1{font-size:25px}#map{height:320px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../menu.html">← Zur Übersicht</a>
+<header class="top">
+  <h1>Zielstädte: Wo könnte ich wohnen?</h1>
+  <p class="lead">Die Orte der Stellenkarte im Vergleich: Einwohner, Mieten, Sonnenstunden und Nahverkehr, dazu Street View, Stadtbilder und Hinweise, wo man in der Gegend günstiger wohnt. Wie die Suche selbst läuft, steht auf der Seite <a href="../wohnen/">Wohnungssuche</a>.</p>
+</header>
+<nav class="toc" aria-label="Inhalt"><a href="#karte">Karte</a><a href="#vergleich">Vergleichstabelle</a><a href="#staedte">Städte im Detail</a><a href="#weitere">Weitere Stellenorte</a><a href="#quellen">Quellen</a><a href="../wohnen/">Wohnungssuche →</a></nav>
+
+<div class="note"><b>So sind die Zahlen zu lesen:</b> Mieten sind Angebotsmieten neuer Inserate, also höher als Bestandsmieten. In Deutschland netto kalt in €/m², in Österreich <b>brutto</b> (inkl. Betriebskosten und USt, daher nicht direkt vergleichbar), in der Schweiz netto in CHF/m². Bei kleinen Städten ist der Wert des Landkreises angegeben. Sonnenstunden sind Mittel 1991–2020; Werte mit „≈“ sind aus Nachbarstationen oder dem Jahr 2024 abgeleitet, „ca. 1.700–1.800“ ist ein grober Regionalwert. Einwohner sind gerundet (Stand 2024/25). „Stellen“ zählt offene Anzeigen der Stellenkarte im Umkreis von <span id="rad"></span> km, Stand 13.11.2026.</div>
+
+<h2 id="karte">Karte</h2>
+<div class="toc" id="landfilter" role="group" aria-label="Land filtern">
+  <button class="chipbtn" data-land="alle" aria-pressed="true">Alle</button>
+  <button class="chipbtn" data-land="DE" aria-pressed="false">Deutschland</button>
+  <button class="chipbtn" data-land="CH" aria-pressed="false">Schweiz</button>
+  <button class="chipbtn" data-land="AT" aria-pressed="false">Österreich</button>
+</div>
+<div id="map"><div class="mapfb">Karte wird geladen …</div></div>
+
+<h2 id="vergleich">Vergleichstabelle</h2>
+<p class="txt">Spaltenkopf antippen zum Sortieren. Der Balken zeigt die Miete im Verhältnis zum teuersten Ort.</p>
+<div class="tablewrap"><table id="tbl">
+<thead><tr><th data-k="name">Stadt</th><th data-k="land">Land</th><th data-k="einw">Einwohner</th><th data-k="miete">Miete / m²</th><th data-k="sonneNum">Sonne h/Jahr</th><th data-k="sonneTag">h/Tag</th><th data-k="jobs">Stellen</th><th data-k="firms">Firmen</th></tr></thead>
+<tbody></tbody></table></div>
+
+<h2 id="staedte">Städte im Detail</h2>
+<p class="txt">Die Fotos und der Kurztext kommen beim Herunterscrollen direkt von Wikipedia und Wikimedia Commons; ein Klick auf ein Bild zeigt Urheber und Lizenz. „Street View“ öffnet Google Maps in der Straßenansicht nahe dem Stadtzentrum.</p>
+<div class="grid" id="cards"></div>
+
+<h2 id="weitere">Weitere Stellenorte</h2>
+<p class="txt">Orte mit offenen Stellen, die weiter als <span class="rad2"></span> km von allen Zielstädten oben entfernt liegen:</p>
+<ul class="src" style="font-size:14px;color:var(--ink)"><li><b>Schweinfurt</b>: 6 offene Stellen – nächste Zielstadt Erlangen (ca. 75 km)</li><li><b>Epalinges VD</b>: 2 offene Stellen – nächste Zielstadt Basel (ca. 132 km)</li><li><b>Weßling</b>: 2 offene Stellen – nächste Zielstadt München (ca. 25 km)</li><li><b>Kaufering</b>: 2 offene Stellen – nächste Zielstadt Augsburg (ca. 31 km)</li><li><b>Grödig</b>: 1 offene Stelle – nächste Zielstadt München (ca. 118 km)</li><li><b>Berlin</b>: 1 offene Stelle – nächste Zielstadt Erlangen (ca. 355 km)</li><li><b>Villigen PSI</b>: 1 offene Stelle – nächste Zielstadt Zürich (ca. 30 km)</li><li><b>Heidenheim an der Brenz</b>: 1 offene Stelle – nächste Zielstadt Ulm (ca. 33 km)</li><li><b>Waldachtal</b>: 1 offene Stelle – nächste Zielstadt Hechingen (ca. 30 km)</li><li><b>Seewalchen am Attersee</b>: 1 offene Stelle – nächste Zielstadt München (ca. 150 km)</li><li><b>Ansbach</b>: 1 offene Stelle – nächste Zielstadt Nürnberg (ca. 40 km)</li><li><b>Rotkreuz ZG</b>: 1 offene Stelle – nächste Zielstadt Zürich (ca. 27 km)</li></ul>
+
+<h2 id="quellen">Quellen</h2>
+<ul class="src"><li><a href="https://www.immowelt.de/ueberuns/presse/pressemitteilungenkontakt/immoweltde/2026/immowelt-mietkompass-berlin-bremst-beim-mietanstieg-hamburg-und-frankfurt-ziehen-davon/" target="_blank" rel="noopener">immowelt Mietkompass 2026 (München, Stuttgart, Nürnberg)</a></li><li><a href="https://www.miet-check.de/Mietblog/2026/07/28/mietpreise-deutschland-2026-staedte-ranking/" target="_blank" rel="noopener">miet-check.de: Städteranking Angebotsmieten 2026 (Augsburg)</a></li><li><a href="https://ivd-sued.net/wp-content/uploads/2026/01/2026-PN-14-Angebotsmieten-Grossstaedte-BY.pdf" target="_blank" rel="noopener">IVD Süd: Angebotsmieten Großstädte Bayern 2. Hj. 2025</a></li><li><a href="https://www.boerse-express.com/news/articles/wohneigentum-selbstnutzer-verlieren-87000-euro-gegenueber-vermietern-924754" target="_blank" rel="noopener">DGB/empirica: Mieten in Freiburg, Heidelberg, Mannheim 2026 (via boerse-express)</a></li><li><a href="https://www.immobilienpreise-2026.de/bw/beuron" target="_blank" rel="noopener">immobilienpreise-2026.de: Mieten in Baden-Württemberg (Ulm, Kreise)</a></li><li><a href="https://www.ohne-makler.net/mietspiegel/baden-wurttemberg/tubingen/" target="_blank" rel="noopener">ohne-makler.net: Mietspiegel Tübingen 2026</a></li><li><a href="https://www.ohne-makler.net/mietspiegel/bayern/erlangen/" target="_blank" rel="noopener">ohne-makler.net: Mietspiegel Erlangen</a></li><li><a href="https://www.immobilienscout24.at/unternehmen/presse/presseaussendungen/2026/21-05-2026-landeshauptstaedte-miete.html" target="_blank" rel="noopener">ImmoScout24 Österreich: Mieten Landeshauptstädte 2026</a></li><li><a href="https://neho.ch/de/blog/mietzins-zurich" target="_blank" rel="noopener">neho.ch: Mietzinsen Stadt Zürich (Statistik Stadt Zürich)</a></li><li><a href="https://realadvisor.ch/de/immobilienpreise-pro-m2/stadt-basel" target="_blank" rel="noopener">RealAdvisor: Immobilienpreise Basel</a></li><li><a href="https://lhm.muenchen.swm.de/dam/jcr:001835df-9505-4d2d-8ef0-faa4d8af2074/jt240005.pdf" target="_blank" rel="noopener">Statistisches Amt München: Klima-Mittelwerte 1991–2020</a></li><li><a href="https://www.heidelberg24.de/verbraucher/in-dieser-deutschen-stadt-gibt-es-die-meisten-sonnenstunden-zr-94398414.html" target="_blank" rel="noopener">Heidelberg24/DWD: Sonnenstunden deutscher Städte 1991–2020</a></li><li><a href="https://www.domino1.stuttgart.de/web/komunis/komunissde.nsf/a9830f07fd8c0e7dc1257cb70033e711/a51ffca007ead4c6c12589b10022eb0f/$FILE/c8j01_.PDF" target="_blank" rel="noopener">Stadt Stuttgart: Wetter 2022 (Mittel 1991–2020)</a></li><li><a href="https://de.statista.com/statistik/daten/studie/297546/umfrage/sonnenstunden-in-der-schweiz-nach-ausgewaehlten-orten" target="_blank" rel="noopener">Statista/MeteoSchweiz: Sonnenstunden Schweiz, Norm 1991–2020</a></li><li><a href="https://de.statista.com/statistik/daten/studie/297684/umfrage/sonnenstunden-in-oesterreich-nach-beobachtungsstationen" target="_blank" rel="noopener">Statista/GeoSphere: Sonnenstunden Landeshauptstädte 2024</a></li><li><a href="https://finanztip.de/deutschlandticket/" target="_blank" rel="noopener">Finanztip: Deutschlandticket 63 €</a></li><li><a href="https://www.t-online.de/mobilitaet/aktuelles/id_101459984/deutschlandticket-wird-noch-teurer.html" target="_blank" rel="noopener">t-online: Deutschlandticket ab 2027 66,80 €</a></li><li><a href="https://wien.orf.at/stories/3376621/" target="_blank" rel="noopener">ORF Wien: Jahreskarte 2027 483,10 €</a></li><li><a href="https://www.zvv.ch/de/ueber-uns/zuercher-verkehrsverbund/news/2025/2025-09-30-365-Franken-Abo.html" target="_blank" rel="noopener">ZVV: 365-Franken-Jahresabo Stadt Zürich</a></li><li><a href="https://www.vol.at/also-climate-tickets-in-many-federal-states-are-becoming-more-expensive/9777953" target="_blank" rel="noopener">vol.at: KlimaTicket Graz 414 €</a></li>
+<li>Stadtbilder und Kurztexte: <a href="https://de.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a> und <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (live geladen, Lizenz beim jeweiligen Bild)</li>
+<li>Karte: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-Mitwirkende</li></ul>
+<footer>Stand November 2026. Mieten und Ticketpreise ändern sich laufend; vor einer Entscheidung die aktuellen Werte auf den verlinkten Seiten prüfen.</footer>
+</div>
+
+<script>
+var DATA = {"cities": [{"id": "muenchen", "name": "München", "land": "DE", "region": "Bayern", "lat": 48.1374, "lng": 11.5755, "sv": [48.1374, 11.5755], "wiki": "München", "commons": "München Marienplatz Stadtansicht", "einw": 1510000, "miete": 21.65, "art": "kalt", "mieteQ": "immowelt Mietkompass 2026", "sonne": 1843, "sonneTyp": "station", "sonneQ": "DWD-Station München-Stadt (Statistisches Amt München)", "oepnv": "MVV: U-Bahn, S-Bahn, Tram, Bus. Deutschlandticket 63 €/Monat (ab 1.1.2027: 66,80 €), als Jobticket meist ≤ 44,10 €.", "wohnen": "Teuerster Mietmarkt Deutschlands. Für Stellen im Westen (Gräfelfing, Planegg, Weßling) sind Pasing, Laim oder die S-Bahn-Orte an S6/S8 praktisch, für Garching die U6 im Norden. Günstiger: Augsburg (rund 30–40 Min. mit dem Regionalzug), auch für Stellen in Kaufering oder Aichach.", "umland": ["Augsburg", "Freising", "Pasing"], "jobs": 13, "jobsEin": 5, "firms": 24, "topFirms": ["Brainlab", "Chromsystems", "FUTRUE", "ITM Isotope Technologies Munich", "LRE Medical", "PARI", "PULSION Medical Systems (Getinge)", "Peter Pflugbeil GmbH"]}, {"id": "augsburg", "name": "Augsburg", "land": "DE", "region": "Bayern", "lat": 48.3705, "lng": 10.8978, "sv": [48.3689, 10.8986], "wiki": "Augsburg", "commons": "Augsburg Rathausplatz Perlachturm", "einw": 305000, "miete": 14.7, "art": "kalt", "mieteQ": "miet-check.de Städteranking 2026 (vorläufig)", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Schwaben (DWD-Karte), grob", "oepnv": "AVV: Straßenbahn, Bus, Regionalzüge; nach München rund 30–40 Min., nach Kaufering und Aichach mit Regionalbahn. Deutschlandticket 63 €/Monat.", "wohnen": "Günstiger als München, gut als Wohnort für Stellen in Kaufering, Aichach oder im Münchner Westen. In Augsburg selbst wird laut IVD-Analyse nur ein kleiner Teil der Wohnungen unter 12 €/m² angeboten.", "umland": ["Friedberg", "Königsbrunn", "Gersthofen"], "jobs": 3, "jobsEin": 2, "firms": 3, "topFirms": ["Ambu Innovation", "Julius Zorn"]}, {"id": "pforzheim", "name": "Pforzheim", "land": "DE", "region": "Baden-Württemberg", "lat": 48.8922, "lng": 8.6946, "sv": [48.8913, 8.7017], "wiki": "Pforzheim", "commons": "Pforzheim Stadtansicht", "einw": 127000, "miete": 10.31, "art": "kalt", "mieteQ": "immobilienpreise-2026.de (Wohnungen)", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Nordschwarzwald (DWD-Karte), grob", "oepnv": "VPE: Stadtbus, S-Bahn nach Karlsruhe (rund 25–30 Min.), Regionalzug nach Stuttgart (rund 40–50 Min.). Deutschlandticket 63 €/Monat.", "wohnen": "Eine der günstigsten Großstädte in Baden-Württemberg; Medizintechnik- und Präzisionsfirmen im Enzkreis (Ispringen, Wimsheim). Auch von Stuttgart oder Karlsruhe aus pendelbar.", "umland": ["Karlsruhe", "Mühlacker", "Ispringen"], "jobs": 7, "jobsEin": 5, "firms": 12, "topFirms": ["ADMEDES GmbH", "Acandis", "Löwenstein Medical Technology"]}, {"id": "nuernberg", "name": "Nürnberg", "land": "DE", "region": "Bayern", "lat": 49.4539, "lng": 11.0773, "sv": [49.4539, 11.0773], "wiki": "Nürnberg", "commons": "Nürnberg Altstadt Panorama", "einw": 530000, "miete": 12.15, "art": "kalt", "mieteQ": "immowelt Mietkompass 2026", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Franken (DWD-Karte), grob", "oepnv": "VGN: U-Bahn (3 Linien), S-Bahn, Tram, Bus; S1 und Regionalzüge nach Erlangen in rund 15–20 Min. Deutschlandticket 63 €/Monat.", "wohnen": "Deutlich günstiger als Erlangen und gut angebunden. Viele Beschäftigte von Siemens Healthineers wohnen in Nürnberg oder Fürth und pendeln nach Erlangen.", "umland": ["Fürth", "Erlangen"], "jobs": 3, "jobsEin": 0, "firms": 29, "topFirms": ["HumanOptics", "Ziehm Imaging"]}, {"id": "erlangen", "name": "Erlangen", "land": "DE", "region": "Bayern", "lat": 49.5897, "lng": 11.0078, "sv": [49.5964, 11.0045], "wiki": "Erlangen", "commons": "Erlangen Schlossplatz", "einw": 117000, "miete": 13.09, "art": "kalt", "mieteQ": "ohne-makler.net Mietspiegel 2026 (40–90 m²)", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Franken (DWD-Karte), grob", "oepnv": "VGN: Stadtbus, S-Bahn und Regionalzug nach Nürnberg/Fürth; Fahrradstadt mit kurzen Wegen. Deutschlandticket 63 €/Monat.", "wohnen": "Medizintechnik-Cluster (Siemens Healthineers, Fraunhofer, Uni). Durch die Uni ist der Markt für kleine Wohnungen eng; Nürnberg und Fürth sind die üblichen Ausweichorte.", "umland": ["Nürnberg", "Fürth", "Herzogenaurach"], "jobs": 3, "jobsEin": 0, "firms": 30, "topFirms": ["HumanOptics", "Ziehm Imaging"]}, {"id": "stuttgart", "name": "Stuttgart", "land": "DE", "region": "Baden-Württemberg", "lat": 48.7784, "lng": 9.18, "sv": [48.7784, 9.18], "wiki": "Stuttgart", "commons": "Stuttgart Schlossplatz", "einw": 613000, "miete": 15.21, "art": "kalt", "mieteQ": "immowelt Mietkompass 2026", "sonne": 1814, "sonneTyp": "station", "sonneQ": "Stadt Stuttgart, Mittel 1991–2020", "oepnv": "VVS: S-Bahn, Stadtbahn (U), Bus. Deutschlandticket 63 €/Monat.", "wohnen": "Größte Stadt der Region, hier auch zum Vergleich. Von Stuttgart aus sind Tübingen, Reutlingen, Ditzingen, Filderstadt und Pforzheim pendelbar.", "umland": ["Esslingen", "Ludwigsburg", "Böblingen"], "jobs": 7, "jobsEin": 3, "firms": 21, "topFirms": ["Haselmeier (medmix)", "Kimetec", "Planungsgruppe M+M", "Schuler Konstruktionen", "TÜV SÜD", "medmix (Haselmeier)"]}, {"id": "tuebingen", "name": "Tübingen", "land": "DE", "region": "Baden-Württemberg", "lat": 48.5216, "lng": 9.0576, "sv": [48.5203, 9.0562], "wiki": "Tübingen", "commons": "Tübingen Neckarfront", "einw": 92000, "miete": 15.14, "art": "kalt", "mieteQ": "ohne-makler.net Mietspiegel 2026", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Neckarraum (DWD-Karte), grob", "oepnv": "naldo: Stadtbus, Regionalzüge nach Stuttgart (rund 1 Std.), Reutlingen und über die Zollernalbbahn nach Hechingen (rund 25–30 Min.). Deutschlandticket 63 €/Monat.", "wohnen": "Universitätsstadt mit engem Markt, besonders für WG-Zimmer und kleine Wohnungen. Interessant als Wohnort für Stellen in Hechingen, Nehren, Reutlingen oder Dußlingen.", "umland": ["Reutlingen", "Rottenburg", "Mössingen"], "jobs": 15, "jobsEin": 5, "firms": 40, "topFirms": ["Artivion (JOTEC GmbH)", "Artivion (ehem. JOTEC)", "Bruker (Hain Lifescience)", "Cardiobridge", "Erbe Elektromedizin", "FERCHAU", "Planungsgruppe M+M", "Schuler Konstruktionen"]}, {"id": "hechingen", "name": "Hechingen", "land": "DE", "region": "Baden-Württemberg", "lat": 48.352, "lng": 8.9637, "sv": [48.352, 8.9637], "wiki": "Hechingen", "commons": "Hechingen Burg Hohenzollern", "einw": 19500, "miete": 9.33, "art": "kalt", "mieteQ": "immobilienpreise-2026.de, Zollernalbkreis (Kreiswert)", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Schwäbische Alb (DWD-Karte), grob", "oepnv": "naldo: Zollernalbbahn Tübingen–Hechingen–Balingen, Busse in die Medizintechnik-Orte (Jungingen, Bisingen). Abseits der Bahn ist ein Auto oft praktisch.", "wohnen": "Kleinstadt unter der Burg Hohenzollern mit vielen Medizintechnik-Firmen im Umkreis (u. a. Jungingen, Bisingen). Günstige Mieten; wer Stadtleben möchte, wohnt in Tübingen und pendelt gegen den Strom.", "umland": ["Tübingen", "Balingen", "Mössingen"], "jobs": 12, "jobsEin": 3, "firms": 34, "topFirms": ["Artivion (JOTEC GmbH)", "Artivion (ehem. JOTEC)", "Bruker (Hain Lifescience)", "Cardiobridge", "Erbe Elektromedizin", "FERCHAU", "Vantive (Gambro Dialysatoren)", "ewimed"]}, {"id": "tuttlingen", "name": "Tuttlingen", "land": "DE", "region": "Baden-Württemberg", "lat": 47.9846, "lng": 8.8178, "sv": [47.9846, 8.8178], "wiki": "Tuttlingen", "commons": "Tuttlingen Donau Stadtansicht", "einw": 36000, "miete": 9.71, "art": "kalt", "mieteQ": "immobilienpreise-2026.de, Landkreis Tuttlingen (Kreiswert)", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Baar/Donautal (DWD-Karte), grob", "oepnv": "Ringzug und Regionalbusse (Verbund TUTicket), Bahn Richtung Donaueschingen/Villingen und Singen/Konstanz. Für Geisingen, Mühlheim oder Engen ist oft ein Auto sinnvoll.", "wohnen": "Weltzentrum der chirurgischen Instrumente (über 400 Medizintechnik-Firmen im Umkreis). Für die vielen Stellen in Geisingen und Engen kommen auch Donaueschingen, Villingen-Schwenningen oder Singen als Wohnort infrage.", "umland": ["Villingen-Schwenningen", "Donaueschingen", "Singen"], "jobs": 14, "jobsEin": 7, "firms": 31, "topFirms": ["FERCHAU", "Jabil", "KLS Martin Group (Gebrüder Martin)", "Pajunk", "sachs engineering"]}, {"id": "vs", "name": "Villingen-Schwenningen", "land": "DE", "region": "Baden-Württemberg", "lat": 48.061, "lng": 8.459, "sv": [48.0602, 8.4583], "wiki": "Villingen-Schwenningen", "commons": "Villingen Münster Altstadt", "einw": 89000, "miete": 9.17, "art": "kalt", "mieteQ": "immobilienpreise-2026.de, Schwarzwald-Baar-Kreis (Kreiswert)", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Baar (DWD-Karte), grob", "oepnv": "Stadtbus, Ringzug (Rottweil, Donaueschingen, Tuttlingen), Bahn nach Offenburg und Rottweil–Stuttgart.", "wohnen": "Größte Stadt der Region mit Hochschule (HFU, Campus Schwenningen) und günstigen Mieten; rund 30–40 Min. bis Tuttlingen oder Geisingen.", "umland": ["Donaueschingen", "Rottweil", "Tuttlingen"], "jobs": 9, "jobsEin": 5, "firms": 6, "topFirms": ["Pajunk"]}, {"id": "freiburg", "name": "Freiburg im Breisgau", "land": "DE", "region": "Baden-Württemberg", "lat": 47.9959, "lng": 7.8494, "sv": [47.9955, 7.8522], "wiki": "Freiburg im Breisgau", "commons": "Freiburg im Breisgau Münsterplatz", "einw": 237000, "miete": 16.22, "art": "kalt", "mieteQ": "DGB/empirica-Analyse 2026", "sonne": 1825, "sonneTyp": "station", "sonneQ": "DWD, Mittel 1991–2020", "oepnv": "RVF: Straßenbahn, Breisgau-S-Bahn nach Denzlingen, Emmendingen, Waldkirch; Regionalzug nach Basel in rund 45 Min. Deutschlandticket 63 €/Monat.", "wohnen": "Teuerste Stadt Baden-Württembergs, dafür viel Sonne und Schwarzwald vor der Tür. Für Stellen in Denzlingen, Waldkirch, Emmendingen oder Teningen sind die Orte an der Breisgau-S-Bahn günstiger.", "umland": ["Emmendingen", "Denzlingen", "Gundelfingen"], "jobs": 10, "jobsEin": 3, "firms": 17, "topFirms": ["Brainlab", "Brainlab (Dr. Langer Medical)", "Delta Energy Systems (Germany) GmbH", "Dermagnostix GmbH", "PTW Freiburg", "Schölly Fiberoptic", "Stryker", "inomed Medizintechnik"]}, {"id": "mannheim", "name": "Mannheim", "land": "DE", "region": "Baden-Württemberg", "lat": 49.4875, "lng": 8.466, "sv": [49.4875, 8.466], "wiki": "Mannheim", "commons": "Mannheim Wasserturm", "einw": 316000, "miete": 12.8, "art": "kalt", "mieteQ": "DGB/empirica-Analyse 2026", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Oberrhein (DWD-Karte), grob", "oepnv": "VRN: S-Bahn RheinNeckar, Straßenbahn; nach Heidelberg rund 15 Min. Deutschlandticket 63 €/Monat.", "wohnen": "Günstiger als Heidelberg, gut für Pendeln nach Heidelberg und Ludwigshafen (Roche Diagnostics Mannheim liegt im Norden der Stadt).", "umland": ["Heidelberg", "Ludwigshafen", "Weinheim"], "jobs": 7, "jobsEin": 5, "firms": 23, "topFirms": ["Brüggen Engineering GmbH", "FERCHAU", "FERCHAU (Niederlassung Mannheim)", "Heidelberg Engineering", "Kite IT GmbH"]}, {"id": "heidelberg", "name": "Heidelberg", "land": "DE", "region": "Baden-Württemberg", "lat": 49.3988, "lng": 8.6724, "sv": [49.4106, 8.7101], "wiki": "Heidelberg", "commons": "Heidelberg Alte Brücke Schloss", "einw": 160000, "miete": 15.88, "art": "kalt", "mieteQ": "DGB/empirica-Analyse 2026", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Oberrhein (DWD-Karte), grob", "oepnv": "VRN: Straßenbahn, Bus, S-Bahn nach Mannheim; Neuenheimer Feld (DKFZ, Uniklinik, HIT) mit Straßenbahn erreichbar.", "wohnen": "Forschungsstandort (DKFZ, HIT, EMBL, Uniklinik) mit engem Markt; ein WG-Zimmer kostet hier mehr als in Freiburg. Mannheim, Schwetzingen oder die Bergstraße sind Ausweichorte.", "umland": ["Mannheim", "Schwetzingen", "Wiesloch"], "jobs": 7, "jobsEin": 5, "firms": 22, "topFirms": ["Brüggen Engineering GmbH", "FERCHAU", "FERCHAU (Niederlassung Mannheim)", "Heidelberg Engineering", "Kite IT GmbH"]}, {"id": "ulm", "name": "Ulm", "land": "DE", "region": "Baden-Württemberg", "lat": 48.3984, "lng": 9.9916, "sv": [48.3984, 9.9916], "wiki": "Ulm", "commons": "Ulm Münster Donau", "einw": 129000, "miete": 12.1, "art": "kalt", "mieteQ": "immobilienpreise-2026.de (Wohnungen)", "sonne": null, "sonneTyp": "schaetzung", "sonneQ": "Regionalwert Donau (DWD-Karte), grob", "oepnv": "DING: Straßenbahn, Bus; Regionalzug nach Laupheim (Rentschler) und Senden, ICE nach Stuttgart rund 45 Min.", "wohnen": "Ulm/Neu-Ulm ist ein Doppelzentrum mit Uni und Wissenschaftsstadt. Für Stellen in Laupheim oder Senden ist Ulm der naheliegende Wohnort.", "umland": ["Neu-Ulm", "Laupheim", "Senden"], "jobs": 7, "jobsEin": 3, "firms": 8, "topFirms": ["NVision Imaging Technologies", "Rentschler Biopharma", "Universitätsklinikum Ulm", "bredent"]}, {"id": "loerrach", "name": "Lörrach / Weil am Rhein", "land": "DE", "region": "Baden-Württemberg (für Basel)", "lat": 47.6156, "lng": 7.6614, "sv": [47.6156, 7.6614], "wiki": "Lörrach", "commons": "Lörrach Stadtansicht", "einw": 50000, "miete": 12.26, "art": "kalt", "mieteQ": "immobilienpreise-2026.de, Landkreis Lörrach (Kreiswert)", "sonne": 1687, "sonneTyp": "schaetzung", "sonneQ": "Nachbarstation Basel-Binningen (MeteoSchweiz)", "oepnv": "S-Bahn S5/S6 nach Basel (Bad. Bahnhof) in rund 15–20 Min., Tram 8 von Weil am Rhein bis in die Basler Innenstadt. Deutschlandticket gilt bis zur Grenze.", "wohnen": "Typischer Wohnort für Grenzgänger:innen mit Job in Basel: deutsche Mieten, Schweizer Lohn. Vor einer Entscheidung die Regeln für Grenzgänger (Steuern, Krankenversicherung, G-Bewilligung) klären, siehe Seite Wohnungssuche.", "umland": ["Weil am Rhein", "Grenzach-Wyhlen", "Rheinfelden"], "jobs": 3, "jobsEin": 1, "firms": 16, "topFirms": ["Lonza", "Novartis", "Sentec"]}, {"id": "basel", "name": "Basel", "land": "CH", "region": "Basel-Stadt", "lat": 47.5596, "lng": 7.5886, "sv": [47.558, 7.588], "wiki": "Basel", "commons": "Basel Rhein Münster Stadtansicht", "einw": 175000, "miete": 31.08, "art": "chf", "mieteQ": "RealAdvisor, Jahresmiete 373 CHF/m² (Aug. 2026) ÷ 12", "sonne": 1687, "sonneTyp": "station", "sonneQ": "MeteoSchweiz, Norm 1991–2020 (Basel-Binningen)", "oepnv": "BVB/BLT im Tarifverbund Nordwestschweiz (TNW): Tram, Bus, S-Bahn; Monats- und Jahresabo (U-Abo), Preise auf tnw.ch.", "wohnen": "Pharma- und Biotech-Zentrum (Roche, Novartis, Lonza). Markt angespannt, aber weniger extrem als Zürich. Alternative: in Lörrach/Weil wohnen und als Grenzgänger:in pendeln.", "umland": ["Riehen", "Allschwil", "Muttenz"], "jobs": 2, "jobsEin": 0, "firms": 16, "topFirms": ["Novartis", "Sentec"]}, {"id": "zuerich", "name": "Zürich", "land": "CH", "region": "Kanton Zürich", "lat": 47.3769, "lng": 8.5417, "sv": [47.3717, 8.5424], "wiki": "Zürich", "commons": "Zürich Limmat Grossmünster", "einw": 448000, "miete": 47.08, "art": "chf", "mieteQ": "Statistik Stadt Zürich via neho.ch: ausgeschriebene Wohnungen 2025 im Schnitt 565 CHF/m²·Jahr (Median 497) ÷ 12", "sonne": 1694, "sonneTyp": "station", "sonneQ": "MeteoSchweiz, Norm 1991–2020 (Zürich-Fluntern)", "oepnv": "ZVV: S-Bahn, Tram, Bus, Schiff; Zone 110 (Stadt) zählt als zwei Zonen. Ein vergünstigtes 365-Franken-Jahresabo für die Stadt wurde 2025 per Volksabstimmung beschlossen; Start und Bezug legt die Stadt noch fest.", "wohnen": "Teuerster Markt im Zielgebiet mit fast keinem Leerstand (0,07 % in der Stadt, 2024). Günstiger: Winterthur, Baden (auch für Stellen in Baden-Dättwil) oder das Limmattal (Schlieren, Dietikon). Genossenschaften haben lange Wartelisten.", "umland": ["Baden", "Winterthur", "Schlieren"], "jobs": 5, "jobsEin": 1, "firms": 23, "topFirms": ["Swiss Medical Network", "Varian (Siemens Healthineers)", "ndd Medizintechnik AG"]}, {"id": "wien", "name": "Wien", "land": "AT", "region": "Wien", "lat": 48.2082, "lng": 16.3738, "sv": [48.2085, 16.3721], "wiki": "Wien", "commons": "Wien Innere Stadt Stephansdom Panorama", "einw": 2030000, "miete": 22.45, "art": "brutto", "mieteQ": "ImmoScout24 Österreich, Angebotsmieten Landeshauptstädte 2026 (brutto)", "sonne": 2044, "sonneTyp": "abgeleitet", "sonneQ": "aus 2024: 2.126 h = +4 % zur Norm 1991–2020 (Wien Hohe Warte, GeoSphere/Statista)", "oepnv": "Wiener Linien: U-Bahn, Bim, Bus; Jahreskarte 467 € (digital 461 €), ab 1.1.2027 483,10 €.", "wohnen": "Gute Öffis und viel geförderter Wohnbau. Gemeindewohnungen gibt es erst nach zwei Jahren Hauptwohnsitz in Wien; geförderte Genossenschaftswohnungen verlangen oft Eigenmittel. Für den Einstieg: Altbau-Mietwohnung (Richtwertmiete) oder WG.", "umland": ["Favoriten", "Ottakring", "Floridsdorf"], "jobs": 5, "jobsEin": 4, "firms": 13, "topFirms": ["Brainlab", "Siemens Healthineers (über Siemens Personaldienstleistungen)", "UpNano", "aristid Personalberatung (IVD-Kunde ungenannt)", "ingenetix"]}, {"id": "innsbruck", "name": "Innsbruck", "land": "AT", "region": "Tirol", "lat": 47.2692, "lng": 11.4041, "sv": [47.2683, 11.3933], "wiki": "Innsbruck", "commons": "Innsbruck Inn Nordkette Altstadt", "einw": 132000, "miete": 24.23, "art": "brutto", "mieteQ": "ImmoScout24 Österreich, Angebotsmieten Landeshauptstädte 2026 (brutto)", "sonne": 2036, "sonneTyp": "abgeleitet", "sonneQ": "aus 2024: 1.914 h = −6 % zur Norm 1991–2020 (Innsbruck Flughafen, GeoSphere/Statista)", "oepnv": "IVB: Tram, Bus; KlimaTicket Innsbruck 448,30 € (Tariffolder 2025, aktuellen Preis auf ivb.at prüfen); S-Bahn Tirol ins Inntal.", "wohnen": "Teuerster Mietmarkt Österreichs, viele Studierende. Günstiger: Hall in Tirol, Telfs, Schwaz oder Wattens an der S-Bahn.", "umland": ["Hall in Tirol", "Telfs", "Schwaz"], "jobs": 1, "jobsEin": 0, "firms": 11, "topFirms": ["MED-EL"]}, {"id": "graz", "name": "Graz", "land": "AT", "region": "Steiermark", "lat": 47.0707, "lng": 15.4395, "sv": [47.0712, 15.4386], "wiki": "Graz", "commons": "Graz Schlossberg Uhrturm Altstadt", "einw": 305000, "miete": 15.15, "art": "brutto", "mieteQ": "ImmoScout24 Österreich, Angebotsmieten Landeshauptstädte 2026 (brutto)", "sonne": 2072, "sonneTyp": "abgeleitet", "sonneQ": "aus 2024: 2.093 h = +1 % zur Norm 1991–2020 (Graz Universität, GeoSphere/Statista)", "oepnv": "Holding Graz: Tram, Bus; KlimaTicket Steiermark Classic Graz für Personen mit Hauptwohnsitz Graz 414 € (2026).", "wohnen": "Deutlich günstiger als Wien und Innsbruck, sonnig, Unistadt mit Medizintechnik-Szene (u. a. Joanneum Research, Med Uni Graz).", "umland": ["Graz-Umgebung", "Gratwein", "Seiersberg"], "jobs": 1, "jobsEin": 1, "firms": 3, "topFirms": ["LKH-Univ. Klinikum Graz"]}], "stand": "13.11.2026", "radius": 25};
+(function(){
+  var C = DATA.cities, R = DATA.radius;
+  document.getElementById("rad").textContent = R;
+  document.querySelectorAll(".rad2").forEach(function(e){ e.textContent = R; });
+  var nf = new Intl.NumberFormat("de-DE");
+  var f2 = new Intl.NumberFormat("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2});
+  var f1 = new Intl.NumberFormat("de-DE",{minimumFractionDigits:1,maximumFractionDigits:1});
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  C.forEach(function(c){
+    c.sonneNum = c.sonne || 1750;
+    c.sonneTag = c.sonneNum/365;
+    c.mieteTxt = (c.art==="chf" ? "CHF " : "") + f2.format(c.miete) + (c.art==="chf" ? "" : " €") + (c.art==="brutto" ? " brutto" : "");
+    c.sonneTxt = c.sonne ? ((c.sonneTyp==="station"?"":"≈ ") + nf.format(c.sonne)) : "1.700–1.800";
+    c.einwTxt = c.einw >= 1e6 ? f2.format(c.einw/1e6).replace(/0$/,"") + " Mio." : nf.format(Math.round(c.einw/1000)*1000);
+  });
+  var land = "alle";
+  function visible(c){ return land==="alle" || c.land===land; }
+
+  // Tabelle
+  var sortK = "jobs", sortDir = -1;
+  var maxMiete = Math.max.apply(null, C.map(function(c){ return c.art==="chf" ? c.miete*1.05 : c.miete; }));
+  function renderTable(){
+    var rows = C.filter(visible).slice().sort(function(a,b){
+      var x=a[sortK], y=b[sortK];
+      if (typeof x === "string") return sortDir * x.localeCompare(y, "de");
+      return sortDir * (x - y);
+    });
+    document.querySelector("#tbl tbody").innerHTML = rows.map(function(c){
+      var w = Math.round(60 * (c.art==="chf"?c.miete*1.05:c.miete) / maxMiete);
+      return "<tr><td><a href='#c-"+c.id+"'>"+esc(c.name)+"</a></td><td><span class='flag "+c.land+"' style='margin:0'>"+c.land+"</span></td><td>"+c.einwTxt+"</td><td>"+c.mieteTxt+"<span class='bar' style='width:"+w+"px'></span></td><td class='"+(c.sonneTyp==="station"?"":"est")+"'>"+(c.sonne?"":"ca. ")+c.sonneTxt+"</td><td class='"+(c.sonneTyp==="station"?"":"est")+"'>"+f1.format(c.sonneTag)+"</td><td>"+c.jobs+"</td><td>"+c.firms+"</td></tr>";
+    }).join("");
+    document.querySelectorAll("#tbl th").forEach(function(th){
+      th.setAttribute("aria-sort", th.dataset.k===sortK ? (sortDir>0?"ascending":"descending") : "none");
+    });
+  }
+  document.querySelectorAll("#tbl th").forEach(function(th){
+    th.tabIndex = 0;
+    function go(){ var k=th.dataset.k; if (k===sortK) sortDir*=-1; else { sortK=k; sortDir = (k==="name"||k==="land")?1:-1; } renderTable(); }
+    th.addEventListener("click", go);
+    th.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } });
+  });
+
+  // Karten
+  function link(href, label, sec){ return "<a class='btn"+(sec?" sec":"")+"' href='"+href+"' target='_blank' rel='noopener'>"+label+"</a>"; }
+  function renderCards(){
+    var order={DE:0,CH:1,AT:2};
+    document.getElementById("cards").innerHTML = C.filter(visible).slice().sort(function(a,b){ return order[a.land]-order[b.land] || b.jobs-a.jobs; }).map(function(c){
+      var q = encodeURIComponent(c.name.split(" /")[0]);
+      var sv = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint="+c.sv[0]+","+c.sv[1];
+      var gm = "https://www.google.com/maps/search/?api=1&query="+q;
+      var osm = "https://www.openstreetmap.org/#map=13/"+c.lat+"/"+c.lng;
+      var wp = "https://de.wikipedia.org/wiki/"+encodeURIComponent(c.wiki);
+      var wv = "https://de.wikivoyage.org/wiki/"+encodeURIComponent(c.wiki);
+      var yt = "https://www.youtube.com/results?search_query="+encodeURIComponent(c.name.split(" /")[0]+" walking tour 4k");
+      var wl = "../wohnen/#"+(c.land==="DE"?"de":c.land==="CH"?"ch":"at");
+      var firms = c.topFirms.length ? "<p class='firms'>Stellen u. a. bei: "+esc(c.topFirms.join(", "))+"</p>" : "";
+      return "<article class='city' id='c-"+c.id+"' data-wiki='"+esc(c.wiki)+"' data-commons='"+esc(c.commons)+"'>"+
+        "<div class='hero'><div class='cap'><h3>"+esc(c.name)+"<span class='flag "+c.land+"'>"+c.land+"</span></h3><span>"+esc(c.region)+"</span></div></div>"+
+        "<div class='body'>"+
+          "<div class='kpis'>"+
+            "<div class='kpi'><b>"+c.einwTxt+"</b><small>Einwohner (ca.)</small></div>"+
+            "<div class='kpi' title='"+esc(c.mieteQ)+"'><b>"+c.mieteTxt+"</b><small>Miete pro m²</small></div>"+
+            "<div class='kpi' title='"+esc(c.sonneQ)+"'><b>"+c.sonneTxt+"</b><small>"+(c.sonne?"":"ca. ")+"Sonnen-h/Jahr · "+f1.format(c.sonneTag)+" h/Tag</small></div>"+
+            "<div class='kpi'><b>"+c.jobs+"</b><small>Stellen ≤ "+R+" km</small></div>"+
+            "<div class='kpi'><b>"+c.jobsEin+"</b><small>davon ohne Erfahrungs­forderung</small></div>"+
+            "<div class='kpi'><b>"+c.firms+"</b><small>Firmen ≤ "+R+" km</small></div>"+
+          "</div>"+
+          "<p class='extract'></p>"+
+          "<div class='thumbs'></div><div class='credit'></div>"+
+          "<p class='txt'><b>Nahverkehr:</b> "+esc(c.oepnv)+"</p>"+
+          "<p class='txt'><b>Wohnen:</b> "+esc(c.wohnen)+"</p>"+
+          "<p class='txt'><b>Auch anschauen:</b> "+esc(c.umland.join(", "))+"</p>"+
+          firms+
+          "<div class='btns'>"+link(sv,"Street View")+link(gm,"Google Maps",1)+link(osm,"OpenStreetMap",1)+link(wp,"Wikipedia",1)+link(wv,"Wikivoyage",1)+link(yt,"Stadtrundgang (Video)",1)+
+          "<button class='btn sec' data-fly='"+c.id+"'>Auf der Karte</button><a class='btn sec' href='"+wl+"'>Wohnungssuche</a></div>"+
+        "</div></article>";
+    }).join("");
+    document.querySelectorAll("[data-fly]").forEach(function(b){ b.addEventListener("click", function(){ fly(b.dataset.fly); }); });
+    observe();
+  }
+
+  // Bilder und Kurztext von Wikipedia/Commons, erst wenn die Karte in Sicht kommt
+  var loaded = {};
+  function strip(h){ var d=document.createElement("div"); d.innerHTML=h||""; return (d.textContent||"").trim(); }
+  function loadCity(el){
+    var id = el.id; if (loaded[id]) return; loaded[id] = true;
+    var wiki = el.dataset.wiki, cq = el.dataset.commons;
+    var u1 = "https://de.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=extracts|pageimages&exintro=1&explaintext=1&exsentences=2&piprop=thumbnail&pithumbsize=800&titles="+encodeURIComponent(wiki);
+    fetch(u1).then(function(r){return r.json();}).then(function(j){
+      var p = j.query && j.query.pages; if (!p) return; p = p[Object.keys(p)[0]];
+      if (p.extract) el.querySelector(".extract").textContent = p.extract;
+      if (p.thumbnail) el.querySelector(".hero").style.backgroundImage = "url('"+p.thumbnail.source+"')";
+    }).catch(function(){});
+    var u2 = "https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch="+encodeURIComponent(cq+" filetype:bitmap")+"&prop=imageinfo&iiprop=url|extmetadata|mime&iiurlwidth=420&iiextmetadatafilter=Artist|LicenseShortName";
+    fetch(u2).then(function(r){return r.json();}).then(function(j){
+      var pages = j.query && j.query.pages ? Object.keys(j.query.pages).map(function(k){return j.query.pages[k];}) : [];
+      pages.sort(function(a,b){ return (a.index||0)-(b.index||0); });
+      var bad = /(wappen|coat of arms|karte|map|locator|logo|flag|flagge|plan|diagram|svg)/i;
+      var imgs = pages.filter(function(p){ var ii=p.imageinfo&&p.imageinfo[0]; return ii && /jpeg|png|webp/.test(ii.mime||"") && !bad.test(p.title); }).slice(0,6);
+      if (!imgs.length) return;
+      el.querySelector(".thumbs").innerHTML = imgs.map(function(p){
+        var ii = p.imageinfo[0], m = ii.extmetadata||{};
+        var who = strip(m.Artist && m.Artist.value).slice(0,60) || "unbekannt", lic = (m.LicenseShortName && m.LicenseShortName.value) || "";
+        var t = p.title.replace(/^File:|^Datei:/,"") + " – " + who + (lic?" ("+lic+")":"");
+        return "<a href='"+esc(ii.descriptionurl)+"' target='_blank' rel='noopener' title='"+esc(t)+"' style=\"background-image:url('"+esc(ii.thumburl)+"')\" aria-label='"+esc(t)+"'></a>";
+      }).join("");
+      el.querySelector(".credit").textContent = "Fotos: Wikimedia Commons, Urheber und Lizenz beim Bild (Mauszeiger oder Klick).";
+    }).catch(function(){});
+  }
+  var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ loadCity(e.target); io.unobserve(e.target); } }); }, {rootMargin:"300px"}) : null;
+  function observe(){ document.querySelectorAll(".city").forEach(function(el){ if (io) io.observe(el); else loadCity(el); }); }
+
+  // Karte
+  var map = null, markers = {};
+  function fly(id){
+    var c = C.filter(function(x){return x.id===id;})[0]; if (!c) return;
+    document.getElementById("karte").scrollIntoView({behavior:"smooth"});
+    if (map){ map.flyTo([c.lat,c.lng], 11); markers[id].openPopup(); }
+  }
+  function initMap(){
+    if (!window.L) { document.getElementById("map").innerHTML = "<div class='mapfb'>Die Karte konnte nicht geladen werden (Leaflet blockiert). Tabelle und Städte unten funktionieren trotzdem.</div>"; return; }
+    document.getElementById("map").innerHTML = "";
+    map = L.map("map", {scrollWheelZoom:false}).setView([48.2, 10.6], 6);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'}).addTo(map);
+    var col = {DE:getComputedStyle(document.documentElement).getPropertyValue("--de").trim()||"#0B6E79", CH:getComputedStyle(document.documentElement).getPropertyValue("--ch").trim()||"#C4532E", AT:getComputedStyle(document.documentElement).getPropertyValue("--at").trim()||"#3B5998"};
+    C.forEach(function(c){
+      var r = 7 + Math.min(14, c.jobs*1.2);
+      var m = L.circleMarker([c.lat,c.lng], {radius:r, color:"#fff", weight:2, fillColor:col[c.land], fillOpacity:.9});
+      m.bindPopup("<b>"+esc(c.name)+"</b><br>"+c.mieteTxt+" pro m² · "+c.sonneTxt+" h Sonne<br>"+c.jobs+" offene Stellen ≤ "+R+" km<br><a href='#c-"+c.id+"'>Details</a>");
+      markers[c.id] = m;
+    });
+    syncMap();
+  }
+  function syncMap(){
+    if (!map) return;
+    var shown = [];
+    C.forEach(function(c){ if (visible(c)) { markers[c.id].addTo(map); shown.push([c.lat,c.lng]); } else map.removeLayer(markers[c.id]); });
+    if (shown.length) map.fitBounds(shown, {padding:[30,30], maxZoom:9});
+  }
+  document.querySelectorAll("#landfilter .chipbtn").forEach(function(b){
+    b.addEventListener("click", function(){
+      land = b.dataset.land;
+      document.querySelectorAll("#landfilter .chipbtn").forEach(function(x){ x.setAttribute("aria-pressed", x===b?"true":"false"); });
+      renderTable(); renderCards(); syncMap();
+    });
+  });
+  renderTable(); renderCards();
+  var s = document.createElement("script");
+  s.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js";
+  s.onload = initMap; s.onerror = initMap;
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>
