@@ -294,13 +294,15 @@
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent), 0 4px 12px rgba(19,38,46,.25);
     border: 2px solid var(--accent); transition: transform .15s var(--ease);
   }
-  .cl.has-top { border-color: var(--coral); box-shadow: 0 0 0 3px color-mix(in srgb, var(--coral) 35%, transparent), 0 4px 12px rgba(19,38,46,.25); }
   .cl.firms-only { border-color: var(--firm); box-shadow: 0 0 0 3px color-mix(in srgb, var(--firm) 25%, transparent), 0 4px 12px rgba(19,38,46,.2); color: var(--ink2); }
   .leaflet-marker-icon:hover .cl { transform: scale(1.06); }
   .marker-cluster-anim .leaflet-marker-icon, .marker-cluster-anim .leaflet-marker-shadow { transition: transform .3s var(--ease), opacity .3s var(--ease); }
 
   /* Leaflet-Oberflächen im Seitenstil */
   .leaflet-container { font-family: var(--sans); background: var(--bg); }
+  /* OSM-Kacheln gedämpft, damit Pins und Daten die Karte tragen */
+  .leaflet-tile-pane { filter: saturate(.25) contrast(.92) brightness(1.04); }
+  .dark-tiles .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) saturate(.3) brightness(.82) contrast(.9); }
   .leaflet-bar { border: 1px solid var(--line) !important; border-radius: 10px !important; box-shadow: var(--shadow) !important; overflow: hidden; }
   .leaflet-bar a { background: var(--paper) !important; color: var(--ink) !important; border-bottom-color: var(--line2) !important; width: 34px !important; height: 34px !important; line-height: 32px !important; }
   .leaflet-bar a:hover { background: var(--hover) !important; }
@@ -874,10 +876,11 @@
   var tiles = null;
   function setTiles() {
     if (!map) return;
-    if (tiles) map.removeLayer(tiles);
-    tiles = L.tileLayer("https://{s}.basemaps.cartocdn.com/" + (isDark() ? "dark_all" : "light_all") + "/{z}/{x}/{y}{r}.png", {
-      maxZoom: 19, subdomains: "abcd",
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    document.querySelector(".map-wrap").classList.toggle("dark-tiles", isDark());
+    if (tiles) return;
+    tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'
     }).addTo(map);
   }
   function initMap() {
@@ -909,7 +912,7 @@
         var ms = cl.getAllChildMarkers();
         var jobs = 0, top = false;
         ms.forEach(function (m) { if (m.options.kind === "job") jobs++; if (m.options.top) top = true; });
-        var cls = "cl" + (top ? " has-top" : "") + (jobs ? "" : " firms-only");
+        var cls = "cl" + (jobs ? "" : " firms-only");
         var n = cl.getChildCount();
         var size = n < 10 ? 34 : (n < 50 ? 40 : 46);
         return L.divIcon({
