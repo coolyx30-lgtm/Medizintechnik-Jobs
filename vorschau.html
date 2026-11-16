@@ -254,7 +254,7 @@
   .map-error { position: absolute; inset: 0; display: none; place-items: center; text-align: center; padding: 24px; color: var(--ink2); }
 
   .legend {
-    position: absolute; left: 16px; bottom: 24px; z-index: 500; background: var(--paper); color: var(--ink);
+    position: absolute; left: 16px; top: 16px; z-index: 500; background: var(--paper); color: var(--ink);
     border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 12px 14px; font-size: 12.5px;
     display: grid; gap: 7px; max-width: 280px;
   }
@@ -329,7 +329,7 @@
     details.filters > summary, .filters-body, .listhead, .foot { padding-left: 16px; padding-right: 16px; }
     .listhead { top: 46svh; }
     .list { padding: 4px 4px 20px; }
-    .legend { left: 10px; bottom: 10px; padding: 0; gap: 0; }
+    .legend { left: 10px; top: 10px; padding: 0; gap: 0; }
     .legend-toggle { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 8px 12px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
     .legend > b, .legend:not(.open) .lg { display: none; }
     .legend.open { padding: 0 12px 12px; gap: 6px; }
@@ -393,7 +393,7 @@
     <div class="nomap-note">Diese Ansicht zeigt nur die Liste; ein Eintrag öffnet sich beim Antippen. Die Karte gibt es in der index.html auf GitHub Pages.</div>
     <div class="listhead">
       <div class="count" id="count" aria-live="polite"></div>
-      <label class="sort">Sortieren
+      <label class="sort">
         <select id="sort" aria-label="Sortierung">
           <option value="std">Empfohlen</option>
           <option value="km">Nächste zuerst</option>
@@ -904,8 +904,8 @@
 
     clustered = typeof L.markerClusterGroup === "function";
     layer = clustered ? L.markerClusterGroup({
-      maxClusterRadius: 44,
-      disableClusteringAtZoom: 11,
+      maxClusterRadius: 52,
+      disableClusteringAtZoom: 12,
       showCoverageOnHover: false,
       spiderfyOnMaxZoom: true,
       iconCreateFunction: function (cl) {
@@ -923,9 +923,21 @@
       }
     }).addTo(map) : L.layerGroup().addTo(map);
 
+    // Einträge mit identischer Ortsmitte leicht auffächern, damit kein Pin einen anderen verdeckt
+    var seen = {};
+    ITEMS.forEach(function (x) {
+      var key = x.lat.toFixed(3) + "," + x.lng.toFixed(3);
+      var k = seen[key] = (seen[key] || 0) + 1;
+      x.mlat = x.lat; x.mlng = x.lng;
+      if (k > 1) {
+        var a = (k - 1) * 2.399963, r = 0.0075 * Math.sqrt(k - 1);
+        x.mlat = x.lat + r * Math.sin(a);
+        x.mlng = x.lng + r * Math.cos(a) / Math.cos(x.lat * Math.PI / 180);
+      }
+    });
     ITEMS.forEach(function (x) {
       var z = x.type === "firm" ? -50 : (x.top ? 500 : 100);
-      var m = L.marker([x.lat, x.lng], {
+      var m = L.marker([x.mlat, x.mlng], {
         icon: makeIcon(x), zIndexOffset: z, kind: x.type, top: !!x.top,
         title: x.type === "firm" ? x.firma : x.firma + ": " + x.titel
       });
@@ -952,7 +964,8 @@
       var base = inside.length && state.land !== "out" ? inside : items;
       var pts = base.map(function (x) { return [x.lat, x.lng]; });
       pts.push([HOME.lat, HOME.lng]);
-      map.fitBounds(L.latLngBounds(pts), { padding: [48, 48], maxZoom: 10 });
+      var wide = window.matchMedia("(min-width: 861px)").matches;
+      map.fitBounds(L.latLngBounds(pts), { paddingTopLeft: wide ? [250, 40] : [24, 56], paddingBottomRight: wide ? [60, 40] : [24, 24], maxZoom: 10 });
     }
   }
 
@@ -976,7 +989,7 @@
     if (!map) return;
     if (window.matchMedia("(max-width: 860px)").matches) window.scrollTo({ top: 0, behavior: "smooth" });
     var m = markers[id];
-    map.flyTo([x.lat, x.lng], Math.max(map.getZoom(), 11), { duration: 0.6 });
+    map.flyTo([x.mlat, x.mlng], Math.max(map.getZoom(), 12), { duration: 0.6 });
     map.once("moveend", function () {
       if (clustered && layer.hasLayer(m)) layer.zoomToShowLayer(m, function () { m.openPopup(); });
       else m.openPopup();
