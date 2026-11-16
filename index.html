@@ -300,9 +300,6 @@
 
   /* Leaflet-Oberflächen im Seitenstil */
   .leaflet-container { font-family: var(--sans); background: var(--bg); }
-  /* OSM-Kacheln gedämpft, damit Pins und Daten die Karte tragen */
-  .leaflet-tile-pane { filter: saturate(.25) contrast(.92) brightness(1.04); }
-  .dark-tiles .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) saturate(.3) brightness(.82) contrast(.9); }
   .leaflet-bar { border: 1px solid var(--line) !important; border-radius: 10px !important; box-shadow: var(--shadow) !important; overflow: hidden; }
   .leaflet-bar a { background: var(--paper) !important; color: var(--ink) !important; border-bottom-color: var(--line2) !important; width: 34px !important; height: 34px !important; line-height: 32px !important; }
   .leaflet-bar a:hover { background: var(--hover) !important; }
