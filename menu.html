@@ -4,161 +4,204 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Medizintechnik-Jobs · Übersicht</title>
-<meta name="description" content="Übersicht über Stellenkarte, Netzwerk-Mindmap und Karriere-Recherche Medizintechnik.">
+<meta name="description" content="Alle Seiten zur Jobsuche in der Medizintechnik: Stellenkarte, Netzwerk, MEDICA, Karrierewege, Beratung, Reflexion, Interviewtraining, Bewerbungs-Tracker, Zielstädte und Wohnungssuche.">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-:root{
-  --bg:#f4f6f9; --paper:#ffffff; --ink:#18202b; --ink2:#5d6877; --line:#e2e6ec; --chip:#eef1f5;
-  --c1:#1565c0; --c2:#6a1b9a; --c3:#00838f; --c4:#b45309; --c5:#2e7d32; --c6:#ad1457; --c7:#37474f; --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.06);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --bg:#11161c; --paper:#1a2129; --ink:#e7ecf1; --ink2:#9aa7b4; --line:#2c3640; --chip:#232c35; --c1:#7fb0f0; --c2:#c792ea; --c3:#5fd0d8; --c4:#f0a54a; --c5:#7ccf83; --c6:#f48fb1; --c7:#b0bec5; --shadow:none; }
-}
-:root[data-theme="dark"]{ --bg:#11161c; --paper:#1a2129; --ink:#e7ecf1; --ink2:#9aa7b4; --line:#2c3640; --chip:#232c35; --c1:#7fb0f0; --c2:#c792ea; --c3:#5fd0d8; --c4:#f0a54a; --c5:#7ccf83; --c6:#f48fb1; --c7:#b0bec5; --shadow:none; }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-.wrap{max-width:960px;margin:0 auto;padding:40px 16px 56px}
-h1{font-size:30px;letter-spacing:-.015em;margin:0 0 6px}
-.lead{color:var(--ink2);margin:0 0 28px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;border-top:5px solid var(--accent)}
-.card h2{font-size:19px;margin:10px 0 6px}
-.card p{color:var(--ink2);margin:0 0 16px;font-size:15px;flex:1}
-.ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--chip);color:var(--accent)}
-.ico svg{width:24px;height:24px}
-.main{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:650;border-radius:10px;padding:10px 12px}
-.main:hover{filter:brightness(1.08)}
-.main:focus-visible,.sub a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .main{color:#11161c} }
-:root[data-theme="dark"] .main{color:#11161c}
-.sub{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.sub a{font-size:13.5px;color:var(--ink);text-decoration:none;background:var(--chip);border-radius:999px;padding:4px 11px}
-.sub a:hover{text-decoration:underline}
-.meta{font-size:12.5px;color:var(--ink2);margin-top:12px}
-footer{margin-top:32px;font-size:13px;color:var(--ink2)}
-</style>
-
-<style id="palette-petrol">
-/* Farbschema: Petrol #0B6E79 · Schiefer #13262E · Koralle #E8794F auf hellem Grau-Weiß */
-:root{--bg:#F2F6F7;--paper:#FFFFFF;--panel:#FFFFFF;--ink:#13262E;--text:#13262E;--ink2:#51656D;--muted:#51656D;--line:#DCE5E8;--chip:#E9F0F2;--accent:#0B6E79;--accent2:#C4532E;--pink:#E8794F;--a1:#0B6E79;--a2:#3B5998;--a3:#2E7D5B;--a4:#C4532E;--a5:#7A5C9E;--c1:#0B6E79;--c2:#3B5998;--c3:#2E7D5B;--c4:#C4532E;--c5:#5F7F2E;--c6:#A33F6A;--c7:#51656D;--fach:#0B6E79;--proj:#3B5998;--fuehr:#C4532E;--ok:#2E7D5B;--warn:#B5651D;--red:#B3261E;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D191E;--paper:#14242A;--panel:#14242A;--ink:#E5EFF1;--text:#E5EFF1;--ink2:#9AB0B7;--muted:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--pink:#F09A74;--a1:#4FC0CC;--a2:#8FA8E0;--a3:#6CC79A;--a4:#F09A74;--a5:#B9A0DD;--c1:#4FC0CC;--c2:#8FA8E0;--c3:#6CC79A;--c4:#F09A74;--c5:#A9C774;--c6:#E58BB0;--c7:#AFC2C8;--fach:#4FC0CC;--proj:#8FA8E0;--fuehr:#F09A74;--ok:#6CC79A;--warn:#E9A860;--red:#EF7A70;}}
-:root[data-theme="dark"]{--bg:#0D191E;--paper:#14242A;--panel:#14242A;--ink:#E5EFF1;--text:#E5EFF1;--ink2:#9AB0B7;--muted:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--pink:#F09A74;--a1:#4FC0CC;--a2:#8FA8E0;--a3:#6CC79A;--a4:#F09A74;--a5:#B9A0DD;--c1:#4FC0CC;--c2:#8FA8E0;--c3:#6CC79A;--c4:#F09A74;--c5:#A9C774;--c6:#E58BB0;--c7:#AFC2C8;--fach:#4FC0CC;--proj:#8FA8E0;--fuehr:#F09A74;--ok:#6CC79A;--warn:#E9A860;--red:#EF7A70;}
-::selection{background:#BFE4E8;color:#13262E}
+body{margin:0}
+.wrap{margin:0 auto;padding:48px 20px 64px}
+.hub{max-width:1040px}
+.intro{display:grid;gap:6px;margin:0 0 36px}
+.intro h1{font-size:clamp(30px,4vw,40px);margin:0}
+.intro .lead{max-width:62ch;font-size:17px}
+.feature{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:0;background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);margin:0 0 40px}
+.feature .txt{padding:28px 30px;display:flex;flex-direction:column;gap:10px}
+.feature h2{margin:0;font-size:24px}
+.feature p{margin:0;color:var(--ink2);max-width:52ch}
+.feature .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.feature .meta{margin-top:auto;padding-top:12px;font-size:13px;color:var(--ink3)}
+.feature .art{position:relative;background:var(--accent-soft);min-height:240px;overflow:hidden}
+.feature .art svg{position:absolute;inset:0;width:100%;height:100%}
+.phase{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;padding:28px 0;border-top:1px solid var(--line)}
+.phase h2{font-size:18px;margin:2px 0 0}
+.phase .ph-sub{font-size:13.5px;color:var(--ink3);margin:4px 0 0}
+.items{display:grid;gap:0}
+.item{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:16px;align-items:start;padding:16px 0}
+.item+.item{border-top:1px solid var(--line2)}
+.ico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--chip);color:var(--accent)}
+.ico svg{width:20px;height:20px}
+.item h3{margin:0;font-size:17px}
+.item h3 a{color:var(--ink);text-decoration:none}
+.item h3 a:hover{color:var(--accent);text-decoration:underline}
+.item p{margin:4px 0 0;color:var(--ink2);font-size:15px;max-width:60ch}
+.item .subl{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:13.5px}
+.item .subl a{font-weight:500}
+.item .meta{font-size:12.5px;color:var(--ink3);margin-top:6px}
+.item .go{align-self:center}
+footer{margin-top:28px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink3)}
+@media (max-width:760px){
+  .feature{grid-template-columns:1fr}
+  .feature .art{min-height:160px;order:-1}
+  .feature .txt{padding:22px 20px}
+  .phase{grid-template-columns:1fr;gap:6px;padding:22px 0}
+  .item{grid-template-columns:36px minmax(0,1fr);gap:12px}
+  .ico{width:36px;height:36px}
+  .item .go{grid-column:2;justify-self:start;margin-top:4px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Medizintechnik-Jobs</h1>
-  <p class="lead">Übersicht über alle Seiten: aktuelle Einstiegsstellen, das Netzwerk nach Firmen, Karrierewege in der Medizintechnik, Beratungsangebote, eine Reflexionshilfe, Interviewtraining, ein Bewerbungs-Tracker sowie Zielstädte und Wohnungssuche.</p>
+<div class="wrap hub">
+  <header class="intro">
+    <h1>Medizintechnik-Jobs</h1>
+    <p class="lead">Alles für den Berufseinstieg in der Medizintechnik an einem Ort: offene Stellen und Zielfirmen, das eigene Netzwerk, Vorbereitung auf Bewerbung und Gespräch und die Frage, wo man danach wohnt.</p>
+  </header>
 
-  <div class="grid">
-    <section class="card" style="--accent:var(--c1)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
-      <h2>Stellenkarte</h2>
-      <p>Interaktive Karte mit Einstiegsstellen in Entwicklung und R&amp;D in Baden-Württemberg, Bayern, der Grenzregion Schweiz und Österreich, dazu Zielfirmen ohne aktuelle Anzeige.</p>
-      <a class="main" href="index.html">Stellenkarte öffnen</a>
-      <div class="sub">
-        <a href="Stellenrecherche_Berufseinstieg_Medizintechnik.pdf">PDF</a>
-        <a href="Stellenrecherche_Berufseinstieg_Medizintechnik.docx">Word</a>
+  <section class="feature" aria-labelledby="f-karte">
+    <div class="txt">
+      <h2 id="f-karte">Stellenkarte</h2>
+      <p>Einstiegsstellen in Entwicklung, R&amp;D, Test, Qualität und Regulatory in Baden-Württemberg, Bayern, der Nordschweiz und Österreich, dazu Zielfirmen ohne aktuelle Anzeige. Mit Filtern nach Jobbereich, Erfahrung und Region.</p>
+      <div class="acts">
+        <a class="btn" href="index.html">Stellenkarte öffnen</a>
+        <a class="btn sec" href="Stellenrecherche_Berufseinstieg_Medizintechnik.pdf">PDF</a>
+        <a class="btn sec" href="Stellenrecherche_Berufseinstieg_Medizintechnik.docx">Word</a>
       </div>
       <div class="meta">Wird alle 3 Tage automatisch aktualisiert.</div>
-    </section>
+    </div>
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">
+        <defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="var(--accent)" opacity=".18"/></pattern></defs>
+        <rect width="400" height="260" fill="url(#g)"/>
+        <path d="M40 210 C110 150 150 190 210 120 S320 70 370 40" fill="none" stroke="var(--accent)" stroke-opacity=".25" stroke-width="2" stroke-dasharray="4 6"/>
+        <g font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" fill="#fff" text-anchor="middle">
+          <g transform="translate(206 112)"><rect x="-14" y="-14" width="28" height="28" rx="8" fill="#0B6E79" stroke="#fff" stroke-width="2"/><text y="4">12</text></g>
+          <g transform="translate(150 168)"><rect x="-14" y="-14" width="28" height="28" rx="8" fill="#2563eb" stroke="#fff" stroke-width="2"/><text y="4">4</text></g>
+          <g transform="translate(286 82)"><rect x="-14" y="-14" width="28" height="28" rx="8" fill="#7c3aed" stroke="#fff" stroke-width="2"/><text y="4">27</text></g>
+          <g transform="translate(96 120)"><rect x="-14" y="-14" width="28" height="28" rx="8" fill="#a16207" stroke="#fff" stroke-width="2"/><text y="4">9</text></g>
+          <g transform="translate(330 170)"><rect x="-14" y="-14" width="28" height="28" rx="8" fill="#0d9488" stroke="#fff" stroke-width="2"/><text y="4">31</text></g>
+        </g>
+        <circle cx="236" cy="190" r="17" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="236" y="194" font-family="IBM Plex Mono,monospace" font-size="11.5" font-weight="600" fill="var(--ink)" text-anchor="middle">36</text>
+        <circle cx="180" cy="60" r="6" fill="var(--paper)" stroke="#6B7F87" stroke-width="2.5"/>
+        <circle cx="62" cy="64" r="6" fill="#E8794F"/>
+        <circle cx="356" cy="226" r="6" fill="var(--paper)" stroke="#6B7F87" stroke-width="2.5"/>
+      </svg>
+    </div>
+  </section>
 
-    <section class="card" style="--accent:var(--c2)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5" r="2"/><circle cx="19.5" cy="5" r="2"/><circle cx="4.5" cy="19" r="2"/><circle cx="19.5" cy="19" r="2"/><path d="M6.2 6.3 9.8 10M17.8 6.3 14.2 10M6.2 17.7l3.6-3.7M17.8 17.7l-3.6-3.7"/></svg></div>
-      <h2>Netzwerk nach Firmen</h2>
-      <p>Mindmap der Unternehmen, in denen LinkedIn-Kontakte und Mitglieder einer Alumni-Gruppe Medizintechnik arbeiten, mit Kurzprofil und Beispielprodukten. Nur Firmen und Anzahlen, ohne Namen.</p>
-      <a class="main" href="netzwerk/">Mindmap öffnen</a>
-      <div class="sub">
-        <a href="netzwerk/LinkedIn-Netzwerk_Firmen_Druck_A4.pdf">Druckversion A4 (PDF)</a>
-      </div>
-      <div class="meta">Stand 01.11.2026.</div>
-    </section>
+  <section class="phase" aria-labelledby="p1">
+    <div><h2 id="p1">Stellen und Kontakte finden</h2><p class="ph-sub">Wo es passende Arbeitgeber gibt und wen ich dort kenne.</p></div>
+    <div class="items">
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5" r="2"/><circle cx="19.5" cy="5" r="2"/><circle cx="4.5" cy="19" r="2"/><circle cx="19.5" cy="19" r="2"/><path d="M6.2 6.3 9.8 10M17.8 6.3 14.2 10M6.2 17.7l3.6-3.7M17.8 17.7l-3.6-3.7"/></svg></div>
+        <div>
+          <h3><a href="netzwerk/">Netzwerk nach Firmen</a></h3>
+          <p>In welchen Unternehmen LinkedIn-Kontakte und Mitglieder einer Alumni-Gruppe Medizintechnik arbeiten, als Mindmap und als sortierbare Liste, mit Kurzprofil und Beispielprodukten. Nur Firmen und Anzahlen, ohne Namen.</p>
+          <div class="subl"><a href="netzwerk/?view=list">Als Liste</a><a href="netzwerk/LinkedIn-Netzwerk_Firmen_Druck_A4.pdf">Druckversion A4 (PDF)</a></div>
+          <div class="meta">Stand 01.11.2026</div>
+        </div>
+        <a class="btn sec go" href="netzwerk/">Netzwerk öffnen</a>
+      </article>
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V4h8v3M3 12h18M12 12v3"/></svg></div>
+        <div>
+          <h3><a href="medica/">MEDICA 2026</a></h3>
+          <p>Aussteller aus Baden-Württemberg, Bayern, der Schweiz und Österreich im Abgleich mit der Stellenkarte, dazu neue passende Firmen, Praktikumsideen in Singapur, Taiwan, Indonesien und Zypern und eine filterbare Gesamtliste.</p>
+          <div class="subl"><a href="medica/#neu">Neu und passend</a><a href="medica/#praktikum">Praktikum im Ausland</a></div>
+          <div class="meta">Messe 16. bis 19.11.2026 in Düsseldorf</div>
+        </div>
+        <a class="btn sec go" href="medica/">Aussteller ansehen</a>
+      </article>
+    </div>
+  </section>
 
-    <section class="card" style="--accent:var(--c3)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4v-5H4zM10 20h4V10h-4zM16 20h4V4h-4z"/></svg></div>
-      <h2>Karriere in der Medizintechnik</h2>
-      <p>Recherche zu Einstiegswegen, Fach-, Projekt- und Führungslaufbahn, Aufstieg nach Berufsjahren und Gehältern in Deutschland, der Schweiz und Österreich.</p>
-      <a class="main" href="karriere/">Recherche öffnen</a>
-      <div class="sub">
-        <a href="karriere/Karriere_Medizintechnik.pdf">PDF</a>
-      </div>
-      <div class="meta">Stand November 2026.</div>
-    </section>
-    <section class="card" style="--accent:var(--c4)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
-      <h2>Beratungsangebote</h2>
-      <p>Kostenlose Beratung zu Berufsorientierung, Stellensuche und Bewerbung: Career Service der Uni Stuttgart, Bewerbungscheck beim Hochschulteam der Agentur für Arbeit, Studienberatung und psychosoziale Beratung, dazu junge Netzwerke in VDE/DGBMT und Messen mit Medizintechnik-Bezug.</p>
-      <a class="main" href="beratung/">Beratung öffnen</a>
-      <div class="sub">
-        <a href="https://terminplaner6.dfn.de/b/703ad6d16a5ee64e951e68fd3adb4ff2-1248164" target="_blank" rel="noopener">Termin Career Service</a>
-      </div>
-      <div class="meta">Stand November 2026.</div>
-    </section>
+  <section class="phase" aria-labelledby="p2">
+    <div><h2 id="p2">Orientieren</h2><p class="ph-sub">Was zu mir passt und wohin es beruflich gehen kann.</p></div>
+    <div class="items">
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11l2 2 3.5-4"/></svg></div>
+        <div>
+          <h3><a href="reflexion/">Reflexion und Profil</a></h3>
+          <p>Leitfragen zu Kompetenzen, Werten, Interessen, Stärken und Arbeitsbedingungen mit eigenen Notizen, dazu ein Abgleich von Stellenanzeige und Profil.</p>
+          <div class="meta">Notizen bleiben nur im eigenen Browser gespeichert.</div>
+        </div>
+        <a class="btn sec go" href="reflexion/">Reflexion starten</a>
+      </article>
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 20h4v-5H4zM10 20h4V10h-4zM16 20h4V4h-4z"/></svg></div>
+        <div>
+          <h3><a href="karriere/">Karriere in der Medizintechnik</a></h3>
+          <p>Einstiegswege, Fach-, Projekt- und Führungslaufbahn, Aufstieg nach Berufsjahren und Gehälter in Deutschland, der Schweiz und Österreich.</p>
+          <div class="subl"><a href="karriere/Karriere_Medizintechnik.pdf">PDF</a></div>
+          <div class="meta">Stand November 2026</div>
+        </div>
+        <a class="btn sec go" href="karriere/">Recherche lesen</a>
+      </article>
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+        <div>
+          <h3><a href="beratung/">Beratungsangebote</a></h3>
+          <p>Kostenlose Beratung zu Berufsorientierung, Stellensuche und Bewerbung: Career Service der Uni Stuttgart, Bewerbungscheck beim Hochschulteam der Agentur für Arbeit, Studien- und psychosoziale Beratung, junge Netzwerke in VDE/DGBMT und Messen.</p>
+          <div class="subl"><a href="https://terminplaner6.dfn.de/b/703ad6d16a5ee64e951e68fd3adb4ff2-1248164" target="_blank" rel="noopener">Termin beim Career Service buchen</a></div>
+          <div class="meta">Stand November 2026</div>
+        </div>
+        <a class="btn sec go" href="beratung/">Angebote ansehen</a>
+      </article>
+    </div>
+  </section>
 
-    <section class="card" style="--accent:var(--c5)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11l2 2 3.5-4"/></svg></div>
-      <h2>Reflexion &amp; Profil</h2>
-      <p>Leitfragen zu Kompetenzen, Werten, Interessen, Stärken und Arbeitsbedingungen mit eigenen Notizen, dazu ein Werkzeug zum Abgleich von Stellenanzeige und Profil (Job Matching).</p>
-      <a class="main" href="reflexion/">Reflexion starten</a>
-      <div class="meta">Notizen bleiben nur im eigenen Browser gespeichert.</div>
-    </section>
-    <section class="card" style="--accent:var(--c6)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3M8 21h8"/></svg></div>
-      <h2>Interviewtraining</h2>
-      <p>Checkliste fürs Vorstellungsgespräch, typische Fragen mit Hinweisen (inkl. Fachfragen zu MDR und ISO-Normen), Tipps, ausgewählte YouTube-Videos sowie ein Fragen-Trainer mit Timer und ein Quiz.</p>
-      <a class="main" href="interview/">Training starten</a>
-      <div class="sub">
-        <a href="interview/#trainer">Fragen-Trainer</a>
-        <a href="interview/#quiz">Quiz</a>
-      </div>
-      <div class="meta">Fortschritt bleibt nur im eigenen Browser gespeichert.</div>
-    </section>
+  <section class="phase" aria-labelledby="p3">
+    <div><h2 id="p3">Bewerben</h2><p class="ph-sub">Bewerbungen im Blick behalten und Gespräche üben.</p></div>
+    <div class="items">
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 2v4M16 2v4M4 10h16M8 14l2 2 4-4"/></svg></div>
+        <div>
+          <h3><a href="tracker/">Bewerbungs-Tracker</a></h3>
+          <p>Für jede Stelle festhalten, wann die Bewerbung rausging, wer aus dem Netzwerk dort arbeitet und wann nachgefasst wird. Mit Hinweis auf fällige Termine und Export als CSV.</p>
+          <div class="meta">Einträge bleiben nur im eigenen Browser gespeichert.</div>
+        </div>
+        <a class="btn sec go" href="tracker/">Tracker öffnen</a>
+      </article>
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3M8 21h8"/></svg></div>
+        <div>
+          <h3><a href="interview/">Interviewtraining</a></h3>
+          <p>Checkliste fürs Vorstellungsgespräch, typische Fragen mit Hinweisen (auch Fachfragen zu MDR und ISO-Normen), Tipps, ausgewählte Videos, ein Fragen-Trainer mit Timer und ein Quiz.</p>
+          <div class="subl"><a href="interview/#trainer">Fragen-Trainer</a><a href="interview/#quiz">Quiz</a></div>
+          <div class="meta">Fortschritt bleibt nur im eigenen Browser gespeichert.</div>
+        </div>
+        <a class="btn sec go" href="interview/">Training starten</a>
+      </article>
+    </div>
+  </section>
 
-    <section class="card" style="--accent:var(--c7)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 2v4M16 2v4M4 10h16M8 14l2 2 4-4"/></svg></div>
-      <h2>Bewerbungs-Tracker</h2>
-      <p>Für jede Stelle festhalten, wann die Bewerbung rausging, wer aus dem Netzwerk dort arbeitet, und wann nachgefasst wird. Mit Hinweis auf fällige Termine und Export als CSV.</p>
-      <a class="main" href="tracker/">Tracker öffnen</a>
-      <div class="meta">Einträge bleiben nur im eigenen Browser gespeichert.</div>
-    </section>
+  <section class="phase" aria-labelledby="p4">
+    <div><h2 id="p4">Umziehen</h2><p class="ph-sub">Wo es sich gut leben lässt und wie man dort eine Wohnung findet.</p></div>
+    <div class="items">
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l4-3v14M9 21V4l6 3v14M15 21V11l4 2v8"/></svg></div>
+        <div>
+          <h3><a href="staedte/">Zielstädte</a></h3>
+          <p>20 Orte der Stellenkarte im Vergleich: Einwohner, Mieten pro m², Sonnenstunden, Nahverkehr und offene Stellen im Umkreis, dazu Street View, Stadtbilder und günstigere Wohnorte in der Nähe.</p>
+          <div class="subl"><a href="staedte/#vergleich">Vergleichstabelle</a><a href="staedte/#karte">Karte</a></div>
+          <div class="meta">Stand November 2026</div>
+        </div>
+        <a class="btn sec go" href="staedte/">Städte vergleichen</a>
+      </article>
+      <article class="item">
+        <div class="ico" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><circle cx="12" cy="14" r="2.2"/><path d="m13.6 15.6 2.4 2.4"/></svg></div>
+        <div>
+          <h3><a href="wohnen/">Wohnungssuche</a></h3>
+          <p>Vorgehen nach der Zusage, Plattformen und Filter für Deutschland, die Schweiz und Österreich, Unterlagen, Kaution und Maklerregeln, Hinweise für Grenzgänger:innen, Budget-Rechner und Checkliste für die Besichtigung.</p>
+          <div class="subl"><a href="wohnen/#budget">Budget-Rechner</a><a href="wohnen/#besichtigung">Checkliste Besichtigung</a></div>
+          <div class="meta">Häkchen bleiben nur im eigenen Browser gespeichert.</div>
+        </div>
+        <a class="btn sec go" href="wohnen/">Leitfaden öffnen</a>
+      </article>
+    </div>
+  </section>
 
-    <section class="card" style="--accent:var(--c1)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l4-3v14M9 21V4l6 3v14M15 21V11l4 2v8"/></svg></div>
-      <h2>Zielstädte</h2>
-      <p>Wo könnte ich wohnen? 20 Orte der Stellenkarte im Vergleich: Einwohner, Mieten pro m², Sonnenstunden, Nahverkehr und offene Stellen im Umkreis, dazu Street View, Stadtbilder und günstigere Wohnorte in der Nähe.</p>
-      <a class="main" href="staedte/">Städte vergleichen</a>
-      <div class="sub">
-        <a href="staedte/#vergleich">Vergleichstabelle</a>
-        <a href="staedte/#karte">Karte</a>
-      </div>
-      <div class="meta">Stand November 2026.</div>
-    </section>
-
-    <section class="card" style="--accent:var(--c4)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><circle cx="12" cy="14" r="2.2"/><path d="m13.6 15.6 2.4 2.4"/></svg></div>
-      <h2>Wohnungssuche</h2>
-      <p>Vorgehen nach der Zusage, Plattformen und Filter für Deutschland, die Schweiz und Österreich, Unterlagen, Kaution und Maklerregeln, Hinweise für Grenzgänger:innen, Budget-Rechner und Checkliste für die Besichtigung.</p>
-      <a class="main" href="wohnen/">Leitfaden öffnen</a>
-      <div class="sub">
-        <a href="wohnen/#budget">Budget-Rechner</a>
-        <a href="wohnen/#besichtigung">Checkliste</a>
-      </div>
-      <div class="meta">Häkchen bleiben nur im eigenen Browser gespeichert.</div>
-    </section>
-    <section class="card" style="--accent:var(--c2)">
-      <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V4h8v3M3 12h18M12 12v3"/></svg></div>
-      <h2>MEDICA 2026</h2>
-      <p>Aussteller aus BW, Bayern, der Schweiz und Österreich im Abgleich mit der Stellenkarte. Dazu neue, passende Firmen, Praktikumsideen in Singapur, Taiwan, Indonesien und Zypern und eine filterbare Gesamtliste.</p>
-      <a class="main" href="medica/">Aussteller ansehen</a>
-      <div class="sub">
-        <a href="medica/#neu">Neu und passend</a>
-        <a href="medica/#praktikum">Praktikum im Ausland</a>
-      </div>
-      <div class="meta">Messe 16.–19.11.2026 in Düsseldorf.</div>
-    </section>
-  </div>
-
-  <footer>Alle Seiten sind öffentlich über GitHub Pages erreichbar.</footer>
+  <footer>Alle Seiten sind öffentlich über GitHub Pages erreichbar. Persönliche Notizen, Häkchen und Tracker-Einträge bleiben im jeweiligen Browser und werden nirgendwohin übertragen.</footer>
 </div>
 </body>
 </html>

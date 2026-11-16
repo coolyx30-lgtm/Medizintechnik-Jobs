@@ -1,0 +1,126 @@
+/* Gemeinsames Erscheinungsbild aller Seiten von Medizintechnik-Jobs.
+   Wird als letzte Stilquelle geladen und gleicht Farben, Schrift und Bausteine an die Stellenkarte an.
+   Farbschema: Petrol #0B6E79 · Schiefer #13262E · Koralle #E8794F */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap");
+
+:root{
+  --bg:#F4F7F8; --paper:#FFFFFF; --panel:#FFFFFF; --ink:#13262E; --text:#13262E; --ink2:#4A5E66; --muted:#4A5E66; --ink3:#6C8088;
+  --line:#D6E0E3; --line2:#E6EDEF; --chip:#EDF2F4; --hover:#F0F5F6;
+  --accent:#0B6E79; --accent2:#0B6E79; --accent-ink:#FFFFFF; --accent-soft:#DDEFF1;
+  --coral:#E8794F; --coral-ink:#A9431D; --coral-soft:#FBE7DE;
+  --shadow-sm:0 1px 2px rgba(19,38,46,.06),0 2px 8px rgba(19,38,46,.04);
+  --shadow:0 2px 6px rgba(19,38,46,.08),0 12px 32px rgba(19,38,46,.12);
+  --sans:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1418; --paper:#13232A; --panel:#13232A; --ink:#E5EFF1; --text:#E5EFF1; --ink2:#A3B7BD; --muted:#A3B7BD; --ink3:#7F959C;
+    --line:#24363D; --line2:#1C2D33; --chip:#1A2C33; --hover:#172A31;
+    --accent:#5CC4CF; --accent2:#5CC4CF; --accent-ink:#0A1A1F; --accent-soft:#163A40;
+    --coral:#F09A74; --coral-ink:#F5AE8E; --coral-soft:#3A2219;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.35); --shadow:0 2px 6px rgba(0,0,0,.35),0 12px 32px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1418; --paper:#13232A; --panel:#13232A; --ink:#E5EFF1; --text:#E5EFF1; --ink2:#A3B7BD; --muted:#A3B7BD; --ink3:#7F959C;
+  --line:#24363D; --line2:#1C2D33; --chip:#1A2C33; --hover:#172A31;
+  --accent:#5CC4CF; --accent2:#5CC4CF; --accent-ink:#0A1A1F; --accent-soft:#163A40;
+  --coral:#F09A74; --coral-ink:#F5AE8E; --coral-soft:#3A2219;
+  color-scheme:dark;
+}
+
+/* ---------- Grundlagen ---------- */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:var(--accent-soft);color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+h1,h2,h3,h4{color:var(--ink);font-weight:600;text-wrap:balance}
+h1{letter-spacing:-.02em}
+h2{letter-spacing:-.012em}
+h3{letter-spacing:-.005em}
+p,li{text-wrap:pretty}
+b,strong{font-weight:600}
+input,select,textarea,button{font-family:inherit}
+svg.i{width:16px;height:16px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+html{scrollbar-color:var(--line) transparent}
+
+/* ---------- Kopf ---------- */
+.wrap{padding-top:32px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:24px}
+header.top h1,.wrap > h1{font-size:clamp(28px,3.4vw,36px);line-height:1.12;margin:0 0 10px}
+.lead{color:var(--ink2);font-size:17px;line-height:1.55;max-width:68ch}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:500;color:var(--ink2);text-decoration:none;margin-bottom:16px}
+.back:hover{color:var(--accent);text-decoration:none}
+.back svg{width:14px;height:14px}
+h2{margin-top:44px}
+h2 .n{color:var(--ink3);font-family:var(--mono);font-weight:500;font-size:.8em}
+
+/* Abschnittsnavigation */
+.toc{gap:6px}
+.toc a,.chipbtn{border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:13.5px;font-weight:500;padding:6px 12px;text-decoration:none;transition:border-color .15s var(--ease),background-color .15s var(--ease)}
+.toc a:hover,.chipbtn:hover{border-color:var(--ink3);text-decoration:none}
+.chipbtn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+div.toc:has(ol){border-radius:14px;padding:18px 22px}
+
+/* ---------- Bausteine ---------- */
+.card{border:1px solid var(--line);border-top:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm)}
+.card h3{font-size:17px}
+.box,.key{border:1px solid var(--line);border-left:1px solid var(--line);border-radius:14px;background:var(--paper);box-shadow:var(--shadow-sm)}
+.box.warn{background:var(--coral-soft);border-color:color-mix(in srgb,var(--coral) 35%,var(--line))}
+.note{background:var(--chip);color:var(--ink2);border-radius:12px;font-size:14px}
+.btn{border-radius:9px;font-weight:500;font-size:14px;padding:8px 14px;background:var(--accent);color:var(--accent-ink);text-decoration:none;display:inline-flex;align-items:center;gap:6px;line-height:1.3;transition:filter .15s var(--ease),background-color .15s var(--ease),border-color .15s var(--ease);border:1px solid transparent}
+.btn:hover{filter:brightness(1.08);text-decoration:none}
+.btn:active{transform:translateY(1px)}
+.btn.sec{background:var(--paper);color:var(--ink);border-color:var(--line);filter:none}
+.btn.sec:hover{border-color:var(--ink3)}
+.steps>li{border-radius:12px;box-shadow:var(--shadow-sm)}
+.steps>li::before{background:var(--accent);color:var(--accent-ink);font-family:var(--mono);font-weight:600;font-size:12.5px}
+.tag{border-radius:6px;font-weight:500}
+
+/* Kennzahlen */
+.kpi,.card .big{font-variant-numeric:tabular-nums}
+.kpi{border-radius:12px;box-shadow:var(--shadow-sm)}
+.kpi b,.card .big{font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+
+/* Tabellen */
+table{font-variant-numeric:tabular-nums}
+.tablewrap,.tblwrap{border-radius:14px;border-color:var(--line);box-shadow:var(--shadow-sm)}
+th{text-transform:none!important;letter-spacing:0!important;font-size:13px!important;font-weight:600;color:var(--ink2);background:var(--paper)}
+thead th{border-bottom:1px solid var(--line)}
+td{border-bottom-color:var(--line2)!important}
+tbody tr{transition:background-color .12s var(--ease)}
+tbody tr:hover{background:var(--hover)}
+th[aria-sort="ascending"]::after,th[aria-sort="descending"]::after{content:"";display:inline-block;width:6px;height:6px;margin-left:7px;border-left:1.5px solid currentColor;border-top:1.5px solid currentColor;vertical-align:2px}
+th[aria-sort="ascending"]::after{transform:rotate(45deg)}
+th[aria-sort="descending"]::after{transform:rotate(225deg);vertical-align:4px}
+
+/* Formulare */
+input[type=text],input[type=search],input[type=number],input[type=url],input[type=email],input[type=date],select,textarea{border-radius:9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+input::placeholder,textarea::placeholder{color:var(--ink3)}
+input[type=checkbox],input[type=radio],input[type=range]{accent-color:var(--accent)}
+details > summary{cursor:pointer}
+
+footer{color:var(--ink3)}
+
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}}
+@media print{body{background:#fff}.card,.box,.key,.kpi,.steps>li,.tablewrap,.tblwrap{box-shadow:none}}
+
+/* Seitenspezifische Bausteine ohne dicke Farbstreifen */
+.stat,.vcard,.formbox,.entry,.ladder .c.fach,.ladder .c.proj,.ladder .c.fuehr{border-left-width:1px!important;border-top-width:1px!important}
+.stat,.vcard,.formbox{border-color:var(--line)!important;border-radius:14px;box-shadow:var(--shadow-sm)}
+.stat b,.stat strong,.stat .n,.stat .v{color:var(--c,var(--ink));font-weight:600}
+.entry{border-color:color-mix(in srgb,var(--sc,var(--accent)) 40%,var(--line))!important;border-radius:14px;box-shadow:var(--shadow-sm)}
+.ladder .c.fach{border-color:color-mix(in srgb,var(--fach) 45%,var(--line))!important}
+.ladder .c.proj{border-color:color-mix(in srgb,var(--proj) 45%,var(--line))!important}
+.ladder .c.fuehr{border-color:color-mix(in srgb,var(--fuehr) 45%,var(--line))!important}
+
+/* Inhaltsverzeichnis als Liste (Karriere) */
+.toc ol a{background:none;border:0;padding:0;border-radius:0;font-weight:400;font-size:15px;color:var(--accent)}
+.toc ol a:hover{text-decoration:underline}
