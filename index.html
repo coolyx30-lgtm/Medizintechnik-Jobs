@@ -4,268 +4,426 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stellenkarte Medizintechnik</title>
+<meta name="description" content="Karte der Einstiegsstellen und Zielfirmen in der Medizintechnik in Baden-Württemberg, Bayern, der Schweiz und Österreich.">
+<meta name="theme-color" content="#F4F7F8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D191E" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
+  /* Farbschema der Seitenfamilie: Petrol #0B6E79 · Schiefer #13262E · Koralle #E8794F */
   :root {
-    --bg: #f6f7f9;
-    --panel: #ffffff;
-    --text: #18202b;
-    --muted: #5d6877;
-    --line: #e2e6ec;
-    --chip: #eef1f5;
-    --accent: #1f6feb;
-    --open: #15803d;
-    --open-bg: #e7f6ec;
-    --check: #b45309;
-    --check-bg: #fdf3e2;
-    --ini: #475569;
-    --ini-bg: #eef1f5;
-    --shadow: 0 1px 2px rgba(16,24,40,.06), 0 4px 16px rgba(16,24,40,.06);
+    --bg: #E9EFF1;
+    --panel: #F8FAFA;
+    --paper: #FFFFFF;
+    --ink: #13262E;
+    --ink2: #4A5E66;
+    --ink3: #6C8088;
+    --line: #D6E0E3;
+    --line2: #E6EDEF;
+    --chip: #EDF2F4;
+    --hover: #F0F5F6;
+    --accent: #0B6E79;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #DDEFF1;
+    --coral: #E8794F;
+    --coral-ink: #A9431D;
+    --coral-soft: #FBE7DE;
+    --open: #0A6670;
+    --open-bg: #DDF0F2;
+    --check: #A9431D;
+    --check-bg: #FBE6DD;
+    --firm: #6B7F87;
+    --pin-ring: #FFFFFF;
+    --shadow-sm: 0 1px 2px rgba(19,38,46,.08);
+    --shadow: 0 2px 6px rgba(19,38,46,.08), 0 12px 32px rgba(19,38,46,.12);
+    --sans: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --ease: cubic-bezier(.16, 1, .3, 1);
+    color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0f1419;
-      --panel: #171d24;
-      --text: #e6e9ee;
-      --muted: #9aa5b4;
-      --line: #2a323c;
-      --chip: #212932;
-      --accent: #4c94ff;
-      --open: #4ade80;
-      --open-bg: #133122;
-      --check: #fbbf24;
-      --check-bg: #3a2c10;
-      --ini: #cbd5e1;
-      --ini-bg: #252d37;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+      --bg: #0A1418; --panel: #101F25; --paper: #15262D; --ink: #E5EFF1; --ink2: #A3B7BD; --ink3: #7F959C;
+      --line: #24363D; --line2: #1C2D33; --chip: #1A2C33; --hover: #172A31;
+      --accent: #5CC4CF; --accent-ink: #0A1A1F; --accent-soft: #163A40;
+      --coral: #F09A74; --coral-ink: #F5AE8E; --coral-soft: #3A2219;
+      --open: #8ADAE2; --open-bg: #153539; --check: #F5AE8E; --check-bg: #3A2219; --firm: #8EA2A9; --pin-ring: #0A1418;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow: 0 2px 6px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.45);
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-      --bg: #0f1419;
-      --panel: #171d24;
-      --text: #e6e9ee;
-      --muted: #9aa5b4;
-      --line: #2a323c;
-      --chip: #212932;
-      --accent: #4c94ff;
-      --open: #4ade80;
-      --open-bg: #133122;
-      --check: #fbbf24;
-      --check-bg: #3a2c10;
-      --ini: #cbd5e1;
-      --ini-bg: #252d37;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+    --bg: #0A1418; --panel: #101F25; --paper: #15262D; --ink: #E5EFF1; --ink2: #A3B7BD; --ink3: #7F959C;
+    --line: #24363D; --line2: #1C2D33; --chip: #1A2C33; --hover: #172A31;
+    --accent: #5CC4CF; --accent-ink: #0A1A1F; --accent-soft: #163A40;
+    --coral: #F09A74; --coral-ink: #F5AE8E; --coral-soft: #3A2219;
+    --open: #8ADAE2; --open-bg: #153539; --check: #F5AE8E; --check-bg: #3A2219; --firm: #8EA2A9; --pin-ring: #0A1418;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow: 0 2px 6px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.45);
     color-scheme: dark;
   }
+
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg); color: var(--ink);
+    font: 15px/1.5 var(--sans);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    font-variant-numeric: tabular-nums;
   }
-  .app { display: grid; grid-template-columns: 400px 1fr; height: 100%; }
-  .side { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; background: var(--panel); border-right: 1px solid var(--line); }
-  header { padding: 18px 18px 12px; border-bottom: 1px solid var(--line); }
-  h1 { font-size: 19px; margin: 0 0 2px; letter-spacing: -.01em; }
-  .sub { color: var(--muted); font-size: 13px; }
-  .filters { padding: 12px 18px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  button { font: inherit; color: inherit; }
+  svg.i { width: 16px; height: 16px; flex: 0 0 auto; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .side, .list-scroll { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+  .side::-webkit-scrollbar { width: 10px; }
+  .side::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; border: 3px solid var(--panel); }
+
+  /* ---------- Gerüst ---------- */
+  .app { display: grid; grid-template-columns: minmax(400px, 452px) 1fr; height: 100%; }
+  .side { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow-y: auto; background: var(--panel); border-right: 1px solid var(--line); }
+
+  /* ---------- Kopf ---------- */
+  header { padding: 20px 24px 18px; }
+  .back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--ink2); text-decoration: none; margin-bottom: 14px; }
+  .back:hover { color: var(--accent); }
+  .back svg { width: 14px; height: 14px; }
+  h1 { font-size: 24px; line-height: 1.15; font-weight: 600; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+  .summary { margin: 8px 0 0; color: var(--ink2); font-size: 14px; line-height: 1.5; text-wrap: pretty; }
+  .summary b { color: var(--ink); font-weight: 600; }
+  .stand { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 12.5px; color: var(--ink3); }
+  .stand::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* ---------- Ansicht ---------- */
+  .view { padding: 0 24px 16px; }
+  .seg {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 2px; padding: 3px;
+    background: var(--chip); border-radius: 10px; border: 1px solid var(--line2);
+  }
+  .seg button {
+    border: 0; background: transparent; padding: 7px 8px; border-radius: 7px; cursor: pointer;
+    font-size: 13px; font-weight: 500; color: var(--ink2); line-height: 1.25;
+    transition: background-color .15s var(--ease), color .15s var(--ease), box-shadow .15s var(--ease);
+  }
+  .seg button:hover { color: var(--ink); }
+  .seg button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: var(--shadow-sm); }
+  .view-note { margin: 8px 2px 0; font-size: 12.5px; color: var(--ink3); line-height: 1.45; }
+
+  /* ---------- Filter ---------- */
+  details.filters { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--panel); }
+  details.filters > summary {
+    display: flex; align-items: center; gap: 8px; padding: 12px 24px; cursor: pointer; list-style: none;
+    font-size: 14px; font-weight: 600;
+  }
+  details.filters > summary::-webkit-details-marker { display: none; }
+  details.filters > summary .active-n { font-weight: 500; font-size: 12px; color: var(--accent); background: var(--accent-soft); padding: 1px 8px; border-radius: 999px; }
+  details.filters > summary .chev { margin-left: auto; color: var(--ink3); transition: transform .2s var(--ease); }
+  details.filters[open] > summary .chev { transform: rotate(180deg); }
+  .filters-body { display: grid; gap: 18px; padding: 2px 24px 20px; }
+
+  .searchbox { position: relative; }
+  .searchbox svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink3); pointer-events: none; }
   .search {
-    width: 100%; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line);
-    background: var(--bg); color: var(--text); font-size: 15px;
+    width: 100%; padding: 10px 12px 10px 38px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--paper); color: var(--ink); font: 15px var(--sans);
+    transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
   }
+  .search::placeholder { color: var(--ink3); }
+  .search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+  .fgroup { display: grid; gap: 8px; }
+  .flabel { display: flex; align-items: baseline; gap: 8px; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .flabel .hint { font-weight: 400; color: var(--ink3); font-size: 12.5px; }
+  .mini { margin-left: auto; font-size: 12.5px; font-weight: 500; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+  .mini:hover { text-decoration: underline; text-underline-offset: 3px; }
   .row { display: flex; flex-wrap: wrap; gap: 6px; }
   .chip {
-    display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px;
-    border: 1px solid var(--line); background: var(--chip); color: var(--text); font-size: 13px; cursor: pointer;
-    user-select: none;
+    display: inline-flex; align-items: center; gap: 7px; padding: 5px 11px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 13px; line-height: 1.3; cursor: pointer;
+    user-select: none; transition: background-color .15s var(--ease), border-color .15s var(--ease), color .15s var(--ease), opacity .15s var(--ease);
   }
-  .chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
-  .chip[aria-pressed="false"] { opacity: .45; }
-  .chip.seg[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; opacity: 1; }
-  .chip.seg[aria-pressed="false"] { opacity: 1; }
-  .count { color: var(--muted); font-size: 13px; padding: 8px 18px 0; }
-  .list { padding: 8px 12px 18px; }
+  .chip:hover { border-color: var(--ink3); }
+  .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: 0 0 auto; }
+  .chip .n { color: var(--ink3); font-size: 12px; }
+  .chip[aria-pressed="false"] { color: var(--ink3); background: transparent; border-color: var(--line2); }
+  .chip[aria-pressed="false"] .dot { opacity: .35; }
+  .chip.seg-chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--panel); }
+  .chip.seg-chip[aria-pressed="true"] .n { color: inherit; opacity: .7; }
+  .chip.seg-chip[aria-pressed="false"] { color: var(--ink2); background: var(--paper); border-color: var(--line); }
+  .chip.top-chip[aria-pressed="true"] { background: var(--coral-soft); border-color: var(--coral); color: var(--coral-ink); }
+  .chip.top-chip svg { width: 14px; height: 14px; }
+  .chip.top-chip[aria-pressed="true"] svg { fill: currentColor; }
+  .row.disabled { opacity: .45; pointer-events: none; }
+
+  details.more, details.profil { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+  details.more > summary, details.profil > summary { cursor: pointer; padding: 10px 12px; font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  details.more[open] > summary, details.profil[open] > summary { border-bottom: 1px solid var(--line2); }
+  .more-body { display: grid; gap: 14px; padding: 12px; }
+  .profil-body { display: grid; gap: 12px; padding: 12px; max-height: 360px; overflow-y: auto; }
+  .profil-item { display: grid; grid-template-columns: 10px 1fr; gap: 10px; font-size: 13px; }
+  .profil-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-top: 6px; }
+  .profil-item b { font-size: 13.5px; font-weight: 600; }
+  .profil-item .cnt { color: var(--ink3); font-size: 12.5px; }
+  .profil-item p { margin: 3px 0 5px; color: var(--ink2); line-height: 1.5; }
+  .profil-item button { font-size: 12.5px; font-weight: 500; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+  .profil-note { font-size: 12.5px; color: var(--ink3); line-height: 1.45; }
+
+  /* ---------- Liste ---------- */
+  .listhead { display: flex; align-items: center; gap: 12px; padding: 14px 24px 8px; position: sticky; top: 0; z-index: 3; background: var(--panel); border-bottom: 1px solid var(--line2); }
+  .count { color: var(--ink2); font-size: 13px; }
+  .count b { color: var(--ink); font-weight: 600; }
+  .sort { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink3); }
+  .sort select {
+    font: 500 12.5px var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+    border-radius: 8px; padding: 4px 8px; cursor: pointer;
+  }
+  .list { padding: 4px 12px 20px; }
   .card {
-    display: grid; grid-template-columns: 30px 1fr; gap: 10px; padding: 12px; margin: 6px 0;
-    border: 1px solid var(--line); border-radius: 12px; background: var(--panel); cursor: pointer;
-    transition: border-color .15s, box-shadow .15s;
+    display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 14px 12px; margin: 0;
+    border-radius: 12px; cursor: pointer; position: relative;
+    transition: background-color .15s var(--ease);
   }
-  .card:hover, .card.active { border-color: var(--accent); box-shadow: var(--shadow); }
-  .card.done { opacity: .6; }
+  .card + .card::before { content: ""; position: absolute; top: 0; left: 56px; right: 12px; height: 1px; background: var(--line2); }
+  .card:hover { background: var(--hover); }
+  .card.active { background: var(--accent-soft); }
+  .card.active::before, .card.active + .card::before, .card:hover::before, .card:hover + .card::before { opacity: 0; }
+  .card.done .title, .card.done .meta { opacity: .55; }
+  .card.done .title { text-decoration: line-through; text-decoration-color: var(--ink3); }
   .num {
-    width: 28px; height: 28px; border-radius: 50%; background: var(--c); color: #fff;
-    display: grid; place-items: center; font-weight: 600; font-size: 13px;
+    width: 30px; height: 30px; border-radius: 9px; background: var(--c); color: #fff;
+    display: grid; place-items: center; font: 500 12px/1 var(--mono); letter-spacing: -.02em;
   }
-  .num.top { box-shadow: 0 0 0 3px var(--panel), 0 0 0 5px #f59e0b; }
-  .title { font-weight: 600; font-size: 14.5px; }
-  .meta { color: var(--muted); font-size: 13px; margin-top: 1px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; align-items: center; }
-  .pill { font-size: 12px; padding: 2px 8px; border-radius: 999px; font-weight: 500; }
+  .num.top { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--coral); }
+  .num.firm { width: 14px; height: 14px; margin: 8px; border-radius: 50%; background: transparent; border: 2px solid var(--firm); }
+  .num.firm.ini { background: var(--coral); border-color: var(--coral); }
+  .num.firm.out { border-style: dashed; }
+  .title { font-weight: 600; font-size: 15px; line-height: 1.35; letter-spacing: -.005em; text-wrap: pretty; }
+  .meta { color: var(--ink2); font-size: 13px; margin-top: 2px; }
+  .meta .km { color: var(--ink3); }
+  .areas { display: flex; flex-wrap: wrap; gap: 3px 12px; margin-top: 6px; }
+  .area { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink2); }
+  .area::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; align-items: center; }
+  .pill { font-size: 12px; line-height: 1.4; padding: 2px 8px; border-radius: 6px; font-weight: 500; overflow-wrap: anywhere; }
   .s-open { color: var(--open); background: var(--open-bg); }
   .s-check { color: var(--check); background: var(--check-bg); }
-  .s-ini { color: var(--ini); background: var(--ini-bg); }
-  .s-firm { color: var(--muted); background: transparent; border: 1px dashed var(--line); }
-  .neu { font-size: 11px; font-weight: 700; color: #fff; background: var(--accent); padding: 1px 6px; border-radius: 6px; letter-spacing: .02em; }
-  .num.firm { background: var(--panel); border: 2.5px solid var(--c); width: 22px; height: 22px; margin: 3px; }
-  .card.firm .title { font-weight: 600; }
-  .card.firm { background: var(--bg); }
-  .toggle {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px;
-    border-radius: 12px; border: 1px solid var(--line); background: var(--bg); cursor: pointer; user-select: none;
-  }
-  .toggle b { font-size: 14px; display: block; }
-  .toggle small { color: var(--muted); font-size: 12px; }
-  .switch { position: relative; flex: 0 0 auto; width: 42px; height: 24px; border-radius: 999px; background: var(--line); transition: background .15s; }
-  .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .15s; }
-  .toggle[aria-checked="true"] { border-color: var(--open); }
-  .toggle[aria-checked="true"] .switch { background: var(--open); }
-  .toggle[aria-checked="true"] .switch::after { transform: translateX(18px); }
-  .row.disabled { opacity: .4; pointer-events: none; }
-  .fpin { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 3px solid var(--c); box-shadow: 0 1px 4px rgba(0,0,0,.35); }
-  .fpin.ini { width: 18px; height: 18px; background: #E8794F; border: 3px solid #fff; box-shadow: 0 0 0 2px #E8794F, 0 1px 4px rgba(0,0,0,.35); }
-  .num.firm.ini { background: #E8794F !important; border-color: #E8794F !important; }
-  .s-inib { color: #fff; background: #E8794F; }
-  .toggle.ini .switch { }
-  .fpin.out { width: 12px; height: 12px; border: 2px dashed #64748b; box-shadow: none; opacity: .85; }
-  .num.firm.out { border-style: dashed; border-color: var(--muted); }
-  .star { font-size: 12px; color: #b45309; font-weight: 600; }
-  .applied { margin-left: auto; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
-  .applied input { margin: 0; accent-color: var(--accent); }
-  .empty { color: var(--muted); padding: 24px 8px; text-align: center; }
-  .foot { color: var(--muted); font-size: 12px; padding: 10px 18px 14px; border-top: 1px solid var(--line); }
-  #map { height: 100%; width: 100%; background: var(--bg); }
-  .map-wrap { position: relative; min-height: 0; }
-  .app.nomap { grid-template-columns: 1fr; height: auto; min-height: 100%; }
-  .app.nomap .map-wrap { display: none; }
-  .app.nomap .side { border-right: 0; max-width: 760px; width: 100%; margin: 0 auto; }
-  .app.nomap .list { overflow: visible; }
-  .detail { display: none; grid-column: 2; font-size: 13.5px; color: var(--text); border-top: 1px solid var(--line); padding-top: 8px; margin-top: 2px; }
-  .card.open .detail { display: block; }
-  .detail p { margin: 4px 0; }
-  .detail .lbl { font-weight: 600; }
-  .detail .dlinks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-  .detail .dlinks a { text-decoration: none; padding: 5px 10px; border-radius: 8px; font-size: 13px; font-weight: 500; border: 1px solid var(--line); color: var(--accent); }
-  .detail .dlinks a:first-child { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .nomap-note { color: var(--muted); font-size: 12px; padding: 8px 18px 0; display: none; }
-  .app.nomap .nomap-note { display: block; }
-  .map-error {
-    position: absolute; inset: 0; display: none; place-items: center; text-align: center; padding: 24px; color: var(--muted);
-  }
-  .pin {
-    width: 28px; height: 28px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
-    background: var(--c); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.35);
-    display: grid; place-items: center;
-  }
-  .pin span { transform: rotate(45deg); color: #fff; font: 600 12px/1 -apple-system, Segoe UI, Roboto, sans-serif; }
-  .pin.top { border-color: #f59e0b; border-width: 3px; }
-  .home {
-    width: 16px; height: 16px; border-radius: 50%; background: var(--text); border: 3px solid #fff;
-    box-shadow: 0 0 0 2px var(--text);
-  }
-  .leaflet-popup-content { margin: 12px 14px; font: 14px/1.45 -apple-system, Segoe UI, Roboto, sans-serif; }
-  .pop h3 { margin: 0 0 2px; font-size: 15px; }
-  .pop .firm { color: #5d6877; font-size: 13px; margin-bottom: 8px; }
-  .pop p { margin: 6px 0; }
-  .pop .lbl { font-weight: 600; }
-  .pop .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-  .pop .links a {
-    text-decoration: none; padding: 6px 10px; border-radius: 8px; font-size: 13px; font-weight: 500;
-    border: 1px solid #d0d7e2; color: #1f6feb;
-  }
-  .pop .links a.primary { background: #1f6feb; border-color: #1f6feb; color: #fff; }
-  .fgroup { display: grid; gap: 6px; }
-  .flabel { display: flex; align-items: baseline; gap: 8px; font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-  .flabel .hint { text-transform: none; letter-spacing: 0; font-weight: 400; }
-  .mini { margin-left: auto; font: inherit; font-size: 12px; text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
-  .chip.sm { padding: 4px 9px; font-size: 12.5px; }
-  details.more, details.profil { border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
-  details.more > summary, details.profil > summary { cursor: pointer; padding: 9px 12px; font-size: 13.5px; font-weight: 600; list-style-position: inside; }
-  details.more[open] > summary, details.profil[open] > summary { border-bottom: 1px solid var(--line); }
-  .more-body { display: grid; gap: 10px; padding: 10px 12px 12px; }
-  .profil-body { display: grid; gap: 8px; padding: 10px 12px 12px; max-height: 320px; overflow-y: auto; }
-  .profil-item { display: grid; grid-template-columns: 12px 1fr; gap: 8px; font-size: 13px; }
-  .profil-item .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-top: 4px; }
-  .profil-item b { font-size: 13px; }
-  .profil-item p { margin: 2px 0 4px; color: var(--muted); }
-  .profil-item button { font: inherit; font-size: 12px; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
-  .profil-note { font-size: 12px; color: var(--muted); }
-  .areas { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 5px; }
-  .area { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); }
-  .area::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+  .s-ini { color: var(--ink2); background: var(--chip); }
+  .s-firm { color: var(--ink2); background: transparent; border: 1px dashed var(--line); }
+  .s-inib { color: var(--coral-ink); background: var(--coral-soft); }
   .x-ein { color: var(--open); background: var(--open-bg); }
   .x-erf { color: var(--check); background: var(--check-bg); }
-  .x-unk { color: var(--muted); background: transparent; border: 1px solid var(--line); }
-  @media (max-width: 820px) {
-    .app { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
-    .map-wrap { order: -1; height: 52vh; position: sticky; top: 0; z-index: 5; border-bottom: 1px solid var(--line); }
-    .side { border-right: 0; overflow: visible; }
-    .list { overflow: visible; }
-    header { padding: 14px 16px 10px; }
-    .filters, .count, .foot { padding-left: 16px; padding-right: 16px; }
-  }
-</style>
+  .x-unk { color: var(--ink2); background: transparent; border: 1px solid var(--line); }
+  .neu { font-size: 11.5px; font-weight: 600; color: #fff; background: var(--accent); padding: 2px 7px; border-radius: 6px; }
+  .star { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--coral-ink); font-weight: 600; }
+  .star svg { width: 13px; height: 13px; fill: currentColor; stroke: none; }
+  .applied { margin-left: auto; font-size: 12.5px; color: var(--ink3); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; padding: 2px 0; }
+  .applied input { margin: 0; width: 15px; height: 15px; accent-color: var(--accent); cursor: pointer; }
+  .applied:hover { color: var(--ink); }
+  .empty { color: var(--ink2); padding: 40px 16px; text-align: center; font-size: 14px; }
+  .empty button { margin-top: 10px; font-weight: 500; color: var(--accent); background: none; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
 
-<style id="palette-petrol">
-/* Farbschema: Petrol #0B6E79 · Schiefer #13262E · Koralle #E8794F auf hellem Grau-Weiß */
-:root{--bg:#F2F6F7;--paper:#FFFFFF;--panel:#FFFFFF;--ink:#13262E;--text:#13262E;--ink2:#51656D;--muted:#51656D;--line:#DCE5E8;--chip:#E9F0F2;--accent:#0B6E79;--accent2:#C4532E;--pink:#E8794F;--open:#0B6E79;--open-bg:#DDF0F2;--check:#C4532E;--check-bg:#FBE6DD;--ini:#51656D;--ini-bg:#E9F0F2;--shadow:0 1px 2px rgba(19,38,46,.07),0 4px 16px rgba(19,38,46,.07);}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D191E;--paper:#14242A;--panel:#14242A;--ink:#E5EFF1;--text:#E5EFF1;--ink2:#9AB0B7;--muted:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--pink:#F09A74;--open:#7FD3DC;--open-bg:#163339;--check:#F09A74;--check-bg:#3A2219;--ini:#C3D3D8;--ini-bg:#1B2D34;}}
-:root[data-theme="dark"]{--bg:#0D191E;--paper:#14242A;--panel:#14242A;--ink:#E5EFF1;--text:#E5EFF1;--ink2:#9AB0B7;--muted:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--pink:#F09A74;--open:#7FD3DC;--open-bg:#163339;--check:#F09A74;--check-bg:#3A2219;--ini:#C3D3D8;--ini-bg:#1B2D34;}
-::selection{background:#BFE4E8;color:#13262E}
-.num.top{box-shadow:0 0 0 3px var(--panel),0 0 0 5px #E8794F}.pin.top{border-color:#E8794F}.star{color:var(--check)}.neu{background:#E8794F;color:#fff}.pop .links a{color:#0B6E79;border-color:#DCE5E8}.pop .links a.primary{background:#0B6E79;border-color:#0B6E79;color:#fff}.pop .firm{color:#51656D}
+  .detail { display: none; grid-column: 2; font-size: 13.5px; color: var(--ink); border-top: 1px solid var(--line2); padding-top: 10px; margin-top: 4px; }
+  .card.open .detail { display: block; }
+  .detail p { margin: 5px 0; line-height: 1.55; }
+  .lbl { font-weight: 600; }
+  .dlinks, .pop .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; text-decoration: none; padding: 7px 12px; border-radius: 8px;
+    font-size: 13px; font-weight: 500; border: 1px solid var(--line); color: var(--ink); background: var(--paper);
+    transition: background-color .15s var(--ease), border-color .15s var(--ease);
+  }
+  .btn:hover { border-color: var(--ink3); }
+  .btn svg { width: 14px; height: 14px; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn:active { transform: translateY(1px); }
+
+  .foot { color: var(--ink3); font-size: 12.5px; line-height: 1.5; padding: 14px 24px 20px; border-top: 1px solid var(--line); margin-top: auto; }
+  .nomap-note { color: var(--ink2); font-size: 12.5px; padding: 0 24px 12px; display: none; }
+
+  /* ---------- Karte ---------- */
+  .map-wrap { position: relative; min-height: 0; }
+  #map { height: 100%; width: 100%; background: var(--bg); }
+  .app.nomap { grid-template-columns: minmax(0, 1fr); height: auto; min-height: 100%; }
+  .app.nomap .map-wrap { display: none; }
+  .app.nomap .side { border-right: 0; max-width: 760px; width: 100%; margin: 0 auto; overflow: visible; }
+  .app.nomap .nomap-note { display: block; }
+  .map-error { position: absolute; inset: 0; display: none; place-items: center; text-align: center; padding: 24px; color: var(--ink2); }
+
+  .legend {
+    position: absolute; left: 16px; top: 16px; z-index: 500; background: var(--paper); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 12px 14px; font-size: 12.5px;
+    display: grid; gap: 7px; max-width: 280px;
+  }
+  .legend b { font-size: 13px; font-weight: 600; }
+  .lg { display: grid; grid-template-columns: 22px 1fr; align-items: center; gap: 8px; color: var(--ink2); }
+  .lg i { justify-self: center; display: block; }
+  .lg .l-job { width: 18px; height: 18px; border-radius: 6px; background: var(--accent); }
+  .lg .l-top { width: 18px; height: 18px; border-radius: 6px; background: var(--accent); box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--coral); }
+  .lg .l-firm { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--firm); }
+  .lg .l-ini { width: 12px; height: 12px; border-radius: 50%; background: var(--coral); }
+  .lg .l-out { width: 12px; height: 12px; border-radius: 50%; border: 2px dashed var(--firm); }
+  .lg .l-home { width: 12px; height: 12px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px var(--ink); }
+  .legend-toggle { display: none; }
+
+  /* Pins */
+  .pin {
+    width: 28px; height: 28px; border-radius: 9px; background: var(--c); color: #fff;
+    display: grid; place-items: center; font: 500 11.5px/1 var(--mono); letter-spacing: -.03em;
+    border: 2px solid var(--pin-ring); box-shadow: 0 1px 2px rgba(0,0,0,.25), 0 4px 10px rgba(19,38,46,.25);
+    transition: transform .15s var(--ease);
+  }
+  .pin::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 8px; height: 8px; background: var(--c); border-right: 2px solid var(--pin-ring); border-bottom: 2px solid var(--pin-ring); transform: translateX(-50%) rotate(45deg); border-bottom-right-radius: 2px; }
+  .pin { position: relative; }
+  .pin span { position: relative; z-index: 1; }
+  .pin.top { box-shadow: 0 0 0 2px var(--coral), 0 4px 10px rgba(19,38,46,.3); }
+  .leaflet-marker-icon:hover .pin { transform: translateY(-2px); }
+  .fpin { width: 14px; height: 14px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--firm); box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+  .fpin.ini { background: var(--coral); border-color: var(--pin-ring); box-shadow: 0 0 0 1.5px var(--coral), 0 1px 3px rgba(0,0,0,.3); }
+  .fpin.out { width: 11px; height: 11px; border: 2px dashed var(--firm); box-shadow: none; opacity: .9; }
+  .home { width: 14px; height: 14px; border-radius: 50%; background: var(--ink); border: 3px solid var(--pin-ring); box-shadow: 0 0 0 1.5px var(--ink); }
+  .home-label { font: 600 12px var(--sans); }
+
+  /* Cluster */
+  .cl {
+    width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--paper); color: var(--ink); font: 600 12.5px/1 var(--mono);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent), 0 3px 10px rgba(19,38,46,.22);
+    border: 2px solid var(--accent); transition: transform .15s var(--ease);
+  }
+  .cl.firms-only { border-color: var(--firm); box-shadow: 0 0 0 3px color-mix(in srgb, var(--firm) 25%, transparent), 0 4px 12px rgba(19,38,46,.2); color: var(--ink2); }
+  .leaflet-marker-icon:hover .cl { transform: scale(1.06); }
+  .marker-cluster-anim .leaflet-marker-icon, .marker-cluster-anim .leaflet-marker-shadow { transition: transform .3s var(--ease), opacity .3s var(--ease); }
+
+  /* Leaflet-Oberflächen im Seitenstil */
+  .leaflet-container { font-family: var(--sans); background: var(--bg); }
+  /* OSM-Kacheln gedämpft, damit Pins und Daten die Karte tragen */
+  .leaflet-tile-pane { filter: saturate(.25) contrast(.92) brightness(1.04); }
+  .dark-tiles .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) saturate(.3) brightness(.82) contrast(.9); }
+  .leaflet-bar { border: 1px solid var(--line) !important; border-radius: 10px !important; box-shadow: var(--shadow) !important; overflow: hidden; }
+  .leaflet-bar a { background: var(--paper) !important; color: var(--ink) !important; border-bottom-color: var(--line2) !important; width: 34px !important; height: 34px !important; line-height: 32px !important; }
+  .leaflet-bar a:hover { background: var(--hover) !important; }
+  .leaflet-control-attribution { background: color-mix(in srgb, var(--paper) 85%, transparent) !important; color: var(--ink3) !important; font-size: 11px; border-top-left-radius: 8px; }
+  .leaflet-control-attribution a { color: var(--ink2) !important; }
+  .leaflet-popup-content-wrapper { background: var(--paper); color: var(--ink); border-radius: 14px; box-shadow: var(--shadow); border: 1px solid var(--line); }
+  .leaflet-popup-tip { background: var(--paper); box-shadow: none; border: 1px solid var(--line); }
+  .leaflet-popup-content { margin: 16px 18px; font: 14px/1.5 var(--sans); }
+  .leaflet-container a.leaflet-popup-close-button { color: var(--ink3); top: 8px; right: 8px; font-size: 20px; }
+  .leaflet-tooltip { background: var(--paper); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow-sm); border-radius: 8px; }
+  .pop h3 { margin: 0 24px 3px 0; font-size: 16px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em; text-wrap: balance; }
+  .pop .firm { color: var(--ink2); font-size: 13px; margin-bottom: 10px; }
+  .pop .tags { margin: 0 0 10px; }
+  .pop p { margin: 6px 0; font-size: 13.5px; }
+  .pop .src { color: var(--ink3); font-size: 12px; }
+
+  /* ---------- Schmale Bildschirme ---------- */
+  @media (max-width: 860px) {
+    .app { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; height: auto; }
+    .map-wrap { order: -1; height: 46vh; height: 46svh; position: sticky; top: 0; z-index: 5; border-bottom: 1px solid var(--line); }
+    .side { border-right: 0; overflow: visible; }
+    header { padding: 18px 16px 14px; }
+    .view, .nomap-note { padding-left: 16px; padding-right: 16px; }
+    details.filters > summary, .filters-body, .listhead, .foot { padding-left: 16px; padding-right: 16px; }
+    .listhead { top: 46svh; }
+    .list { padding: 4px 4px 20px; }
+    .legend { left: 10px; top: 10px; padding: 0; gap: 0; }
+    .legend-toggle { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 8px 12px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+    .legend > b, .legend:not(.open) .lg { display: none; }
+    .legend.open { padding: 0 12px 12px; gap: 6px; }
+    .legend.open .legend-toggle { padding: 8px 0 2px; }
+    .chip { padding: 7px 11px; }
+    .applied { padding: 6px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; scroll-behavior: auto !important; }
+  }
 </style>
 </head>
 <body>
 <div class="app">
   <aside class="side">
     <header>
+      <a class="back" href="menu.html"><svg class="i" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Übersicht aller Seiten</a>
       <h1>Stellenkarte Medizintechnik</h1>
-      <div class="sub" id="sub"></div>
+      <p class="summary" id="sub"></p>
+      <div class="stand" id="stand"></div>
     </header>
-    <div class="filters">
-      <div class="toggle" id="onlyOpen" role="switch" aria-checked="false" tabindex="0">
-        <span><b>Nur aktuell ausgeschriebene Stellen</b><small>Blendet Firmen ohne Anzeige, Initiativ-Adressen und unklare Anzeigen aus</small></span>
-        <span class="switch" aria-hidden="true"></span>
-      </div>
-      <div class="toggle ini" id="iniOnly" role="switch" aria-checked="false" tabindex="0">
-        <span><b>Firmen für eine Initiativbewerbung</b><small>Zeigt nur Firmen ohne passende Anzeige, bei denen eine Initiativbewerbung zu deinem Profil passt (orange Punkte)</small></span>
-        <span class="switch" aria-hidden="true"></span>
-      </div>
-      <input id="q" class="search" type="search" placeholder="Suchen (Firma, Ort, Stichwort) …" aria-label="Suchen">
-      <div class="fgroup">
-        <div class="flabel">Jobbereich <span class="hint">antippen zum Filtern, mehrere möglich</span><button type="button" class="mini" id="felderAll">alle zeigen</button></div>
-        <div class="row" id="felder" aria-label="Jobbereich"></div>
-      </div>
-      <div class="fgroup">
-        <div class="flabel">Erfahrung</div>
-        <div class="row" id="erf" aria-label="Erfahrung"></div>
-      </div>
-      <div class="row" id="lands" aria-label="Land"></div>
-      <details class="more" id="more">
-        <summary>Weitere Filter: Branche und Status</summary>
-        <div class="more-body">
-          <div class="fgroup"><div class="flabel">Branche</div><div class="row" id="branchen" aria-label="Branche"></div></div>
-          <div class="fgroup"><div class="flabel">Status</div><div class="row" id="stats" aria-label="Status"></div></div>
-        </div>
-      </details>
-      <details class="profil" id="profil">
-        <summary>Warum diese Jobbereiche zum Profil passen</summary>
-        <div class="profil-body" id="profilBody"></div>
-      </details>
+
+    <div class="view">
+      <div class="seg" id="view" role="group" aria-label="Ansicht"></div>
+      <p class="view-note" id="viewNote"></p>
     </div>
-    <div class="nomap-note">In dieser Ansicht wird nur die Liste angezeigt. Antippen öffnet die Details; die Karte gibt es in der index.html (GitHub Pages oder lokal im Browser).</div>
-    <div class="count" id="count"></div>
+
+    <details class="filters" id="filters" open>
+      <summary>Filter <span class="active-n" id="activeN" hidden></span><svg class="i chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="filters-body">
+        <div class="searchbox">
+          <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="q" class="search" type="search" placeholder="Firma, Ort oder Stichwort" aria-label="Suchen nach Firma, Ort oder Stichwort">
+        </div>
+        <div class="fgroup">
+          <div class="flabel">Jobbereich <span class="hint">mehrere möglich</span><button type="button" class="mini" id="felderAll">Alle zeigen</button></div>
+          <div class="row" id="felder" aria-label="Jobbereich"></div>
+        </div>
+        <div class="fgroup">
+          <div class="flabel">Erfahrung</div>
+          <div class="row" id="erf" aria-label="Erfahrung"></div>
+        </div>
+        <div class="fgroup">
+          <div class="flabel">Region</div>
+          <div class="row" id="lands" aria-label="Region"></div>
+        </div>
+        <details class="more" id="more">
+          <summary>Branche und Status</summary>
+          <div class="more-body">
+            <div class="fgroup"><div class="flabel">Branche</div><div class="row" id="branchen" aria-label="Branche"></div></div>
+            <div class="fgroup"><div class="flabel">Status</div><div class="row" id="stats" aria-label="Status"></div></div>
+          </div>
+        </details>
+        <details class="profil" id="profil">
+          <summary>Warum diese Jobbereiche zum Profil passen</summary>
+          <div class="profil-body" id="profilBody"></div>
+        </details>
+      </div>
+    </details>
+
+    <div class="nomap-note">Diese Ansicht zeigt nur die Liste; ein Eintrag öffnet sich beim Antippen. Die Karte gibt es in der index.html auf GitHub Pages.</div>
+    <div class="listhead">
+      <div class="count" id="count" aria-live="polite"></div>
+      <label class="sort">
+        <select id="sort" aria-label="Sortierung">
+          <option value="std">Empfohlen</option>
+          <option value="km">Nächste zuerst</option>
+          <option value="neu">Neueste zuerst</option>
+          <option value="frist">Frist zuerst</option>
+        </select>
+      </label>
+    </div>
     <div class="list" id="list"></div>
-    <div class="foot">Nummerierte Pins = Stellen, Farbe = erster Jobbereich; Kreise = Zielfirmen ohne passende Anzeige (Position: Ortsmitte), orange gefüllt = Initiativbewerbung sinnvoll. Zielfirmen erscheinen nur, solange alle Jobbereiche und alle Erfahrungsstufen gewählt sind. Angaben aus Jobbörsen und Karriereseiten; vor jeder Bewerbung im Portal der Firma prüfen, ob die Stelle noch offen ist. Entfernungen = Luftlinie ab Stuttgart.</div>
+    <div class="foot">Angaben aus Jobbörsen und Karriereseiten. Vor jeder Bewerbung im Portal der Firma prüfen, ob die Stelle noch offen ist. Zielfirmen erscheinen nur, solange alle Jobbereiche und alle Erfahrungsstufen gewählt sind; ihre Position ist die Ortsmitte. Entfernungen sind Luftlinie ab Stuttgart. „Beworben“-Häkchen bleiben nur in diesem Browser gespeichert.</div>
   </aside>
+
   <div class="map-wrap">
     <div id="map"></div>
-    <div class="map-error" id="mapError">Die Karte konnte nicht geladen werden (keine Internetverbindung?). Die Liste links funktioniert trotzdem.</div>
+    <div class="legend" id="legend">
+      <button type="button" class="legend-toggle" id="legendToggle" aria-expanded="false">Legende</button>
+      <b>Legende</b>
+      <div class="lg"><i class="l-job"></i>Stelle, Farbe = erster Jobbereich</div>
+      <div class="lg"><i class="l-top"></i>Top-Treffer für das Profil</div>
+      <div class="lg"><i class="l-firm"></i>Zielfirma ohne passende Anzeige</div>
+      <div class="lg"><i class="l-ini"></i>Initiativbewerbung sinnvoll</div>
+      <div class="lg"><i class="l-out"></i>Außerhalb der Zielregion</div>
+      <div class="lg"><i class="l-home"></i>Stuttgart</div>
+    </div>
+    <div class="map-error" id="mapError">Die Karte konnte nicht geladen werden. Die Liste funktioniert trotzdem.</div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
 <script>
 (function () {
   "use strict";
@@ -276,9 +434,14 @@
   var FELDER = DATA.felder;
   var BRANCHEN = DATA.branchen;
   var FIRM_COLOR = "#6B7F87";
+  var ICON = {
+    ext: '<svg class="i" viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+    route: '<svg class="i" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h7"/></svg>',
+    star: '<svg class="i" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.8l-5.2 2.7 1-5.8L3.6 9.6l5.8-.8z"/></svg>'
+  };
   var ERF = {
     einstieg:  { label: "Für Einsteiger", cls: "x-ein" },
-    unklar:    { label: "Erfahrung: k. A.", cls: "x-unk" },
+    unklar:    { label: "Erfahrung nicht angegeben", cls: "x-unk" },
     erfahrung: { label: "Erfahrung gefordert", cls: "x-erf" }
   };
   function color(x) { return x.type === "firm" ? FIRM_COLOR : FELDER[x.felder[0]].color; }
@@ -287,8 +450,8 @@
   var STATUS = {
     offen:     { label: "Ausgeschrieben", cls: "s-open" },
     pruefen:   { label: "Status prüfen", cls: "s-check" },
-    initiativ: { label: "Initiativ / Programm", cls: "s-ini" },
-    firma:     { label: "Zielfirma · keine passende Anzeige", cls: "s-firm" }
+    initiativ: { label: "Initiativ oder Programm", cls: "s-ini" },
+    firma:     { label: "Keine passende Anzeige", cls: "s-firm" }
   };
 
   var ITEMS = [];
@@ -298,15 +461,17 @@
   FIRMS.slice().sort(function (a, b) { return (a.ausserhalb ? 1 : 0) - (b.ausserhalb ? 1 : 0) || a.firma.localeCompare(b.firma, "de"); }).forEach(function (f) {
     f.type = "firm"; f.status = "firma"; f.titel = f.firma; f.top = false; ITEMS.push(f);
   });
-  ITEMS.forEach(function (x) { x.km = Math.round(haversine(HOME, x)); });
+  ITEMS.forEach(function (x, i) { x.km = Math.round(haversine(HOME, x)); x.ord = i; });
 
   var nOpen = DATA.jobs.filter(function (j) { return j.status === "offen"; }).length;
   var nNew = DATA.jobs.filter(function (j) { return j.status === "offen" && j.seit === DATA.stand; }).length;
   var nOpenErf = DATA.jobs.filter(function (j) { return j.status === "offen" && j.erfahrung === "erfahrung"; }).length;
-  document.getElementById("sub").textContent =
-    nOpen + " ausgeschriebene Stellen" + (nNew ? " (" + nNew + " neu)" : "") + ", davon " + nOpenErf + " mit Erfahrungsforderung · " + (FIRMS.length - nOut) +
-    " Zielfirmen ohne Anzeige in Baden-Württemberg, Bayern, der Schweiz und Österreich (davon " + FIRMS.filter(function (f) { return f.initiativ; }).length + " für eine Initiativbewerbung empfohlen) · " + nOut +
-    " Firmen außerhalb der Zielregion · Stand " + DATA.stand;
+  var nIni = FIRMS.filter(function (f) { return f.initiativ; }).length;
+  document.getElementById("sub").innerHTML =
+    "<b>" + nOpen + " ausgeschriebene Stellen</b>" + (nNew ? ", davon <b>" + nNew + " neu</b>" : "") +
+    " und " + (nOpen - nOpenErf) + " ohne Erfahrungsforderung, in Baden-Württemberg, Bayern, der Schweiz und Österreich. Dazu " +
+    (FIRMS.length - nOut) + " Zielfirmen ohne Anzeige, " + nIni + " davon für eine Initiativbewerbung empfohlen.";
+  document.getElementById("stand").textContent = "Stand " + DATA.stand + " · alle 3 Tage aktualisiert";
 
   var STORE_KEY = "stellenkarte-beworben-v1";
   var VIEW_KEY = "stellenkarte-nur-offen-v1";
@@ -323,12 +488,13 @@
     topOnly: false,
     onlyOpen: loadFlag(),
     iniOnly: false,
+    sort: "std",
     active: null
   };
 
-  var map = null, markers = {}, layer = null, noMap = false;
+  var map = null, markers = {}, layer = null, noMap = false, clustered = false;
 
-  // ---------- helpers ----------
+  // ---------- Hilfsfunktionen ----------
   function haversine(a, b) {
     var R = 6371, toR = Math.PI / 180;
     var dLat = (b.lat - a.lat) * toR, dLng = (b.lng - a.lng) * toR;
@@ -340,6 +506,10 @@
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
+  }
+  function dateNum(s) {
+    var m = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(s || "");
+    return m ? +m[3] * 10000 + +m[2] * 100 + +m[1] : 0;
   }
   function loadApplied() {
     try { return JSON.parse(localStorage.getItem(STORE_KEY) || "{}") || {}; } catch (e) { return {}; }
@@ -355,14 +525,14 @@
   }
   function pillHtml(x) {
     var st = STATUS[x.status];
-    if (x.type === "firm" && x.ausserhalb) return '<span class="pill s-firm">Außerhalb Zielregion · nicht geprüft</span>';
+    if (x.type === "firm" && x.ausserhalb) return '<span class="pill s-firm">Außerhalb der Zielregion, nicht geprüft</span>';
     if (x.type === "firm" && x.initiativ) return '<span class="pill s-inib">Initiativbewerbung sinnvoll</span>';
-    return '<span class="pill ' + st.cls + '">' + st.label + '</span>' + (x.ausserhalb && x.type === "job" ? ' <span class="pill s-firm">außerhalb</span>' : '');
+    return '<span class="pill ' + st.cls + '">' + st.label + '</span>' + (x.ausserhalb && x.type === "job" ? '<span class="pill s-firm">außerhalb</span>' : '');
   }
   function erfHtml(x) {
     if (x.type !== "job" || !x.erfahrung) return "";
     var e = ERF[x.erfahrung];
-    var txt = x.erfahrung === "einstieg" ? e.label : (x.erfahrung === "erfahrung" ? x.erfahrungText : e.label);
+    var txt = x.erfahrung === "erfahrung" ? "Erfahrung: " + x.erfahrungText : e.label;
     return '<span class="pill ' + e.cls + '" title="' + esc(x.erfahrungText) + '">' + esc(txt) + '</span>';
   }
   function areasHtml(x) {
@@ -400,43 +570,99 @@
     }
     return true;
   }
+  function sortItems(items) {
+    var s = state.sort;
+    if (s === "std") return items;
+    return items.slice().sort(function (a, b) {
+      var jobFirst = (a.type === "job" ? 0 : 1) - (b.type === "job" ? 0 : 1);
+      if (jobFirst) return jobFirst;
+      if (s === "km") return a.km - b.km || a.ord - b.ord;
+      if (s === "neu") return dateNum(b.seit) - dateNum(a.seit) || a.ord - b.ord;
+      if (s === "frist") {
+        var fa = dateNum(a.frist), fb = dateNum(b.frist);
+        if (fa && fb) return fa - fb; if (fa) return -1; if (fb) return 1; return a.ord - b.ord;
+      }
+      return 0;
+    });
+  }
+  function activeFilterCount() {
+    var n = 0;
+    if (state.q) n++;
+    if (!allSelected(state.felder)) n++;
+    if (state.erf !== "alle") n++;
+    if (state.land !== "alle") n++;
+    if (state.topOnly) n++;
+    if (!allSelected(state.branchen)) n++;
+    if (!state.onlyOpen && !state.iniOnly && state.status !== "alle") n++;
+    return n;
+  }
+  function resetFilters() {
+    state.q = ""; document.getElementById("q").value = "";
+    state.felder = allOn(FELDER); state.branchen = allOn(BRANCHEN);
+    state.erf = "alle"; state.land = "alle"; state.status = "alle"; state.topOnly = false;
+    update(true);
+  }
 
-  // ---------- filters ----------
+  // ---------- Filter ----------
   function chip(label, pressed, onClick, opts) {
     var b = document.createElement("button");
     b.type = "button";
-    b.className = "chip" + (opts && opts.seg ? " seg" : "") + (opts && opts.cls ? " " + opts.cls : "");
+    b.className = "chip" + (opts && opts.seg ? " seg-chip" : "") + (opts && opts.cls ? " " + opts.cls : "");
     b.setAttribute("aria-pressed", pressed ? "true" : "false");
-    if (opts && opts.color) {
-      b.style.setProperty("--c", opts.color);
-      b.innerHTML = '<span class="dot"></span>' + esc(label);
-    } else {
-      b.textContent = label;
-    }
+    var html = "";
+    if (opts && opts.color) { b.style.setProperty("--c", opts.color); html += '<span class="dot"></span>'; }
+    if (opts && opts.icon) html += opts.icon;
+    html += esc(label);
+    if (opts && opts.n != null) html += ' <span class="n">' + opts.n + '</span>';
+    b.innerHTML = html;
     b.addEventListener("click", onClick);
     return b;
   }
 
+  var VIEWS = [
+    ["alle", "Alles", "Stellen und Zielfirmen ohne Anzeige."],
+    ["offen", "Ausgeschrieben", "Nur Stellen, die gerade ausgeschrieben sind."],
+    ["ini", "Initiativ", "Firmen ohne passende Anzeige, bei denen eine Initiativbewerbung zum Profil passt."]
+  ];
+  function currentView() { return state.iniOnly ? "ini" : (state.onlyOpen ? "offen" : "alle"); }
+  function setView(v) {
+    state.onlyOpen = v === "offen";
+    state.iniOnly = v === "ini";
+    saveFlag();
+    update(true);
+  }
+
   function renderFilters() {
-    var tg = document.getElementById("onlyOpen");
-    tg.setAttribute("aria-checked", state.onlyOpen ? "true" : "false");
-    document.getElementById("iniOnly").setAttribute("aria-checked", state.iniOnly ? "true" : "false");
+    var cv = currentView();
+    var view = document.getElementById("view");
+    view.innerHTML = "";
+    VIEWS.forEach(function (v) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = v[1];
+      b.setAttribute("aria-pressed", cv === v[0] ? "true" : "false");
+      b.addEventListener("click", function () { setView(v[0]); });
+      view.appendChild(b);
+    });
+    document.getElementById("viewNote").textContent = VIEWS.filter(function (v) { return v[0] === cv; })[0][2];
 
     var felder = document.getElementById("felder");
     felder.innerHTML = "";
     var nJobsBy = {};
     DATA.jobs.forEach(function (j) { j.felder.forEach(function (f) { nJobsBy[f] = (nJobsBy[f] || 0) + 1; }); });
     Object.keys(FELDER).forEach(function (k) {
-      felder.appendChild(chip(FELDER[k].label + " (" + (nJobsBy[k] || 0) + ")", state.felder[k], function () {
+      felder.appendChild(chip(FELDER[k].label, state.felder[k], function () {
         toggleSet(state.felder, k); update(true);
-      }, { color: FELDER[k].color, cls: "sm" }));
+      }, { color: FELDER[k].color, n: nJobsBy[k] || 0 }));
     });
     document.getElementById("felderAll").hidden = allSelected(state.felder);
+    felder.classList.toggle("disabled", state.iniOnly);
 
     var erf = document.getElementById("erf");
     erf.innerHTML = "";
+    erf.className = "row" + (state.iniOnly ? " disabled" : "");
     [["alle", "Alle"], ["ohne", "Ohne Erfahrungsforderung"], ["einstieg", "Ausdrücklich für Einsteiger"], ["erfahrung", "Erfahrung gefordert"]].forEach(function (p) {
-      erf.appendChild(chip(p[1], state.erf === p[0], function () { state.erf = p[0]; update(true); }, { seg: true, cls: "sm" }));
+      erf.appendChild(chip(p[1], state.erf === p[0], function () { state.erf = p[0]; update(true); }, { seg: true }));
     });
 
     var br = document.getElementById("branchen");
@@ -444,22 +670,29 @@
     Object.keys(BRANCHEN).forEach(function (k) {
       br.appendChild(chip(BRANCHEN[k], state.branchen[k], function () {
         toggleSet(state.branchen, k); update(true);
-      }, { cls: "sm" }));
+      }));
     });
 
     var lands = document.getElementById("lands");
     lands.innerHTML = "";
-    [["alle", "Alle Regionen"], ["DE", "Deutschland"], ["CH", "Schweiz"], ["AT", "Österreich"], ["out", "Außerhalb Zielregion"]].forEach(function (p) {
+    [["alle", "Alle"], ["DE", "Deutschland"], ["CH", "Schweiz"], ["AT", "Österreich"], ["out", "Außerhalb"]].forEach(function (p) {
       lands.appendChild(chip(p[1], state.land === p[0], function () { state.land = p[0]; update(true); }, { seg: true }));
     });
-    lands.appendChild(chip("★ Nur Top-Treffer", state.topOnly, function () { state.topOnly = !state.topOnly; update(true); }, { seg: true }));
+    var topChip = chip("Nur Top-Treffer", state.topOnly, function () { state.topOnly = !state.topOnly; update(true); }, { cls: "top-chip", icon: ICON.star });
+    if (state.iniOnly) topChip.disabled = true;
+    lands.appendChild(topChip);
 
     var stats = document.getElementById("stats");
     stats.innerHTML = "";
-    stats.className = "row" + (state.onlyOpen ? " disabled" : "");
+    stats.className = "row" + (state.onlyOpen || state.iniOnly ? " disabled" : "");
     [["alle", "Alles"], ["offen", "Ausgeschrieben"], ["pruefen", "Status prüfen"], ["initiativ", "Initiativ"], ["firma", "Zielfirmen"]].forEach(function (p) {
       stats.appendChild(chip(p[1], state.status === p[0], function () { state.status = p[0]; update(true); }, { seg: true }));
     });
+
+    var n = activeFilterCount();
+    var an = document.getElementById("activeN");
+    an.hidden = !n;
+    an.textContent = n + (n === 1 ? " aktiv" : " aktiv");
   }
 
   // Erster Klick bei „alle an“ wählt nur diesen Eintrag; danach wird umgeschaltet; nichts gewählt = wieder alle.
@@ -479,15 +712,15 @@
     if (DATA.schwerpunkte && DATA.schwerpunkte.length) {
       html += '<div class="profil-note">Schnellsuche nach fachlichem Schwerpunkt:</div><div class="row">' +
         DATA.schwerpunkte.map(function (s) {
-          return '<button type="button" class="chip sm" data-q="' + esc(s.q) + '">' + esc(s.label) + '</button>';
+          return '<button type="button" class="chip" data-q="' + esc(s.q) + '">' + esc(s.label) + '</button>';
         }).join("") + '</div>';
     }
-    html += '<div class="profil-note">Abgeleitet aus Fächerliste, Zeugnissen, Bachelor-Modulhandbuch und Praxisstationen. Zahl = Stellen in diesem Bereich (davon für Einsteiger oder ohne Angabe).</div>';
+    html += '<div class="profil-note">Abgeleitet aus Fächerliste, Zeugnissen, Bachelor-Modulhandbuch und Praxisstationen. Zahl = Stellen in diesem Bereich, in Klammern die für Einsteiger oder ohne Angabe.</div>';
     Object.keys(FELDER).forEach(function (k) {
       var jobs = DATA.jobs.filter(function (j) { return j.felder.indexOf(k) !== -1; });
       var easy = jobs.filter(function (j) { return j.erfahrung !== "erfahrung"; }).length;
       html += '<div class="profil-item"><span class="dot" style="--c:' + FELDER[k].color + '"></span><div>' +
-        '<b>' + esc(FELDER[k].label) + '</b> · ' + jobs.length + ' (' + easy + ')' +
+        '<b>' + esc(FELDER[k].label) + '</b> <span class="cnt">' + jobs.length + ' (' + easy + ')</span>' +
         '<p>' + esc(FELDER[k].warum) + '</p>' +
         '<button type="button" data-feld="' + k + '">Nur diesen Bereich zeigen</button></div></div>';
     });
@@ -498,7 +731,7 @@
         document.getElementById("q").value = q;
         state.q = q.toLowerCase();
         update(true);
-        document.getElementById("list").scrollIntoView({ behavior: "smooth", block: "start" });
+        document.querySelector(".listhead").scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
     body.querySelectorAll("button[data-feld]").forEach(function (b) {
@@ -506,28 +739,12 @@
         var k = b.getAttribute("data-feld");
         Object.keys(state.felder).forEach(function (x) { state.felder[x] = x === k; });
         update(true);
-        document.getElementById("list").scrollIntoView({ behavior: "smooth", block: "start" });
+        document.querySelector(".listhead").scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
   }
 
-  function toggleOnlyOpen() {
-    state.onlyOpen = !state.onlyOpen;
-    if (state.onlyOpen) state.iniOnly = false;
-    saveFlag();
-    update(true);
-  }
-  function toggleIni() { state.iniOnly = !state.iniOnly; if (state.iniOnly) state.onlyOpen = false; update(true); }
-  var iniEl = document.getElementById("iniOnly");
-  iniEl.addEventListener("click", toggleIni);
-  iniEl.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleIni(); } });
-  var tgEl = document.getElementById("onlyOpen");
-  tgEl.addEventListener("click", toggleOnlyOpen);
-  tgEl.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleOnlyOpen(); }
-  });
-
-  // ---------- list ----------
+  // ---------- Liste ----------
   function renderList(items) {
     var list = document.getElementById("list");
     list.innerHTML = "";
@@ -535,20 +752,24 @@
     var nFirms = items.length - nJobs;
     var doneCount = items.filter(function (x) { return applied[x.id]; }).length;
     var nErf = items.filter(function (x) { return x.type === "job" && x.erfahrung === "erfahrung"; }).length;
-    document.getElementById("count").textContent =
-      nJobs + (nJobs === 1 ? " Stelle" : " Stellen") + (nErf && nErf < nJobs ? " (davon " + nErf + " mit Erfahrungsforderung)" : "") +
-      (nFirms ? " · " + nFirms + " Firmen ohne Anzeige" : "") +
-      (doneCount ? " · " + doneCount + " als beworben markiert" : "");
+    var parts = [];
+    if (nJobs || !nFirms) parts.push("<b>" + nJobs + "</b> " + (nJobs === 1 ? "Stelle" : "Stellen") + (nErf && nErf < nJobs ? ", " + nErf + " mit Erfahrung" : ""));
+    if (nFirms) parts.push("<b>" + nFirms + "</b> " + (nFirms === 1 ? "Firma" : "Firmen"));
+    if (doneCount) parts.push(doneCount + " beworben");
+    document.getElementById("count").innerHTML = parts.join(" · ");
 
     if (!items.length) {
-      list.innerHTML = '<div class="empty">Keine Einträge für diese Filter.</div>';
+      list.innerHTML = '<div class="empty">Keine Einträge für diese Filter.<br><button type="button" id="resetAll">Filter zurücksetzen</button></div>';
+      document.getElementById("resetAll").addEventListener("click", resetFilters);
       return;
     }
+    var frag = document.createDocumentFragment();
     items.forEach(function (x) {
-      var c = color(x), st = STATUS[x.status], firm = x.type === "firm";
+      var c = color(x), firm = x.type === "firm";
       var card = document.createElement("div");
       card.className = "card" + (firm ? " firm" : "") + (state.active === x.id ? " active" : "") + (applied[x.id] ? " done" : "") + (noMap && state.active === x.id ? " open" : "");
       card.setAttribute("role", "button");
+      card.setAttribute("aria-label", (firm ? x.firma : x.titel + ", " + x.firma) + ", " + x.ort);
       card.tabIndex = 0;
       card.dataset.id = x.id;
       card.innerHTML =
@@ -556,12 +777,12 @@
               : '<div class="num' + (x.top ? " top" : "") + '" style="--c:' + c + '">' + x.n + '</div>') +
         '<div>' +
           '<div class="title">' + esc(x.titel) + '</div>' +
-          '<div class="meta">' + (firm ? esc(x.bereich) : esc(x.firma)) + ' · ' + esc(x.ort) + ' · ca. ' + x.km + ' km</div>' +
+          '<div class="meta">' + (firm ? esc(x.bereich) : esc(x.firma)) + ' · ' + esc(x.ort) + ' <span class="km">· ' + x.km + ' km</span></div>' +
           areasHtml(x) +
           '<div class="tags">' +
             pillHtml(x) + erfHtml(x) +
-            (isNew(x) ? '<span class="neu">NEU</span>' : '') +
-            (x.top ? '<span class="star">★ Top-Treffer</span>' : '') +
+            (isNew(x) ? '<span class="neu">Neu</span>' : '') +
+            (x.top ? '<span class="star">' + ICON.star + 'Top-Treffer</span>' : '') +
             '<label class="applied"><input type="checkbox"' + (applied[x.id] ? " checked" : "") + '> ' + (firm ? "kontaktiert" : "beworben") + '</label>' +
           '</div>' +
         '</div>' +
@@ -571,57 +792,57 @@
         focusItem(x.id);
       });
       card.addEventListener("keydown", function (e) {
+        if (e.target !== card) return;
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); focusItem(x.id); }
       });
       card.querySelector(".applied input").addEventListener("change", function (e) {
         if (e.target.checked) applied[x.id] = true; else delete applied[x.id];
         saveApplied(); update(false);
       });
-      list.appendChild(card);
+      frag.appendChild(card);
     });
+    list.appendChild(frag);
+  }
+
+  function linksHtml(x, cls) {
+    return '<div class="' + cls + '"><a class="btn primary" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (x.type === "firm" ? "Karriereseite öffnen" : "Anzeige öffnen") + ICON.ext + '</a>' +
+      '<a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Stuttgart&destination=' + x.lat + ',' + x.lng + '" target="_blank" rel="noopener">' + ICON.route + 'Route ab Stuttgart</a></div>';
   }
 
   function detailHtml(x) {
-    var a = '<div class="dlinks"><a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (x.type === "firm" ? "Karriereseite suchen ↗" : "Anzeige öffnen ↗") + '</a>' +
-      '<a href="https://www.google.com/maps/dir/?api=1&origin=Stuttgart&destination=' + x.lat + ',' + x.lng + '" target="_blank" rel="noopener">Route ab Stuttgart</a></div>';
     if (x.type === "firm") {
-      return '<p><span class="lbl">Schwerpunkt:</span> ' + esc(x.bereich) + ' · ' + esc(BRANCHEN[x.branche]) + '</p>' + (x.initiativ ? '<p><span class="lbl">Warum initiativ:</span> ' + esc(x.initiativ) + '</p>' : '') + '<p><span class="lbl">Stand ' + esc(DATA.stand) + ':</span> ' + esc(x.befund) + '</p>' + a;
+      return '<p><span class="lbl">Schwerpunkt:</span> ' + esc(x.bereich) + ' · ' + esc(BRANCHEN[x.branche]) + '</p>' + (x.initiativ ? '<p><span class="lbl">Warum initiativ:</span> ' + esc(x.initiativ) + '</p>' : '') + '<p><span class="lbl">Stand ' + esc(DATA.stand) + ':</span> ' + esc(x.befund) + '</p>' + linksHtml(x, "dlinks");
     }
     return '<p><span class="lbl">Passung:</span> ' + esc(x.passung) + '</p>' +
       '<p><span class="lbl">Erfahrung:</span> ' + esc(x.erfahrungText) + '</p>' +
-      (x.hinweis ? '<p><span class="lbl">Zu beachten:</span> ' + esc(x.hinweis) + '</p>' : '') + a;
+      (x.frist ? '<p><span class="lbl">Frist:</span> ' + esc(x.frist) + '</p>' : '') +
+      (x.hinweis ? '<p><span class="lbl">Zu beachten:</span> ' + esc(x.hinweis) + '</p>' : '') + linksHtml(x, "dlinks");
   }
 
-  // ---------- map ----------
-  function links(x) {
-    var dest = x.lat + "," + x.lng;
-    return '<div class="links">' +
-      '<a class="primary" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (x.type === "firm" ? "Karriereseite suchen ↗" : "Anzeige öffnen ↗") + '</a>' +
-      '<a href="https://www.google.com/maps/dir/?api=1&origin=Stuttgart&destination=' + dest + '" target="_blank" rel="noopener">Route ab Stuttgart</a>' +
-      '</div>';
-  }
+  // ---------- Karte ----------
   function popupHtml(x) {
-    var st = STATUS[x.status];
     if (x.type === "firm") {
       return '<div class="pop">' +
         '<h3>' + esc(x.firma) + '</h3>' +
-        '<div class="firm">' + esc(x.ort) + ' · ca. ' + x.km + ' km Luftlinie</div>' +
-        pillHtml(x) +
+        '<div class="firm">' + esc(x.ort) + ' · ' + x.km + ' km ab Stuttgart</div>' +
+        '<div class="tags">' + pillHtml(x) + '</div>' +
         '<p><span class="lbl">Schwerpunkt:</span> ' + esc(x.bereich) + ' · ' + esc(BRANCHEN[x.branche]) + '</p>' +
         (x.initiativ ? '<p><span class="lbl">Warum initiativ:</span> ' + esc(x.initiativ) + '</p>' : '') +
         '<p><span class="lbl">Stand ' + esc(DATA.stand) + ':</span> ' + esc(x.befund) + '</p>' +
-        '<p style="color:#5d6877;font-size:12px">Quelle: ' + esc(x.quelle) + '</p>' +
-        links(x) + '</div>';
+        '<p class="src">Quelle: ' + esc(x.quelle) + '</p>' +
+        linksHtml(x, "links") + '</div>';
     }
     return '<div class="pop">' +
       '<h3>' + esc(x.titel) + '</h3>' +
-      '<div class="firm">' + esc(x.firma) + ' · ' + esc(x.ort) + ' · ca. ' + x.km + ' km Luftlinie</div>' +
-      pillHtml(x) + ' ' + erfHtml(x) + (isNew(x) ? ' <span class="neu">NEU</span>' : '') +
+      '<div class="firm">' + esc(x.firma) + ' · ' + esc(x.ort) + ' · ' + x.km + ' km ab Stuttgart</div>' +
+      '<div class="tags">' + pillHtml(x) + erfHtml(x) + (isNew(x) ? '<span class="neu">Neu</span>' : '') +
+        (x.top ? '<span class="star">' + ICON.star + 'Top-Treffer</span>' : '') + '</div>' +
       '<p><span class="lbl">Jobbereich:</span> ' + esc(felderText(x)) + '</p>' +
       '<p><span class="lbl">Passung:</span> ' + esc(x.passung) + '</p>' +
       '<p><span class="lbl">Erfahrung:</span> ' + esc(x.erfahrungText) + '</p>' +
+      (x.frist ? '<p><span class="lbl">Frist:</span> ' + esc(x.frist) + '</p>' : '') +
       (x.hinweis ? '<p><span class="lbl">Zu beachten:</span> ' + esc(x.hinweis) + '</p>' : '') +
-      links(x) + '</div>';
+      linksHtml(x, "links") + '</div>';
   }
 
   function makeIcon(x) {
@@ -629,13 +850,13 @@
       return L.divIcon({
         className: "",
         html: '<div class="fpin' + (x.ausserhalb ? ' out' : '') + (x.initiativ ? ' ini' : '') + '" style="--c:' + color(x) + '"></div>',
-        iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8]
+        iconSize: [14, 14], iconAnchor: [7, 7], popupAnchor: [0, -8]
       });
     }
     return L.divIcon({
       className: "",
       html: '<div class="pin' + (x.top ? " top" : "") + '" style="--c:' + color(x) + '"><span>' + x.n + '</span></div>',
-      iconSize: [28, 28], iconAnchor: [14, 28], popupAnchor: [0, -26]
+      iconSize: [28, 28], iconAnchor: [14, 34], popupAnchor: [0, -32]
     });
   }
 
@@ -647,41 +868,104 @@
     probe.remove();
     return ok;
   }
+  function isDark() {
+    var t = document.documentElement.getAttribute("data-theme");
+    if (t) return t === "dark";
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  var tiles = null;
+  function setTiles() {
+    if (!map) return;
+    document.querySelector(".map-wrap").classList.toggle("dark-tiles", isDark());
+    if (tiles) return;
+    tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'
+    }).addTo(map);
+  }
   function initMap() {
     if (typeof L === "undefined" || !leafletStylesLoaded()) {
       noMap = true;
       document.querySelector(".app").classList.add("nomap");
       return;
     }
-    map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([48.2, 9.5], 7);
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'
-    }).addTo(map);
+    map = L.map("map", { zoomControl: false, scrollWheelZoom: true, zoomSnap: 0.5 }).setView([48.2, 9.5], 7);
+    L.control.zoom({ position: "topright", zoomInTitle: "Hineinzoomen", zoomOutTitle: "Herauszoomen" }).addTo(map);
+    setTiles();
+    if (window.matchMedia) {
+      var mq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (mq.addEventListener) mq.addEventListener("change", setTiles);
+    }
 
     L.marker([HOME.lat, HOME.lng], {
-      icon: L.divIcon({ className: "", html: '<div class="home"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }),
-      zIndexOffset: -100
-    }).addTo(map).bindTooltip(HOME.name, { direction: "top", offset: [0, -8] });
+      icon: L.divIcon({ className: "", html: '<div class="home"></div>', iconSize: [14, 14], iconAnchor: [7, 7] }),
+      zIndexOffset: 1000, keyboard: false
+    }).addTo(map).bindTooltip(HOME.name, { direction: "top", offset: [0, -8], className: "home-label" });
 
-    layer = L.layerGroup().addTo(map);
+    clustered = typeof L.markerClusterGroup === "function";
+    layer = clustered ? L.markerClusterGroup({
+      maxClusterRadius: 52,
+      disableClusteringAtZoom: 12,
+      showCoverageOnHover: false,
+      spiderfyOnMaxZoom: true,
+      iconCreateFunction: function (cl) {
+        var ms = cl.getAllChildMarkers();
+        var jobs = 0, top = false;
+        ms.forEach(function (m) { if (m.options.kind === "job") jobs++; if (m.options.top) top = true; });
+        var cls = "cl" + (jobs ? "" : " firms-only");
+        var n = cl.getChildCount();
+        var size = n < 10 ? 34 : (n < 50 ? 40 : 46);
+        return L.divIcon({
+          className: "",
+          html: '<div class="' + cls + '" style="width:' + size + 'px;height:' + size + 'px" title="' + jobs + ' Stellen, ' + (n - jobs) + ' Firmen">' + n + '</div>',
+          iconSize: [size, size]
+        });
+      }
+    }).addTo(map) : L.layerGroup().addTo(map);
+
+    // Einträge mit identischer Ortsmitte leicht auffächern, damit kein Pin einen anderen verdeckt
+    var seen = {};
+    ITEMS.forEach(function (x) {
+      var key = x.lat.toFixed(3) + "," + x.lng.toFixed(3);
+      var k = seen[key] = (seen[key] || 0) + 1;
+      x.mlat = x.lat; x.mlng = x.lng;
+      if (k > 1) {
+        var a = (k - 1) * 2.399963, r = 0.0075 * Math.sqrt(k - 1);
+        x.mlat = x.lat + r * Math.sin(a);
+        x.mlng = x.lng + r * Math.cos(a) / Math.cos(x.lat * Math.PI / 180);
+      }
+    });
     ITEMS.forEach(function (x) {
       var z = x.type === "firm" ? -50 : (x.top ? 500 : 100);
-      var m = L.marker([x.lat, x.lng], { icon: makeIcon(x), zIndexOffset: z, title: x.type === "firm" ? x.firma : x.firma + " – " + x.titel });
-      m.bindPopup(popupHtml(x), { maxWidth: 320 });
+      var m = L.marker([x.mlat, x.mlng], {
+        icon: makeIcon(x), zIndexOffset: z, kind: x.type, top: !!x.top,
+        title: x.type === "firm" ? x.firma : x.firma + ": " + x.titel
+      });
+      m.bindPopup(popupHtml(x), { maxWidth: 340, minWidth: 260, autoPanPadding: [40, 40] });
       m.on("click", function () { setActive(x.id, true); });
       markers[x.id] = m;
+    });
+
+    var lg = document.getElementById("legend");
+    document.getElementById("legendToggle").addEventListener("click", function () {
+      var open = lg.classList.toggle("open");
+      this.setAttribute("aria-expanded", open ? "true" : "false");
     });
   }
 
   function syncMarkers(items, fit) {
     if (!map) return;
     layer.clearLayers();
-    items.forEach(function (x) { layer.addLayer(markers[x.id]); });
+    var ms = items.map(function (x) { return markers[x.id]; });
+    if (clustered) layer.addLayers(ms); else ms.forEach(function (m) { layer.addLayer(m); });
     if (fit && items.length) {
-      var pts = items.map(function (x) { return [x.lat, x.lng]; });
+      // Ausreißer außerhalb der Zielregion ziehen die Karte sonst auf ganz Europa auf
+      var inside = items.filter(function (x) { return !x.ausserhalb; });
+      var base = inside.length && state.land !== "out" ? inside : items;
+      var pts = base.map(function (x) { return [x.lat, x.lng]; });
       pts.push([HOME.lat, HOME.lng]);
-      map.fitBounds(L.latLngBounds(pts), { padding: [40, 40], maxZoom: 10 });
+      var wide = window.matchMedia("(min-width: 861px)").matches;
+      map.fitBounds(L.latLngBounds(pts), { paddingTopLeft: wide ? [250, 40] : [24, 56], paddingBottomRight: wide ? [60, 40] : [24, 24], maxZoom: 10 });
     }
   }
 
@@ -703,22 +987,30 @@
     }
     setActive(id, false);
     if (!map) return;
-    if (window.matchMedia("(max-width: 820px)").matches) window.scrollTo({ top: 0, behavior: "smooth" });
-    map.flyTo([x.lat, x.lng], Math.max(map.getZoom(), 11), { duration: 0.6 });
-    markers[id].openPopup();
+    if (window.matchMedia("(max-width: 860px)").matches) window.scrollTo({ top: 0, behavior: "smooth" });
+    var m = markers[id];
+    map.flyTo([x.mlat, x.mlng], Math.max(map.getZoom(), 12), { duration: 0.6 });
+    map.once("moveend", function () {
+      if (clustered && layer.hasLayer(m)) layer.zoomToShowLayer(m, function () { m.openPopup(); });
+      else m.openPopup();
+    });
   }
 
   function update(fit) {
-    var items = ITEMS.filter(visible);
+    var items = sortItems(ITEMS.filter(visible));
     renderFilters();
     renderList(items);
     syncMarkers(items, fit);
   }
 
+  var qTimer = null;
   document.getElementById("q").addEventListener("input", function (e) {
-    state.q = e.target.value.trim().toLowerCase();
-    update(true);
+    var v = e.target.value.trim().toLowerCase();
+    clearTimeout(qTimer);
+    qTimer = setTimeout(function () { state.q = v; update(true); }, 150);
   });
+  document.getElementById("sort").addEventListener("change", function (e) { state.sort = e.target.value; update(false); });
+  if (window.matchMedia && window.matchMedia("(max-width: 860px)").matches) document.getElementById("filters").open = false;
 
   initMap();
   renderProfil();
