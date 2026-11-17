@@ -367,6 +367,10 @@
           <div class="row" id="felder" aria-label="Jobbereich"></div>
         </div>
         <div class="fgroup">
+          <div class="flabel">Thema <span class="hint">Stichwortfilter</span></div>
+          <div class="row" id="themen" aria-label="Thema"></div>
+        </div>
+        <div class="fgroup">
           <div class="flabel">Erfahrung</div>
           <div class="row" id="erf" aria-label="Erfahrung"></div>
         </div>
@@ -475,9 +479,21 @@
   var VIEW_KEY = "stellenkarte-nur-offen-v1";
   var applied = loadApplied();
 
+  // Themenfilter: Stichwortsuche über Titel, Passung und Hinweis. Steht im Template,
+  // nicht in data.json, und bleibt deshalb beim automatischen Neuaufbau erhalten.
+  var THEMEN = [{
+    id: "ki",
+    label: "KI & Datenanalyse",
+    re: /(\bki\b|k\.\s?i\.|k\u00fcnstliche[rn]? intelligenz|artificial intelligen|machine learning|maschinelle[sn]? lernen|deep learning|neuronale[sn]? netz|\bml\b|\bai\b|mlops|data scien|datenanalyse|bildanalyse|computer vision|sprachmodell|\bllm\b|\bnlp\b)/i
+  }];
+  function themaText(x) {
+    return [x.firma, x.titel, x.passung, x.hinweis, x.bereich, x.befund, x.initiativ, felderText(x)].join(" ");
+  }
+
   function allOn(obj) { return Object.keys(obj).reduce(function (o, k) { o[k] = true; return o; }, {}); }
   var state = {
     q: "",
+    thema: null,
     felder: allOn(FELDER),
     branchen: allOn(BRANCHEN),
     erf: "alle",
@@ -546,12 +562,14 @@
       if (!(x.type === "firm" && x.initiativ)) return false;
       if (state.land !== "alle" && state.land !== "out" && x.land !== state.land) return false;
       if (!state.branchen[x.branche]) return false;
+      if (state.thema && !state.thema.re.test(themaText(x))) return false;
       if (state.q) { var h2 = [x.firma, x.ort, x.bereich, x.befund, x.initiativ].join(" ").toLowerCase(); if (h2.indexOf(state.q) === -1) return false; }
       return true;
     }
     if (state.onlyOpen && x.status !== "offen") return false;
     if (!state.onlyOpen && state.status !== "alle" && x.status !== state.status) return false;
     if (!state.branchen[x.branche]) return false;
+    if (state.thema && !state.thema.re.test(themaText(x))) return false;
     if (x.type === "job") {
       if (!x.felder.some(function (f) { return state.felder[f]; })) return false;
       if (state.erf === "ohne" && x.erfahrung === "erfahrung") return false;
@@ -586,6 +604,7 @@
   function activeFilterCount() {
     var n = 0;
     if (state.q) n++;
+    if (state.thema) n++;
     if (!allSelected(state.felder)) n++;
     if (state.erf !== "alle") n++;
     if (state.land !== "alle") n++;
@@ -597,7 +616,7 @@
   function resetFilters() {
     state.q = ""; document.getElementById("q").value = "";
     state.felder = allOn(FELDER); state.branchen = allOn(BRANCHEN);
-    state.erf = "alle"; state.land = "alle"; state.status = "alle"; state.topOnly = false;
+    state.erf = "alle"; state.land = "alle"; state.status = "alle"; state.topOnly = false; state.thema = null;
     update(true);
   }
 
@@ -655,6 +674,18 @@
     });
     document.getElementById("felderAll").hidden = allSelected(state.felder);
     felder.classList.toggle("disabled", state.iniOnly);
+
+    var themen = document.getElementById("themen");
+    if (themen) {
+      themen.innerHTML = "";
+      themen.appendChild(chip("Alle Themen", !state.thema, function () { state.thema = null; update(true); }, { seg: true }));
+      THEMEN.forEach(function (th) {
+        var nTh = ITEMS.filter(function (x) { return th.re.test(themaText(x)); }).length;
+        themen.appendChild(chip(th.label, state.thema === th, function () {
+          state.thema = (state.thema === th) ? null : th; update(true);
+        }, { seg: true, n: nTh }));
+      });
+    }
 
     var erf = document.getElementById("erf");
     erf.innerHTML = "";

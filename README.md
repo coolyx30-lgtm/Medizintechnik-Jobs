@@ -8,6 +8,7 @@
 - KI und der Jobmarkt in der Medizintechnik (Studienlage, Berufseinstieg, Regulatorik, Resilienz, KI in Bewerbung und Job): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/ki/
 - Beratungsangebote (Career Service, Agentur für Arbeit, Fachverbände, Messen): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/beratung/
 - Reflexion & Profil (Leitfragen und Job Matching): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/reflexion/
+- Normen und Regulatorik (MDR, IVDR, KI-Verordnung, ISO- und IEC-Kernnormen, Karteikarten-Trainer): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/normen/
 - Interviewtraining (Checkliste, typische Fragen, Videos, Fragen-Trainer und Quiz): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/interview/
 - Bewerbungs-Tracker (Daten nur im eigenen Browser): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/tracker/
 - Zielstädte (Mieten, Sonnenstunden, Nahverkehr, Street View, Stadtbilder): https://coolyx30-lgtm.github.io/Medizintechnik-Jobs/staedte/

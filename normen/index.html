@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="de">
+<head>
+<script>(function(){try{var t=localStorage.getItem("mtj-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Normen und Regulatorik: Lernblatt Medizintechnik</title>
+<meta name="description" content="Lernblatt: MDR, IVDR, KI-Verordnung und die wichtigsten Normen der Medizintechnik – ISO 13485, ISO 14971, IEC 62304, IEC 60601-1, IEC 62366-1, ISO 10993, ISO 14155, IEC 81001-5-1, ISO/IEC 42001 – mit Kernsätzen, Zahlen und Karteikarten-Trainer. Stand November 2026.">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:32px 16px 64px}
+header.top{padding-bottom:14px;margin-bottom:22px}
+h1{font-size:32px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+.lead{color:var(--ink2);margin:0}
+h2{font-size:23px;margin:40px 0 10px;letter-spacing:-.01em;scroll-margin-top:16px}
+h2 .n{color:var(--accent);margin-right:6px}
+h3{font-size:17px;margin:24px 0 6px}
+p{margin:8px 0}
+.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:18px 0}
+.toc ol{margin:6px 0 0;padding-left:20px;columns:2;column-gap:28px}
+.toc li{margin:2px 0;break-inside:avoid}
+.key{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 18px;margin:16px 0}
+.key ul{margin:6px 0;padding-left:20px}
+.key li{margin:6px 0}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:14px;margin:14px 0}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.box h3{margin-top:0}
+.box ul{padding-left:18px;margin:6px 0}
+.box li{margin:5px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:14.5px;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--chip);font-size:13px;color:var(--ink2)}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+.tblwrap{overflow-x:auto}
+.src{font-size:13px;color:var(--ink2);margin:4px 0 14px}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:12px 0}
+.warn{background:var(--coral-soft);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:14.5px}
+code{font-family:var(--mono,monospace);font-size:13.5px;background:var(--chip);border-radius:5px;padding:1px 5px}
+.norm{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+.norm h3{margin:0 0 2px;font-size:17px}
+.norm .ausgabe{font-size:12.5px;color:var(--ink3);font-family:var(--mono,monospace)}
+.norm dl{display:grid;grid-template-columns:132px minmax(0,1fr);gap:4px 14px;margin:10px 0 0;font-size:14.5px}
+.norm dt{color:var(--ink3);font-size:13px;padding-top:2px}
+.norm dd{margin:0}
+.merk{display:inline-block;background:var(--accent-soft,var(--chip));color:var(--ink);border-radius:8px;padding:2px 8px;font-size:13.5px;font-weight:500}
+ul.plain{padding-left:20px}
+ul.plain li{margin:6px 0}
+/* Karteikarten */
+.trainer{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.tbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.tbar select,.tbar button{font:inherit;font-size:14px;padding:6px 12px;border-radius:9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.tbar .stat{font-size:13.5px;color:var(--ink3);margin-left:auto;font-variant-numeric:tabular-nums}
+.karte{border:1px solid var(--line);border-radius:12px;padding:22px 20px;min-height:190px;display:flex;flex-direction:column;justify-content:center;gap:10px;background:var(--chip);cursor:pointer}
+.karte .q{font-size:19px;font-weight:600;line-height:1.35}
+.karte .a{font-size:15.5px;color:var(--ink2);border-top:1px dashed var(--line);padding-top:10px}
+.karte .hintflip{font-size:13px;color:var(--ink3)}
+.kbtns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.kbtns button{font:inherit;font-size:14px;padding:8px 14px;border-radius:9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.kbtns .ok{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.progress{height:6px;border-radius:3px;background:var(--chip);margin-top:12px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s ease}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+.sources li{margin:3px 0;font-size:14px;word-break:break-word}
+@media (max-width:700px){h1{font-size:26px}.toc ol{columns:1}.norm dl{grid-template-columns:1fr;gap:2px}.norm dt{margin-top:8px}}
+@media print{
+  @page{size:A4;margin:14mm 12mm}
+  body{background:#fff;font-size:10pt;line-height:1.4}
+  .wrap{max-width:none;padding:0}
+  h1{font-size:20pt}h2{font-size:14pt;margin-top:18px;break-after:avoid}h3{font-size:11.5pt;break-after:avoid}
+  table,.key,.box,.norm,.split{break-inside:avoid}
+  .tblwrap{overflow:visible}table{font-size:8.4pt}th,td{padding:3px 5px}
+  .trainer,.noprint{display:none}
+}
+</style>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="../menu.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Übersicht aller Seiten</a>
+  <h1>Normen und Regulatorik</h1>
+  <p class="lead">Das Lernblatt: welche Verordnungen und Normen in der Medizintechnik wirklich zählen, was jede einzelne regelt, welche Zahlen man im Kopf haben sollte und welche Fragen daraus im Vorstellungsgespräch werden. Mit Karteikarten-Trainer und druckbarer Fassung. Stand: November 2026.</p>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <b>Inhalt</b>
+  <ol>
+    <li><a href="#system">Wie das System zusammenhängt</a></li>
+    <li><a href="#gesetze">Die Verordnungen</a></li>
+    <li><a href="#kern">Die acht Kernnormen</a></li>
+    <li><a href="#software">Software, Cybersecurity und KI</a></li>
+    <li><a href="#weitere">Je nach Produkt: weitere Normen</a></li>
+    <li><a href="#zahlen">Zahlen und Listen zum Auswendiglernen</a></li>
+    <li><a href="#trainer">Karteikarten-Trainer</a></li>
+    <li><a href="#fragen">Typische Fragen im Gespräch</a></li>
+    <li><a href="#quellen">Quellen</a></li>
+  </ol>
+</nav>
+
+<section id="system">
+<h2><span class="n">1</span>Wie das System zusammenhängt</h2>
+<p>Der häufigste Anfängerfehler im Gespräch ist, Gesetz und Norm in einen Topf zu werfen. Die Hierarchie in drei Sätzen:</p>
+<div class="key">
+<ul>
+  <li><b>Gesetze und Verordnungen sind verbindlich.</b> MDR, IVDR und die KI-Verordnung gelten unmittelbar in der ganzen EU. Sie sagen <i>was</i> erreicht werden muss, nicht <i>wie</i>.</li>
+  <li><b>Normen sind freiwillig – aber faktisch Pflicht.</b> Sie beschreiben den Stand der Technik und damit das <i>Wie</i>. Wer eine <b>harmonisierte</b> Norm anwendet (im Amtsblatt der EU gelistet), genießt <b>Vermutungswirkung</b>: Es wird vermutet, dass die davon abgedeckten Anforderungen der Verordnung erfüllt sind. Wer abweicht, muss die Gleichwertigkeit selbst begründen.</li>
+  <li><b>Leitlinien sind Auslegung.</b> MDCG-Dokumente der EU-Koordinierungsgruppe, MDR-Guidances und FDA-Guidances sind nicht bindend, aber jede Benannte Stelle prüft danach.</li>
+</ul>
+</div>
+<p>Dazu die Rollen: Der <b>Hersteller</b> trägt die Verantwortung und braucht nach Art. 15 MDR eine <b>PRRC</b> (Person responsible for regulatory compliance). Die <b>Benannte Stelle</b> (z. B. TÜV SÜD, DEKRA, BSI) ist eine private, staatlich benannte Prüforganisation und zertifiziert QM-System und Produkt – sie ist keine Behörde. Die <b>zuständige Behörde</b> ist in Deutschland das BfArM beziehungsweise die Landesbehörde; das <b>MPDG</b> setzt MDR und IVDR national um.</p>
+<div class="note"><b>Merksatz fürs Gespräch:</b> „Die MDR sagt, was ich nachweisen muss. Die harmonisierte Norm sagt, wie ich es nachweisen kann, und verschafft mir Vermutungswirkung. Die MDCG-Leitlinie sagt, wie die Benannte Stelle es lesen wird.“</div>
+</section>
+
+<section id="gesetze">
+<h2><span class="n">2</span>Die Verordnungen</h2>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Regelwerk</th><th>Gilt für</th><th>Was man wissen muss</th></tr></thead>
+<tbody>
+<tr><td><b>MDR</b><br>(EU) 2017/745<br><span class="ausgabe">seit 26.5.2021</span></td><td>Medizinprodukte</td><td>Klassen <b>I, IIa, IIb, III</b> nach Anhang VIII (22 Regeln). Kernartikel: <b>Art. 10</b> Herstellerpflichten, <b>Art. 15</b> PRRC, <b>Art. 61</b> klinische Bewertung, <b>Art. 83–86</b> Überwachung nach dem Inverkehrbringen und PSUR, <b>Art. 87–92</b> Vigilanz, <b>Art. 120</b> Übergangsfristen. Anhang I = grundlegende Sicherheits- und Leistungsanforderungen (GSPR), Anhang II/III = technische Dokumentation, Anhang XIV = klinische Bewertung und PMCF.</td></tr>
+<tr><td><b>IVDR</b><br>(EU) 2017/746<br><span class="ausgabe">seit 26.5.2022</span></td><td>In-vitro-Diagnostika</td><td>Klassen <b>A, B, C, D</b> (A niedrigstes, D höchstes Risiko) nach Anhang VIII, sieben Regeln. Statt klinischer Bewertung die <b>Leistungsbewertung</b> aus drei Säulen: wissenschaftliche Validität, analytische Leistung, klinische Leistung. Rund 80 % der IVD brauchen jetzt eine Benannte Stelle, früher waren es etwa 20 %.</td></tr>
+<tr><td><b>KI-Verordnung</b><br>(EU) 2024/1689<br><span class="ausgabe">geändert durch (EU) 2026/1744</span></td><td>KI-Systeme, auch in Medizinprodukten</td><td>Rollenmodell: <b>Anbieter</b>, <b>Betreiber</b>, Importeur, Händler. Vier Risikostufen. KI in Medizinprodukten mit Benannter Stelle ist <b>Hochrisiko nach Anhang I</b>. Pflichten: Art. 9 Risikomanagement, Art. 10 Daten-Governance, Art. 11 und Anhang IV technische Dokumentation, Art. 12 Logging, Art. 13 Transparenz, Art. 14 menschliche Aufsicht, Art. 15 Genauigkeit und Robustheit, Art. 17 QM-System.</td></tr>
+<tr><td><b>MPDG</b><br><span class="ausgabe">seit 26.5.2021</span></td><td>Deutschland</td><td>Nationales Durchführungsgesetz zu MDR und IVDR; löste das MPG ab. Regelt Zuständigkeiten, Sprache, Ethikkommissionen, Straf- und Bußgeldvorschriften. Für Betreiber gilt zusätzlich die <b>MPBetreibV</b>.</td></tr>
+<tr><td><b>DSGVO</b> und <b>EHDS</b></td><td>Gesundheitsdaten</td><td>Gesundheitsdaten sind besondere Kategorien nach Art. 9 DSGVO. Der European Health Data Space regelt ab 2026 schrittweise die Primär- und Sekundärnutzung – für KI-Training die entscheidende Rechtsgrundlagenfrage.</td></tr>
+<tr><td><b>StrlSchG / StrlSchV</b></td><td>Röntgen, Nuklearmedizin, Strahlentherapie</td><td>Fachkunde, Rechtfertigung, Dosisgrenzwerte, Qualitätssicherung. Relevant für Hersteller und Betreiber bildgebender und therapeutischer Anlagen; in der Dosimetrie ergänzt durch <b>DIN 6800-2</b>.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="warn"><b>Übergangsfristen MDR (Art. 120 in der Fassung der Verordnung (EU) 2023/607), die man kennen sollte:</b> Klasse III und implantierbare Klasse IIb grundsätzlich bis <b>31.12.2027</b>; übrige Klasse IIb, Klasse IIa und aufsteigende Klasse-I-Produkte bis <b>31.12.2028</b>. IVDR: Klasse D bis 31.12.2027, Klasse C bis 31.12.2028, Klasse B und sterile Klasse A bis 31.12.2029.</div>
+</section>
+
+<section id="kern">
+<h2><span class="n">3</span>Die acht Kernnormen</h2>
+<p>Diese acht decken den größten Teil ab. Für jede gilt: Nummer, Titel, Kernsatz und zwei, drei Begriffe – mehr wird im Erstgespräch selten verlangt, und weniger reicht nicht.</p>
+
+<div class="norm">
+<h3>ISO 13485 – Qualitätsmanagementsystem</h3>
+<div class="ausgabe">ISO 13485:2016, für MDR-Produkte EN ISO 13485:2016/A11:2021</div>
+<dl>
+<dt>Kernsatz</dt><dd>Anforderungen an ein QM-System für Medizinprodukte über den gesamten Lebenszyklus – prozessorientiert, risikobasiert, mit Nachweispflicht.</dd>
+<dt>Struktur</dt><dd>Kapitel 4 QM-System, 5 Verantwortung der Leitung, 6 Ressourcen, 7 Produktrealisierung (darin <b>7.3 Entwicklung</b> mit Design Input, Output, Review, Verifizierung, Validierung, Transfer, Änderungen, Design History File), 8 Messung, Analyse, Verbesserung (<b>CAPA</b> 8.5.2 und 8.5.3).</dd>
+<dt>Begriffe</dt><dd>Design Control, Lenkung von Dokumenten und Aufzeichnungen, Lieferantenbewertung, Prozessvalidierung, Rückverfolgbarkeit, CAPA, interne Audits.</dd>
+<dt>Beachten</dt><dd>Die FDA hat ihre Quality System Regulation ersetzt: Seit <b>2. Februar 2026</b> verweist die <b>QMSR</b> (21 CFR Part 820) direkt auf ISO 13485:2016.</dd>
+</dl>
+</div>
+
+<div class="norm">
+<h3>ISO 14971 – Risikomanagement</h3>
+<div class="ausgabe">ISO 14971:2019, Leitfaden ISO/TR 24971:2020, für ML neu ISO/TS 24971-2:2026</div>
+<dl>
+<dt>Kernsatz</dt><dd>Prozess zur Identifikation von Gefährdungen, Abschätzung und Bewertung von Risiken, Beherrschung und Überwachung – über den gesamten Lebenszyklus.</dd>
+<dt>Reihenfolge der Risikobeherrschung</dt><dd><span class="merk">1. sichere Konstruktion → 2. Schutzmaßnahmen → 3. Information für die Sicherheit</span> Diese Rangfolge wird gern abgefragt. Information allein ist nie die erste Antwort.</dd>
+<dt>Begriffe</dt><dd>Gefährdung, Gefährdungssituation, Schaden, Schweregrad, Wahrscheinlichkeit, Risikoakzeptanzkriterien, Nutzen-Risiko-Abwägung, Gesamt-Restrisiko, Risikomanagementakte und -bericht, Produktions- und Post-Production-Information (Kapitel 10).</dd>
+<dt>Beachten</dt><dd>ISO 14971:2019 kennt <b>kein ALARP</b> mehr; die MDR verlangt Risikominderung „so weit wie möglich“ (AFAP), ohne Kostenabwägung.</dd>
+</dl>
+</div>
+
+<div class="norm">
+<h3>IEC 62304 – Software-Lebenszyklus</h3>
+<div class="ausgabe">IEC 62304:2006 + A1:2015</div>
+<dl>
+<dt>Kernsatz</dt><dd>Lebenszyklusprozesse für Medizinproduktesoftware – was zu planen, zu spezifizieren, zu testen und zu pflegen ist, abhängig von der Sicherheitsklasse.</dd>
+<dt>Sicherheitsklassen</dt><dd><span class="merk">A: keine Verletzung möglich · B: Verletzung möglich, nicht schwer · C: Tod oder schwere Verletzung möglich</span></dd>
+<dt>Prozesse</dt><dd>5 Entwicklung (Planung, Anforderungen, Architektur ab B, detaillierter Entwurf ab C, Implementierung und Unit-Verifikation, Integration, Systemtest, Freigabe), 6 Wartung, 7 Risikomanagement, 8 Konfigurationsmanagement, 9 Problemlösung.</dd>
+<dt>Begriffe</dt><dd><b>SOUP</b> (Software of Unknown Provenance) – fremde Bibliotheken müssen identifiziert, versioniert, auf Anomalien bewertet und überwacht werden. Dazu Softwaresystem, Softwareelement, Softwareeinheit.</dd>
+</dl>
+</div>
+
+<div class="norm">
+<h3>IEC 60601-1 – Elektrische Sicherheit</h3>
+<div class="ausgabe">IEC 60601-1:2005 + A1:2012 + A2:2020 (Ausgabe 3.2), national DIN EN 60601-1 (VDE 0750-1):2022-11</div>
+<dl>
+<dt>Kernsatz</dt><dd>Basissicherheit und wesentliche Leistungsmerkmale medizinischer elektrischer Geräte – Schutz von Patient, Anwender und Umgebung.</dd>
+<dt>Begriffe</dt><dd><b>MOOP</b> (Means of Operator Protection) und <b>MOPP</b> (Means of Patient Protection), <b>Essential Performance</b>, <b>Single Fault Condition</b>, Ableitströme, Anwendungsteile Typ <b>B / BF / CF</b> (CF = cardiac floating, direkter Herzkontakt), Schutzklassen.</dd>
+<dt>Ergänzungsnormen</dt><dd>-1-2 <b>EMV</b>, -1-6 Gebrauchstauglichkeit, -1-8 Alarmsysteme, -1-9 Umweltverträglichkeit, -1-11 häusliche Umgebung, -1-12 Rettungsdienst. Dazu Teilnormen je Gerätetyp, etwa -2-1 für Elektronenbeschleuniger oder -2-44 für CT.</dd>
+</dl>
+</div>
+
+<div class="norm">
+<h3>IEC 62366-1 – Gebrauchstauglichkeit</h3>
+<div class="ausgabe">IEC 62366-1:2015 + A1:2020</div>
+<dl>
+<dt>Kernsatz</dt><dd>Usability Engineering als Prozess zur Minimierung von Anwendungsfehlern – nicht Komfort, sondern Sicherheit.</dd>
+<dt>Begriffe</dt><dd>Use Specification, primäre Bedienfunktionen, gefährdungsbezogene Anwendungsszenarien, <b>formative</b> Evaluation (während der Entwicklung) und <b>summative</b> Evaluation (Validierung am Ende), Use Error gegenüber Abnormal Use.</dd>
+<dt>Verbindung</dt><dd>Hängt direkt an ISO 14971: Anwendungsfehler sind Gefährdungsursachen. Die Usability-Akte ist Teil der technischen Dokumentation.</dd>
+</dl>
+</div>
+
+<div class="norm">
+<h3>ISO 10993 – Biologische Beurteilung</h3>
+<div class="ausgabe">Reihe, Teil 1 neu ISO 10993-1:2025</div>
+<dl>
+<dt>Kernsatz</dt><dd>Biologische Sicherheit im Rahmen des Risikomanagements bewerten – erst Bewertung vorhandener Daten, dann Prüfungen, wenn Lücken bleiben.</dd>
+<dt>Einteilung</dt><dd>Nach Art des Körperkontakts (Oberfläche, extern kommunizierend, implantierbar) und Dauer: <span class="merk">≤ 24 h · > 24 h bis 30 d · > 30 d</span></dd>
+<dt>Wichtige Teile</dt><dd>-1 Beurteilung und Prüfungen im Risikomanagementprozess, -5 Zytotoxizität, -10 Sensibilisierung und Irritation, -11 systemische Toxizität, -12 Probenvorbereitung, -17 toxikologische Risikobewertung, -18 chemische Charakterisierung.</dd>
+</dl>
+</div>
+
+<div class="norm">
+<h3>ISO 14155 – Klinische Prüfungen</h3>
+<div class="ausgabe">ISO 14155:2020</div>
+<dl>
+<dt>Kernsatz</dt><dd>Gute klinische Praxis (GCP) für klinische Prüfungen mit Medizinprodukten am Menschen: Planung, Durchführung, Dokumentation, Berichterstattung.</dd>
+<dt>Begriffe</dt><dd>Prüfplan, Prüferinformation, Ethikkommission, Einwilligung nach Aufklärung, Monitoring, <b>SAE</b> und <b>ADE/SADE</b>, Datenintegrität, Abschlussbericht.</dd>
+<dt>Verbindung</dt><dd>Art. 62 ff. MDR regeln die klinische Prüfung, Art. 61 und Anhang XIV die klinische Bewertung samt <b>PMCF</b>. Für IVD gilt stattdessen die Leistungsstudie.</dd>
+</dl>
+</div>
+
+<div class="norm">
+<h3>ISO 15223-1 und ISO 20417 – Kennzeichnung</h3>
+<div class="ausgabe">ISO 15223-1:2021, ISO 20417:2026</div>
+<dl>
+<dt>Kernsatz</dt><dd>15223-1 definiert die <b>Symbole</b> auf Verpackung und Gebrauchsanweisung, 20417 legt fest, <b>welche Informationen</b> der Hersteller bereitstellen muss.</dd>
+<dt>Begriffe</dt><dd>UDI-DI und UDI-PI, Basis-UDI-DI, MD- und IVD-Symbol, Chargenbezeichnung, Herstellungsdatum, Verwendbarkeitsdatum, elektronische Gebrauchsanweisung (eIFU).</dd>
+<dt>Warum relevant</dt><dd>Anhang I Kapitel III MDR verlangt diese Angaben; Kennzeichnungsfehler sind ein häufiger Auditbefund und ein klassischer Rückrufgrund.</dd>
+</dl>
+</div>
+</section>
+
+<section id="software">
+<h2><span class="n">4</span>Software, Cybersecurity und KI</h2>
+<p>Der Teil, der gerade am schnellsten wächst – und bei dem Berufseinsteiger:innen am ehesten punkten können, weil es kaum Erfahrene gibt.</p>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Norm oder Regelwerk</th><th>Regelt</th><th>Kernbegriffe</th></tr></thead>
+<tbody>
+<tr><td><b>IEC 82304-1</b>:2016</td><td>Gesundheitssoftware als eigenständiges Produkt, ohne eigene Hardware</td><td>Produktanforderungen, Validierung, Begleitinformation, Wartung über die Lebensdauer</td></tr>
+<tr><td><b>IEC 81001-5-1</b>:2021</td><td>Cybersecurity im Software-Lebenszyklus von Gesundheitssoftware</td><td>Threat Modeling, <b>SBOM</b>, Schwachstellen- und Patchmanagement, Secure Coding, Security-Risikoanalyse ergänzend zu ISO 14971</td></tr>
+<tr><td><b>MDCG 2019-16</b></td><td>Leitlinie zur Cybersicherheit von Medizinprodukten</td><td>Security by Design, IT-Umgebung, Mindestanforderungen in der Gebrauchsanweisung</td></tr>
+<tr><td><b>ISO/IEC 42001</b><br><span class="ausgabe">:2023, deutsche Fassung DIN EN ISO/IEC 42001:2026-08</span></td><td>KI-Managementsystem (AIMS) – erste zertifizierbare KI-Norm</td><td>KI-Politik, Rollen, <b>AI Impact Assessment</b>, Lebenszyklus, Daten-Governance, Transparenz, Lieferantenmanagement (Anhang A)</td></tr>
+<tr><td><b>ISO/TS 24971-2</b>:2026</td><td>Anwendung von ISO 14971 auf <b>maschinelles Lernen</b></td><td>ML-spezifische Gefährdungen, Datenrepräsentativität, Drift, Generalisierung</td></tr>
+<tr><td><b>ISO/IEC 23894</b>:2023</td><td>Risikomanagement für KI allgemein</td><td>Ergänzt ISO 31000 um KI-Risiken; nützlich als Vokabular, nicht als Nachweis</td></tr>
+<tr><td><b>KI-Verordnung</b> Art. 9–15</td><td>Hochrisiko-Pflichten</td><td>Risikomanagement, Daten-Governance und Bias, technische Dokumentation, Logging, Transparenz, <b>menschliche Aufsicht</b>, Genauigkeit und Robustheit</td></tr>
+<tr><td><b>EU-GMP Annex 11 / Annex 22</b></td><td>Computergestützte Systeme in der Arzneimittelherstellung; Annex 22 speziell KI</td><td>Annex 22 ist <b>Entwurf</b> (Konsultation Juli bis Oktober 2025), noch nicht in Kraft: statische Modelle in kritischen Anwendungen, generative KI dort ausgeschlossen. Relevant für Zell- und Gentherapie-Produktion.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note"><b>Die Frage, die Interviewer gern stellen:</b> „Wie passen MDR und KI-Verordnung zusammen?“ Richtige Antwort in zwei Sätzen: Die KI-Verordnung ersetzt die MDR nicht, sondern gilt zusätzlich; für KI in Medizinprodukten mit Benannter Stelle läuft die Konformitätsbewertung über die MDR-Route und nimmt die KI-Anforderungen auf. Die technische Dokumentation wird integriert geführt, nicht doppelt – so empfiehlt es auch die MDCG-Guidance.</div>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Software-Klassifizierung nach <b>MDR Regel 11</b></th><th>Klasse</th></tr></thead>
+<tbody>
+<tr><td>Software für Entscheidungen zu Diagnose oder Therapie</td><td><b>IIa</b></td></tr>
+<tr><td>… wenn solche Entscheidungen Tod oder irreversible Verschlechterung verursachen können</td><td><b>III</b></td></tr>
+<tr><td>… wenn sie schwerwiegende Verschlechterung oder chirurgischen Eingriff verursachen können</td><td><b>IIb</b></td></tr>
+<tr><td>Software zur Überwachung physiologischer Vorgänge</td><td><b>IIa</b></td></tr>
+<tr><td>… wenn Parameter überwacht werden, deren Abweichung unmittelbare Gefahr bedeutet</td><td><b>IIb</b></td></tr>
+<tr><td>Alle übrigen Fälle</td><td><b>I</b></td></tr>
+</tbody>
+</table>
+</div>
+<p class="src">Regel 11 ist die meistzitierte Klassifizierungsregel überhaupt, weil sie fast jede klinische Software mindestens in Klasse IIa hebt – und damit eine Benannte Stelle erforderlich macht.</p>
+</section>
+
+<section id="weitere">
+<h2><span class="n">5</span>Je nach Produkt: weitere Normen</h2>
+<div class="split">
+<div class="box"><h3>Sterilität und Verpackung</h3><ul>
+<li><b>ISO 11135</b> Ethylenoxid, <b>ISO 11137</b> Strahlensterilisation, <b>ISO 17665</b> Dampf</li>
+<li><b>ISO 11607-1/-2</b> Verpackungssysteme für sterile Produkte</li>
+<li><b>ISO 11737</b> Bioburden und Sterilitätsprüfung, <b>ISO 14937</b> allgemeine Anforderungen</li>
+</ul></div>
+<div class="box"><h3>Diagnostik und Labor</h3><ul>
+<li><b>ISO 15189</b> medizinische Laboratorien, <b>ISO 17025</b> Prüf- und Kalibrierlabore</li>
+<li><b>ISO 20916</b> Leistungsstudien mit IVD</li>
+<li><b>CLSI</b>-Richtlinien für analytische Validierung (EP-Reihe)</li>
+</ul></div>
+<div class="box"><h3>Strahlung und Bildgebung</h3><ul>
+<li><b>DIN 6800-2</b> Dosimetrie mit Ionisationskammern, <b>AAPM TG-51 / TG-43</b></li>
+<li><b>IEC 60601-2-1</b> Elektronenbeschleuniger, <b>-2-44</b> CT, <b>-2-33</b> MRT</li>
+<li><b>DIN 6868</b> Konstanzprüfungen, StrlSchV-Qualitätssicherung</li>
+</ul></div>
+<div class="box"><h3>Zell- und Gentherapie, Labor</h3><ul>
+<li><b>EU-GMP Leitfaden</b>, besonders Annex 1 (steril) und Annex 11 (EDV), ATMP-Leitlinien</li>
+<li><b>GLP</b> für nichtklinische Sicherheitsprüfungen</li>
+<li><b>ISO 20387</b> Biobanking, <b>USP 71/85</b> für Sterilität und Endotoxine</li>
+</ul></div>
+<div class="box"><h3>Organisation und IT</h3><ul>
+<li><b>ISO 9001</b> allgemeines QM (nicht MDR-tauglich, aber verbreitet)</li>
+<li><b>ISO/IEC 27001</b> Informationssicherheit, <b>ISO 14001</b> Umwelt</li>
+<li><b>IEC 62443</b> Security in der industriellen Automatisierung (Produktion)</li>
+</ul></div>
+<div class="box"><h3>USA und international</h3><ul>
+<li><b>21 CFR Part 820</b> – seit 2.2.2026 als <b>QMSR</b> auf ISO 13485 gestützt</li>
+<li><b>21 CFR Part 11</b> elektronische Aufzeichnungen und Signaturen</li>
+<li><b>510(k)</b>, De Novo, PMA; <b>MDSAP</b> für mehrere Märkte in einem Audit</li>
+</ul></div>
+</div>
+</section>
+
+<section id="zahlen">
+<h2><span class="n">6</span>Zahlen und Listen zum Auswendiglernen</h2>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Thema</th><th>Das merkt man sich</th></tr></thead>
+<tbody>
+<tr><td>MDR-Klassen</td><td>I (inkl. Is steril, Im Messfunktion, Ir wiederaufbereitbar), IIa, IIb, III – <b>22 Regeln</b> in Anhang VIII</td></tr>
+<tr><td>IVDR-Klassen</td><td>A, B, C, D – <b>7 Regeln</b>; D ist das höchste Risiko (z. B. HIV-Screening)</td></tr>
+<tr><td>Software-Sicherheitsklassen</td><td>IEC 62304: <b>A / B / C</b> – keine Verletzung, nicht schwere Verletzung, Tod oder schwere Verletzung</td></tr>
+<tr><td>Risikobeherrschung</td><td>ISO 14971: <b>Konstruktion → Schutzmaßnahme → Information</b>, in dieser Reihenfolge</td></tr>
+<tr><td>Vigilanzfristen MDR</td><td>schwerwiegendes Vorkommnis: <b>spätestens 15 Tage</b>; Tod oder unerwartete schwerwiegende Verschlechterung: <b>10 Tage</b>; ernste Gefahr für die öffentliche Gesundheit: <b>2 Tage</b></td></tr>
+<tr><td>Aufbewahrung</td><td>technische Dokumentation <b>10 Jahre</b> nach dem letzten Inverkehrbringen, bei implantierbaren Produkten <b>15 Jahre</b></td></tr>
+<tr><td>PSUR</td><td>Klasse IIa mindestens alle <b>2 Jahre</b>, Klasse IIb und III <b>jährlich</b></td></tr>
+<tr><td>KI-Verordnung</td><td>KI-Kompetenz und Verbote seit <b>2.2.2025</b>; Transparenz ab <b>2.8.2026</b>; Hochrisiko Anhang III ab <b>2.12.2027</b>; KI in Medizinprodukten ab <b>2.8.2028</b></td></tr>
+<tr><td>MDR-Übergang</td><td>Klasse III und implantierbare IIb bis <b>31.12.2027</b>, übrige bis <b>31.12.2028</b></td></tr>
+<tr><td>Anwendungsteile</td><td>IEC 60601-1: <b>B</b> (kein direkter Herzkontakt), <b>BF</b> (floating), <b>CF</b> (herznah, höchste Anforderung)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note">Vier Abkürzungen, die in fast jedem Gespräch fallen und die man flüssig auflösen können sollte: <b>GSPR</b> (grundlegende Sicherheits- und Leistungsanforderungen, Anhang I MDR), <b>PMS/PMCF</b> (Überwachung nach dem Inverkehrbringen und klinische Nachbeobachtung), <b>CAPA</b> (Korrektur- und Vorbeugemaßnahmen), <b>SOUP</b> (Software unbekannter Herkunft).</div>
+</section>
+
+<section id="trainer" class="noprint">
+<h2><span class="n">7</span>Karteikarten-Trainer</h2>
+<p>Karte antippen dreht sie um. „Gewusst“ legt sie beiseite, „nochmal“ schiebt sie nach hinten. Der Fortschritt bleibt nur im eigenen Browser.</p>
+<div class="trainer">
+  <div class="tbar">
+    <label for="kset" class="sr-only">Kartensatz</label>
+    <select id="kset" aria-label="Kartensatz">
+      <option value="alle">Alle Karten</option>
+      <option value="gesetz">Nur Verordnungen</option>
+      <option value="norm">Nur Normen</option>
+      <option value="ki">Nur Software und KI</option>
+      <option value="zahl">Nur Zahlen und Fristen</option>
+    </select>
+    <button type="button" id="kmix">Mischen</button>
+    <button type="button" id="kreset">Fortschritt zurücksetzen</button>
+    <span class="stat" id="kstat"></span>
+  </div>
+  <div class="karte" id="karte" role="button" tabindex="0" aria-live="polite">
+    <div class="q" id="kq">Trainer wird geladen…</div>
+    <div class="a" id="ka" hidden></div>
+    <div class="hintflip" id="kh">Antippen zum Umdrehen</div>
+  </div>
+  <div class="kbtns">
+    <button type="button" class="ok" id="kgut">Gewusst</button>
+    <button type="button" id="knoch">Nochmal</button>
+  </div>
+  <div class="progress"><i id="kbar"></i></div>
+</div>
+</section>
+
+<section id="fragen">
+<h2><span class="n">8</span>Typische Fragen im Gespräch</h2>
+<ul class="plain">
+<li><b>„Was ist der Unterschied zwischen Verifizierung und Validierung?“</b> Verifizierung: Habe ich das Produkt richtig gebaut – erfüllt es die Spezifikation? Validierung: Habe ich das richtige Produkt gebaut – erfüllt es den Verwendungszweck und die Nutzerbedürfnisse? Beispiel aus der eigenen Arbeit anfügen.</li>
+<li><b>„Erklären Sie den Risikomanagementprozess.“</b> Planung, Gefährdungen identifizieren, Risiken abschätzen und bewerten, beherrschen in der Reihenfolge Konstruktion–Schutz–Information, Restrisiko und Gesamt-Restrisiko bewerten, Nutzen-Risiko, Produktions- und Post-Production-Information zurückspielen.</li>
+<li><b>„Welche Klasse hat unsere Software und warum?“</b> Regel 11 MDR zitieren, dann die Konsequenz nennen: Klasse IIa heißt Benannte Stelle, heißt klinische Bewertung, heißt QM-System nach ISO 13485.</li>
+<li><b>„Was ist SOUP und was muss man dafür tun?“</b> Fremde Softwarebestandteile identifizieren, Version und Zweck dokumentieren, Anforderungen festlegen, bekannte Anomalien bewerten, im Feld überwachen – IEC 62304 plus Cybersecurity nach IEC 81001-5-1.</li>
+<li><b>„Wie würden Sie ein KI-Modell für ein Medizinprodukt validieren?“</b> Daten-Governance und Repräsentativität, getrennte Trainings-, Validierungs- und Testdaten, klinisch sinnvolle Metriken (Sensitivität, Spezifität, PPV/NPV, Konfidenzintervalle), Subgruppenanalysen auf Bias, Drift-Überwachung im Feld, menschliche Aufsicht, alles dokumentiert nach ISO 14971 mit ISO/TS 24971-2 und den Artikeln 9 bis 15 der KI-Verordnung.</li>
+<li><b>„Was passiert nach dem Inverkehrbringen?“</b> PMS-Plan, PMS-Bericht beziehungsweise PSUR, PMCF, Trendanalysen, Vigilanz mit den 15-, 10- und 2-Tage-Fristen, CAPA, gegebenenfalls Sicherheitskorrekturmaßnahme im Feld (FSCA) mit FSN.</li>
+</ul>
+<p class="src">Mehr Fragen samt Trainer und Quiz auf der Seite <a href="../interview/">Interviewtraining</a>; die regulatorische Einordnung von KI steht auf der Seite <a href="../ki/#regulatorik">KI und der Jobmarkt</a>.</p>
+</section>
+
+<section id="quellen">
+<h2><span class="n">9</span>Quellen</h2>
+<ol class="sources">
+<li>Verordnung (EU) 2017/745 (MDR) und Verordnung (EU) 2017/746 (IVDR), konsolidierte Fassungen auf <a href="https://eur-lex.europa.eu/" target="_blank" rel="noopener">EUR-Lex</a>; Übergangsfristen in der Fassung der Verordnung (EU) 2023/607</li>
+<li>Verordnung (EU) 2024/1689 (KI-Verordnung), geändert durch Verordnung (EU) 2026/1744 (Digital Omnibus); Fristenübersicht beim <a href="https://www.johner-institut.de/blog/regulatory-affairs/ai-act-eu-ki-verordnung/" target="_blank" rel="noopener">Johner Institut</a></li>
+<li>VDE: <a href="https://www.vde.com/topics-de/health/beratung/elektrische-sicherheit-bei-aktiven-medizinprodukten" target="_blank" rel="noopener">IEC 60601-1 – Ausgabe 3.2</a> und <a href="https://www.vde.com/topics-de/health/beratung/die-eu-medizinprodukteverordnung-mdr-was-aendert-sich" target="_blank" rel="noopener">MDR/IVDR: Übergangsfristen</a></li>
+<li>ISO/TC 210, Normenliste <a href="https://www.iso.org/ics/11.040.01/x/" target="_blank" rel="noopener">ISO 11.040.01</a> – aktuelle Ausgaben, darunter ISO 20417:2026 und ISO/TS 24971-2:2026 (Machine Learning)</li>
+<li>Greenlight Guru: <a href="https://www.greenlight.guru/blog/iso-standards" target="_blank" rel="noopener">Ultimate List of ISO Standards for Medical Devices (2026)</a> – inklusive FDA QMSR seit 2.2.2026</li>
+<li>Johner Institut: <a href="https://www.johner-institut.de/blog/regulatory-affairs/regulatorische-anforderungen-an-medizinprodukte-mit-machine-learning/" target="_blank" rel="noopener">Regulatorische Anforderungen an Medizinprodukte mit Machine Learning</a></li>
+<li>medizin&amp;technik: <a href="https://medizin-und-technik.industrie.de/recht/iso-iec-42001-ki-management-senkt-das-risiko-fuer-medizinprodukte/" target="_blank" rel="noopener">ISO/IEC 42001 – KI-Managementsystem für Medizinprodukte</a></li>
+<li>EU-GMP Annex 22 „Artificial Intelligence“: Konsultationsentwurf vom 7. Juli 2025, Stand November 2026 nicht in Kraft</li>
+</ol>
+</section>
+
+<footer>
+  Lernblatt, Stand 17. November 2026. Normenausgaben und Fristen ändern sich; maßgeblich sind immer der amtliche Verordnungstext und die aktuelle Fassung der Norm beim Herausgeber. Diese Seite ersetzt keine Rechtsberatung und keinen Normentext – sie soll das Gerüst liefern, an dem man die Details aufhängt.
+  <span class="noprint"> · <a href="../menu.html">Zur Übersicht</a> · <a href="../interview/">Interviewtraining</a> · <a href="../ki/">KI und der Jobmarkt</a> · <a href="../">Zur Stellenkarte</a></span>
+</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "mtj-normen-karten-v1";
+  var KARTEN = [
+    ["gesetz","Was ist der Unterschied zwischen MDR und einer harmonisierten Norm?","Die MDR ist verbindliches Recht und sagt, <b>was</b> erfüllt sein muss. Die harmonisierte Norm beschreibt den Stand der Technik, also das <b>Wie</b>, und erzeugt Vermutungswirkung für die abgedeckten Anforderungen."],
+    ["gesetz","Welche Risikoklassen kennt die MDR und wie viele Klassifizierungsregeln gibt es?","Klassen I (mit Is, Im, Ir), IIa, IIb und III; 22 Regeln in Anhang VIII."],
+    ["gesetz","Welche Klassen kennt die IVDR?","A, B, C, D nach sieben Regeln in Anhang VIII – D ist das höchste Risiko, etwa Screening auf übertragbare Erreger."],
+    ["gesetz","Was regelt Art. 15 MDR?","Die PRRC – die für die Einhaltung der Regulierungsvorschriften verantwortliche Person beim Hersteller."],
+    ["gesetz","Was steht in Anhang I der MDR?","Die grundlegenden Sicherheits- und Leistungsanforderungen (GSPR), inklusive Kapitel III zur Kennzeichnung."],
+    ["gesetz","Was ist eine Benannte Stelle – und was nicht?","Eine privatwirtschaftliche, staatlich benannte und überwachte Prüf- und Zertifizierungsorganisation. Keine Behörde; zuständige Behörde in Deutschland ist das BfArM bzw. die Landesbehörde."],
+    ["gesetz","Welche drei Säulen hat die Leistungsbewertung nach IVDR?","Wissenschaftliche Validität, analytische Leistung, klinische Leistung."],
+    ["norm","Wofür steht ISO 13485 und wie ist sie aufgebaut?","QM-System für Medizinprodukte. Kapitel 4 QM-System, 5 Leitung, 6 Ressourcen, 7 Produktrealisierung (7.3 Entwicklung), 8 Messung und Verbesserung (CAPA)."],
+    ["norm","Welche Reihenfolge schreibt ISO 14971 für die Risikobeherrschung vor?","1. inhärent sichere Konstruktion, 2. Schutzmaßnahmen im Produkt oder in der Fertigung, 3. Information für die Sicherheit."],
+    ["norm","Warum spricht ISO 14971:2019 nicht mehr von ALARP?","Weil die MDR eine Risikominderung „so weit wie möglich“ (AFAP) ohne wirtschaftliche Abwägung verlangt."],
+    ["norm","Was ist der Unterschied zwischen Verifizierung und Validierung?","Verifizierung: Spezifikation erfüllt – das Produkt richtig gebaut. Validierung: Verwendungszweck und Nutzerbedürfnisse erfüllt – das richtige Produkt gebaut."],
+    ["norm","Was regelt IEC 62366-1 und was sind formative und summative Evaluation?","Usability Engineering zur Vermeidung von Anwendungsfehlern. Formativ = begleitend während der Entwicklung, summativ = abschließende Validierung mit repräsentativen Nutzern."],
+    ["norm","Was bedeuten die Anwendungsteile B, BF und CF nach IEC 60601-1?","B: kein direkter Herzkontakt. BF: body floating, galvanisch getrennt. CF: cardiac floating, für direkten Herzkontakt, höchste Anforderungen an Ableitströme."],
+    ["norm","Was ist Essential Performance nach IEC 60601-1?","Die Leistung, deren Verlust oder Verschlechterung ein inakzeptables Risiko erzeugt – sie muss auch im Einzelfehlerfall erhalten bleiben."],
+    ["norm","Wie ist ISO 10993 aufgebaut?","Biologische Beurteilung im Risikomanagementprozess: Einteilung nach Kontaktart (Oberfläche, extern kommunizierend, implantierbar) und Kontaktdauer (≤ 24 h, > 24 h bis 30 d, > 30 d); Teil 1 steuert, welche Prüfungen nötig sind."],
+    ["norm","Wofür steht ISO 14155?","Gute klinische Praxis für klinische Prüfungen mit Medizinprodukten: Prüfplan, Ethikkommission, Einwilligung, Monitoring, SAE-Meldungen, Abschlussbericht."],
+    ["norm","Was unterscheidet ISO 15223-1 von ISO 20417?","15223-1 definiert die Symbole, 20417 legt fest, welche Informationen der Hersteller bereitstellen muss."],
+    ["ki","Welche Sicherheitsklassen kennt IEC 62304?","A: keine Verletzung möglich. B: Verletzung möglich, aber nicht schwerwiegend. C: Tod oder schwere Verletzung möglich."],
+    ["ki","Was ist SOUP und welche Pflichten folgen daraus?","Software of Unknown Provenance – fremde Software ohne Entwicklungsnachweis. Pflicht: identifizieren, Version und Zweck dokumentieren, Anforderungen festlegen, bekannte Anomalien bewerten, im Feld überwachen."],
+    ["ki","Welche Klasse hat Software für Therapieentscheidungen nach MDR Regel 11?","Mindestens IIa; IIb bei möglicher schwerwiegender Verschlechterung oder chirurgischem Eingriff; III, wenn Tod oder irreversible Verschlechterung möglich sind."],
+    ["ki","Was regelt IEC 81001-5-1?","Cybersecurity im Lebenszyklus von Gesundheitssoftware: Threat Modeling, SBOM, Secure Coding, Schwachstellen- und Patchmanagement – ergänzend zur Risikobetrachtung nach ISO 14971."],
+    ["ki","Was ist ISO/IEC 42001?","Die erste zertifizierbare Norm für ein KI-Managementsystem (AIMS): KI-Politik, Rollen, AI Impact Assessment, Lebenszyklus, Daten-Governance, Transparenz, Lieferanten."],
+    ["ki","Wie verhalten sich MDR und KI-Verordnung zueinander?","Sie gelten parallel. Die KI-Verordnung ersetzt das Medizinprodukterecht nicht, sondern ergänzt es; die Konformitätsbewertung läuft über die MDR-Route, die technische Dokumentation wird integriert geführt."],
+    ["ki","Welche Hochrisiko-Pflichten nennt die KI-Verordnung in den Artikeln 9 bis 15?","Risikomanagement, Daten-Governance, technische Dokumentation, Logging, Transparenz, menschliche Aufsicht sowie Genauigkeit, Robustheit und Cybersicherheit."],
+    ["ki","Was ist bei der Validierung eines ML-Modells für ein Medizinprodukt zu zeigen?","Repräsentative, getrennte Trainings-, Validierungs- und Testdaten; klinisch relevante Metriken mit Konfidenzintervallen; Subgruppen- und Bias-Analyse; Drift-Überwachung im Feld; dokumentierte menschliche Aufsicht."],
+    ["zahl","Welche Meldefristen gelten für schwerwiegende Vorkommnisse nach MDR?","Spätestens 15 Tage; bei Tod oder unerwarteter schwerwiegender Verschlechterung 10 Tage; bei ernster Gefahr für die öffentliche Gesundheit 2 Tage."],
+    ["zahl","Wie lange ist die technische Dokumentation aufzubewahren?","10 Jahre nach dem letzten Inverkehrbringen, bei implantierbaren Produkten 15 Jahre."],
+    ["zahl","In welchem Rhythmus ist der PSUR zu aktualisieren?","Klasse IIa mindestens alle zwei Jahre, Klasse IIb und III jährlich."],
+    ["zahl","Ab wann gelten die Hochrisiko-Pflichten der KI-Verordnung für KI in Medizinprodukten?","Ab dem 2. August 2028 (Anhang I). Eigenständige Hochrisiko-Systeme nach Anhang III ab dem 2. Dezember 2027; KI-Kompetenz und Verbote gelten bereits seit dem 2. Februar 2025."],
+    ["zahl","Bis wann laufen die MDR-Übergangsfristen für Bestandsprodukte?","Klasse III und implantierbare Klasse IIb bis 31.12.2027, übrige Klasse IIb, IIa und aufsteigende Klasse I bis 31.12.2028."],
+    ["zahl","Was hat sich 2026 bei der FDA geändert?","Seit dem 2. Februar 2026 gilt die QMSR: 21 CFR Part 820 verweist auf ISO 13485:2016, statt eigene QM-Anforderungen zu formulieren."],
+    ["zahl","Wofür stehen GSPR, PMS, PMCF, CAPA?","Grundlegende Sicherheits- und Leistungsanforderungen; Überwachung nach dem Inverkehrbringen; klinische Nachbeobachtung nach dem Inverkehrbringen; Korrektur- und Vorbeugemaßnahmen."]
+  ];
+
+  var karte = document.getElementById("karte");
+  if (!karte) return;
+  var elQ = document.getElementById("kq"), elA = document.getElementById("ka"), elH = document.getElementById("kh");
+  var elStat = document.getElementById("kstat"), elBar = document.getElementById("kbar");
+  var stapel = [], i = 0, offen = false, gewusst = {};
+
+  try { gewusst = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { gewusst = {}; }
+  function sichern() { try { localStorage.setItem(KEY, JSON.stringify(gewusst)); } catch (e) {} }
+
+  function satz() {
+    var v = document.getElementById("kset").value;
+    return KARTEN.map(function (k, idx) { return { id: idx, cat: k[0], q: k[1], a: k[2] }; })
+      .filter(function (k) { return v === "alle" || k.cat === v; });
+  }
+  function mischen(a) {
+    for (var j = a.length - 1; j > 0; j--) { var r = Math.floor(Math.random() * (j + 1)); var t = a[j]; a[j] = a[r]; a[r] = t; }
+    return a;
+  }
+  function neu(mix) {
+    var alle = satz();
+    stapel = alle.filter(function (k) { return !gewusst[k.id]; });
+    if (!stapel.length) stapel = alle.slice();
+    if (mix !== false) mischen(stapel);
+    i = 0; zeigen();
+  }
+  function zeigen() {
+    var alle = satz();
+    var fertig = alle.filter(function (k) { return gewusst[k.id]; }).length;
+    elStat.textContent = fertig + " von " + alle.length + " gewusst";
+    elBar.style.width = alle.length ? (fertig / alle.length * 100).toFixed(1) + "%" : "0";
+    if (!stapel.length) {
+      elQ.innerHTML = "Alle Karten dieses Satzes sitzen."; elA.hidden = true;
+      elH.textContent = "Satz wechseln oder Fortschritt zurücksetzen."; return;
+    }
+    var k = stapel[i % stapel.length];
+    elQ.innerHTML = k.q; elA.innerHTML = k.a; elA.hidden = true; offen = false;
+    elH.textContent = "Antippen zum Umdrehen";
+  }
+  function drehen() {
+    if (!stapel.length) return;
+    offen = !offen; elA.hidden = !offen;
+    elH.textContent = offen ? "Gewusst oder nochmal?" : "Antippen zum Umdrehen";
+  }
+  karte.addEventListener("click", drehen);
+  karte.addEventListener("keydown", function (e) {
+    if (e.key === " " || e.key === "Enter") { e.preventDefault(); drehen(); }
+  });
+  document.getElementById("kgut").addEventListener("click", function () {
+    if (!stapel.length) return;
+    var k = stapel[i % stapel.length];
+    gewusst[k.id] = 1; sichern();
+    stapel.splice(i % stapel.length, 1);
+    if (i >= stapel.length) i = 0;
+    zeigen();
+  });
+  document.getElementById("knoch").addEventListener("click", function () {
+    if (!stapel.length) return;
+    var k = stapel.splice(i % stapel.length, 1)[0];
+    stapel.push(k);
+    if (i >= stapel.length) i = 0;
+    zeigen();
+  });
+  document.getElementById("kmix").addEventListener("click", function () { neu(true); });
+  document.getElementById("kset").addEventListener("change", function () { neu(true); });
+  document.getElementById("kreset").addEventListener("click", function () {
+    gewusst = {}; sichern(); neu(true);
+  });
+  neu(true);
+})();
+</script>
+<script src="../assets/theme.js" defer></script>
+</body>
+</html>
