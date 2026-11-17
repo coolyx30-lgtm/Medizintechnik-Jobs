@@ -51,7 +51,31 @@ ul.plain{padding-left:20px}
 ul.plain li{margin:5px 0}
 footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
 .sources li{margin:3px 0;font-size:14px;word-break:break-word}
-@media (max-width:700px){h1{font-size:26px}.toc ol{columns:1}}
+/* Rechner */
+.calc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:14px}
+.calc fieldset{border:1px solid var(--line);border-radius:10px;padding:6px 14px 10px;margin:0;min-width:0}
+.calc legend{font-size:12.5px;font-weight:600;color:var(--ink2);padding:0 6px}
+.f{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:9px 0;font-size:13.5px;line-height:1.3}
+.f label{flex:1;color:var(--ink2);min-width:0}
+.f > span{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;flex:0 0 auto}
+.f input[type=number]{width:86px;padding:5px 8px;font-size:14px;text-align:right}
+.f select{padding:5px 8px;font-size:13.5px;max-width:142px}
+.f input[type=checkbox]{width:18px;height:18px;margin:0 14px 0 0}
+.f .u{display:inline-block;width:30px;font-size:12.5px;color:var(--ink3)}
+.calcbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
+.calcbar .hint{font-size:13px;color:var(--ink3)}
+#ergebnis td small{color:var(--ink3);font-size:12.5px;white-space:normal;display:inline-block;max-width:34ch}
+#ergebnis th,#ergebnis td{padding:8px 8px}
+.bars{margin:14px 0 6px}
+.brow{display:grid;grid-template-columns:210px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:14px;margin:7px 0}
+.brow .nm{color:var(--ink2);overflow-wrap:anywhere}
+.brow .track{height:16px;background:var(--chip);border-radius:8px;position:relative}
+.brow .fill{position:absolute;top:0;left:0;bottom:0;background:var(--accent);opacity:.8;border-radius:8px;transition:width .25s var(--ease,ease)}
+.brow.best .fill{opacity:1}
+.brow .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+@media (max-width:700px){h1{font-size:26px}.toc ol{columns:1}.brow{grid-template-columns:120px minmax(0,1fr) 78px;font-size:12.5px}.f input[type=checkbox]{margin-right:0}}
+@media print{.calc,.calcbar{display:none}}
 @media print{
   @page{size:A4;margin:16mm 14mm}
   body{background:#fff;font-size:10.5pt;line-height:1.45}
@@ -95,7 +119,7 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-si
 <h2><span class="n">1</span>Das Wichtigste in Kürze</h2>
 <div class="key">
 <ul>
-  <li><b>Netto bleibt in der Schweiz klar mehr übrig – vor allem als Grenzgänger:in.</b> In der Modellrechnung unten kommt ein Einstiegslohn von CHF 95.000 bei Wohnsitz in Deutschland auf rund <b>5.180 € netto im Monat</b>, gegenüber rund <b>3.130 €</b> bei 60.000 € Bruttogehalt in Deutschland. Der Grund: In der Schweiz werden nur etwa 11 % Sozialabgaben fällig, nicht rund 22 %, und die Krankenversicherung kostet als Kopfprämie statt als Prozentsatz vom Lohn.</li>
+  <li><b>Netto bleibt in der Schweiz klar mehr übrig – vor allem als Grenzgänger:in.</b> In der Modellrechnung unten kommt ein Einstiegslohn von CHF 95.000 bei Wohnsitz in Deutschland auf rund <b>5.200 € netto im Monat</b>, gegenüber rund <b>3.130 €</b> bei 60.000 € Bruttogehalt in Deutschland. Der Grund: In der Schweiz werden nur etwa 11 % Sozialabgaben fällig, nicht rund 22 %, und die Krankenversicherung kostet als Kopfprämie statt als Prozentsatz vom Lohn.</li>
   <li><b>Grenzgänger:in zu sein ist steuerlich der Sonderfall.</b> Der Lohn wird in <b>Deutschland</b> versteuert, die Schweiz behält nur <b>4,5 % Quellensteuer</b> ein – vorausgesetzt, dem Arbeitgeber liegt die Ansässigkeitsbescheinigung <b>Gre-1</b> vor. Das Finanzamt setzt dafür vierteljährliche Vorauszahlungen fest; die Steuererklärung ist Pflicht.</li>
   <li><b>Neu seit 1.1.2026:</b> Grenzgänger:in bleibt man nur, wenn man an mindestens <b>20 % der vereinbarten Arbeitstage</b> tatsächlich zum Arbeitsort pendelt – bei Fünftagewoche etwa ein Tag pro Woche. Homeoffice-Tage in Deutschland sind unschädlich, sozialversicherungsrechtlich bis <b>49,9 %</b> der Arbeitszeit.</li>
   <li><b>Umzug in die Schweiz heißt mehr Brutto-Netto, aber auch deutlich höhere Kosten.</b> Ohne deutsche Steuer bleiben bei CHF 95.000 rund 6.200 € netto (Zürich), doch Miete und Lebenshaltung fressen den Vorsprung gegenüber der Grenzgänger-Variante wieder auf. Das Preisniveau liegt etwa <b>50–60 % über</b> dem deutschen.</li>
@@ -287,30 +311,71 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-si
 
 <section id="netto">
 <h2><span class="n">9</span>Netto-Vergleich: Modellrechnung</h2>
-<p>Die Frage „bleibt netto trotzdem mehr übrig?“ lässt sich nur mit klaren Annahmen beantworten. Gerechnet ist eine <b>alleinstehende Person ohne Kinder, keine Kirchensteuer, Einstiegsgehälter 2026</b>, Wechselkurs 1 CHF = 1,08 €. Schweizer Brutto CHF 95.000 entspricht dem recherchierten Einstiegsband für Entwicklungsingenieur:innen (CHF 81.700–102.400, Raum Basel/Zürich etwa CHF 80.000–100.000, siehe <a href="../karriere/#gehalt-chat">Karriere-Recherche</a>); deutsches Brutto 60.000 € entspricht einem tarifnahen Einstieg in Baden-Württemberg; Österreich ist mit 3.700 € × 14 gerechnet (KV-Minimum Gruppe E plus Überzahlung).</p>
+<p>Die Frage „bleibt netto trotzdem mehr übrig?“ lässt sich nur mit klaren Annahmen beantworten. Voreingestellt ist eine <b>alleinstehende Person ohne Kinder, keine Kirchensteuer, Einstiegsgehälter 2026</b>, Wechselkurs 1 EUR = 0,925 CHF. Schweizer Brutto CHF 95.000 entspricht dem recherchierten Einstiegsband für Entwicklungsingenieur:innen (CHF 81.700–102.400, Raum Basel/Zürich etwa CHF 80.000–100.000, siehe <a href="../karriere/#gehalt-chat">Karriere-Recherche</a>); deutsches Brutto 60.000 € entspricht einem tarifnahen Einstieg in Baden-Württemberg; Österreich ist mit 3.700 € × 14 gerechnet (KV-Minimum Gruppe E plus Überzahlung). <b>Alle Felder sind änderbar</b> – die Tabelle rechnet live mit.</p>
+
+<div class="calc" id="rechner">
+  <div class="cgrid">
+    <fieldset>
+      <legend>Bruttogehalt</legend>
+      <div class="f"><label for="g_de">Deutschland, pro Jahr</label><span><input type="number" id="g_de" value="60000" step="1000" min="0"> <span class="u">€</span></span></div>
+      <div class="f"><label for="g_ch">Schweiz, pro Jahr</label><span><input type="number" id="g_ch" value="95000" step="1000" min="0"> <span class="u">CHF</span></span></div>
+      <div class="f"><label for="g_at">Österreich, pro Monat (× 14)</label><span><input type="number" id="g_at" value="3700" step="50" min="0"> <span class="u">€</span></span></div>
+      <div class="f"><label for="fx">Wechselkurs 1 € =</label><span><input type="number" id="fx" value="0.925" step="0.005" min="0.5" max="1.5"> <span class="u">CHF</span></span></div>
+    </fieldset>
+    <fieldset>
+      <legend>Persönliches</legend>
+      <div class="f"><label for="alter">Alter (für die BVG-Gutschrift)</label><span><input type="number" id="alter" value="27" step="1" min="18" max="64"> <span class="u">J.</span></span></div>
+      <div class="f"><label for="km">Arbeitsweg einfach (beim Pendeln)</label><span><input type="number" id="km" value="25" step="5" min="0" max="200"> <span class="u">km</span></span></div>
+      <div class="f"><label for="kinderlos">kinderlos (Pflege + 0,6 %)</label><span><input type="checkbox" id="kinderlos" checked></span></div>
+      <div class="f"><label for="kirche">Kirchensteuer (Deutschland)</label><span><select id="kirche"><option value="0" selected>keine</option><option value="8">8 % (BW, BY)</option><option value="9">9 % (übrige)</option></select></span></div>
+    </fieldset>
+    <fieldset>
+      <legend>Krankenversicherung</legend>
+      <div class="f"><label for="kvg_gg">KVG Grenzgänger / Monat</label><span><input type="number" id="kvg_gg" value="230" step="10" min="0"> <span class="u">CHF</span></span></div>
+      <div class="f"><label for="kvg_ch">KVG bei Wohnsitz CH / Monat</label><span><input type="number" id="kvg_ch" value="400" step="10" min="0"> <span class="u">CHF</span></span></div>
+      <div class="f"><label for="zusatz">GKV-Zusatzbeitrag</label><span><input type="number" id="zusatz" value="2.9" step="0.1" min="0" max="5"> <span class="u">%</span></span></div>
+    </fieldset>
+    <fieldset>
+      <legend>Schweiz: Kanton und Lohnabzüge</legend>
+      <div class="f"><label for="kanton">Wohnkanton (bei Umzug)</label><span><select id="kanton">
+        <option value="zh" selected>Zürich</option><option value="bs">Basel-Stadt</option><option value="bl">Basel-Landschaft</option>
+        <option value="ag">Aargau</option><option value="sh">Schaffhausen</option><option value="be">Bern</option><option value="zg">Zug</option></select></span></div>
+      <div class="f"><label for="nbu">NBU (Nichtberufsunfall)</label><span><input type="number" id="nbu" value="1.3" step="0.1" min="0" max="5"> <span class="u">%</span></span></div>
+      <div class="f"><label for="ktg">Krankentaggeld</label><span><input type="number" id="ktg" value="0.8" step="0.1" min="0" max="5"> <span class="u">%</span></span></div>
+      <div class="f"><label for="bvg_an">Anteil an der Pensionskasse</label><span><input type="number" id="bvg_an" value="50" step="5" min="0" max="100"> <span class="u">%</span></span></div>
+    </fieldset>
+    <fieldset>
+      <legend>Wohnkosten warm, € pro Monat</legend>
+      <div class="f"><label for="m_de">Deutschland (Stuttgart)</label><span><input type="number" id="m_de" value="1060" step="50" min="0"> <span class="u">€</span></span></div>
+      <div class="f"><label for="m_gg">Grenzregion CH (z. B. Lörrach)</label><span><input type="number" id="m_gg" value="890" step="50" min="0"> <span class="u">€</span></span></div>
+      <div class="f"><label for="m_ch">Schweiz (Wohnkanton)</label><span><input type="number" id="m_ch" value="2580" step="100" min="0"> <span class="u">€</span></span></div>
+      <div class="f"><label for="m_at">Österreich (Wien / Innsbruck)</label><span><input type="number" id="m_at" value="1350" step="50" min="0"> <span class="u">€</span></span></div>
+      <div class="f"><label for="m_ggat">Grenzregion AT</label><span><input type="number" id="m_ggat" value="900" step="50" min="0"> <span class="u">€</span></span></div>
+    </fieldset>
+  </div>
+  <div class="calcbar">
+    <button type="button" class="btn sec" id="reset">Auf Voreinstellung zurücksetzen</button>
+    <span class="hint" id="savehint">Eingaben bleiben nur im eigenen Browser gespeichert.</span>
+  </div>
+</div>
+
 <div class="tblwrap">
-<table>
+<table id="ergebnis">
 <thead><tr><th>Szenario</th><th class="num">Brutto p. a.</th><th class="num">Abgaben + Steuer</th><th class="num">Kranken­versicherung</th><th class="num">Netto / Monat</th><th class="num">Netto nach Miete</th></tr></thead>
-<tbody>
-<tr><td><b>Deutschland</b><br><span class="tag">Stuttgart</span></td><td class="num">60.000 €</td><td class="num">13.050 € SV<br>9.400 € Steuer</td><td class="num">in SV enthalten</td><td class="num"><b>3.130 €</b></td><td class="num">ca. 2.070 €</td></tr>
-<tr class="hl"><td><b>Grenzgänger:in Schweiz</b><br><span class="tag">Wohnsitz Südbaden</span></td><td class="num">CHF 95.000<br>≈ 102.600 €</td><td class="num">CHF 10.320 CH-Abzüge<br>CHF 4.275 Quellensteuer<br>21.700 € DE-Steuer</td><td class="num">CHF 230/Monat<br>(KVG)</td><td class="num"><b>5.180 €</b></td><td class="num">ca. 4.290 €</td></tr>
-<tr><td>Grenzgänger:in Schweiz,<br>aber deutsche GKV</td><td class="num">CHF 95.000</td><td class="num">wie oben, geringere DE-Steuer</td><td class="num">ca. 1.200 €/Monat</td><td class="num">4.610 €</td><td class="num">ca. 3.720 €</td></tr>
-<tr><td><b>Wohnsitz Zürich</b><br><span class="tag">B-Bewilligung</span></td><td class="num">CHF 95.000</td><td class="num">CHF 10.320 CH-Abzüge<br>CHF 11.000 Steuer</td><td class="num">CHF 400/Monat</td><td class="num"><b>6.200 €</b></td><td class="num">ca. 3.620 €</td></tr>
-<tr><td><b>Wohnsitz Basel</b></td><td class="num">CHF 95.000</td><td class="num">CHF 10.320 CH-Abzüge<br>CHF 14.000 Steuer</td><td class="num">CHF 420/Monat</td><td class="num"><b>5.910 €</b></td><td class="num">ca. 3.750 €</td></tr>
-<tr><td><b>Wohnsitz Österreich</b><br><span class="tag">Wien / Innsbruck</span></td><td class="num">51.800 €<br>(3.700 × 14)</td><td class="num">9.290 € SV<br>5.810 € Steuer</td><td class="num">in SV enthalten</td><td class="num"><b>3.060 €</b></td><td class="num">ca. 1.710 €</td></tr>
-<tr><td>Grenzgänger:in Österreich<br><span class="tag">Wohnsitz DE</span></td><td class="num">51.800 €</td><td class="num">9.290 € SV (AT)<br>7.970 € Steuer (DE)</td><td class="num">in SV enthalten</td><td class="num">2.880 €</td><td class="num">ca. 1.980 €</td></tr>
-</tbody>
+<tbody id="erg_body"><tr><td colspan="6">Der Rechner braucht JavaScript. Ohne JavaScript gelten die im Text genannten Voreinstellungswerte.</td></tr></tbody>
 </table>
 </div>
+<div class="bars" id="bars" aria-hidden="true"></div>
+<p class="src" id="kurzfazit"></p>
 <h3>Was die Rechnung sagt – und was nicht</h3>
 <ul class="plain">
-<li><b>Die Antwort auf die Ausgangsfrage ist ja.</b> Als Grenzgänger:in bleiben in diesem Modell rund <b>2.050 € mehr pro Monat</b> als bei einem deutschen Einstieg – nach Miete sogar etwa 2.200 €, weil südbadische Mieten unter den Stuttgarter liegen. Die Netto-Quote von rund 60 % passt zu veröffentlichten Beispielrechnungen aus der Grenzgängerberatung (dort rund 59,8 % bei CHF 80.000).</li>
-<li><b>Der Umzug in die Schweiz bringt mehr Netto, aber nicht mehr Geld.</b> Zürich liegt mit 6.200 € netto nominal vorn, nach Miete aber hinter der Grenzgänger-Variante – und die restlichen Lebenshaltungskosten liegen zusätzlich rund 50 % höher. Dafür spricht trotzdem einiges: kein Pendeln, Zugang zu Zürcher und Basler Arbeitsmärkten ohne Rückkehrpflicht, Säule 3a, und auf Dauer der Weg zur Niederlassungsbewilligung C.</li>
-<li><b>Österreich gewinnt nicht über das Geld.</b> 3.060 € netto liegen praktisch auf deutschem Niveau, bei Wiener Mieten über Stuttgarter Niveau. Die Argumente sind fachlich: Standorte wie Innsbruck, Wien und Graz mit eigenen Medizintechnik-Clustern.</li>
+<li><b>Die Antwort auf die Ausgangsfrage ist ja.</b> Als Grenzgänger:in bleiben in diesem Modell rund <b>2.070 € mehr pro Monat</b> als bei einem deutschen Einstieg – nach Miete sogar etwa 2.240 €, weil südbadische Mieten unter den Stuttgarter liegen. Die Netto-Quote von rund 60 % passt zu veröffentlichten Beispielrechnungen aus der Grenzgängerberatung (dort rund 59,8 % bei CHF 80.000).</li>
+<li><b>Der Umzug in die Schweiz bringt mehr Netto, aber nicht mehr Geld.</b> Zürich liegt mit rund 6.230 € netto nominal vorn, nach Miete aber hinter der Grenzgänger-Variante – und die restlichen Lebenshaltungskosten liegen zusätzlich rund 50 % höher. Dafür spricht trotzdem einiges: kein Pendeln, Zugang zu Zürcher und Basler Arbeitsmärkten ohne Rückkehrpflicht, Säule 3a, und auf Dauer der Weg zur Niederlassungsbewilligung C.</li>
+<li><b>Österreich gewinnt nicht über das Geld.</b> Rund 3.060 € netto liegen praktisch auf deutschem Niveau, bei Wiener Mieten über Stuttgarter Niveau. Die Argumente sind fachlich: Standorte wie Innsbruck, Wien und Graz mit eigenen Medizintechnik-Clustern.</li>
 <li><b>Nicht enthalten:</b> Pendelkosten und Pendelzeit, Bonus und 13. Monatslohn (falls nicht im Jahreslohn), Vermögenssteuer in der Schweiz, Umzugs- und Anlaufkosten, Kirchensteuer, Säule-3a-Einzahlungen und die genaue Behandlung von Arbeitgeberanteilen in der Anlage N-Gre. Letztere kann das Ergebnis der Grenzgänger-Zeile um einige hundert Euro im Jahr verschieben.</li>
 <li><b>Vorsicht bei der Hochrechnung:</b> Ein Wechselkurs von 0,95 statt 0,925 würde das Grenzgänger-Netto um rund 2,5 % drücken; eine Pensionskasse mit höheren Beitragsätzen ebenfalls. Umgekehrt steigen in der Schweiz Löhne und Gehaltsbänder mit Berufsjahren schneller.</li>
 </ul>
-<div class="note">Rechenweg nachvollziehen: Deutsche Einkommensteuer nach § 32a EStG 2026 (Grundfreibetrag 12.348 €, 42 % ab 69.879 €), Vorsorgeaufwendungen mit Arbeitnehmeranteilen der 1. und 2. Säule plus Krankenversicherungsprämie, Werbungskosten mit Entfernungspauschale; Schweizer Abzüge mit 5,3 % AHV/IV/EO, 1,1 % ALV, 1,3 % NBU, 0,8 % KTG und hälftiger BVG-Altersgutschrift von 7 % auf den koordinierten Lohn; österreichische Lohnsteuer mit Tarif 2026, Verkehrsabsetzbetrag und Sechstelregelung.</div>
+<div class="note">Rechenweg: Deutsche Einkommensteuer nach § 32a EStG 2026 (Grundfreibetrag 12.348 €, 42 % ab 69.879 €), Vorsorgeaufwendungen aus den Arbeitnehmeranteilen der 1. und 2. Säule plus Krankenversicherungsbeitrag, Werbungskosten mit der ab 2026 einheitlichen Entfernungspauschale von 0,38 €/km (220 Tage, nur in den Pendel-Szenarien angesetzt); Schweizer Abzüge mit 5,3 % AHV/IV/EO, 1,1 % ALV bis CHF 148.200, NBU und Krankentaggeld laut Eingabe sowie der altersabhängigen BVG-Altersgutschrift (7 % ab 25, 10 % ab 35, 15 % ab 45, 18 % ab 55) auf den koordinierten Lohn; die Schweizer Wohnsitzsteuer als Näherung über kantonale Effektivsätze bei CHF 80.000 und CHF 150.000 steuerbarem Einkommen mit Berufsauslagen- und Versicherungspauschale, je nach Gemeinde und Konfession weicht die tatsächliche Rechnung ab; österreichische Lohnsteuer mit Tarif 2026, Verkehrsabsetzbetrag 496 € und Sechstelregelung. Nicht modelliert: Solidaritätszuschlag (greift erst weit oberhalb dieser Einkommen), Säule-3a-Abzüge, Vermögenssteuer und Bonuszahlungen.</div>
 </section>
 
 <section id="fallen">
@@ -401,5 +466,226 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-si
   <span class="noprint"> · <a href="../menu.html">Zur Übersicht</a> · <a href="../staedte/">Zielstädte</a> · <a href="../karriere/">Karriere-Recherche</a> · <a href="../">Zur Stellenkarte</a></span>
 </footer>
 </div>
+
+<script>
+(function(){
+  "use strict";
+  var E = function(id){ return document.getElementById(id); };
+  var IDS = ['g_de','g_ch','g_at','fx','alter','km','kinderlos','kirche','kvg_gg','kvg_ch','zusatz',
+             'kanton','nbu','ktg','bvg_an','m_de','m_gg','m_ch','m_at','m_ggat'];
+  var KEY = 'mtj-grenzgaenger-rechner';
+  if(!E('erg_body')) return;
+
+  /* Rechengrößen 2026 */
+  var DE = { bbgKV:69750, bbgRV:101400, kv:14.6, pv:3.6, pvZ:0.6, rv:18.6, alv:2.6,
+             wkp:1230, sap:36, kmSatz:0.38, tage:220 };
+  var CH = { ahv:5.3, alv:1.1, alvCap:148200, koordAbzug:26460, eintritt:22680, koordMax:64260, koordMin:3780 };
+  var AT = { hbg:6930, hbgSZ:13860, dn:18.07, dnSZ:17.07, vab:496, wkp:132,
+             pvAn:10.25, kvAn:3.87, frei:620, szSatz:6 };
+  /* Effektive Gesamtsteuerbelastung (Bund, Kanton, Gemeinde), ledig, konfessionslos:
+     Stützwerte bei CHF 80.000 und CHF 150.000 steuerbarem Einkommen, dazwischen interpoliert. */
+  var KANT = { zh:[13.5,17.5,'Zürich'], bs:[17.5,23.0,'Basel-Stadt'], bl:[15.5,20.5,'Basel-Landschaft'],
+               ag:[14.5,18.5,'Aargau'], sh:[13.5,17.5,'Schaffhausen'], be:[17.5,22.0,'Bern'], zg:[7.0,9.5,'Zug'] };
+
+  var nf = new Intl.NumberFormat('de-DE', {maximumFractionDigits:0});
+  var nf1 = new Intl.NumberFormat('de-DE', {maximumFractionDigits:1});
+  function f(n){ return nf.format(Math.round(n||0)); }
+
+  function estDE(z){
+    z = Math.floor(Math.max(z,0));
+    if(z <= 12348) return 0;
+    if(z <= 17799){ var y=(z-12348)/10000; return (914.51*y+1400)*y; }
+    if(z <= 69878){ var w=(z-17799)/10000; return (173.10*w+2397)*w+1034.87; }
+    if(z <= 277825) return 0.42*z-11135.63;
+    return 0.45*z-19470.38;
+  }
+  function estAT(x){
+    var st=[[13539,0],[21992,.20],[36458,.30],[70365,.40],[104859,.48],[1000000,.50],[1e12,.55]];
+    var t=0, low=0;
+    for(var i=0;i<st.length;i++){ if(x>low) t += (Math.min(x,st[i][0])-low)*st[i][1]; low=st[i][0]; }
+    return t;
+  }
+  function gutschrift(a){ return a<25 ? 0 : (a<35 ? 7 : (a<45 ? 10 : (a<55 ? 15 : 18))); }
+
+  function werte(){
+    var v = {};
+    IDS.forEach(function(id){
+      var el = E(id);
+      if(!el) return;
+      if(el.type === 'checkbox') v[id] = el.checked;
+      else if(el.tagName === 'SELECT') v[id] = el.value;
+      else v[id] = parseFloat(String(el.value).replace(',','.')) || 0;
+    });
+    if(v.fx < 0.5 || v.fx > 1.5) v.fx = 0.925;
+    return v;
+  }
+
+  function chAbz(brutto, p){
+    var ahv = brutto*CH.ahv/100,
+        alv = Math.min(brutto, CH.alvCap)*CH.alv/100,
+        nbu = brutto*p.nbu/100,
+        ktg = brutto*p.ktg/100,
+        koord = brutto < CH.eintritt ? 0 : Math.min(Math.max(brutto-CH.koordAbzug, CH.koordMin), CH.koordMax),
+        bvgTot = koord*gutschrift(p.alter)/100,
+        bvgAn = bvgTot*p.bvg_an/100;
+    return { ahv:ahv, alv:alv, nbu:nbu, ktg:ktg, bvgAn:bvgAn, bvgTot:bvgTot,
+             summe: ahv+alv+nbu+ktg+bvgAn };
+  }
+  function pendler(p){ return Math.max(DE.wkp, DE.kmSatz*p.km*DE.tage); }
+
+  function szenarien(p){
+    var r = 1/p.fx, out = [];
+
+    /* 1 Deutschland */
+    (function(){
+      var b = p.g_de,
+          kvAn = (DE.kv/2 + p.zusatz/2)/100*Math.min(b, DE.bbgKV),
+          pvAn = (DE.pv/2 + (p.kinderlos ? DE.pvZ : 0))/100*Math.min(b, DE.bbgKV),
+          rvAn = DE.rv/2/100*Math.min(b, DE.bbgRV),
+          alvAn = DE.alv/2/100*Math.min(b, DE.bbgRV),
+          sv = kvAn+pvAn+rvAn+alvAn,
+          zve = b - DE.wkp - DE.sap - rvAn - (kvAn*0.96 + pvAn),
+          est = estDE(zve), ki = est*p.kirche/100;
+      out.push({ name:'Deutschland', tag:'angestellt im Inland',
+        brutto:f(b)+' €', abz:f(sv)+' € SV<br><small>'+f(est+ki)+' € Steuer</small>',
+        kv:'in der SV', netto:(b-sv-est-ki)/12, miete:p.m_de });
+    })();
+
+    /* 2 + 3 Grenzgänger Schweiz */
+    function gg(mode){
+      var b = p.g_ch, a = chAbz(b,p), qst = b*0.045, bruttoEUR = b*r, kvEUR, kvTxt;
+      if(mode === 'kvg'){
+        kvEUR = p.kvg_gg*12*r;
+        kvTxt = 'KVG '+f(p.kvg_gg)+' CHF/Mt.';
+      } else {
+        var basis = Math.min(bruttoEUR, DE.bbgKV);
+        kvEUR = basis*((DE.kv+p.zusatz)/100 + (DE.pv + (p.kinderlos ? DE.pvZ : 0))/100);
+        kvTxt = 'GKV '+f(kvEUR/12)+' €/Mt.';
+      }
+      var zve = bruttoEUR - pendler(p) - DE.sap - (a.ahv+a.bvgAn)*r - (kvEUR + a.ktg*r),
+          est = estDE(zve), ki = est*p.kirche/100,
+          anrech = Math.min(qst*r, est+ki),
+          deSt = est+ki-anrech,
+          nettoEUR = (b - a.summe - qst)*r - kvEUR - deSt;
+      out.push({ name:'Grenzgänger:in Schweiz'+(mode==='kvg' ? '' : ', deutsche GKV'),
+        tag: mode==='kvg' ? 'Wohnsitz Deutschland, KVG' : 'Wohnsitz Deutschland',
+        best: mode==='kvg',
+        brutto:'CHF '+f(b)+'<br><small>≈ '+f(bruttoEUR)+' €</small>',
+        abz:'CHF '+f(a.summe)+' CH-Abzüge<br><small>CHF '+f(qst)+' Quellensteuer · '+f(deSt)+' € DE-Steuer</small>',
+        kv:kvTxt, netto:nettoEUR/12, miete:p.m_gg });
+    }
+    gg('kvg'); gg('gkv');
+
+    /* 4 Wohnsitz Schweiz */
+    (function(){
+      var b = p.g_ch, a = chAbz(b,p),
+          berufs = Math.min(Math.max((b-a.summe)*0.03, 2000), 4000),
+          steuerbar = Math.max(b - a.summe - berufs - 2600, 0),
+          k = KANT[p.kanton] || KANT.zh,
+          rate = Math.max(Math.min(k[0] + (k[1]-k[0])*(steuerbar-80000)/70000, k[1]+4), 2),
+          steuer = steuerbar*rate/100,
+          kvCHF = p.kvg_ch*12,
+          nettoCHF = b - a.summe - steuer - kvCHF;
+      out.push({ name:'Wohnsitz '+k[2], tag:'B-Bewilligung',
+        brutto:'CHF '+f(b),
+        abz:'CHF '+f(a.summe)+' CH-Abzüge<br><small>CHF '+f(steuer)+' Steuer (≈ '+nf1.format(rate)+' % auf CHF '+f(steuerbar)+')</small>',
+        kv:'KVG '+f(p.kvg_ch)+' CHF/Mt.', netto:nettoCHF*r/12, miete:p.m_ch });
+    })();
+
+    /* 5 Wohnsitz Österreich */
+    (function(){
+      var m = p.g_at, laufend = m*12, sz = m*2, brutto = laufend+sz,
+          svL = Math.min(m, AT.hbg)*12*AT.dn/100,
+          svSZ = Math.min(sz, AT.hbgSZ)*AT.dnSZ/100,
+          sv = svL+svSZ,
+          lst = Math.max(estAT(Math.max(laufend-svL-AT.wkp,0)) - AT.vab, 0),
+          lstSZ = Math.max(sz-svSZ-AT.frei, 0)*AT.szSatz/100,
+          steuer = lst+lstSZ;
+      out.push({ name:'Wohnsitz Österreich', tag:'14 Gehälter',
+        brutto:f(brutto)+' €<br><small>'+f(m)+' € × 14</small>',
+        abz:f(sv)+' € SV<br><small>'+f(steuer)+' € Steuer, davon '+f(lstSZ)+' € auf Sonderzahlungen</small>',
+        kv:'in der SV', netto:(brutto-sv-steuer)/12, miete:p.m_at });
+    })();
+
+    /* 6 Grenzgänger Österreich */
+    (function(){
+      var m = p.g_at, laufend = m*12, sz = m*2, brutto = laufend+sz,
+          basis = Math.min(m, AT.hbg)*12 + Math.min(sz, AT.hbgSZ),
+          sv = Math.min(m, AT.hbg)*12*AT.dn/100 + Math.min(sz, AT.hbgSZ)*AT.dnSZ/100,
+          pvAn = basis*AT.pvAn/100, kvAn = basis*AT.kvAn/100,
+          zve = brutto - (pendler(p) + brutto*0.01) - DE.sap - pvAn - kvAn*0.96,
+          est = estDE(zve), ki = est*p.kirche/100;
+      out.push({ name:'Grenzgänger:in Österreich', tag:'Wohnsitz Deutschland',
+        brutto:f(brutto)+' €',
+        abz:f(sv)+' € SV (AT)<br><small>'+f(est+ki)+' € Steuer (DE), keine 6-%-Begünstigung</small>',
+        kv:'ÖGK, in der SV', netto:(brutto-sv-est-ki)/12, miete:p.m_ggat });
+    })();
+
+    return out;
+  }
+
+  function render(){
+    var p = werte(), rows = szenarien(p), tb = E('erg_body'), bars = E('bars');
+    tb.innerHTML = '';
+    rows.forEach(function(s){
+      var tr = document.createElement('tr');
+      if(s.best) tr.className = 'hl';
+      tr.innerHTML = '<td><b>'+s.name+'</b><br><span class="tag">'+s.tag+'</span></td>' +
+        '<td class="num">'+s.brutto+'</td><td class="num">'+s.abz+'</td><td class="num">'+s.kv+'</td>' +
+        '<td class="num"><b>'+f(s.netto)+' €</b></td>' +
+        '<td class="num">'+f(s.netto - s.miete)+' €</td>';
+      tb.appendChild(tr);
+    });
+
+    var max = Math.max.apply(null, rows.map(function(s){ return s.netto - s.miete; }));
+    bars.innerHTML = '<div class="src" style="margin-bottom:6px">Netto pro Monat nach Wohnkosten</div>' +
+      rows.map(function(s){
+        var v = s.netto - s.miete, w = max > 0 ? Math.max(v/max*100, 0) : 0;
+        return '<div class="brow'+(v >= max-1 ? ' best' : '')+'"><span class="nm">'+s.name+'</span>' +
+               '<span class="track"><span class="fill" style="width:'+w.toFixed(1)+'%"></span></span>' +
+               '<span class="v">'+f(v)+' €</span></div>';
+      }).join('');
+
+    var de = rows[0], ggk = rows[1],
+        d = (ggk.netto - ggk.miete) - (de.netto - de.miete);
+    E('kurzfazit').innerHTML = d > 0
+      ? 'Mit diesen Eingaben bleiben als Grenzgänger:in in die Schweiz <b>'+f(d)+' € pro Monat mehr</b> übrig als beim deutschen Szenario – jeweils nach Wohnkosten gerechnet.'
+      : 'Mit diesen Eingaben bleibt das deutsche Szenario nach Wohnkosten um <b>'+f(-d)+' € pro Monat</b> vorn.';
+
+    try { localStorage.setItem(KEY, JSON.stringify(p)); } catch(e){}
+  }
+
+  function laden(){
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if(!s) return;
+      IDS.forEach(function(id){
+        if(!(id in s)) return;
+        var el = E(id); if(!el) return;
+        if(el.type === 'checkbox') el.checked = !!s[id]; else el.value = s[id];
+      });
+    } catch(e){}
+  }
+
+  var defaults = {};
+  IDS.forEach(function(id){ var el = E(id); if(el) defaults[id] = (el.type === 'checkbox') ? el.checked : el.value; });
+
+  laden();
+  IDS.forEach(function(id){
+    var el = E(id); if(!el) return;
+    el.addEventListener('input', render);
+    el.addEventListener('change', render);
+  });
+  E('reset').addEventListener('click', function(){
+    IDS.forEach(function(id){
+      var el = E(id); if(!el) return;
+      if(el.type === 'checkbox') el.checked = defaults[id]; else el.value = defaults[id];
+    });
+    try { localStorage.removeItem(KEY); } catch(e){}
+    render();
+  });
+  render();
+})();
+</script>
 </body>
 </html>
