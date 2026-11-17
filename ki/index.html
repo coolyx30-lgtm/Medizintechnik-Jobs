@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="de">
+<head>
+<script>(function(){try{var t=localStorage.getItem("mtj-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KI und der Jobmarkt in der Medizintechnik</title>
+<meta name="description" content="Recherche: Wie Künstliche Intelligenz den Arbeitsmarkt und besonders den Berufseinstieg verändert, was das für die Medizintechnik bedeutet, welche Tätigkeiten robust bleiben, wie man sich resilient aufstellt und KI in Bewerbung und Job nutzt. Stand November 2026.">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:32px 16px 64px}
+header.top{padding-bottom:14px;margin-bottom:22px}
+h1{font-size:32px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+.lead{color:var(--ink2);margin:0}
+h2{font-size:23px;margin:40px 0 10px;letter-spacing:-.01em;scroll-margin-top:16px}
+h2 .n{color:var(--accent);margin-right:6px}
+h3{font-size:17px;margin:24px 0 6px}
+p{margin:8px 0}
+.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:18px 0}
+.toc ol{margin:6px 0 0;padding-left:20px;columns:2;column-gap:28px}
+.toc li{margin:2px 0;break-inside:avoid}
+.key{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 18px;margin:16px 0}
+.key ul{margin:6px 0;padding-left:20px}
+.key li{margin:6px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.card .big{font-size:23px;font-weight:700;color:var(--accent);line-height:1.15}
+.card .lbl{font-size:13.5px;color:var(--ink2);margin-top:4px}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:14px;margin:14px 0}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.box h3{margin-top:0}
+.box ul{padding-left:18px;margin:6px 0}
+.box li{margin:5px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:14.5px;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--chip);font-size:13px;color:var(--ink2)}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+.tblwrap{overflow-x:auto}
+.src{font-size:13px;color:var(--ink2);margin:4px 0 14px}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:12px 0}
+.warn{background:var(--coral-soft);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:14.5px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.steps li{counter-increment:s;position:relative;padding:10px 12px 10px 46px;background:var(--paper);border:1px solid var(--line);border-radius:10px;margin:7px 0}
+.steps li::before{content:counter(s);position:absolute;left:11px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.tag{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:1px 9px;background:var(--chip);color:var(--ink2);vertical-align:1px}
+ul.plain{padding-left:20px}
+ul.plain li{margin:6px 0}
+.vid{display:grid;grid-template-columns:132px minmax(0,1fr);gap:14px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.vid .thumb{display:block;border-radius:8px;overflow:hidden;background:var(--chip);aspect-ratio:16/9;position:relative;text-decoration:none}
+.vid .thumb svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;color:var(--accent)}
+.vid h3{margin:0 0 2px;font-size:16px}
+.vid .meta{font-size:12.5px;color:var(--ink3)}
+.vid p{margin:6px 0 0;font-size:14.5px;color:var(--ink2)}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+.sources li{margin:3px 0;font-size:14px;word-break:break-word}
+@media (max-width:700px){h1{font-size:26px}.toc ol{columns:1}.vid{grid-template-columns:1fr}.vid .thumb{max-width:180px}}
+@media print{
+  @page{size:A4;margin:16mm 14mm}
+  body{background:#fff;font-size:10.5pt;line-height:1.45}
+  .wrap{max-width:none;padding:0}
+  h1{font-size:22pt}h2{font-size:15pt;margin-top:20px;break-after:avoid}h3{font-size:12pt;break-after:avoid}
+  table,.key,.cards,.card,.box,.steps li,.vid{break-inside:avoid}
+  .tblwrap{overflow:visible}table{font-size:8.6pt}th,td{padding:4px 6px}
+  .noprint{display:none}
+}
+</style>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="../menu.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Übersicht aller Seiten</a>
+  <h1>KI und der Jobmarkt in der Medizintechnik</h1>
+  <p class="lead">Was die Daten über den Einfluss von Künstlicher Intelligenz auf den Arbeitsmarkt wirklich hergeben, warum ausgerechnet Einstiegsstellen betroffen sind, was in der Medizintechnik anders läuft als in Softwarehäusern, welche Tätigkeiten robust bleiben und wie man KI in Bewerbung und Job nutzt, ohne sich selbst überflüssig zu machen. Stand: November 2026.</p>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <b>Inhalt</b>
+  <ol>
+    <li><a href="#kurz">Das Wichtigste in Kürze</a></li>
+    <li><a href="#daten">Was die Daten sagen</a></li>
+    <li><a href="#einstieg">Warum es Einstiegsstellen trifft</a></li>
+    <li><a href="#medtech">Medizintechnik: was sich hier ändert</a></li>
+    <li><a href="#regulatorik">Regulatorik als Jobmotor</a></li>
+    <li><a href="#robust">Welche Tätigkeiten robust bleiben</a></li>
+    <li><a href="#hebel">Sieben Hebel für das eigene Profil</a></li>
+    <li><a href="#bewerbung">KI im Bewerbungsprozess</a></li>
+    <li><a href="#nutzen">KI im Job nutzen</a></li>
+    <li><a href="#lernen">Lernpfad und Zertifikate</a></li>
+    <li><a href="#videos">Videos und Podcasts</a></li>
+    <li><a href="#quellen">Quellen</a></li>
+  </ol>
+</nav>
+
+<section id="kurz">
+<h2><span class="n">1</span>Das Wichtigste in Kürze</h2>
+<div class="key">
+<ul>
+  <li><b>Kein Kahlschlag, aber eine Verschiebung.</b> Das IAB findet für Deutschland keinen allgemeinen Beschäftigungseinbruch in KI-exponierten Berufen – im Gegenteil, bei den 30- bis 64-Jährigen wuchs die Beschäftigung dort sogar <b>stärker</b>. Nur bei den 20- bis 29-Jährigen kippt das Vorzeichen.</li>
+  <li><b>Der Druck sitzt genau am Berufseinstieg.</b> Stanford-Daten aus US-Gehaltsabrechnungen zeigen für 22- bis 25-Jährige in stark KI-exponierten Berufen eine relative Beschäftigungslücke, die in der Fortschreibung von 2026 auf rund <b>19 %</b> gewachsen ist – getrieben überwiegend durch <b>weniger Einstellungen</b>, nicht durch Entlassungen.</li>
+  <li><b>Die Konjunktur wiegt derzeit schwerer als die Technik.</b> Das IAB schätzt den Konjunktureffekt auf junge Beschäftigte als <b>mehr als doppelt so stark</b> ein wie den KI-Effekt. Wer gerade keine Stelle findet, kämpft 2026 vor allem gegen eine schwache Wirtschaft.</li>
+  <li><b>KI-Kompetenz wird bezahlt.</b> PwC misst über eine Milliarde Stellenanzeigen hinweg einen Lohnaufschlag von <b>62 %</b> für KI-Kompetenzen und ein fast achtmal schnelleres Wachstum solcher Stellen. Gleichzeitig verlangen KI-exponierte Einstiegsstellen siebenmal häufiger Fähigkeiten, die früher als Senior-Niveau galten: Urteilsvermögen, Verantwortung, Führung.</li>
+  <li><b>Die Medizintechnik ist spät dran – und das ist eine Chance.</b> KI steckt hier überwiegend in Marketing, Office und Vertrieb; in Entwicklung und Produktion deutlich weniger. Alles, was reguliert ist, braucht einen Menschen, der unterschreibt, validiert und haftet.</li>
+  <li><b>Die Regulierung schafft selbst Stellen.</b> MDR, IVDR und die KI-Verordnung gelten parallel. Für KI in Medizinprodukten greifen die Hochrisiko-Pflichten nach dem Digital Omnibus erst ab dem <b>2. August 2028</b> – die Vorbereitung läuft aber jetzt und erzeugt Bedarf an Leuten, die beides können: Technik und Regulatorik.</li>
+  <li><b>Die Faustregel aus allen Quellen:</b> nicht Berufe verschwinden, sondern Aufgaben verschieben sich. Robust ist, wer Aufgaben hat, die KI schlecht kann, und KI für die übrigen nachweislich nutzt.</li>
+</ul>
+</div>
+<div class="note">Diese Seite ist eine Recherche, keine Prognose. Alle Zahlen stammen aus benannten Studien mit sehr unterschiedlicher Methodik: Beschäftigtenstatistiken, Gehaltsabrechnungsdaten, Stellenanzeigen-Analysen und Unternehmensbefragungen. Sie messen Verschiedenes und widersprechen sich teilweise – das ist in <a href="#daten">Abschnitt 2</a> offen dargestellt.</div>
+</section>
+
+<section id="daten">
+<h2><span class="n">2</span>Was die Daten sagen</h2>
+<div class="cards">
+<div class="card"><div class="big">+78 Mio.</div><div class="lbl">Saldo aus 170 Mio. neuen und 92 Mio. verdrängten Stellen weltweit bis 2030 (WEF Future of Jobs)</div></div>
+<div class="card"><div class="big">19 %</div><div class="lbl">relative Beschäftigungslücke der 22- bis 25-Jährigen in stark KI-exponierten US-Berufen (Stanford, Stand 2026)</div></div>
+<div class="card"><div class="big">−1,2 PP</div><div class="lbl">Rückstand der 20- bis 29-Jährigen in KI-exponierten Berufen in Deutschland, bei +6 PP Vorsprung der 30- bis 39-Jährigen (IAB)</div></div>
+<div class="card"><div class="big">62 %</div><div class="lbl">durchschnittlicher Lohnaufschlag für KI-Kompetenzen (PwC AI Jobs Barometer 2026)</div></div>
+</div>
+
+<h3>Vier Studien, vier Blickwinkel</h3>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Quelle</th><th>Was gemessen wird</th><th>Befund</th><th>Grenzen</th></tr></thead>
+<tbody>
+<tr><td><b>IAB</b> (Okt. 2026)<br><span class="tag">Deutschland</span></td><td>Vollzeitbeschäftigung seit 2022 nach KI-Exposition des Berufs</td><td>Kein allgemeiner Einbruch; in den zwei am stärksten exponierten Berufsgruppen lag die Beschäftigung 2025 rund ein Prozent über 2022. Bei 30- bis 39-Jährigen fast 6 PP, bei 40- bis 64-Jährigen rund 5 PP besseres Wachstum als in weniger exponierten Berufen. Bei 20- bis 29-Jährigen zuletzt 1,2 PP schlechter.</td><td>Exposition heißt „veränderbar durch KI“, nicht „KI wird dort eingesetzt“. Konjunktur wirkt laut IAB mehr als doppelt so stark auf Junge.</td></tr>
+<tr><td><b>Stanford Digital Economy Lab</b><br>(Brynjolfsson u. a.)<br><span class="tag">USA</span></td><td>Gehaltsabrechnungsdaten von ADP, Millionen Datensätze, seit ChatGPT</td><td>22- bis 25-Jährige in den am stärksten exponierten Berufen: 13 % relativer Rückgang (Fassung 2025), in der Fortschreibung rund 19 % Lücke. Rückgang fast nur in Anwendungen, die Arbeit <b>automatisieren</b>; wo KI <b>ergänzt</b>, wuchs die Beschäftigung.</td><td>US-Daten, keine kausale Isolierung von KI; Branchenmix anders als in Deutschland.</td></tr>
+<tr><td><b>PwC AI Jobs Barometer</b> (Juni 2026)<br><span class="tag">global</span></td><td>über eine Milliarde Stellenanzeigen aus 27 Ländern</td><td>Lohnaufschlag für KI-Kompetenzen 62 %; Stellen mit KI-Anforderungen wachsen 69 % gegenüber 9 % im Gesamtmarkt. Zweigeteilter Markt: „professionalisierte“ Rollen (KI übernimmt Routine, Mensch urteilt) wachsen schneller als „demokratisierte“.</td><td>Anzeigen sind Absichten, keine Einstellungen. Für Deutschland findet PwC fast keinen Zusammenhang zwischen KI-Exposition und tatsächlichem Kompetenzwandel.</td></tr>
+<tr><td><b>WEF Future of Jobs</b><br><span class="tag">global</span></td><td>Befragung von über 1.000 Arbeitgebern in 55 Volkswirtschaften</td><td>Bis 2030 rund 92 Mio. verdrängte und 170 Mio. neue Stellen, netto +78 Mio.; 59 % der Beschäftigten brauchen Weiterbildung.</td><td>Arbeitgeber-Erwartungen, nicht Messung; umfasst alle Treiber, nicht nur KI.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="src">Die Spannweite ist der eigentliche Befund: Wer behauptet, die Lage sei eindeutig, hat eine der vier Studien nicht gelesen.</p>
+</section>
+
+<section id="einstieg">
+<h2><span class="n">3</span>Warum es ausgerechnet Einstiegsstellen trifft</h2>
+<p>Die Mechanik dahinter ist unangenehm logisch: Junior-Aufgaben sind oft genau die Aufgaben, die klar umrissen, gut dokumentiert und wenig kontextabhängig sind – Recherchen zusammenfassen, Testprotokolle ausfüllen, Datensätze aufbereiten, erste Textentwürfe schreiben. Das ist die Zone, in der generative KI zuverlässig funktioniert. Wenn diese Aufgaben wegfallen, fällt nicht nur Arbeit weg, sondern auch die Lernstrecke, über die man früher Erfahrung gesammelt hat.</p>
+<ul class="plain">
+<li><b>Weniger Einstellungen statt Entlassungen.</b> Die Stanford-Daten zeigen: Der Rückgang bei Jungen läuft überwiegend über ausbleibende Neueinstellungen. Das ist für Suchende schlechter als eine Kündigungswelle, weil es unsichtbar bleibt.</li>
+<li><b>Höhere Erwartungen an Einsteiger.</b> PwC findet für die USA: KI-exponierte Einstiegsstellen verlangen siebenmal häufiger traditionell senior besetzte Fähigkeiten – Urteilsvermögen, Verantwortung, Führung. Wer nur ausführen kann, wird seltener gebraucht; wer Entscheidungen begründen kann, häufiger.</li>
+<li><b>Der deutsche Einstiegsmarkt ist ohnehin eng.</b> Eine Indeed-Auswertung zählt seit dem Höchststand Juli 2022 einen Rückgang der Einstiegsstellen um mehr als zwei Drittel, im Juli 2026 lag das Angebot 46 % unter dem Niveau von 2019 – in 26 von 28 Bereichen. Eine ifo-Befragung nennt 40 % der Unternehmen, die erwarten, dass Einsteigertätigkeiten in drei Jahren von KI übernommen werden.</li>
+<li><b>Die Gegenbewegung ist real.</b> Wer Einstiegsstellen streicht, hat in fünf Jahren keine Seniors. Teile der Branche argumentieren genau so – und die IAB-Zahlen zeigen, dass KI-nahe Berufe insgesamt wachsen.</li>
+</ul>
+<div class="warn"><b>Die wichtigste Unterscheidung dieser Seite:</b> Automatisierung heißt, die Aufgabe wird abgegeben. Augmentierung heißt, der Mensch bleibt im Prozess und wird schneller. Der Anthropic Economic Index misst im Januar 2026 für Claude.ai etwa 52 % Augmentierung gegenüber 45 % Automatisierung, über die Programmierschnittstelle dagegen deutlich mehr Automatisierung. Für die eigene Position ist nicht der Beruf entscheidend, sondern wie viele der eigenen Aufgaben in die erste und wie viele in die zweite Kategorie fallen.</div>
+</section>
+
+<section id="medtech">
+<h2><span class="n">4</span>Medizintechnik: was sich hier tatsächlich ändert</h2>
+<h3>Wo KI in der Branche heute steckt</h3>
+<p>Die BVMed-Herbstumfrage 2026 unter 120 Mitgliedsunternehmen zeigt ein klares Muster: KI ist in der Medizintechnik angekommen, aber nicht dort, wo Produkte entstehen. Genutzt wird sie vor allem im <b>Marketing (69 %)</b>, bei <b>Office-Tools (62 %)</b> und im <b>Vertrieb (49 %)</b>, deutlich seltener in der <b>Produktion (35 %)</b> und in der <b>Beschaffung (23 %)</b>. <b>20 %</b> der Unternehmen entwickeln eigene KI-Produkte.</p>
+<p>Gesucht wird Personal laut derselben Umfrage vor allem im Vertrieb (78 %), mit Abstand in Produktion (26 %), Marketing (25 %), <b>Forschung und Entwicklung (22 %)</b> sowie in <b>Data Science, Digitalisierung, IT und KI (18 %)</b>. 37 % der Unternehmen erhöhen ihre Mitarbeiterzahl, 38 % halten sie stabil.</p>
+
+<h3>Zwei getrennte Themen, die oft verwechselt werden</h3>
+<div class="split">
+<div class="box">
+<h3>KI <i>im Produkt</i></h3>
+<p>Bildanalyse, Entscheidungsunterstützung, Software als Medizinprodukt, KI-gestützte Diagnostik. Das erzeugt neue Rollen, die es vor fünf Jahren kaum gab:</p>
+<ul>
+<li>ML- und MLOps-Ingenieur:innen für medizinische Anwendungen</li>
+<li>Algorithm Validation Lead, Clinical AI Validator</li>
+<li>Regulatory Affairs mit AI-Act-Expertise (MDR plus IVDR plus KI-Verordnung)</li>
+<li>Data Governance Manager, Verantwortliche für Datenqualität und Bias-Prüfung</li>
+<li>Post-Market-Surveillance für lernende Systeme</li>
+</ul>
+</div>
+<div class="box">
+<h3>KI <i>im Arbeitsalltag</i></h3>
+<p>Der Einsatz im eigenen Entwicklungs- und Zulassungsprozess ist der leisere, aber breitere Hebel:</p>
+<ul>
+<li>Entwürfe und Gap-Analysen für technische Dokumentation nach MDR</li>
+<li>Reviews auf Inkonsistenzen und fehlende Inhalte, Querverweise zwischen Dokumenten</li>
+<li>Literaturrecherche als Vorarbeit zur klinischen Bewertung</li>
+<li>Testfälle und Prüfprotokolle entwerfen, Messdaten auswerten</li>
+<li>Normenlandschaft überwachen, Schulungsunterlagen erstellen</li>
+</ul>
+</div>
+</div>
+<div class="warn"><b>Der Haken, den man im Vorstellungsgespräch kennen sollte:</b> Sobald KI einen regulierten Datensatz berührt – Reklamation, CAPA, Abweichung, Design Control, technische Dokumentation –, unterliegt das eingesetzte Werkzeug der Softwarevalidierung im Rahmen des Qualitätsmanagementsystems nach ISO 13485. Deshalb dauert der produktive Einsatz in Regulatory und Qualität typischerweise Monate statt Tage – und deshalb sind Leute wertvoll, die beides verstehen: was das Werkzeug kann und was das QM-System verlangt.</div>
+</section>
+
+<section id="regulatorik">
+<h2><span class="n">5</span>Regulatorik als Jobmotor</h2>
+<p>Für KI-Medizinprodukte gelten zwei Regelwerke gleichzeitig: Die KI-Verordnung ersetzt das Medizinprodukterecht nicht, sondern ergänzt es um Anforderungen an Daten-Governance, technische Dokumentation, Transparenz, menschliche Aufsicht, Robustheit, Logging und laufende Überwachung. Der „Digital Omnibus“ – Verordnung (EU) 2026/1744, im Juli 2026 in Kraft – hat die Hochrisiko-Fristen verschoben, aber keine inhaltliche Pflicht gestrichen.</p>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Datum</th><th>Was gilt</th><th>Relevanz für den Einstieg</th></tr></thead>
+<tbody>
+<tr><td><b>seit 2.2.2025</b></td><td>Verbotene KI-Praktiken (Art. 5) und <b>KI-Kompetenz</b> (Art. 4): Anbieter und Betreiber müssen Maßnahmen zur KI-Kompetenz ihres Personals ergreifen – nach dem Digital Omnibus als Bemühungspflicht.</td><td>Arbeitgeber müssen Schulung anbieten. Eine gute Frage im Gespräch: „Wie setzt ihr Artikel 4 um?“</td></tr>
+<tr><td><b>seit 2.8.2026</b></td><td>Transparenzpflichten (Art. 50) und Aufsichtsstrukturen; GPAI-Regeln bereits seit August 2025.</td><td>Betrifft jedes Unternehmen, das generative KI einsetzt – auch ohne KI-Produkt.</td></tr>
+<tr><td><b>2.12.2027</b></td><td>Hochrisiko-Pflichten für eigenständige Systeme nach Anhang III.</td><td>Projektarbeit und Stellen entstehen 12 bis 24 Monate vorher.</td></tr>
+<tr><td><b>2.8.2028</b></td><td>Hochrisiko-Pflichten für KI in regulierten Produkten nach Anhang I – also <b>KI in Medizinprodukten über die MDR-Route</b>.</td><td>Genau das Zeitfenster, in dem jemand mit Einstieg 2026/27 zur gefragten Fachkraft werden kann.</td></tr>
+<tr><td><b>28.1.2028</b></td><td>Benannte Stellen müssen ihre Benennung nach der KI-Verordnung beantragt haben.</td><td>Auch Benannte Stellen und Prüfhäuser stellen dafür ein.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="src">Quellen: Johner Institut (Fristenübersicht KI-VO), Verordnung (EU) 2026/1744 (Digital Omnibus), VDE Health, MDCG-Leitfäden. Fristen können sich erneut ändern – vor der Bewerbung kurz prüfen.</p>
+<div class="note">Das ist der interessanteste Befund dieser Recherche für Berufseinsteiger:innen in der Medizintechnik: Während KI anderswo Einstiegsaufgaben wegnimmt, erzeugt sie hier zusätzlich <b>regulatorische Arbeit</b>, die neu ist und für die es noch wenige Erfahrene gibt. Wer MDR-Grundlagen mit KI-Grundlagen verbindet, konkurriert in einem Feld, in dem fast alle gleich jung sind.</div>
+</section>
+
+<section id="robust">
+<h2><span class="n">6</span>Welche Tätigkeiten robust bleiben</h2>
+<p>Nicht Berufe sind sicher oder unsicher, sondern Aufgaben. Diese Einordnung folgt der Automatisierung-Augmentierung-Logik der oben genannten Studien, angewandt auf typische Tätigkeiten in Entwicklung, Test, Qualität und Zulassung.</p>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Robust</th><th>Warum</th><th>Unter Druck</th></tr></thead>
+<tbody>
+<tr><td>Arbeit an realer Hardware: Prüfstandsaufbau, Messtechnik, Verifikation am Gerät, Fehlersuche im Labor</td><td>Physische Welt, unvollständige Information, Verantwortung für das Ergebnis</td><td>Reine Protokollerstellung und Reporting</td></tr>
+<tr><td>Nasschemie, Assay-Entwicklung, Zellkultur, Probenvorbereitung</td><td>Manuelle Fertigkeit, Erfahrungswissen, Variabilität biologischer Systeme</td><td>Standard-Auswertungen und Statistikroutinen</td></tr>
+<tr><td>Regulatorische Entscheidungen und Freigaben, Audits, Lieferantenqualifizierung</td><td>Jemand muss unterschreiben und haften; KI darf vorbereiten, nicht entscheiden</td><td>Erstentwürfe von Dokumenten, Formatierung, Recherche</td></tr>
+<tr><td>Klinische Schnittstelle: Anwenderbeobachtung, Usability-Studien, Gespräche mit Ärztinnen und Pflege</td><td>Kontext, Vertrauen, unausgesprochene Anforderungen</td><td>Transkription und Zusammenfassung von Interviews</td></tr>
+<tr><td>Systemdenken über Fachgrenzen: Anforderungen, Risikoanalyse, Trade-offs zwischen Technik, Klinik und Zulassung</td><td>Verknüpfung von Wissen, das in keinem Dokument zusammensteht</td><td>Einzelne Textbausteine und isolierte Analysen</td></tr>
+<tr><td>Projekt- und Lieferantensteuerung, Verhandlung, Konfliktlösung</td><td>Menschen, Interessen, Verbindlichkeit</td><td>Statusberichte und Protokolle</td></tr>
+</tbody>
+</table>
+</div>
+<p class="src">Einordnung dieser Recherche auf Basis der zitierten Studien, nicht als einzelne Quelle belegt. Sie ist als Diskussionsraster gedacht: Die rechte Spalte verschwindet nicht, sie schrumpft – und sie war bisher die Lernstrecke für Einsteiger.</p>
+</section>
+
+<section id="hebel">
+<h2><span class="n">7</span>Sieben Hebel für das eigene Profil</h2>
+<ol class="steps">
+<li><b>Aufgaben statt Jobtitel inventarisieren.</b> Die eigene Tätigkeit – oder die der Wunschstelle – in zwanzig Aufgaben zerlegen und jede einordnen: automatisierbar, durch KI beschleunigt, nur von Menschen machbar. Der Anteil der ersten Kategorie ist das persönliche Risikomaß; der Anteil der zweiten ist die Verhandlungsposition.</li>
+<li><b>Die Kombination suchen, nicht die Spitze.</b> Als Berufseinsteiger gewinnt man selten gegen Spezialisten. Aber die Schnittmenge aus Medizintechnik-Wissen, regulatorischem Verständnis und praktischer KI-Nutzung ist dünn besetzt – gerade weil die Branche in Entwicklung und Qualität spät dran ist.</li>
+<li><b>Datenkompetenz vor Modellbau.</b> Für die meisten Stellen zählt nicht, ob man Netze trainiert, sondern ob man Datenqualität, Bias, Validierung, Sensitivität, Spezifität und Konfidenzintervalle sauber diskutieren kann. Genau danach fragen Benannte Stellen – und Interviewer.</li>
+<li><b>Nachweise statt Behauptungen.</b> Ein kleines, dokumentiertes Projekt wirkt stärker als jede Formulierung im Anschreiben: eine Messdatenauswertung mit sauberer Validierung, ein Skript, das eine wiederkehrende Aufgabe automatisiert, eine kommentierte Gap-Analyse eines Dokuments gegen eine Norm. Mit Code, Grenzen und ehrlicher Fehlerdiskussion.</li>
+<li><b>Hardware-Nähe pflegen.</b> Wer Prüfstände baut, misst, Laborarbeit kann und Geräte in Betrieb nimmt, hat genau die Aufgaben, bei denen Sprachmodelle nichts ausrichten. Das ist kein Gegensatz zu KI-Kompetenz, sondern ihr Fundament.</li>
+<li><b>Verantwortung früh übernehmen.</b> Wenn Einstiegsstellen siebenmal häufiger Urteilsvermögen verlangen, ist die Konsequenz praktisch: Teilprojekte, Lieferantenkontakte, Präsentationen vor Entscheidern suchen – und im Lebenslauf benennen, was man entschieden und verantwortet hat, nicht nur, woran man mitgearbeitet hat.</li>
+<li><b>Lernrhythmus etablieren, nicht Kurse sammeln.</b> Zwei Stunden pro Woche, in denen eine echte eigene Aufgabe mit KI bearbeitet und das Ergebnis geprüft wird, bringen mehr als drei Zertifikate ohne Anwendung. Das Zertifikat ist der Türöffner, die Anwendung ist das Argument.</li>
+</ol>
+<div class="note">Was bewusst <b>nicht</b> auf dieser Liste steht: „Lerne Prompt Engineering“. Die Halbwertszeit solcher Tricks ist kurz, und die Studienlage zeigt, dass der Markt nicht Werkzeugbedienung bezahlt, sondern das, was danach kommt – Urteil, Kontext, Verantwortung.</div>
+</section>
+
+<section id="bewerbung">
+<h2><span class="n">8</span>KI im Bewerbungsprozess</h2>
+<div class="cards">
+<div class="card"><div class="big">67 %</div><div class="lbl">der deutschen Jobsuchenden nutzen generative KI für ihre Unterlagen (Michael Page Talent Trends 2026)</div></div>
+<div class="card"><div class="big">43 %</div><div class="lbl">nutzen KI beim Anschreiben – dreimal so viele wie 2023 (softgarden 2026)</div></div>
+<div class="card"><div class="big">1 %</div><div class="lbl">der deutschen Unternehmen lassen Bewerbungen per KI screenen (Bitkom)</div></div>
+<div class="card"><div class="big">41 %</div><div class="lbl">der Recruiter haben KI-gestützte Täuschungsversuche festgestellt oder vermutet (Stepstone, Nov. 2026)</div></div>
+</div>
+<p>Daraus folgen drei ziemlich konkrete Schlüsse:</p>
+<ul class="plain">
+<li><b>Die ATS-Panik ist in Deutschland übertrieben.</b> Große Konzerne nutzen Bewerbermanagementsysteme mit Keyword-Abgleich, aber automatisiertes KI-Screening ist hierzulande die Ausnahme. Schlüsselbegriffe aus der Anzeige aufzugreifen ist trotzdem sinnvoll – gelesen wird am Ende von Menschen.</li>
+<li><b>Vollständig generierte Unterlagen fallen auf, und zwar nicht durch Detektoren.</b> Sie fallen auf, weil sie sich alle gleich lesen: glatte Adjektive, keine konkreten Situationen, austauschbarer Aufbau. Recruiter berichten, dass die Qualität der Bewerbungen insgesamt sinkt, während die Menge steigt – wer konkret wird, sticht stärker heraus als früher.</li>
+<li><b>Der Abgleich im Gespräch ist die eigentliche Prüfung.</b> Alles, was in den Unterlagen steht, muss man in zwei Sätzen erklären können. Das ist der Grund, warum KI-polierte Bewerbungen im Interview scheitern – nicht Moral, sondern Mechanik.</li>
+</ul>
+<div class="split">
+<div class="box"><h3>Sinnvoll</h3><ul>
+<li>Stellenanzeige und Unternehmen analysieren lassen, Fragen für das Gespräch entwickeln</li>
+<li>Eigene Rohfassung schreiben und von KI auf Lücken, Redundanzen und schwache Begründungen prüfen lassen</li>
+<li>Fachfragen üben: Interview simulieren, Antworten auf Struktur und Verständlichkeit prüfen lassen</li>
+<li>Gehaltsrecherche, Branchenkontext, Normen nachschlagen – und die Quellen gegenlesen</li>
+</ul></div>
+<div class="box"><h3>Riskant</h3><ul>
+<li>Anschreiben komplett generieren und unverändert senden</li>
+<li>Erfahrungen aufwerten, die man nicht belegen kann – Referenzen werden geprüft</li>
+<li>Versteckte Anweisungen im PDF („ignore previous instructions“) – gilt als Täuschungsversuch</li>
+<li>KI-Unterstützung im Live-Interview; das fällt auf und beendet den Prozess</li>
+</ul></div>
+</div>
+<p class="src">Passend dazu: <a href="../interview/">Interviewtraining</a> mit typischen Fach- und Verhaltensfragen und <a href="../reflexion/">Reflexion und Profil</a> für die eigenen Beispiele.</p>
+</section>
+
+<section id="nutzen">
+<h2><span class="n">9</span>KI im Job nutzen – und zwar regelkonform</h2>
+<p>Im Arbeitsalltag entscheidet weniger das Werkzeug als der Rahmen. Vier Regeln, die in regulierten Unternehmen überall gelten:</p>
+<ol class="steps">
+<li><b>Erst die Richtlinie, dann das Werkzeug.</b> Fast jedes Medizintechnik-Unternehmen hat eine KI-Nutzungsrichtlinie oder arbeitet daran. Vor dem ersten Prompt klären: welche Werkzeuge freigegeben sind, welche Daten hinein dürfen, was dokumentiert werden muss.</li>
+<li><b>Keine vertraulichen oder personenbezogenen Daten in nicht freigegebene Werkzeuge.</b> Patientendaten, Studiendaten, Konstruktionsdaten, Lieferantenverträge – das ist der schnellste Weg zu einem ernsten Problem, unabhängig von der Technik.</li>
+<li><b>Alles, was in ein reguliertes Dokument fließt, wird geprüft und verantwortet.</b> KI liefert Entwürfe, keine Freigaben. Wer eine KI-Ausgabe ungeprüft in eine technische Dokumentation übernimmt, riskiert Abweichungen im Audit.</li>
+<li><b>Nutzen sichtbar machen.</b> Wer eine wiederkehrende Aufgabe von drei Stunden auf zwanzig Minuten bringt und das sauber dokumentiert, hat im nächsten Mitarbeitergespräch ein besseres Argument als jede Zertifikatsliste.</li>
+</ol>
+<h3>Anwendungsfälle nach Jobbereich</h3>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Bereich</th><th>Realistisch heute</th><th>Was man selbst prüfen muss</th></tr></thead>
+<tbody>
+<tr><td>Entwicklung, Konstruktion</td><td>Code und Skripte für Auswertung und Automatisierung, Recherche zu Werkstoffen und Normen, Varianten durchdenken, Dokumentation von Konstruktionsentscheidungen</td><td>Rechenwege, Einheiten, Normenstände; Quellen immer selbst nachschlagen</td></tr>
+<tr><td>Test und Verifikation</td><td>Testfälle aus Anforderungen ableiten, Prüfprotokolle strukturieren, Messdaten aufbereiten und visualisieren</td><td>Vollständigkeit gegen Anforderungen, Abdeckung, Statistik der Auswertung</td></tr>
+<tr><td>Qualität und Regulatory</td><td>Gap-Analysen gegen MDR-Anhänge, Reviews auf Inkonsistenzen, Vorbereitung von Schulungen, Normenmonitoring</td><td>Werkzeug muss im QM-System beschrieben und validiert sein; Ergebnisse sind Entwürfe</td></tr>
+<tr><td>Klinische Bewertung</td><td>Literatursuche strukturieren, Studien grob vorsortieren, Zusammenfassungen als Vorarbeit</td><td>Jede Referenz einzeln verifizieren – erfundene Quellen sind der klassische Fehler</td></tr>
+<tr><td>Projektmanagement</td><td>Statusberichte, Risikolisten, Protokolle, Präsentationen, Übersetzungen</td><td>Vertraulichkeit, Adressatenkreis, Zahlen gegen das Original prüfen</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="lernen">
+<h2><span class="n">10</span>Lernpfad und Zertifikate</h2>
+<p>Ein realistischer Einstieg kostet nichts und dauert einige Wochen neben der Bewerbungsphase. Die Reihenfolge ist wichtiger als die Auswahl.</p>
+<div class="tblwrap">
+<table>
+<thead><tr><th>Schritt</th><th>Angebot</th><th>Aufwand</th><th>Wofür es zählt</th></tr></thead>
+<tbody>
+<tr><td>1. Grundlagen verstehen</td><td><a href="https://www.elementsofai.de/" target="_blank" rel="noopener">Elements of AI</a> (Universität Helsinki, deutsch) oder <a href="https://ki-campus.org/" target="_blank" rel="noopener">KI-Campus</a> (Stifterverband, deutsch)</td><td>15–30 Std.</td><td>Vokabular und Grundbegriffe; kostenlose Zertifikate</td></tr>
+<tr><td>2. Anwenden lernen</td><td>Kurse zu generativer KI im Arbeitsalltag, z. B. auf KI-Campus oder openHPI; Anbieterkurse zur Arbeit mit Sprachmodellen</td><td>5–15 Std.</td><td>Produktiver Einsatz, Grenzen, Fehlerbilder</td></tr>
+<tr><td>3. Fachlich vertiefen</td><td>Machine-Learning-Grundlagen mit Fokus auf Validierung und Metriken; für Medizintechnik: <a href="https://www.johner-institut.de/blog/regulatory-affairs/regulatorische-anforderungen-an-medizinprodukte-mit-machine-learning/" target="_blank" rel="noopener">Johner-Fachartikel zu ML-Medizinprodukten</a> und der <a href="https://github.com/johner-institut/ai-guideline/blob/master/Guideline-AI-Medical-Devices_DE.md" target="_blank" rel="noopener">Leitfaden für KI-basierte Medizinprodukte</a></td><td>10–30 Std.</td><td>Genau die Sprache, in der Interviews in Regulatory und Entwicklung geführt werden</td></tr>
+<tr><td>4. Regulatorik dazunehmen</td><td>KI-Verordnung im Zusammenspiel mit MDR/IVDR: Fristenübersicht, MDCG-Leitfäden, Seminare von Johner Institut, TÜV oder VDE</td><td>laufend</td><td>Unterscheidungsmerkmal gegenüber anderen Einsteiger:innen</td></tr>
+<tr><td>5. Nachweis bauen</td><td>Ein eigenes kleines Projekt, dokumentiert: Fragestellung, Daten, Methode, Validierung, Grenzen</td><td>20–40 Std.</td><td>Das Einzige, worüber im Gespräch wirklich gesprochen wird</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note">Zur Einordnung von Zertifikaten: Sie belegen Interesse und Grundverständnis, keine Kompetenz. In der Medizintechnik zählt die Verbindung zur Domäne – ein Zertifikat plus ein Projekt, das ein Problem der Branche löst, schlägt fünf Zertifikate ohne Bezug.</div>
+</section>
+
+<section id="videos">
+<h2><span class="n">11</span>Videos und Podcasts</h2>
+<p>Bewusst kurz gehalten und eingeordnet: zwei Videos zur Arbeitsmarktfrage, eines zur zugrunde liegenden These, dazu ein Fachpodcast für die Medizintechnik-Seite.</p>
+
+<div class="vid">
+  <a class="thumb" href="https://www.youtube.com/watch?v=LYwdRs3it10" target="_blank" rel="noopener" aria-label="Video öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor" stroke="none"/></svg></a>
+  <div>
+    <h3><a href="https://www.youtube.com/watch?v=LYwdRs3it10" target="_blank" rel="noopener">Mein ehrlicher Rat an alle, die noch nicht in Rente sind…</a></h3>
+    <div class="meta">Finanzfluss · Juli 2026 · deutsch</div>
+    <p>Der Ausgangspunkt dieser Seite. Das Video vergleicht drei widersprüchliche Studien zur Frage, ob KI Arbeitsplätze vernichtet, und leitet daraus drei praktische Tipps ab: früh Erfahrung mit KI sammeln (ab 4:55), KI im Job einsetzen (ab 9:39) und sich absichern (ab 15:37). Kernthese: KI soll verstärken statt ersetzen. Einordnung: Finanzkanal, kein Forschungsinstitut, und die Videobeschreibung enthält Werbelinks – die Argumentation zur Arbeitsmarktfrage ist trotzdem sauber belegt und deckt sich mit der Studienlage oben.</p>
+  </div>
+</div>
+
+<div class="vid">
+  <a class="thumb" href="https://www.youtube.com/watch?v=_U2BNwVtcNw" target="_blank" rel="noopener" aria-label="Video öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor" stroke="none"/></svg></a>
+  <div>
+    <h3><a href="https://www.youtube.com/watch?v=_U2BNwVtcNw" target="_blank" rel="noopener">Welche Jobs die KI wirklich bedroht</a></h3>
+    <div class="meta">ZEIT ONLINE · deutsch</div>
+    <p>Journalistische Aufbereitung der Frage, warum sich KI von früheren Automatisierungswellen unterscheidet und welche Tätigkeitsprofile betroffen sind. Nützlich als Gegenprobe zur Finanzfluss-Perspektive, weil stärker auf Berufsgruppen und weniger auf individuelle Strategie ausgerichtet.</p>
+  </div>
+</div>
+
+<div class="vid">
+  <a class="thumb" href="https://www.youtube.com/watch?v=PgnCMQ1lDrA" target="_blank" rel="noopener" aria-label="Video öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor" stroke="none"/></svg></a>
+  <div>
+    <h3><a href="https://www.youtube.com/watch?v=PgnCMQ1lDrA" target="_blank" rel="noopener">The Turing Trap – Gespräch mit Erik Brynjolfsson</a></h3>
+    <div class="meta">Brookings Institution · englisch · 2022</div>
+    <p>Die theoretische Grundlage hinter der wichtigsten Unterscheidung dieser Seite: Technik, die Menschen <i>imitiert</i>, verdrängt Arbeit; Technik, die Menschen <i>ergänzt</i>, schafft Wert. Brynjolfsson ist derselbe Ökonom, dessen Stanford-Team später die Beschäftigungsdaten zu Berufseinsteigern ausgewertet hat. Älteres Video, aber die These erklärt, warum die Daten heute so aussehen, wie sie aussehen.</p>
+  </div>
+</div>
+
+<div class="vid">
+  <a class="thumb" href="https://www.johner-institut.de/en/academy/podcast" target="_blank" rel="noopener" aria-label="Podcast öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3M8 21h8"/></svg></a>
+  <div>
+    <h3><a href="https://www.johner-institut.de/en/academy/podcast" target="_blank" rel="noopener">Medical Device Insights</a></h3>
+    <div class="meta">Johner Institut · Podcast auf Deutsch, Übersichtsseite auf Englisch</div>
+    <p>Folgen zu regulatorischen Anforderungen an KI-basierte Medizinprodukte, zur Validierung von ML-Bibliotheken und zur KI-gestützten Extraktion regulatorischer Anforderungen. Das ist genau die Sprache, die in Gesprächen bei Herstellern und Benannten Stellen gesprochen wird – gut als Vorbereitung auf Fachfragen.</p>
+  </div>
+</div>
+</section>
+
+<section id="quellen">
+<h2><span class="n">12</span>Quellen</h2>
+<ol class="sources">
+<li>IAB: <a href="https://iab.de/presseinfo/ki-bisher-kein-jobkiller-aber-berufseinsteiger-zunehmend-betroffen/" target="_blank" rel="noopener">KI bisher kein Jobkiller, aber Berufseinsteiger zunehmend betroffen</a> (Studie vom 13. Oktober 2026) und <a href="https://iab-forum.de/ki-als-jobkiller-fuer-berufseinsteiger-entwarnung-mit-vorbehalt/" target="_blank" rel="noopener">IAB-Forum: Entwarnung mit Vorbehalt</a></li>
+<li>Stanford Digital Economy Lab: <a href="https://digitaleconomy.stanford.edu/news/canariesaug26/" target="_blank" rel="noopener">No Widespread Displacement, but the AI Employment Gap for Young Workers Has Widened to 19%</a>; Originalpapier <a href="https://siepr.stanford.edu/publications/working-paper/canaries-coal-mine-six-facts-about-recent-employment-effects-artificial" target="_blank" rel="noopener">Canaries in the Coal Mine? (Brynjolfsson, Chandar, Chen)</a></li>
+<li>PwC: <a href="https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-ai-jobs-barometer.html" target="_blank" rel="noopener">2026 Global AI Jobs Barometer</a> und <a href="https://www.pwc.de/de/workforce-transformation/ai-jobs-barometer.html" target="_blank" rel="noopener">AI Jobs Barometer 2026 für Deutschland</a></li>
+<li>World Economic Forum: Future of Jobs Report (Befragung von über 1.000 Arbeitgebern, Prognose 170 Mio. neue und 92 Mio. verdrängte Stellen bis 2030)</li>
+<li>Anthropic: <a href="https://www.anthropic.com/research/economic-index-primitives" target="_blank" rel="noopener">Economic Index – New building blocks for understanding AI use</a> (Januar 2026, Augmentierung 52 % gegenüber Automatisierung 45 % auf Claude.ai)</li>
+<li>BVMed: <a href="https://www.bvmed.de/branche/lage/ergebnisse-der-bvmed-herbstumfrage-2026" target="_blank" rel="noopener">Ergebnisse der BVMed-Herbstumfrage 2026</a> (KI-Einsatz und Personalbedarf in der Medizintechnik)</li>
+<li>Johner Institut: <a href="https://www.johner-institut.de/blog/regulatory-affairs/ai-act-eu-ki-verordnung/" target="_blank" rel="noopener">Was der AI Act für Medizinprodukte- und IVD-Hersteller bedeutet</a> (Fristenübersicht) und <a href="https://www.johner-institut.de/blog/regulatory-affairs/regulatorische-anforderungen-an-medizinprodukte-mit-machine-learning/" target="_blank" rel="noopener">Regulatorische Anforderungen an Medizinprodukte mit Machine Learning</a></li>
+<li>VDE: <a href="https://www.vde.com/topics-de/health/beratung/zulassung-von-ki-basierten-medizinprodukten-in-europa" target="_blank" rel="noopener">AI Act Compliance für KI-basierte Medizinprodukte</a>; acatech: <a href="https://www.acatech.de/publikation/ki-verordnung-auswirkungen-fuer-medizinprodukte/" target="_blank" rel="noopener">Impulspapier KI-Verordnung und Medizinprodukte</a></li>
+<li>Digital Omnibus: Verordnung (EU) 2026/1744 zur Änderung der KI-Verordnung, im Amtsblatt veröffentlicht am 24. Juli 2026, in Kraft seit 27. Juli 2026 – Verschiebung der Hochrisiko-Fristen auf 2. Dezember 2027 (Anhang III) und 2. August 2028 (Anhang I)</li>
+<li>Michael Page: <a href="https://www.michaelpage.de/personalberatung/management-tipps/ki-im-recruiting" target="_blank" rel="noopener">KI im Recruiting</a> (Talent Trends 2026: 67 % der Jobsuchenden nutzen generative KI); softgarden-Studie „KI trifft Recruiting 2026“ (43,2 % beim Anschreiben); Bitkom (1 % KI-Screening); Stepstone-Befragung zu KI-Täuschungsversuchen (November 2026)</li>
+<li>Indeed-Auswertung zu Einstiegsstellen in Deutschland und ifo-Studie „Berufseinsteiger:innen im Fokus“ (40 % der Unternehmen erwarten KI-Ersatz von Einsteigertätigkeiten binnen drei Jahren)</li>
+<li>Lernangebote: <a href="https://ki-campus.org/" target="_blank" rel="noopener">KI-Campus</a> (Stifterverband, kostenlose Zertifikate), <a href="https://www.elementsofai.de/" target="_blank" rel="noopener">Elements of AI</a> (Universität Helsinki und MinnaLearn)</li>
+</ol>
+</section>
+
+<footer>
+  Recherche Stand 17. November 2026. Studienlage und Fristen ändern sich schnell; Zahlen stammen aus unterschiedlichen Erhebungen und sind nicht direkt vergleichbar. Diese Seite ersetzt keine Rechts- oder Karriereberatung und trifft keine Vorhersage über einzelne Arbeitsplätze.
+  <span class="noprint"> · <a href="../menu.html">Zur Übersicht</a> · <a href="../karriere/">Karriere-Recherche</a> · <a href="../interview/">Interviewtraining</a> · <a href="../">Zur Stellenkarte</a></span>
+</footer>
+</div>
+<script src="../assets/theme.js" defer></script>
+</body>
+</html>

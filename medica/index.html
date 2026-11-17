@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="de">
 <head>
+<script>(function(){try{var t=localStorage.getItem("mtj-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MEDICA 2026 – Aussteller-Abgleich</title>
@@ -112,5 +113,6 @@ function draw(){const q=document.getElementById("q").value.toLowerCase(),rg=docu
  document.getElementById("tb").innerHTML=f.map(r=>`<tr><td>${esc(r.n)}</td><td>${esc(r.c)}${r.u?' <span class="tag">Ort prüfen</span>':""}</td><td class="r">${REG[r.r]}</td><td>${r.z?`<span class="tag ok">auf der Karte${r.j?" · "+r.j+" offen":""}</span>`:r.neu?'<span class="tag">neu ergänzt</span>':""}</td><td class="r">${links(r.n).replace("</a><a"," </a> · <a")}</td></tr>`).join("")}
 ["q","reg","st"].forEach(id=>document.getElementById(id).addEventListener("input",draw));draw();
 </script>
+<script src="../assets/theme.js" defer></script>
 </body>
 </html>
