@@ -225,6 +225,9 @@
   .lk-alt { color: var(--ink3); background: transparent; border: 1px solid var(--line2); }
   .lk-neu { color: var(--accent); background: var(--accent-soft); }
   .lk-unk { color: var(--check); background: var(--check-bg); }
+  .chip.lk-chip svg { width: 14px; height: 14px; }
+  .chip.lk-chip[aria-pressed="true"] { background: var(--open-bg); border-color: var(--open); color: var(--open); }
+  .chip.lk-chip[aria-pressed="true"] .n { color: inherit; opacity: .75; }
   .neu { font-size: 11.5px; font-weight: 600; color: #fff; background: var(--accent); padding: 2px 7px; border-radius: 6px; }
   .star { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--coral-ink); font-weight: 600; }
   .star svg { width: 13px; height: 13px; fill: currentColor; stroke: none; }
@@ -510,6 +513,7 @@
     land: "alle",
     status: "alle",
     topOnly: false,
+    linkOnly: false,
     onlyOpen: loadFlag(),
     iniOnly: false,
     sort: "std",
@@ -640,6 +644,10 @@
     if (state.land === "out") { if (!x.ausserhalb) return false; }
     else if (state.land !== "alle" && (x.land !== state.land || x.ausserhalb)) return false;
     if (state.topOnly && !x.top) return false;
+    if (state.linkOnly) {
+      var liF = linkInfo(x);
+      if (!liF || (liF.status !== "ok" && liF.status !== "ersetzt")) return false;
+    }
     if (state.q) {
       var hay = [x.firma, x.titel, x.ort, x.passung, x.hinweis, x.bereich, x.befund, felderText(x), x.erfahrungText, BRANCHEN[x.branche]].join(" ").toLowerCase();
       if (hay.indexOf(state.q) === -1) return false;
@@ -669,6 +677,7 @@
     if (state.erf !== "alle") n++;
     if (state.land !== "alle") n++;
     if (state.topOnly) n++;
+    if (state.linkOnly) n++;
     if (!allSelected(state.branchen)) n++;
     if (!state.onlyOpen && !state.iniOnly && state.status !== "alle") n++;
     return n;
@@ -676,7 +685,7 @@
   function resetFilters() {
     state.q = ""; document.getElementById("q").value = "";
     state.felder = allOn(FELDER); state.branchen = allOn(BRANCHEN);
-    state.erf = "alle"; state.land = "alle"; state.status = "alle"; state.topOnly = false; state.thema = null;
+    state.erf = "alle"; state.land = "alle"; state.status = "alle"; state.topOnly = false; state.linkOnly = false; state.thema = null;
     update(true);
   }
 
@@ -770,6 +779,15 @@
     var topChip = chip("Nur Top-Treffer", state.topOnly, function () { state.topOnly = !state.topOnly; update(true); }, { cls: "top-chip", icon: ICON.star });
     if (state.iniOnly) topChip.disabled = true;
     lands.appendChild(topChip);
+    var nLink = ITEMS.filter(function (x) {
+      var li = linkInfo(x);
+      return li && (li.status === "ok" || li.status === "ersetzt");
+    }).length;
+    var linkChip = chip("Nur geprüfte Links", state.linkOnly, function () {
+      state.linkOnly = !state.linkOnly; update(true);
+    }, { cls: "lk-chip", icon: ICON.check, n: nLink });
+    if (state.iniOnly) linkChip.disabled = true;
+    lands.appendChild(linkChip);
 
     var stats = document.getElementById("stats");
     stats.innerHTML = "";
