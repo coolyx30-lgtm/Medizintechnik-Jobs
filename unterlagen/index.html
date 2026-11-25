@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="de">
+<head>
+<script>(function(){try{var t=localStorage.getItem("mtj-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bewerbungsunterlagen</title>
+<meta name="description" content="Lebenslauf und Anschreiben für den Berufseinstieg in der Medizintechnik: Aufbau, Stellenanzeigen richtig lesen, Anschreiben in acht Schritten mit Werkstatt zum Ausfüllen, Floskeln und Endkontrolle.">
+<style>
+:root{--bg:#f6f7f9;--paper:#ffffff;--ink:#18202b;--ink2:#5d6877;--line:#e2e6ec;--chip:#eef1f5;--accent:#1f4e8c;--accent2:#2f7bd8;--a1:#1565c0;--a2:#6a1b9a;--a3:#00838f;--a4:#b45309;--a5:#2e7d32}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}}
+:root[data-theme="dark"]{--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:28px 16px 64px}
+.back{display:inline-block;font-size:14px;color:var(--ink2);text-decoration:none;margin-bottom:12px}
+.back:hover{text-decoration:underline}
+header.top{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:22px}
+h1{font-size:30px;line-height:1.15;margin:0 0 6px;letter-spacing:-.015em}
+.lead{color:var(--ink2);margin:0}
+h2{font-size:22px;margin:34px 0 10px;letter-spacing:-.01em;scroll-margin-top:16px}
+h3{font-size:17px;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent2)}
+ul{padding-left:22px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.toc a{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:14px;text-decoration:none;color:var(--ink)}
+.toc a:hover{border-color:var(--accent2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:12px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--c,var(--accent));border-radius:14px;padding:16px 18px}
+.card h3{margin:0 0 6px}
+.card p,.card li{font-size:15px}
+.card ul{margin:6px 0;padding-left:20px}
+.box{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 18px;margin:14px 0}
+.box ul,.box ol{margin:6px 0;padding-left:22px}
+.note{font-size:14px;color:var(--ink2);background:var(--chip);border-radius:10px;padding:10px 12px;margin:10px 0}
+.src{font-size:13px;color:var(--ink2);margin:4px 0 12px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.steps>li{counter-increment:s;position:relative;padding:10px 12px 10px 48px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0}
+.steps>li::before{content:counter(s);position:absolute;left:12px;top:10px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+table{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:14.5px;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--chip);font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+tr:last-child td{border-bottom:none}
+.tblwrap{overflow-x:auto}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+button{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--accent2);background:var(--accent2);color:#fff;border-radius:9px;padding:7px 12px;cursor:pointer}
+button.ghost{background:var(--paper);color:var(--ink);border-color:var(--line)}
+button:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.pill{background:var(--chip);border-radius:999px;padding:4px 11px;font-size:13.5px;color:var(--ink2)}
+textarea{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;min-height:76px;resize:vertical}
+.wstep{background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 14px}
+.wstep summary{cursor:pointer;padding:12px 0;font-weight:700;display:flex;justify-content:space-between;gap:10px;list-style:none}
+.wstep summary::-webkit-details-marker{display:none}
+.wstep summary::before{content:"▸";margin-right:8px;color:var(--ink2)}
+.wstep[open] summary::before{content:"▾"}
+.wstep summary span:first-child{flex:1}
+.wstep .hint{font-size:14px;color:var(--ink2);margin:0 0 8px}
+.done{font-size:13px;color:var(--a5);font-weight:650}
+.chk{display:flex;gap:9px;align-items:flex-start;font-size:15px;padding:5px 0;cursor:pointer}
+.chk input{margin-top:5px;width:17px;height:17px;flex:none;accent-color:var(--c,var(--accent))}
+.chk input:checked+span{color:var(--ink2);text-decoration:line-through}
+.good{border-left:5px solid var(--a5)}
+.bad{border-left:5px solid var(--a4)}
+.ex{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.ex .tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+.ex q{font-style:normal;display:block;font-size:15.5px;margin-top:4px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--ink2)}
+@media (max-width:700px){h1{font-size:25px}}
+</style>
+
+<style id="palette-petrol">
+/* Farbschema: Petrol #0B6E79 · Schiefer #13262E · Koralle #E8794F auf hellem Grau-Weiß */
+:root{--bg:#F2F6F7;--paper:#FFFFFF;--panel:#FFFFFF;--ink:#13262E;--text:#13262E;--ink2:#51656D;--muted:#51656D;--line:#DCE5E8;--chip:#E9F0F2;--accent:#0B6E79;--accent2:#C4532E;--pink:#E8794F;--a1:#0B6E79;--a2:#3B5998;--a3:#2E7D5B;--a4:#C4532E;--a5:#7A5C9E;--c1:#0B6E79;--c2:#3B5998;--c3:#2E7D5B;--c4:#C4532E;--c5:#5F7F2E;--c6:#A33F6A;--c7:#51656D;--ok:#2E7D5B;--warn:#B5651D;--red:#B3261E;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D191E;--paper:#14242A;--panel:#14242A;--ink:#E5EFF1;--text:#E5EFF1;--ink2:#9AB0B7;--muted:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--pink:#F09A74;--a1:#4FC0CC;--a2:#8FA8E0;--a3:#6CC79A;--a4:#F09A74;--a5:#B9A0DD;--c1:#4FC0CC;--c2:#8FA8E0;--c3:#6CC79A;--c4:#F09A74;--c5:#A9C774;--c6:#E58BB0;--c7:#AFC2C8;--ok:#6CC79A;--warn:#E9A860;--red:#EF7A70;}}
+:root[data-theme="dark"]{--bg:#0D191E;--paper:#14242A;--panel:#14242A;--ink:#E5EFF1;--text:#E5EFF1;--ink2:#9AB0B7;--muted:#9AB0B7;--line:#25373E;--chip:#1B2D34;--accent:#4FC0CC;--accent2:#F09A74;--pink:#F09A74;--a1:#4FC0CC;--a2:#8FA8E0;--a3:#6CC79A;--a4:#F09A74;--a5:#B9A0DD;--c1:#4FC0CC;--c2:#8FA8E0;--c3:#6CC79A;--c4:#F09A74;--c5:#A9C774;--c6:#E58BB0;--c7:#AFC2C8;--ok:#6CC79A;--warn:#E9A860;--red:#EF7A70;}
+::selection{background:#BFE4E8;color:#13262E}
+</style>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../menu.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Übersicht aller Seiten</a>
+<header class="top">
+  <h1>Bewerbungsunterlagen</h1>
+  <p class="lead">Lebenslauf und Anschreiben für den Berufseinstieg in der Medizintechnik: Aufbau und Reihenfolge, Stellenanzeigen systematisch lesen, das Anschreiben in acht Schritten mit einer Werkstatt zum Ausfüllen, Formulierungen, die nicht tragen, und eine Endkontrolle vor dem Absenden.</p>
+</header>
+<nav class="toc" aria-label="Inhalt">
+  <a href="#mappe">Die Mappe</a><a href="#cv">Lebenslauf</a><a href="#lesen">Anzeige lesen</a><a href="#acht">Anschreiben in 8 Schritten</a><a href="#werkstatt">Anschreiben-Werkstatt</a><a href="#einstieg">Einstieg und Schluss</a><a href="#floskeln">Floskeln und KI</a><a href="#final">Endkontrolle</a>
+</nav>
+
+<section id="mappe">
+<h2>Die Mappe</h2>
+<p>Eine vollständige Bewerbung besteht aus Anschreiben, Lebenslauf und Zeugnissen – als <b>eine</b> PDF-Datei, sinnvoll benannt, in dieser Reihenfolge. Bei mehr als etwa fünf Dokumenten lohnt ein Inhaltsverzeichnis als zweite Seite, damit niemand im Anhang suchen muss.</p>
+<div class="grid">
+  <div class="card" style="--c:var(--a1)"><h3>Anschreiben</h3><p>Eine halbe bis zwei Drittel Seite. Beantwortet eine einzige Frage: Warum bin ich die richtige Person für genau diese Stelle? Wird für jede Bewerbung neu geschrieben.</p></div>
+  <div class="card" style="--c:var(--a3)"><h3>Lebenslauf</h3><p>Zwei Seiten, tabellarisch, mit den Schlüsselwörtern der Anzeige. Wird pro Stelle angepasst – nicht einmal geschrieben und dann überall verschickt.</p></div>
+  <div class="card" style="--c:var(--a4)"><h3>Zeugnisse und Nachweise</h3><p>Abschlusszeugnisse, Leistungsübersicht, Arbeits- und Praktikumszeugnisse, relevante Zertifikate. Nach Wichtigkeit für die Stelle sortiert, nicht nach Datum.</p></div>
+</div>
+</section>
+
+<section id="cv">
+<h2>Lebenslauf</h2>
+<h3>Reihenfolge für Berufseinsteiger:innen</h3>
+<ol class="steps">
+  <li><b>Kurzprofil an den Anfang.</b> Drei bis vier ganze Sätze, stark reduziert: fachlicher Kern, Spezialisierung, Art der gesuchten Aufgabe. Das ist der einzige Fließtext im Lebenslauf – und oft das Einzige, was in den ersten Sekunden gelesen wird.</li>
+  <li><b>Ausbildung zuerst.</b> Solange die Berufserfahrung dünn ist, steht die akademische Ausbildung vor der Praxis. Das Abitur rutscht ans Ende – es ist der am wenigsten aussagekräftige Punkt.</li>
+  <li><b>Praxis: Praktika, Werkstudium, HiWi-Tätigkeit, Abschlussarbeiten.</b> Mit Aufgaben, Methoden und Ergebnis, nicht nur mit Titel und Zeitraum.</li>
+  <li><b>Kenntnisse und Normen.</b> Software, Methoden, Sprachen. Normen nach Relevanz für die jeweilige Stelle sortiert, nicht alphabetisch.</li>
+  <li><b>Engagement und Interessen.</b> Ehrenamt, Vereinsarbeit, Sport – kurz, aber vorhanden. Daraus kommen im Gespräch oft die Soft-Skill-Belege.</li>
+</ol>
+
+<h3>Details, die regelmäßig auffallen</h3>
+<ul>
+  <li><b>Spezialisierung ausschreiben</b> statt nur „M.Sc. Medizintechnik“: Vertiefungen, Schwerpunktfächer und Themen der Abschlussarbeit sind das, wonach gesucht wird.</li>
+  <li><b>Note und Ort</b> konsistent anordnen – in jeder Station an derselben Stelle der Zeile.</li>
+  <li><b>Stationen zusammenfassen</b>, wenn sie inhaltlich zusammengehören: eine Forschungsarbeit und die zugehörige Hilfskrafttätigkeit am selben Institut ergeben einen starken Eintrag statt zweier schwacher.</li>
+  <li><b>Projekte stellenabhängig aufnehmen oder weglassen.</b> Ein Industrieprojekt aus dem Studium gehört in die Bewerbung, wenn es zum Produkt oder zur Methode passt – sonst kostet es nur Platz.</li>
+  <li><b>Freiwilligendienst</b> mit den dort erworbenen sozialen Kompetenzen versehen, wenn die Stelle Kontakt zu Anwender:innen, Kliniken oder Patient:innen hat.</li>
+  <li><b>Kein Foto-Zwang</b>, aber wenn Foto, dann professionell und aktuell. Keine Angaben zu Familienstand, Religion oder Gesundheit.</li>
+</ul>
+<p class="note">Zwei Grundvarianten anzulegen lohnt sich: eine mit Schwerpunkt Entwicklung und Konstruktion, eine mit Schwerpunkt Qualität und Regulatorik. Für jede Bewerbung wird dann nur noch justiert, statt jedes Mal neu sortiert zu werden. Welche Richtungen es gibt und was sie jeweils verlangen, steht in der <a href="../karriere/">Karriere-Recherche</a>.</p>
+</section>
+
+<section id="lesen">
+<h2>Die Stellenanzeige systematisch lesen</h2>
+<p>Vor dem ersten Satz des Anschreibens steht die Analyse der Anzeige. Bewährt hat sich, sie mit drei Farben zu markieren:</p>
+<div class="grid">
+  <div class="card" style="--c:var(--a1)"><h3>Farbe 1 · Fachliches Umfeld</h3><p>Branche, Technologie, Produkt, Verfahren. Das sind die Begriffe, die zeigen, worum es überhaupt geht – und die im Anschreiben wörtlich vorkommen sollten.</p></div>
+  <div class="card" style="--c:var(--a3)"><h3>Farbe 2 · Aufgaben</h3><p>Was werde ich tatsächlich tun? Diese Punkte brauchen im Anschreiben je ein Beispiel aus der eigenen Erfahrung.</p></div>
+  <div class="card" style="--c:var(--a4)"><h3>Farbe 3 · Geforderte Fähigkeiten</h3><p>Hard und Soft Skills, die ich mitbringen soll. Hier entscheidet sich, welche Belege ich auswähle.</p></div>
+</div>
+<h3>Drei Ebenen, auf die eine Anzeige abfragt</h3>
+<div class="tblwrap"><table>
+<tr><th>Ebene</th><th>Was gemeint ist</th><th>Womit es belegt wird</th></tr>
+<tr><td>Fachliche Kenntnisse</td><td>Studienrichtung, Schwerpunktthemen, Vorlesungen und Praktika, Software und Programmierung, methodische Kenntnisse</td><td>Abschlussarbeit, Vertiefungen, Projekte, Werkzeuge</td></tr>
+<tr><td>Zusatzqualifikationen</td><td>Sprachkenntnisse, Office-Kenntnisse, Führerschein, Rhetorik- oder Methodenkurse</td><td>Zertifikate, Auslandssemester, Weiterbildungen</td></tr>
+<tr><td>Soziale und persönliche Fähigkeiten</td><td>Fähigkeiten zur Bewältigung der Aufgaben und im Umgang mit Vorgesetzten, Kolleg:innen und Kund:innen</td><td>Situationen aus Team-, Projekt- und Praxisarbeit</td></tr>
+</table></div>
+<p class="note"><b>Entscheidungsfilter vor dem Schreiben:</b> „Ich will“ wiegt schwerer als „ich kann“. Bevor Arbeit in eine Bewerbung fließt, lohnt der Abgleich mit dem eigenen Profil – dafür gibt es das <a href="../reflexion/#match">Job-Matching-Werkzeug</a>. Muss-Anforderungen, die klar fehlen, sind ein Grund, die Bewerbung sein zu lassen; zwei von zehn Kann-Anforderungen nicht zu erfüllen, ist dagegen normal.</p>
+</section>
+
+<section id="acht">
+<h2>Das Anschreiben in acht Schritten</h2>
+<p>Dieses Vorgehen stammt aus einem Bewerbungscoaching und funktioniert, weil es die Reihenfolge umdreht: erst Material sammeln, dann formulieren. Wer direkt mit dem ersten Satz beginnt, landet fast immer bei Allgemeinplätzen.</p>
+<ol class="steps">
+  <li><b>Schlüsselwörter markieren.</b> Die Anzeige in den drei Farben oben markieren.</li>
+  <li><b>In eigenen Worten zusammenfassen.</b> Die wichtigsten Aufgaben neu formulieren und dabei verstehen, wie die geforderten Fähigkeiten mit den Aufgaben zusammenhängen. Verhindert, dass das Anschreiben zur Kopie der Anzeige wird – die zentralen Fachbegriffe bleiben trotzdem erhalten.</li>
+  <li><b>Passende Beispiele und Erfolge suchen.</b> Zu jeder wichtigen Aufgabe eine Situation, in der etwas Vergleichbares gelöst wurde, samt der dabei genutzten Fähigkeit. Fehlt die exakte Erfahrung: übertragbare Fähigkeiten – wo wurde Ähnliches gemacht oder ein vergleichbares Ergebnis erreicht?</li>
+  <li><b>Recherchieren.</b> So viel wie möglich über das Unternehmen herausfinden und notieren, was wirklich interessant ist. Quellen: Unternehmenswebsite und Imagefilme, Social-Media-Kanäle, Fachpresse, Bewertungsportale wie kununu und Glassdoor. Für die Medizintechnik kommen dazu: Produktseiten und Gebrauchsanweisungen, Zulassungsmeldungen, Studienregister, Messeauftritte und Geschäftsberichte.</li>
+  <li><b>Eigenen Mehrwert festhalten.</b> Warum genau dieses Unternehmen – und welchen Beitrag leiste ich für Team und Fachgebiet?</li>
+  <li><b>Einstieg wählen.</b> Ein konkreter erster Satz, der nur zu dieser Bewerbung passt.</li>
+  <li><b>Zusammenführen und Schlusssatz ergänzen.</b> Alle Notizen in eine Reihenfolge bringen, Schlusssatz mit Verfügbarkeit und – falls gefordert – Gehaltsvorstellung.</li>
+  <li><b>Zusammenhängenden Text formen und prüfen.</b> Rechtschreibung, Grammatik, Stil; laut lesen; mindestens einmal von jemand anderem gegenlesen lassen.</li>
+</ol>
+</section>
+
+<section id="werkstatt">
+<h2>Anschreiben-Werkstatt</h2>
+<p>Die acht Schritte zum Ausfüllen. Alles bleibt <b>nur in diesem Browser</b> gespeichert und wird nirgendwohin übertragen; mit „Als Textdatei sichern“ lässt sich der Stand herunterladen und in die Textverarbeitung übernehmen.</p>
+<div class="tools">
+  <span class="pill" id="wprog"></span>
+  <button type="button" id="wexp">Als Textdatei sichern</button>
+  <button type="button" id="wclr" class="ghost">Alles löschen</button>
+</div>
+<div id="wsteps"></div>
+</section>
+
+<section id="einstieg">
+<h2>Einstieg und Schluss</h2>
+<h3>Der erste Satz</h3>
+<p>Der Einstieg entscheidet, ob weitergelesen wird. Zwei Muster funktionieren verlässlich: ein konkreter Anknüpfungspunkt beim Unternehmen oder ein eigener fachlicher Moment, der zur Stelle führt.</p>
+<div class="ex good"><span class="tag">Trägt · Anknüpfung an das Unternehmen</span><q>In Ihrem Beitrag zur Zulassung des neuen Systems beschreiben Sie, wie eng Entwicklung und Regulatorik bei Ihnen zusammenarbeiten – genau diese Schnittstelle habe ich in meiner Masterarbeit kennengelernt und suche sie für den Einstieg.</q></div>
+<div class="ex good"><span class="tag">Trägt · Eigener fachlicher Moment</span><q>Als ich im Labor zum ersten Mal einen Prozess von der Idee bis zum reproduzierbaren Ergebnis gebracht habe, war klar, dass ich in die Produktentwicklung will – und zwar dort, wo das Ergebnis am Ende bei Patientinnen und Patienten ankommt.</q></div>
+<div class="ex bad"><span class="tag">Trägt nicht</span><q>Hiermit bewerbe ich mich auf die von Ihnen ausgeschriebene Stelle. Mit großem Interesse habe ich Ihre Anzeige gelesen und bin überzeugt, dass ich gut in Ihr Team passe.</q></div>
+
+<h3>Der Schlusssatz</h3>
+<p>Drei Dinge gehören hinein: Verfügbarkeit, ein klarer nächster Schritt und – wenn die Anzeige danach fragt – die Gehaltsvorstellung. Konjunktivketten („würde mich freuen, wenn Sie mir die Möglichkeit geben würden“) schwächen den Abschluss.</p>
+<div class="ex good"><span class="tag">Beispiel</span><q>Verfügbar bin ich ab sofort. Über ein Gespräch, in dem ich meine Motivation und meine Erfahrung aus der Abschlussarbeit konkret machen kann, freue ich mich.</q></div>
+<p class="note">Zur Gehaltsangabe im Anschreiben oder im Online-Formular: eine begründete Zahl statt einer Spanne, Begründung und Umrechnung stehen im Abschnitt <a href="../interview/#gehalt">Gehaltswunsch begründen</a>.</p>
+
+<h3>Initiativbewerbung</h3>
+<p>Ohne Anzeige fehlt die Vorlage – dafür ist die Freiheit größer. Was eine Initiativbewerbung trägt:</p>
+<ul>
+  <li><b>Ein konkreter Anlass:</b> eine Zulassung, eine Produkteinführung, ein Standortausbau, ein Messeauftritt, eine Studie. Ohne Anlass wirkt das Schreiben beliebig.</li>
+  <li><b>Eine selbst formulierte Rolle:</b> Statt „für jede freie Stelle“ ein Bereich, in dem konkret mitgearbeitet werden könnte – das zeigt, dass die Organisation verstanden wurde.</li>
+  <li><b>Belege statt Absichtserklärungen:</b> dieselben Beispiele wie oben, nur ohne Anzeige als Spiegel.</li>
+  <li><b>Ein benannter Kontakt</b>, wenn die Karriereseite eine Ansprechperson nennt, und ein konkreter nächster Schritt statt „ich freue mich auf Ihre Rückmeldung“.</li>
+</ul>
+</section>
+
+<section id="floskeln">
+<h2>Formulierungen, die nichts beweisen</h2>
+<div class="tblwrap"><table>
+<tr><th>Floskel</th><th>Was stattdessen trägt</th></tr>
+<tr><td>„Hiermit bewerbe ich mich auf die von Ihnen ausgeschriebene Stelle“</td><td>Der Betreff sagt das bereits. Den ersten Satz für den Anlass nutzen.</td></tr>
+<tr><td>„Mit großem Interesse habe ich Ihre Anzeige gelesen“</td><td>Was genau daran interessiert – ein Produkt, ein Verfahren, eine Aufgabe.</td></tr>
+<tr><td>„Ich bin teamfähig, belastbar und flexibel“</td><td>Eine Situation, in der das sichtbar wurde, in einem Satz.</td></tr>
+<tr><td>„Ihr innovatives Unternehmen“</td><td>Woran sich das festmacht: eine Zulassung, eine Technologie, ein Projekt.</td></tr>
+<tr><td>„Ich würde mich über eine Einladung freuen“</td><td>Verfügbarkeit nennen und den nächsten Schritt klar benennen.</td></tr>
+<tr><td>„Als Berufseinsteiger fehlt mir zwar Erfahrung, aber …“</td><td>Die vorhandene Praxis benennen: Abschlussarbeit, Praktikum, Projekte.</td></tr>
+</table></div>
+<h3>KI beim Schreiben</h3>
+<p>Ein Text, der vollständig von einem Sprachmodell aus der Anzeige erzeugt wurde, ist erkennbar: Er spiegelt die Anzeige, reiht Eigenschaftswörter aneinander und enthält keine überprüfbare eigene Erfahrung. Genau die Teile, die in den acht Schritten entstehen – eigene Beispiele und Rechercheergebnisse – kann kein Modell liefern.</p>
+<p>Sinnvoll ist KI dort, wo sie nicht erfindet: beim Strukturieren der markierten Anforderungen, beim Kürzen eines zu langen Absatzes, als Gegenleser für Verständlichkeit, oder um aus aktuellen Meldungen eines Unternehmens Rechercheansätze zu gewinnen. Alles, was dabei an Fakten entsteht, muss an der Quelle geprüft werden. Mehr dazu auf der Seite <a href="../ki/">KI und der Jobmarkt</a>.</p>
+</section>
+
+<section id="final">
+<h2>Endkontrolle vor dem Absenden</h2>
+<p>Zum Abhaken. Der Stand wird nur in diesem Browser gespeichert.</p>
+<div class="tools"><span class="pill" id="fprog"></span><button type="button" class="ghost" id="freset">Zurücksetzen</button></div>
+<div class="grid" id="finallist"></div>
+</section>
+
+<footer>Eigene Zusammenstellung auf Basis eines Bewerbungscoachings, Stand November 2026. Keine Rechtsberatung. Eingaben und Fortschritt werden ausschließlich lokal im Browser gespeichert. · <a href="../menu.html">Zur Übersicht</a></footer>
+</div>
+<script>
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const load = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e) { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} };
+
+/* Anschreiben-Werkstatt */
+const WS = [
+ ["1 · Schlüsselwörter", "Die markierten Begriffe der Anzeige: fachliches Umfeld, Aufgaben, geforderte Fähigkeiten."],
+ ["2 · Aufgaben in eigenen Worten", "Was werde ich tun? In eigenen Sätzen, die zentralen Fachbegriffe behalten."],
+ ["3 · Eigene Beispiele und Erfolge", "Zu jeder Hauptaufgabe eine Situation aus Studium, Abschlussarbeit, Praktikum oder Projekt."],
+ ["4 · Recherche zum Unternehmen", "Produkte, Technologien, Zulassungen, Standorte, Kultur, aktuelle Meldungen – und was davon wirklich interessant ist."],
+ ["5 · Mein Mehrwert", "Warum dieses Unternehmen, und was bringe ich für Team und Fachgebiet mit?"],
+ ["6 · Einstiegssatz", "Ein erster Satz, der nur zu dieser Bewerbung passt."],
+ ["7 · Schlusssatz", "Verfügbarkeit, nächster Schritt, ggf. Gehaltsvorstellung."],
+ ["8 · Prüfen", "Laut gelesen, gegengelesen, Rechtschreibung und Stil geprüft, Dateiname und PDF kontrolliert."]
+];
+const WKEY = "unterlagen-werkstatt-v1";
+let ws = load(WKEY, {});
+function drawWS(){
+  document.getElementById("wsteps").innerHTML = WS.map(([t, h], i) =>
+    `<details class="wstep" ${i===0?"open":""}><summary><span>${esc(t)}</span><span class="done" data-d="${i}">${(ws[i]||"").trim()?"ausgefüllt":""}</span></summary><p class="hint">${esc(h)}</p><textarea data-w="${i}" placeholder="Notizen …">${esc(ws[i]||"")}</textarea></details>`).join("");
+  const n = WS.filter((_, i) => (ws[i]||"").trim()).length;
+  document.getElementById("wprog").textContent = `${n} von ${WS.length} Schritten ausgefüllt`;
+}
+document.getElementById("wsteps").addEventListener("input", e => {
+  if (e.target.dataset.w === undefined) return;
+  const i = e.target.dataset.w; ws[i] = e.target.value; save(WKEY, ws);
+  const d = document.querySelector(`.done[data-d="${i}"]`); if (d) d.textContent = e.target.value.trim() ? "ausgefüllt" : "";
+  const n = WS.filter((_, k) => (ws[k]||"").trim()).length;
+  document.getElementById("wprog").textContent = `${n} von ${WS.length} Schritten ausgefüllt`;
+});
+document.getElementById("wexp").onclick = () => {
+  const txt = WS.map(([t], i) => t + "\n" + (ws[i] || "(leer)")).join("\n\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["Anschreiben-Werkstatt\n\n" + txt], {type:"text/plain;charset=utf-8"}));
+  a.download = "anschreiben-werkstatt.txt"; a.click(); URL.revokeObjectURL(a.href);
+};
+document.getElementById("wclr").onclick = () => { if (confirm("Alle Notizen der Werkstatt löschen?")) { ws = {}; save(WKEY, ws); drawWS(); } };
+drawWS();
+
+/* Endkontrolle */
+const FINAL = [
+ ["Inhalt", ["Jede Muss-Anforderung der Anzeige kommt vor","Zu jeder Hauptaufgabe gibt es ein eigenes Beispiel","Der Unternehmensbezug ist konkret und nicht austauschbar","Verfügbarkeit genannt, Gehaltsvorstellung falls gefordert"]],
+ ["Form", ["Anschreiben höchstens zwei Drittel Seite","Lebenslauf zwei Seiten, Kurzprofil oben","Richtige Ansprechperson, korrekt geschrieben","Firmenname und Stellenbezeichnung überall korrekt"]],
+ ["Technik", ["Alles in einer PDF-Datei, sinnvoll benannt","Dateigröße passend für das Bewerbungsportal","Links und Anhänge funktionieren","Laut gelesen und von einer zweiten Person geprüft"]]
+];
+const FKEY = "unterlagen-final-v1";
+let fin = load(FKEY, {});
+function drawFinal(){
+  let n = 0, d = 0;
+  document.getElementById("finallist").innerHTML = FINAL.map(([t, items], gi) =>
+    `<div class="card" style="--c:var(--a${gi+1})"><h3>${esc(t)}</h3>` + items.map((it, ii) => {
+      const id = gi+"-"+ii; n++; if (fin[id]) d++;
+      return `<label class="chk"><input type="checkbox" data-c="${id}" ${fin[id]?"checked":""}> <span>${esc(it)}</span></label>`;
+    }).join("") + `</div>`).join("");
+  document.getElementById("fprog").textContent = `${d} von ${n} erledigt`;
+}
+document.getElementById("finallist").addEventListener("change", e => { if (e.target.dataset.c){ fin[e.target.dataset.c] = e.target.checked; save(FKEY, fin); drawFinal(); } });
+document.getElementById("freset").onclick = () => { fin = {}; save(FKEY, fin); drawFinal(); };
+drawFinal();
+</script>
+<script src="../assets/theme.js" defer></script>
+<script src="../assets/motion.js" defer></script>
+</body>
+</html>
