@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Interviewtraining</title>
-<meta name="description" content="Checkliste, typische Fragen, Tipps, Videos und Übungsspiele für das Vorstellungsgespräch in der Medizintechnik.">
+<meta name="description" content="Checkliste, typische Fragen, Partnerübung zu zweit, eigene Rückfragen, Gehaltswunsch begründen, Tipps, Videos und Übungsspiele für das Vorstellungsgespräch in der Medizintechnik.">
 <style>
 :root{--bg:#f6f7f9;--paper:#ffffff;--ink:#18202b;--ink2:#5d6877;--line:#e2e6ec;--chip:#eef1f5;--accent:#1f4e8c;--accent2:#2f7bd8;--a1:#1565c0;--a2:#6a1b9a;--a3:#00838f;--a4:#b45309;--a5:#2e7d32}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#11161c;--paper:#1a2129;--ink:#e7ecf1;--ink2:#9aa7b4;--line:#2c3640;--chip:#232c35;--accent:#8fb6ec;--accent2:#7fb0f0;--a1:#7fb0f0;--a2:#c792ea;--a3:#5fd0d8;--a4:#f0a54a;--a5:#7ccf83}}
@@ -102,6 +102,37 @@ select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);
 .vcard:hover{border-color:var(--accent2)}
 .vt{font-weight:650;font-size:15px}.vm{font-size:13px;color:var(--ink2)}
 ul{padding-left:22px}
+table{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:14.5px;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--chip);font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+.tblwrap{overflow-x:auto}
+.src{font-size:13px;color:var(--ink2);margin:4px 0 12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:12px 0}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi .big{font-size:23px;font-weight:750;color:var(--accent);line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .lbl{font-size:13px;color:var(--ink2);margin-top:4px;font-weight:400}
+.calc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+.crow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;align-items:end}
+.crow .f{display:flex;flex-direction:column}
+.crow input,.crow select{margin:0}
+.cout{margin-top:12px;border-top:1px solid var(--line);padding-top:10px;font-size:15px}
+.cout b{font-variant-numeric:tabular-nums}
+.bench{list-style:none;padding:0;margin:8px 0 0}
+.bench li{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.bench li:last-child{border-bottom:none}
+.bench .d{font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
+.d.up{color:var(--a3)}.d.dn{color:var(--a4)}
+.netz table{font-size:14px}
+.netz .del{background:none;border:none;color:var(--a4);padding:2px 6px;cursor:pointer;font-weight:700}
+.phrase{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--a2);border-radius:12px;padding:12px 14px;margin:10px 0}
+.phrase .pl{font-size:13px;font-weight:650;color:var(--ink2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.phrase q{font-style:normal;display:block;font-size:15.5px}
+.plist{list-style:none;padding:0;margin:10px 0;counter-reset:p}
+.plist>li{counter-increment:p;position:relative;padding:10px 12px 10px 44px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:8px 0;font-size:15px}
+.plist>li::before{content:counter(p,decimal-leading-zero);position:absolute;left:12px;top:11px;font-weight:700;font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums}
+.plist .ph{display:block;font-size:13.5px;color:var(--ink2);margin-top:4px}
 
 </style>
 
@@ -119,10 +150,10 @@ ul{padding-left:22px}
 <a class="back" href="../menu.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Übersicht aller Seiten</a>
 <header class="top">
   <h1>Interviewtraining</h1>
-  <p class="lead">Checkliste, typische Fragen mit Hinweisen, Tipps, ausgewählte Videos und zwei Übungsspiele für das Vorstellungsgespräch als Berufseinsteiger:in in der Medizintechnik.</p>
+  <p class="lead">Checkliste, typische Fragen mit Hinweisen, eine Partnerübung zu zweit, sortierte Rückfragen für das Gesprächsende, ein belegter Gehaltswunsch, Tipps, Videos und zwei Übungsspiele – für das Vorstellungsgespräch als Berufseinsteiger:in in der Medizintechnik.</p>
 </header>
 <nav class="toc" aria-label="Inhalt">
-  <a href="#check">Checkliste</a><a href="#fragen">Typische Fragen</a><a href="#trainer">Fragen-Trainer</a><a href="#quiz">Quiz</a><a href="#tipps">Tipps &amp; Tricks</a><a href="#videos">Videos</a><a href="#training">Training mit Menschen</a>
+  <a href="#check">Checkliste</a><a href="#fragen">Typische Fragen</a><a href="#partner">Partnerübung</a><a href="#rueckfragen">Eigene Rückfragen</a><a href="#trainer">Fragen-Trainer</a><a href="#quiz">Quiz</a><a href="#gehalt">Gehaltswunsch begründen</a><a href="#tipps">Tipps &amp; Tricks</a><a href="#videos">Videos</a><a href="#training">Training mit Menschen</a>
 </nav>
 
 <section id="check">
@@ -136,6 +167,49 @@ ul{padding-left:22px}
 <h2>Typische Fragen und worauf es ankommt</h2>
 <p>Klicken Sie auf eine Frage, um den Hinweis zu sehen. Am besten beantworten Sie jede Frage einmal laut, bevor Sie den Hinweis lesen.</p>
 <div id="qcat"></div>
+</section>
+
+<section id="partner">
+<h2>Partnerübung: Interview in Zweiergruppen</h2>
+<p>Diese Übung kommt aus einem Übungsblatt für Bewerbungstrainings. Sie beantworten die Fragen <b>abwechselnd</b>: eine Person ist Interviewer:in, die andere Bewerber:in, dann wird getauscht. Die Fragen drehen sich weniger um Fachwissen als um Motivation, Lernverhalten und Persönlichkeit – also genau den Teil, der sich schlecht auswendig lernen lässt und viel Übung braucht.</p>
+
+<ol class="steps">
+  <li><b>Rollen festlegen.</b> Interviewer:in liest eine Frage vor und hört nur zu – nicht nachhelfen, nicht unterbrechen.</li>
+  <li><b>Antworten (1–2 Minuten).</b> Laut und zusammenhängend, am besten mit einem konkreten Beispiel nach der <a href="#tipps">STAR-Methode</a>.</li>
+  <li><b>Feedback zu vier Kriterien</b> – nur zu diesen vier, nichts anderes (siehe unten).</li>
+  <li><b>Rollentausch</b> und dieselbe Frage von der anderen Seite, dann die nächste Frage.</li>
+  <li><b>Offene Fragen notieren</b>, die während der Übung auftauchen, und danach recherchieren.</li>
+</ol>
+
+<h3>Feedbackkriterien</h3>
+<p>Nach jeder Antwort gibt das Gegenüber ausschließlich zu diesen vier Punkten Rückmeldung:</p>
+<div class="grid">
+  <div class="card" style="--c:var(--a1)"><h3>💬 Klarheit</h3><p>War die Antwort verständlich und gut strukturiert? Gab es einen roten Faden oder nur Aufzählung?</p></div>
+  <div class="card" style="--c:var(--a2)"><h3>💪 Überzeugungskraft</h3><p>Wirkte die Antwort selbstbewusst? Oder relativiert („eigentlich“, „nur“, „ich glaube“) und am Ende fragend?</p></div>
+  <div class="card" style="--c:var(--a3)"><h3>🙋 Eigenverantwortung</h3><p>Wurde deutlich, welche Verantwortung die Person selbst übernommen hat – „ich habe“ statt „wir haben“ und „es wurde“?</p></div>
+  <div class="card" style="--c:var(--a4)"><h3>⭐ Mehrwert</h3><p>Ist klar geworden, warum diese Person für das Unternehmen eine Bereicherung wäre? Oder blieb es bei Selbstbeschreibung?</p></div>
+</div>
+
+<h3>Die 15 Fragen der Übung</h3>
+<p>Die Fragen sind in der Du-Form aus dem Übungsblatt übernommen. Aufklappen zeigt, worauf es bei der Antwort ankommt – im Training erst antworten, dann nachlesen. Alle 15 Fragen stecken auch im <a href="#trainer">Fragen-Trainer</a> unter der Kategorie „Partnerübung“ und oben bei den <a href="#fragen">typischen Fragen</a>.</p>
+<div id="partnerq"></div>
+<p class="note">Zu zweit üben ist der wirksamste Teil dieser Seite. Passende Partner:innen: Kommiliton:innen aus dem Master, Kontakte aus der Alumni-Gruppe oder die Workshops des Career Service (siehe <a href="../beratung/">Beratungsangebote</a>). Wer niemanden findet: Fragen vom Fragen-Trainer ziehen, Antwort mit dem Handy filmen und sich selbst anhand der vier Kriterien bewerten.</p>
+</section>
+
+<section id="rueckfragen">
+<h2>Eigene Rückfragen am Ende des Gesprächs</h2>
+<p>„Haben Sie noch Fragen an uns?“ ist keine Höflichkeitsfloskel, sondern der letzte Eindruck. Zwei bis vier gute Fragen reichen – aus verschiedenen Themenfeldern, nicht vier Varianten derselben Frage. Zwei davon notieren Sie vorher, die übrigen entstehen idealerweise aus dem Gespräch selbst („Sie haben vorhin erwähnt, dass …“).</p>
+<div class="grid" id="rfgrid"></div>
+<div class="box">
+<h3>So wählen Sie aus</h3>
+<ul>
+  <li><b>Erst Inhalt, dann Rahmen.</b> Aufgaben, Team und Erwartungen zuerst; Urlaub, Homeoffice und Gehalt gehören eher in die zweite Runde oder zur Personalabteilung – außer die Firma spricht sie selbst an.</li>
+  <li><b>Keine Fragen, die auf der Website stehen.</b> Alles, was in zwei Minuten recherchierbar ist, wirkt wie fehlende Vorbereitung. Besser: eine recherchierte Beobachtung als Aufhänger nehmen und darauf aufbauen.</li>
+  <li><b>Eine Frage zum Prozess zum Schluss.</b> Wie es weitergeht und wann eine Rückmeldung kommt – das gibt Ihnen den Termin für den Nachfass-Eintrag im <a href="../tracker/">Bewerbungs-Tracker</a>.</li>
+  <li><b>Mutige Frage, wenn das Gespräch gut läuft:</b> ob es Zweifel oder offene Punkte zu Ihrem Profil gibt. Das ist die einzige Gelegenheit, einen Einwand noch im Gespräch auszuräumen statt in der Absage zu lesen.</li>
+  <li><b>Firmenspezifisch zuspitzen.</b> Aus Geschäftsbericht, Pressemitteilungen, Produktneuheiten oder einem MEDICA-Auftritt lassen sich Fragen ableiten, die kein Standardkatalog hat – die <a href="../netzwerk/">Netzwerk-Mindmap</a> und die <a href="../medica/">MEDICA-Übersicht</a> liefern dafür Material. Ein KI-Tool kann aus aktuellen Meldungen einer Firma Fragenvorschläge erzeugen; prüfen Sie die Fakten aber selbst nach, bevor Sie sie im Gespräch verwenden (siehe <a href="../ki/">KI-Seite</a>).</li>
+</ul>
+</div>
 </section>
 
 <section id="trainer">
@@ -167,6 +241,114 @@ ul{padding-left:22px}
 <div class="quizbox" id="quizbox"></div>
 </section>
 
+<section id="gehalt">
+<h2>Gehaltswunsch begründen: Beispiel 64.000 €</h2>
+<p>Die Gehaltsfrage ist der Teil des Gesprächs, bei dem eine Zahl ohne Begründung am teuersten ist. Dieser Abschnitt zeigt am Beispiel einer <b>Zielgröße von 64.000 € Jahresbrutto</b> für den Einstieg nach dem Master Medizintechnik in Baden-Württemberg, woher die Zahl kommt und wie sie sich in drei bis vier Sätzen belegen lässt. Jede Begründung stützt sich auf eine von vier Quellenarten: <b>Netzwerk, Tarif, Jobportale, Fachmedien</b> – dazu das eigene Profil.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="big">64.000 €</div><div class="lbl">Zielgröße, Jahresbrutto bei 40 Wochenstunden, inkl. aller festen Jahresbestandteile</div></div>
+  <div class="kpi"><div class="big">+8 %</div><div class="lbl">über dem Stepstone-Median für Ingenieur:innen mit unter einem Jahr Berufserfahrung (59.250 €)</div></div>
+  <div class="kpi"><div class="big">−14 %</div><div class="lbl">unter dem tariflichen Niveau eines ERA-EG-11-Einstiegs in BW (rechnerisch ≈ 74.300 €)</div></div>
+</div>
+<p class="src">Die Zahl ist damit nach oben begründbar, ohne unrealistisch zu wirken: oberhalb der Portalmediane, unterhalb dessen, was tarifgebundene Konzerne ohnehin zahlen müssen.</p>
+
+<h3>1. Netzwerk: die stärkste, aber unsichtbarste Quelle</h3>
+<p>Zahlen von Kommiliton:innen aus demselben Studiengang sind besser als jedes Portal, weil Abschluss, Region, Jahrgang und Berufsfeld identisch sind. Sie tauchen aber in keiner Statistik auf – Sie müssen sie selbst erheben. Im Gespräch wird daraus kein Name, sondern ein Satz: „Aus meinem Jahrgang kenne ich mehrere Einstiege in der Branche; die liegen bei vergleichbarer Aufgabe im Bereich von X bis Y.“</p>
+<p><b>Wen fragen:</b> Kommiliton:innen mit Einstieg in den letzten 12 Monaten, die Alumni-Gruppe des Studiengangs, ehemalige Kolleg:innen aus Praktikum und Abschlussarbeit, Doktorand:innen am Institut (kennen die Industriewechsel), Kontakte von Messen wie der MEDICA.</p>
+<p><b>Wie fragen, damit es nicht unangenehm wird:</b> nicht „Was verdienst du?“, sondern „Ich bereite gerade meine Gehaltsverhandlung vor – kannst du mir sagen, in welchem Bereich dein Einstieg lag und ob das Tarif war?“ Eine Spanne zu nennen fällt den meisten leichter als eine exakte Zahl. Wer selbst zuerst etwas preisgibt („ich peile rund 64 an – passt das zu dem, was du siehst?“), bekommt deutlich öfter eine Antwort.</p>
+<p><b>Was zu jeder Zahl dazugehört</b>, sonst ist sie wertlos: Wochenstunden (35 oder 40), Zahl der Monatsgehälter (12, 13 oder mehr), Tarif oder außertariflich, Unternehmensgröße, Region und Berufsfeld. Ein Tarifgehalt bei 35 Stunden ist rund 14 % mehr wert als dieselbe Zahl bei 40 Stunden.</p>
+
+<div class="netz">
+<h3>Eigene Vergleichszahlen sammeln</h3>
+<p>Kleines Werkzeug, um Angaben aus dem Netzwerk festzuhalten und daraus einen Median zu bilden. Alles bleibt nur in diesem Browser – es wird nichts hochgeladen und nichts veröffentlicht. Namen gehören nicht hier hinein, Rolle und Branche reichen.</p>
+<div class="calc">
+  <div class="crow">
+    <span class="f"><label class="lbl" for="nzrole">Rolle / Firmenart</label><input type="text" id="nzrole" placeholder="z. B. R&amp;D, Konzern Medtech"></span>
+    <span class="f"><label class="lbl" for="nzbrutto">Jahresbrutto (€)</label><input type="text" inputmode="numeric" id="nzbrutto" placeholder="62000"></span>
+    <span class="f"><label class="lbl" for="nzstd">Wochenstunden</label><input type="text" inputmode="numeric" id="nzstd" value="40"></span>
+    <span class="f"><label class="lbl" for="nztarif">Tarif</label><select id="nztarif"><option value="unbekannt">unbekannt</option><option value="Tarif">Tarif</option><option value="AT">außertariflich</option></select></span>
+    <span class="f"><button type="button" id="nzadd">Hinzufügen</button></span>
+  </div>
+  <div class="cout" id="nzout"></div>
+  <div class="tblwrap" id="nztbl"></div>
+</div>
+</div>
+
+<h3>2. Tarife: die Obergrenze der Argumentation</h3>
+<p>Tarifzahlen sind öffentlich, nachprüfbar und gelten unabhängig von Verhandlungsgeschick – deshalb sind sie das beste Gegengewicht zu „so viel zahlen wir Berufseinsteigern nicht“. Zwei Tarifwelten sind für die Medizintechnik relevant:</p>
+<div class="tblwrap"><table>
+<tr><th>Tarifwelt</th><th class="num">Niveau (Jahr, brutto)</th><th>Für wen relevant</th></tr>
+<tr><td>Metall- und Elektroindustrie BW (ERA), EG 11 bei 35 h inkl. Leistungsentgelt und Sonderzahlungen</td><td class="num">≈ 74.300 €</td><td>Bosch, Zeiss, Siemens Healthineers und viele Gerätehersteller in BW</td></tr>
+<tr><td>Chemie und Pharma: tariflicher Mindestjahresbezug Master, <b>ab dem 2. Beschäftigungsjahr</b></td><td class="num">74.950 €</td><td>Pharma, Diagnostik, Life Sciences – erstes Jahr ist frei verhandelbar</td></tr>
+<tr><td>Österreich, Elektro-/Elektronikindustrie, KV-Mindestgehalt Gruppe G (14 Gehälter)</td><td class="num">≈ 62.600 €</td><td>Vergleichsmaßstab für Wien und Innsbruck</td></tr>
+<tr><td>Schweiz, durchschnittlicher Einstiegslohn Ingenieurberufe 2026</td><td class="num">≈ CHF 90.000</td><td>Zürich und Basel, nur mit Lebenshaltungskosten im Kopf vergleichbar</td></tr>
+</table></div>
+<p class="src">Quellen: eigene Berechnung aus der ERA-Entgelttabelle Baden-Württemberg (Details und Rechenweg in der <a href="../karriere/#gehalt-de">Karriere-Recherche</a>); BAVC und VAA, Tarifabschluss vom 7. Oktober 2026 über die Mindestjahresbezüge für akademisch gebildete Angestellte (Master 74.950 €, Promotion 87.125 €, jeweils ab dem zweiten Beschäftigungsjahr); GPA-Gehaltstabelle Elektro- und Elektronikindustrie 2026; Swiss Engineering, Salärstudie 2026.</p>
+<p class="note"><b>Stand 25.11.2026:</b> Die Entgelttarifverträge der Metall- und Elektroindustrie sind am 31.10.2026 ausgelaufen, die Tarifrunde läuft noch. Die IG Metall fordert 5 % mehr Entgelt, die Arbeitgeberseite bot zuletzt eine Einmalzahlung und 1,3 % ab Juli 2028; am 25.11.2026 wird in Mannheim über einen Pilotabschluss für Baden-Württemberg und Nordrhein-Westfalen verhandelt. Die oben genannten ERA-Werte sind also der aktuelle Stand und eher eine Untergrenze. Vor einem Gespräch kurz prüfen, ob ein Abschluss vorliegt.</p>
+<p><b>Argument daraus:</b> „Bei tarifgebundenen Unternehmen in der Region liegt eine Ingenieurtätigkeit rechnerisch bei über 70.000 €. Meine Vorstellung von 64.000 € liegt bewusst darunter, weil ich Berufseinsteiger bin.“ Bei Tarifunternehmen zusätzlich nach <b>Entgeltgruppe und Wochenstunden</b> fragen – dort wird nicht über das Gehalt verhandelt, sondern über die Eingruppierung.</p>
+
+<h3>3. Jobportale: die Breite</h3>
+<div class="tblwrap"><table>
+<tr><th>Kennzahl</th><th class="num">Wert</th><th>Quelle, Stand</th></tr>
+<tr><td>Ingenieur:innen mit unter 1 Jahr Berufserfahrung, Median (auf 40 h standardisiert)</td><td class="num">59.250 €</td><td>Stepstone Gehaltsreport 2026, Auswertung von rund 1,33 Mio. Vergütungsdaten</td></tr>
+<tr><td>Medizintechnik-Ingenieur:in in Stuttgart, Durchschnitt (Rahmen 49.400–66.800 €)</td><td class="num">58.500 €</td><td>Stepstone Gehaltsdaten, Nov. 2026</td></tr>
+<tr><td>Ingenieur:in Medizintechnik, Einstieg / Durchschnitt / mit Erfahrung</td><td class="num">53.591 / 61.423 / 68.268 €</td><td>jobvector Gehaltsanalyse 2026 (333 Angaben, Stand 4.8.2026)</td></tr>
+<tr><td>Bereich Medizintechnik insgesamt, Einstieg</td><td class="num">52.045 €</td><td>jobvector Gehaltsanalyse 2026</td></tr>
+<tr><td>Ingenieur:in Medizintechnik in Baden-Württemberg, Monatsbrutto</td><td class="num">4.823 €</td><td>gehalt.de, Bundeslandvergleich</td></tr>
+<tr><td>Master Medizintechnik, Einstieg laut laufender Unternehmensumfrage</td><td class="num">47.500 €</td><td>Berufsstart.de – sehr kleine Stichprobe, nur als Untergrenze lesen</td></tr>
+</table></div>
+<p><b>Argument daraus:</b> „Die Portale nennen für den Einstieg in der Medizintechnik 53.000 bis 59.000 €, für Stuttgart im Mittel knapp 59.000 €. Mit Masterabschluss, Industrieerfahrung aus Praktikum und Abschlussarbeit und Spezialisierung auf X sehe ich mich im oberen Bereich dieser Spanne, deshalb 64.000 €.“ Wichtig: Portalzahlen vermischen oft alle Berufsjahre. Immer die Zeile nennen, die Berufseinstieg meint, sonst korrigiert das Gegenüber zu Recht.</p>
+
+<h3>4. Fachmedien und Verbände: die Einordnung</h3>
+<ul>
+  <li><b>ingenieur.de (VDI-Umfeld), Berufsprofil Medizintechnikingenieur</b> (akt. Oktober 2026): Medianentgelt 6.107 € im Monat bundesweit, in Baden-Württemberg 6.295 €; als grobe Orientierung für den Einstieg wird das untere Quartil von rund 4.863 € im Monat genannt – rund 58.400 € im Jahr. Datenbasis ist der Entgeltatlas der Bundesagentur für Arbeit.</li>
+  <li><b>ingenieur.de zum Einstiegsgehalt</b> (September 2026): Nebeneinander von Stepstone-Median (59.250 €) und Berufsstart-Umfrage (50.051 €) – fast 10.000 € Unterschied für denselben Berufsstart, weil unterschiedlich erhoben und standardisiert wird. Genau dieser Unterschied ist Ihr Argument dafür, eine Spanne statt einer Punktzahl zu nennen.</li>
+  <li><b>INGENIEURCENTER Gehaltsreport 2026</b>: Ingenieurgehälter in Baden-Württemberg im Schnitt 66.000 €; nach Unternehmensgröße 57.300 € (unter 50 Beschäftigte) bis 80.600 € (über 5.000). Die Firmengröße erklärt mehr Unterschied als die Fachrichtung – bei einem kleinen Hersteller ist dieselbe Zahl ein anderes Signal als bei einem Konzern.</li>
+</ul>
+<p class="src">Die ausführliche Datensammlung mit Diagrammen, ERA-Rechenweg und Zahlen für Schweiz und Österreich steht in der <a href="../karriere/#gehalt-de">Karriere-Recherche</a>.</p>
+
+<h3>5. Das eigene Profil: warum über dem Median</h3>
+<p>Marktzahlen begründen die Spanne, das eigene Profil begründet die Position darin. Für einen Aufschlag auf den Median taugen nur Dinge, die am ersten Arbeitstag Geld wert sind:</p>
+<ul>
+  <li><b>Master statt Bachelor</b> und eine Spezialisierung, die zur ausgeschriebenen Aufgabe passt (z. B. Gerätekonstruktion mit CAD und FEM, Biomedizinische Technik, Regulatorik).</li>
+  <li><b>Industrieerfahrung vor dem Einstieg:</b> Abschlussarbeit in einer Forschungsabteilung, mehrmonatiges Praktikum, Werkstudenten- oder HiWi-Tätigkeit. Zusammengerechnet sind das oft 1 bis 1,5 Jahre Praxis – das ist der Hauptgrund, über dem Einsteigermedian zu liegen.</li>
+  <li><b>Methoden- und Werkzeugkenntnis, die sonst eingearbeitet werden müsste:</b> Normen (ISO 13485, ISO 14971, MDR), Laborprozesse, Prüfstandsbau, Datenanalyse, Programmierung.</li>
+  <li><b>Sprachen und Auslandserfahrung</b>, wenn die Stelle international ist.</li>
+  <li><b>Region:</b> Stuttgart und der Großraum liegen über dem Bundesschnitt – bei Mieten wie bei Gehältern (siehe <a href="../staedte/">Zielstädte</a> und <a href="../wohnen/">Wohnungssuche</a>).</li>
+</ul>
+<p class="note">Nicht als Begründung taugen: der eigene Finanzbedarf, Gehälter von Freund:innen aus anderen Branchen, das Gehalt der Werkstudentenstelle oder ein anderes Angebot, das es nicht gibt. Alles davon lässt sich in einem Satz entkräften.</p>
+
+<h3>Umrechnen, bevor Sie die Zahl nennen</h3>
+<p>Dieselbe Zahl bedeutet je nach Wochenstunden und Zahl der Monatsgehälter etwas völlig anderes. Vor dem Gespräch einmal durchrechnen, damit Sie im Gespräch umrechnen können, wenn das Gegenüber in Monatsgehältern denkt.</p>
+<div class="calc">
+  <div class="crow">
+    <span class="f"><label class="lbl" for="gjahr">Jahresbrutto (€)</label><input type="text" inputmode="numeric" id="gjahr" value="64000"></span>
+    <span class="f"><label class="lbl" for="gstd">Wochenstunden</label><input type="text" inputmode="numeric" id="gstd" value="40"></span>
+    <span class="f"><label class="lbl" for="gmon">Monatsgehälter</label><select id="gmon"><option value="12" selected>12</option><option value="12.5">12,5</option><option value="13">13</option><option value="13.5">13,5</option><option value="14">14</option></select></span>
+  </div>
+  <div class="cout" id="gout"></div>
+  <ul class="bench" id="gbench"></ul>
+</div>
+<p class="src">Vergleichswerte wie oben. Die Umrechnung auf 40 Stunden dient nur dem Vergleich – ein 35-Stunden-Vertrag ist dieselbe Arbeitszeitersparnis wert, egal wie man rechnet.</p>
+
+<h3>Formulieren: vier Situationen</h3>
+<div class="phrase"><div class="pl">Standardfall, Zahl zuerst</div><q>„Auf Basis der Marktdaten für Berufseinsteiger:innen in der Medizintechnik in Baden-Württemberg und meiner Praxiserfahrung aus Abschlussarbeit und Praktikum liegt meine Vorstellung bei 64.000 € Jahresbrutto. Bei den genauen Rahmenbedingungen – Wochenstunden, Sonderzahlungen, Bonus – bin ich gesprächsbereit.“</q></div>
+<div class="phrase"><div class="pl">Tarifgebundenes Unternehmen</div><q>„Ich gehe davon aus, dass Sie nach Tarif eingruppieren. Dann wäre für mich interessanter, welche Entgeltgruppe für diese Stelle vorgesehen ist und ob es ein 35- oder 40-Stunden-Vertrag ist. Rechnerisch komme ich damit auf einen Bereich ab 64.000 €.“</q></div>
+<div class="phrase"><div class="pl">Kleineres Unternehmen, Zahl wirkt hoch</div><q>„Mir ist bewusst, dass mittelständische Hersteller anders rechnen als Konzerne. 64.000 € ist mein Richtwert; wichtiger als die letzten 2.000 € sind mir die Aufgabe und die Entwicklungsmöglichkeiten. Lassen Sie uns darüber sprechen, was bei Ihnen für den Einstieg realistisch ist.“</q></div>
+<div class="phrase"><div class="pl">Sehr früh im Prozess, oft im Online-Formular</div><q>„Meine Gehaltsvorstellung liegt bei 64.000 € brutto im Jahr, abhängig vom konkreten Aufgabenzuschnitt.“</q></div>
+<p class="note">Im Bewerbungsformular lässt sich das Feld selten leer lassen. Dort eine Zahl mit dem Zusatz „abhängig vom Aufgabenzuschnitt“ eintragen – eine Spanne wird in solchen Formularen fast immer als Untergrenze gelesen.</p>
+
+<h3>Wenn die Zahl infrage gestellt wird</h3>
+<ol class="plist">
+  <li>„Das ist für einen Berufseinsteiger zu hoch.“<span class="ph">Ruhig bleiben, Datenbasis nennen, nicht sofort nachgeben: „Darf ich fragen, woran Sie das messen? Die Marktzahlen für die Region liegen beim Median bei knapp 59.000 €, tarifgebundene Häuser deutlich darüber.“</span></li>
+  <li>„Wir zahlen allen Einsteigern dasselbe.“<span class="ph">Legitime Antwort vieler Firmen. Dann nach dem Weg fragen: Gehaltsentwicklung nach der Probezeit, Zeitpunkt der ersten regulären Anpassung, Kriterien dafür.</span></li>
+  <li>„Was war Ihr letztes Gehalt?“<span class="ph">Muss nicht beantwortet werden, und eine Werkstudierendenvergütung ist kein Maßstab: „Das war eine Werkstudententätigkeit mit anderem Aufgabenzuschnitt, die Zahl wäre kein sinnvoller Vergleich.“</span></li>
+  <li>Ein Angebot unter der Zielzahl liegt auf dem Tisch.<span class="ph">Nicht im Gespräch zusagen. Bedenkzeit erbitten, dann über Stellschrauben verhandeln: Einstufung, Jahressonderzahlung, erste Anpassung nach sechs Monaten, Wochenstunden, Weiterbildungsbudget, Homeoffice-Tage, Umzugskostenzuschuss.</span></li>
+  <li>Vorher für sich festlegen, was die eigene Untergrenze ist.<span class="ph">Eine Zahl, unter der Sie ablehnen würden, und ein Grund, warum Sie trotzdem annehmen könnten (Produkt, Team, Einarbeitung, Standort). Diese Entscheidung im Gespräch zu treffen, geht meistens schief – zur Vorbereitung passt die <a href="../reflexion/">Reflexionsseite</a>.</span></li>
+</ol>
+<p class="note">Alle Zahlen hier sind Markt- und Tarifdaten mit dem genannten Stand, keine Zusagen. Gehaltsdaten veralten: Vor einem konkreten Gespräch die Werte für die jeweilige Firma, Region und Tarifbindung noch einmal prüfen.</p>
+</section>
+
 <section id="tipps">
 <h2>Tipps &amp; Tricks</h2>
 <div class="grid">
@@ -174,8 +356,8 @@ ul{padding-left:22px}
   <div class="card" style="--c:var(--a1)"><h3>Selbstpräsentation in 2 Minuten</h3><p>Roter Faden statt Lebenslauf vorlesen: Wer bin ich fachlich, was habe ich gemacht (2–3 Highlights mit Bezug zur Stelle), warum genau diese Stelle und Firma.</p></div>
   <div class="card" style="--c:var(--a3)"><h3>Unternehmen recherchieren</h3><p>Produkte, Teilbranche, Standort, aktuelle Nachrichten, Werte. In der <a href="../netzwerk/">Netzwerk-Mindmap</a> steht ein Kurzprofil vieler Firmen. Kontakte, die dort arbeiten, vorher um eine Einschätzung bitten.</p></div>
   <div class="card" style="--c:var(--a3)"><h3>Fachteil vorbereiten</h3><p>Die eigene Abschlussarbeit in 3 Minuten verständlich erklären können, inkl. Methoden, Probleme und Ergebnis. Grundbegriffe auffrischen: MDR, ISO 13485, ISO 14971, Design Control, Verifikation und Validierung, IEC 60601.</p></div>
-  <div class="card" style="--c:var(--a2)"><h3>Gehaltsfrage</h3><p>Eine begründete Spanne nennen (Jahresbrutto), nicht die erste Zahl offen lassen. Orientierung bietet die <a href="../karriere/#gehalt-de">Karriere-Recherche</a>. Bei tarifgebundenen Firmen nach Entgeltgruppe und Wochenstunden fragen.</p></div>
-  <div class="card" style="--c:var(--a2)"><h3>Eigene Fragen stellen</h3><p>Zwei bis drei echte Fragen, z. B. zur Einarbeitung, zu den ersten Projekten, zum Team, zur Weiterentwicklung oder zum nächsten Schritt im Prozess.</p></div>
+  <div class="card" style="--c:var(--a2)"><h3>Gehaltsfrage</h3><p>Eine begründete Zahl oder Spanne nennen (Jahresbrutto), nicht die erste Zahl offen lassen. Wie sich ein Wunsch mit Netzwerk, Tarif, Portalen und Fachmedien belegen lässt, steht im Abschnitt <a href="#gehalt">Gehaltswunsch begründen</a>. Bei tarifgebundenen Firmen nach Entgeltgruppe und Wochenstunden fragen.</p></div>
+  <div class="card" style="--c:var(--a2)"><h3>Eigene Fragen stellen</h3><p>Zwei bis vier echte Fragen aus verschiedenen Themenfeldern – Aufgaben, Team, Erwartungen, Prozess. Eine sortierte Auswahl steht unter <a href="#rueckfragen">Eigene Rückfragen</a>.</p></div>
   <div class="card" style="--c:var(--a4)"><h3>Videointerview</h3><p>Technik vorher testen, Kamera auf Augenhöhe, ruhiger Hintergrund, Licht von vorn, Notizen neben die Kamera, in die Kamera statt aufs Bild schauen.</p></div>
   <div class="card" style="--c:var(--a4)"><h3>Nachbereitung</h3><p>Noch am selben Tag Notizen machen (Fragen, Namen, offene Punkte), kurze Dankesmail schicken und im <a href="../tracker/">Bewerbungs-Tracker</a> einen Nachfass-Termin eintragen.</p></div>
 </div>
@@ -263,6 +445,42 @@ const Q = {
   ["Welche Projekte würde ich als Erstes übernehmen?", "Gibt Einblick in den Alltag und hilft bei der Entscheidung."],
   ["Wie geht es nach diesem Gespräch weiter?", "Klärt den Prozess und den Zeitrahmen, gut für den Nachfass-Termin."]]
 };
+/* Partnerübung: Fragen aus dem Übungsblatt (Du-Form), fließen in Fragenliste und Trainer ein */
+const PARTNER = [
+ ["Wie stellst du dir einen typischen Arbeitstag in dieser Position vor?", "Zeigt, ob die Stellenanzeige wirklich gelesen wurde. Realistisch bleiben: Mischung aus Projektarbeit, Abstimmung, Dokumentation und Labor oder Prüffeld – und eine ehrliche Rückfrage anschließen, wie es tatsächlich aussieht."],
+ ["Warum möchtest du in Deutschland bzw. in einem internationalen Umfeld arbeiten?", "Sachlich begründen: Branchenstandort, Forschungslandschaft, Sprachkenntnisse, bisherige Auslandserfahrung. Bei internationalen Teams konkret sagen, in welcher Sprache und in welchem Rahmen bereits zusammengearbeitet wurde."],
+ ["Was motiviert dich, in der Medizintechnik zu arbeiten?", "Der glaubwürdigste Teil ist die Verbindung aus Technik und Nutzen für Patient:innen. Ein Erlebnis oder Projekt nennen, das den Ausschlag gab – keine auswendig gelernte Branchenwerbung."],
+ ["Erzähle von einer Situation, in der etwas nicht wie geplant gelaufen ist.", "STAR-Methode. Den Fehler oder Rückschlag klar benennen, dann Vorgehen und Lehre. Ein Versuch, der nicht funktioniert hat, und das, was daraus methodisch wurde, ist ein starkes Beispiel."],
+ ["Beschreibe eine Situation, in der du besonders viel Stress hattest. Wie bist du damit umgegangen?", "Nicht beweisen wollen, dass es keinen Stress gab. Besser: Was war die Belastung, wie wurde priorisiert, wer wurde einbezogen, was ist am Ende herausgekommen – und was wurde seitdem anders gemacht."],
+ ["Wann hast du zuletzt etwas Neues gelernt?", "Frisches, konkretes Beispiel – eine Methode, ein Werkzeug, eine Norm. Wichtiger als das Thema ist, dass ein Anlass, ein Weg und ein Ergebnis erkennbar sind."],
+ ["Beschreibe eine Situation, in der du mit Menschen zusammengearbeitet hast, die ganz anders waren als du.", "Zielt auf Zusammenarbeit über Fachgrenzen hinweg: Medizin, Informatik, Fertigung, Zulassung, anderes Land. Zeigen, wie Verständigung hergestellt wurde, nicht wer recht hatte."],
+ ["Wie gehst du normalerweise vor, wenn du etwas Neues lernen möchtest?", "Ein nachvollziehbares eigenes Vorgehen beschreiben: Quellen und Normen, Fachleute fragen, kleines Experiment oder Prototyp, dokumentieren. Zeigt Selbstständigkeit in der Einarbeitung."],
+ ["Wie nutzt du KI-Tools in deinem Studium oder bei deinen Projekten?", "Reflektiert antworten: wofür genutzt (Recherche, Code, Struktur), wie geprüft wird und wo bewusst darauf verzichtet wird – etwa bei vertraulichen Daten oder regulierter Dokumentation. Siehe auch die KI-Seite dieser Sammlung."],
+ ["Erzähle von einem Projekt oder einer Leistung, auf die du wirklich stolz bist.", "Die eigene Rolle klar machen: „Ich habe …“ statt „wir haben …“. Ergebnis möglichst greifbar machen, auch ohne Zahlen: Was war vorher, was nachher."],
+ ["Wie gehst du mit unklaren Aufgabenstellungen oder fehlenden Informationen um?", "Im Entwicklungsalltag der Normalfall. Vorgehen zeigen: Annahmen festhalten, Rückfragen bündeln, mit dem kleinsten klärenden Schritt anfangen, Zwischenstand abstimmen."],
+ ["In welchem Arbeitsumfeld kannst du deine Stärken am besten entfalten?", "Ehrlich, aber anschlussfähig: Team- oder Einzelarbeit, Struktur oder Freiraum, Labor oder Schreibtisch. Vorher in der Reflexion klären – die Antwort entscheidet auch, ob die Stelle wirklich passt."],
+ ["Wenn ich eine gute Freundin oder einen guten Freund von dir fragen würde, wie du bist – was würde diese Person sagen?", "Drei Eigenschaften, jede mit einer kurzen Situation belegt. Fremdbild statt Selbstlob – das wirkt glaubwürdiger als eine Stärkenliste."],
+ ["Beschreibe dich selbst mit drei Worten.", "Vorher festlegen, sonst kommen Allerweltsbegriffe. Drei Wörter wählen, die zur Stelle passen, und zu jedem einen Halbsatz Beleg parat haben."],
+ ["Wenn du ein Superheld oder eine Superheldin wärst: Welche Superkraft hättest du?", "Auflockerungsfrage, getestet wird Schlagfertigkeit und Selbstironie. Eine Antwort mit Bezug zur Arbeitsweise wirkt besser als eine beliebige – und sie darf Spaß machen."]
+];
+Q["Partnerübung (zu zweit)"] = PARTNER;
+document.getElementById("partnerq").innerHTML = PARTNER.map(([q, h], i) => `<details class="q"><summary>${String(i+1).padStart(2,"0")} · ${esc(q)}</summary><p>${esc(h)}</p></details>`).join("");
+
+/* Eigene Rückfragen */
+const RF = [
+ ["Weiterer Prozess","a1",["Wie sehen die nächsten Schritte im Auswahlverfahren aus?","Bis wann kann ich mit einer Rückmeldung rechnen?","Wer wäre in den weiteren Gesprächen dabei?"]],
+ ["Onboarding","a1",["Wie läuft die Einarbeitung in den ersten Wochen ab?","Gibt es feste Ansprechpartner:innen oder ein Patenmodell?","Gibt es etwas, das ich mir schon vor dem Start ansehen sollte?"]],
+ ["Aufgaben","a3",["Wie sieht ein typischer Arbeitstag in dieser Rolle aus?","Welche Fähigkeiten sind hier am wichtigsten, um erfolgreich zu sein?","Für welche Themen trage ich die Verantwortung – allein oder im Team?","Mit welchen Schnittstellen arbeite ich zusammen: Fertigung, Zulassung, Kunden, Kliniken?"]],
+ ["Erfolg und Erwartungen","a3",["Was zeichnet für Sie jemanden aus, der diese Stelle gut ausfüllt?","Woran messen Sie den Erfolg in dieser Rolle?","Was sollte nach dem ersten Jahr erreicht sein?"]],
+ ["Produkt und Regulatorik","a5",["In welcher Entwicklungsphase steht das Produkt, an dem ich arbeiten würde?","Wie sind Entwicklung, Qualitätsmanagement und Regulatory Affairs organisiert?","Welche Rolle spielen MDR-Dokumentation und Design Control im Alltag dieser Stelle?"]],
+ ["Team und Kommunikation","a2",["Wie ist das Team zusammengesetzt und wie groß ist es?","Wie kommuniziert das Team – welche Routinen, Besprechungen und Werkzeuge gibt es?","Wie viel Abstimmung läuft über Standorte oder Länder hinweg?"]],
+ ["Unternehmenskultur","a2",["Warum arbeiten Sie selbst gern hier?","Wie würden Sie die Zusammenarbeit im Haus beschreiben?","Was unternimmt das Team außerhalb der reinen Projektarbeit?"]],
+ ["Weiterentwicklung","a4",["Welche Weiterbildungs- oder Entwicklungsprogramme gibt es?","Wie fördern Sie Stärken und Interessen Ihrer Mitarbeitenden?","Was kann ich tun, um mich hier schnell fachlich weiterzuentwickeln?","Gibt es neben der Führungslaufbahn eine Fachlaufbahn?"]],
+ ["Führung und Feedback","a4",["Wie würden Sie Ihren Führungsstil beschreiben?","Wie läuft Feedback bei Ihnen – anlassbezogen oder in festen Gesprächen?","Wie viel Eigenverantwortung haben Berufseinsteiger:innen von Anfang an?"]],
+ ["Einwände ansprechen","a1",["Was könnte Sie davon abhalten, mir ein Angebot zu machen?","Haben Sie Bedenken, ob mein Profil zu den Anforderungen passt?","Gibt es etwas aus dem Gespräch, das ich noch klarstellen sollte?"]]
+];
+document.getElementById("rfgrid").innerHTML = RF.map(([t, c, qs]) => `<div class="card" style="--c:var(--${c})"><h3>${esc(t)}</h3><ul>` + qs.map(q => `<li>${esc(q)}</li>`).join("") + `</ul></div>`).join("");
+
 document.getElementById("qcat").innerHTML = Object.entries(Q).map(([cat, qs], i) => `<details class="topic" ${i===0?"open":""}><summary><span>${esc(cat)}</span><span class="st">${qs.length} Fragen</span></summary>` + qs.map(([q, h]) => `<details class="q"><summary>${esc(q)}</summary><p>${esc(h)}</p></details>`).join("") + `</details>`).join("");
 const tcat = document.getElementById("tcat");
 Object.keys(Q).forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; tcat.appendChild(o); });
@@ -314,6 +532,62 @@ function drawQuiz(){
   });
 }
 startQuiz();
+
+/* Gehalt: Umrechnung und Vergleich */
+const EUR = n => Math.round(n).toLocaleString("de-DE") + " €";
+const num = s => { const v = parseFloat(String(s).replace(/\./g, "").replace(",", ".").replace(/[^0-9.]/g, "")); return isFinite(v) ? v : 0; };
+const BENCH = [
+ ["Stepstone 2026: Ingenieur:innen, unter 1 Jahr Erfahrung (Median)", 59250, ""],
+ ["Stepstone: Medizintechnik-Ingenieur:in in Stuttgart (Ø)", 58500, ""],
+ ["jobvector 2026: Ingenieur:in Medizintechnik, Einstieg (Ø)", 53591, ""],
+ ["INGENIEURCENTER 2026: Ingenieurgehalt Baden-Württemberg (Ø, alle Berufsjahre)", 66000, ""],
+ ["ERA Baden-Württemberg, EG 11 (gerechnet)", 74300, "35-h-Basis"],
+ ["Chemie/Pharma: tariflicher Mindestjahresbezug Master, ab 2. Jahr", 74950, ""]
+];
+function calcG(){
+  const jahr = num(document.getElementById("gjahr").value);
+  const std = num(document.getElementById("gstd").value) || 40;
+  const mon = parseFloat(document.getElementById("gmon").value) || 12;
+  const norm = jahr * 40 / std;
+  document.getElementById("gout").innerHTML = jahr ?
+    `Bei <b>${EUR(jahr)}</b> im Jahr und ${mon.toLocaleString("de-DE")} Monatsgehältern: <b>${EUR(jahr/mon)}</b> pro Monatsgehalt.<br>
+     Auf 40 Wochenstunden umgerechnet entspricht das <b>${EUR(norm)}</b> im Jahr${std !== 40 ? ` (Vertrag mit ${std.toLocaleString("de-DE")} h)` : ""}.` :
+    `<span class="small">Bitte ein Jahresbrutto eintragen.</span>`;
+  document.getElementById("gbench").innerHTML = !jahr ? "" : BENCH.map(([t, v, hint]) => {
+    const d = (norm - v) / v * 100;
+    return `<li><span>${esc(t)}${hint ? ` <span class="small">(${esc(hint)})</span>` : ""}<br><span class="small">${EUR(v)}</span></span><span class="d ${d >= 0 ? "up" : "dn"}">${d >= 0 ? "+" : "−"}${Math.abs(d).toFixed(0)} %</span></li>`;
+  }).join("");
+}
+["gjahr", "gstd", "gmon"].forEach(id => { const el = document.getElementById(id); el.addEventListener("input", calcG); el.addEventListener("change", calcG); });
+calcG();
+
+/* Gehalt: eigene Vergleichszahlen aus dem Netzwerk (nur lokal) */
+let netz = load("interview-netz-v1", []);
+function drawNetz(){
+  const vals = netz.map(e => e.brutto * 40 / (e.std || 40)).sort((a, b) => a - b);
+  let med = 0;
+  if (vals.length) med = vals.length % 2 ? vals[(vals.length-1)/2] : (vals[vals.length/2-1] + vals[vals.length/2]) / 2;
+  document.getElementById("nzout").innerHTML = vals.length ?
+    `<b>${vals.length}</b> Angabe${vals.length === 1 ? "" : "n"} · Median (auf 40 h umgerechnet): <b>${EUR(med)}</b> · Spanne ${EUR(vals[0])} – ${EUR(vals[vals.length-1])}` :
+    `<span class="small">Noch keine Angaben erfasst. Ab etwa fünf Werten wird der Median aussagekräftig.</span>`;
+  document.getElementById("nztbl").innerHTML = !netz.length ? "" :
+    `<table><tr><th>Rolle / Firmenart</th><th class="num">Jahresbrutto</th><th class="num">h/Woche</th><th>Tarif</th><th class="num">auf 40 h</th><th></th></tr>` +
+    netz.map((e, i) => `<tr><td>${esc(e.role || "–")}</td><td class="num">${EUR(e.brutto)}</td><td class="num">${e.std}</td><td>${esc(e.tarif)}</td><td class="num">${EUR(e.brutto*40/(e.std||40))}</td><td class="num"><button type="button" class="del" data-i="${i}" aria-label="Eintrag entfernen">×</button></td></tr>`).join("") +
+    `</table>`;
+}
+document.getElementById("nzadd").onclick = () => {
+  const brutto = num(document.getElementById("nzbrutto").value);
+  if (!brutto) { document.getElementById("nzbrutto").focus(); return; }
+  netz.push({ role: document.getElementById("nzrole").value.slice(0, 60), brutto, std: num(document.getElementById("nzstd").value) || 40, tarif: document.getElementById("nztarif").value });
+  save("interview-netz-v1", netz);
+  document.getElementById("nzrole").value = ""; document.getElementById("nzbrutto").value = "";
+  drawNetz();
+};
+document.getElementById("nztbl").addEventListener("click", e => {
+  const b = e.target.closest(".del"); if (!b) return;
+  netz.splice(+b.dataset.i, 1); save("interview-netz-v1", netz); drawNetz();
+});
+drawNetz();
 </script>
 
 <script src="../assets/theme.js" defer></script>
